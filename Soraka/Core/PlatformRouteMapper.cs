@@ -28,7 +28,7 @@ namespace Soraka.Core
 
 		public static string GetId(Type.PlatformRoute platformRoute)
 		{
-			var id = _platformIdByRoute.GetValueOrDefault(platformRoute, "");
+			var id = _platformIdByRoute.GetValueOrDefault(platformRoute);
 			if (string.IsNullOrEmpty(id))
 				throw new NotImplementedException($"Id for platform route {platformRoute} not implemented");
 			return id;
