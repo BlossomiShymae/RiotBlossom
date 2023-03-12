@@ -29,7 +29,12 @@ namespace Soraka.Http
 			if (!string.IsNullOrEmpty(key) && responseMessage.IsSuccessStatusCode)
 			{
 				// When cache is too big, play Mario Party dice block and remove a key-value item from it to make room! >w<
-				if (_cache.Count > 1000) _cache.Remove(_cache.ElementAt(Random.Shared.Next(0, _cache.Count - 1)).Key, out _);
+				if (_cache.Count > 1000)
+				{
+					var item = _cache.ElementAt(Random.Shared.Next(0, _cache.Count - 1));
+					_cache.Remove(item.Key, out _);
+					item.Value.Dispose();
+				}
 				_cache[key] = responseMessage;
 			}
 
