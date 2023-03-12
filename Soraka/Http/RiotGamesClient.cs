@@ -13,21 +13,27 @@ namespace Soraka.Http
 				using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
 				requestMessage.Headers.Add("X-Riot-Token", riotApiKey);
 
-				// Use request middlewares, if any
-				HttpRequestMessage req = requestMessage;
-				HttpResponseMessage? res = null;
-				void hit(HttpResponseMessage responseMessage) => res = responseMessage;
-				foreach (var requestMiddleware in middlewarePipeline.RequestMiddlewares)
-					if (res == null) req = requestMiddleware.Invoke(req, hit);
-				if (res != null) return res;
-
-				// Use response middlewares, if any
-				res = await middlewarePipeline.RetryMiddleware.Invoke(async () => await client.SendAsync(requestMessage));
-				foreach (var responseMiddleware in middlewarePipeline.ResponseMiddlewares)
-					res = responseMiddleware.Invoke(res);
-
+				var res = await ProcessMiddlewaresAsync(client, requestMessage, middlewarePipeline);
 				return res;
 			};
+
+		public static async Task<HttpResponseMessage> ProcessMiddlewaresAsync(HttpClient client, HttpRequestMessage requestMessage, MiddlewarePipeline middlewarePipeline)
+		{
+			// Use request middlewares, if any
+			HttpRequestMessage req = requestMessage;
+			HttpResponseMessage? res = null;
+			void hit(HttpResponseMessage responseMessage) => res = responseMessage;
+			foreach (var requestMiddleware in middlewarePipeline.RequestMiddlewares)
+				if (res == null) req = requestMiddleware.Invoke(req, hit);
+			if (res != null) return res;
+
+			// Use response middlewares, if any
+			res = await middlewarePipeline.RetryMiddleware.Invoke(async () => await client.SendAsync(requestMessage));
+			foreach (var responseMiddleware in middlewarePipeline.ResponseMiddlewares)
+				res = responseMiddleware.Invoke(res);
+
+			return res;
+		}
 
 		public delegate Task<HttpResponseMessage> GetAsyncFunc(string uri, string query);
 
