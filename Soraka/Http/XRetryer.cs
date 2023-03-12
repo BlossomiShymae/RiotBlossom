@@ -5,25 +5,21 @@
 		public static async Task<HttpResponseMessage> Use(Func<Task<HttpResponseMessage>> func)
 		{
 			var retryAfterSeconds = 15;
-			HttpResponseMessage responseMessage;
+			HttpResponseMessage? responseMessage = null;
 			while (true)
 			{
 				try
 				{
 					responseMessage = await func();
-					if (responseMessage.IsSuccessStatusCode) break;
 				}
 				catch (Exception ex)
 				{
 					Console.Error.WriteLine(ex);
 				}
-				finally
-				{
-					retryAfterSeconds *= 2;
-					await Task.Delay(retryAfterSeconds * 1000);
-				}
+				retryAfterSeconds *= 2;
+				if (responseMessage != null)
+					return responseMessage;
 			}
-			return responseMessage;
 		}
 	}
 }
