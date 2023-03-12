@@ -1,4 +1,5 @@
-﻿using Gwen.Http;
+﻿using Gwen.Dto.Summoner;
+using Gwen.Http;
 
 namespace Gwen.Api
 {
@@ -19,15 +20,15 @@ namespace Gwen.Api
                 RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewarePipeline);
                 return new SummonerApiCollection
                 {
-                    GetSummonerBySummonerNameAsync = (string summonerName) => func(string.Format(_summonerBySummonerNameUri, summonerName), "")
+                    GetSummonerByNameAsync = (string summonerName) => func(string.Format(_summonerBySummonerNameUri, summonerName), "")
                 };
             };
 
-        public delegate Task<HttpResponseMessage> GetSummonersBySummonerNameAsyncFunc(string summonerName);
+        public delegate Task<SummonerDto> GetSummonerByNameAsync(string summonerName);
     }
 
     public record SummonerApiCollection
     {
-        public SummonerApi.GetSummonersBySummonerNameAsyncFunc GetSummonerBySummonerNameAsync { get; init; } = default!;
+        public SummonerApi.GetSummonerByNameAsync GetSummonerByNameAsync { get; init; } = default!;
     }
 }

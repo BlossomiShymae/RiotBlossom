@@ -13,29 +13,53 @@ namespace Gwen.Http
                 using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
                 requestMessage.Headers.Add("X-Riot-Token", riotApiKey);
 
-                var res = await ProcessMiddlewaresAsync(client, requestMessage, middlewarePipeline);
-                return res;
+                var data = await ProcessMiddlewaresAsync(client, requestMessage, middlewarePipeline);
+                return data;
             };
 
-        public static async Task<HttpResponseMessage> ProcessMiddlewaresAsync(HttpClient client, HttpRequestMessage requestMessage, MiddlewarePipeline middlewarePipeline)
+        public static async Task<string> ProcessMiddlewaresAsync(HttpClient client, HttpRequestMessage requestMessage, MiddlewarePipeline middlewarePipeline)
         {
             // Use request middlewares, if any
-            HttpRequestMessage req = requestMessage;
-            HttpResponseMessage? res = null;
-            void hit(HttpResponseMessage responseMessage) => res = responseMessage;
+            string? data = null;
+            void hit(string value) => data = value;
+            bool isNext = false;
+            void next() => isNext = true;
             foreach (var requestMiddleware in middlewarePipeline.RequestMiddlewares)
-                if (res == null) req = requestMiddleware.Invoke(req, hit);
-            if (res != null) return res;
+            {
+                isNext = false;
+                if (data == null)
+                    await requestMiddleware.Invoke(requestMessage, hit, next);
+                if (!isNext)
+                    break;
+            }
+            if (data != null)
+                return data;
+
+            // Use retry middleware, if any
+            var res = await middlewarePipeline.RetryMiddleware.Invoke(async () => await client.SendAsync(requestMessage));
 
             // Use response middlewares, if any
-            res = await middlewarePipeline.RetryMiddleware.Invoke(async () => await client.SendAsync(requestMessage));
             foreach (var responseMiddleware in middlewarePipeline.ResponseMiddlewares)
-                res = responseMiddleware.Invoke(res);
+            {
+                isNext = false;
+                await responseMiddleware.Invoke(res, next);
+                if (!isNext)
+                    break;
+            }
 
-            return res;
+            if (!res.IsSuccessStatusCode)
+            {
+                int statusCode = (int)res.StatusCode;
+                res.Dispose();
+                throw new InvalidOperationException($"Response is not successful: {statusCode}");
+            }
+
+            data = await res.Content.ReadAsStringAsync();
+            res.Dispose();
+            return data;
         }
 
-        public delegate Task<HttpResponseMessage> GetAsyncFunc(string uri, string query);
+        public delegate Task<string> GetAsyncFunc(string uri, string query);
 
         public record MiddlewarePipeline
         {
@@ -50,8 +74,8 @@ namespace Gwen.Http
             public RetryMiddleware RetryMiddleware { get; init; } = XRetryer.Use;
         }
 
-        public delegate HttpRequestMessage RequestMiddleware(HttpRequestMessage requestMessage, Action<HttpResponseMessage> hit);
-        public delegate HttpResponseMessage ResponseMiddleware(HttpResponseMessage responseMessage);
+        public delegate Task RequestMiddleware(HttpRequestMessage requestMessage, Action<string> hit, Action next);
+        public delegate Task ResponseMiddleware(HttpResponseMessage responseMessage, Action next);
         public delegate Task<HttpResponseMessage> RetryMiddleware(Func<Task<HttpResponseMessage>> responseMessageFunc);
     }
 }

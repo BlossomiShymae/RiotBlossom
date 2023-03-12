@@ -19,7 +19,7 @@ namespace Gwen.Api.Tests
                 PlatformRoute = Type.PlatformRoute.NorthAmerica
             });
 
-            var response = await Gwen[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerBySummonerNameAsync("uwuie time");
+            var response = await Gwen[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
             Console.WriteLine(await response.Content.ReadAsStringAsync());
 
             Assert.IsTrue(response.IsSuccessStatusCode);

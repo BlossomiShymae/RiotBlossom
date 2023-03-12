@@ -4,11 +4,11 @@ namespace Gwen.Http
 {
     public static class XBoundedCache
     {
-        private static readonly ConcurrentDictionary<string, HttpResponseMessage> _cache = new();
+        private static readonly ConcurrentDictionary<string, string> _cache = new();
 
-        public static HttpRequestMessage UseRequest(HttpRequestMessage requestMessage, Action<HttpResponseMessage> hit)
+        public static Task UseRequest(HttpRequestMessage requestMessage, Action<string> hit, Action next)
         {
-            String key = requestMessage.RequestUri?.OriginalString ?? string.Empty;
+            string key = requestMessage.RequestUri?.OriginalString ?? string.Empty;
             if (!string.IsNullOrEmpty(key))
             {
                 try
@@ -19,12 +19,13 @@ namespace Gwen.Http
                 }
                 catch (Exception) { }
             }
-
-            return requestMessage;
+            next();
+            return Task.CompletedTask;
         }
 
-        public static HttpResponseMessage UseResponse(HttpResponseMessage responseMessage)
+        public static async Task UseResponse(HttpResponseMessage responseMessage, Action next)
         {
+
             String key = responseMessage.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
             if (!string.IsNullOrEmpty(key) && responseMessage.IsSuccessStatusCode)
             {
@@ -33,12 +34,14 @@ namespace Gwen.Http
                 {
                     var item = _cache.ElementAt(Random.Shared.Next(0, _cache.Count - 1));
                     _cache.Remove(item.Key, out _);
-                    item.Value.Dispose();
                 }
-                _cache[key] = responseMessage;
-            }
 
-            return responseMessage;
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    _cache[key] = await responseMessage.Content.ReadAsStringAsync();
+                }
+            }
+            next();
         }
     }
 }
