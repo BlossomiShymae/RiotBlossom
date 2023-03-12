@@ -26,6 +26,4 @@
 			return responseMessage;
 		}
 	}
-
-	public delegate Task<HttpResponseMessage> RetryMiddleware(Func<Task<HttpResponseMessage>> responseMessageFunc);
 }
