@@ -23,11 +23,11 @@ namespace Soraka.Api
 				};
 			};
 
-		public record SummonerApiCollection
-		{
-			public GetSummonersBySummonerNameAsyncFunc GetSummonerBySummonerNameAsync { get; init; } = default!;
-		}
-
 		public delegate Task<HttpResponseMessage> GetSummonersBySummonerNameAsyncFunc(string summonerName);
+	}
+
+	public record SummonerApiCollection
+	{
+		public SummonerApi.GetSummonersBySummonerNameAsyncFunc GetSummonerBySummonerNameAsync { get; init; } = default!;
 	}
 }

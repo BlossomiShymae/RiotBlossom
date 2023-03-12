@@ -11,7 +11,7 @@ namespace Soraka.Api.Tests
 		[TestMethod()]
 		public async Task UseApiTest()
 		{
-			var soraka = SorakaCore.Use(new SorakaCoreSettings
+			var soraka = SorakaCore.UsePlatformRouteDictionary(new SorakaCoreSettings
 			{
 				HttpClient = new HttpClient(),
 				RiotApiKey = _riotApiKey,
@@ -19,7 +19,7 @@ namespace Soraka.Api.Tests
 				PlatformRoute = Type.PlatformRoute.NorthAmerica
 			});
 
-			var response = await soraka.Summoner.GetSummonerBySummonerNameAsync("uwuie time");
+			var response = await soraka[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerBySummonerNameAsync("uwuie time");
 			Console.WriteLine(await response.Content.ReadAsStringAsync());
 
 			Assert.IsTrue(response.IsSuccessStatusCode);
