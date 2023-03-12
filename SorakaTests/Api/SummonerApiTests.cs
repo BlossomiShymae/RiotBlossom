@@ -1,18 +1,26 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
+using Soraka.Core;
 
 namespace Soraka.Api.Tests
 {
 	[TestClass()]
 	public class SummonerApiTests
 	{
+		private static readonly string _riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? string.Empty;
+
 		[TestMethod()]
 		public async Task UseApiTest()
 		{
-			var api = SummonerApi.UseApi(new HttpClient());
+			var soraka = SorakaCore.Use(new SorakaCoreSettings
+			{
+				HttpClient = new HttpClient(),
+				RiotApiKey = _riotApiKey,
+				MiddlewarePipeline = new Http.RiotGamesClient.MiddlewarePipeline(),
+				PlatformRoute = Type.PlatformRoute.NorthAmerica
+			});
 
-			var response = await api.GetSummonerBySummonerNameAsync("uwuie%20time");
-			Trace.WriteLine(await response.Content.ReadAsStringAsync());
+			var response = await soraka.Summoner.GetSummonerBySummonerNameAsync("uwuie time");
+			Console.WriteLine(await response.Content.ReadAsStringAsync());
 
 			Assert.IsTrue(response.IsSuccessStatusCode);
 		}

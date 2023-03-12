@@ -1,6 +1,6 @@
 ﻿namespace Soraka.Type
 {
-	internal enum PlatformRoute
+	public enum PlatformRoute
 	{
 		NorthAmerica,
 		Brazil,
