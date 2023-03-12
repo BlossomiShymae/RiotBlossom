@@ -20,7 +20,7 @@ namespace Gwen.Api
                 RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewarePipeline);
                 return new SummonerApiCollection
                 {
-                    GetSummonerByNameAsync = (string summonerName) => func(string.Format(_summonerBySummonerNameUri, summonerName), "")
+                    GetSummonerByNameAsync = (string summonerName) => Api.GetDtoAsync<SummonerDto>(func)(string.Format(_summonerBySummonerNameUri, summonerName), "")
                 };
             };
 

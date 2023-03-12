@@ -1,4 +1,5 @@
 ﻿using Gwen.Core;
+using Gwen.Dto.Summoner;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gwen.Api.Tests
@@ -19,10 +20,10 @@ namespace Gwen.Api.Tests
                 PlatformRoute = Type.PlatformRoute.NorthAmerica
             });
 
-            var response = await Gwen[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            var summonerDto = await Gwen[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
+            Console.WriteLine(summonerDto.Puuid);
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsTrue(summonerDto is SummonerDto);
         }
     }
 }

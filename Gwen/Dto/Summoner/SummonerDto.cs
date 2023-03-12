@@ -1,6 +1,6 @@
 ﻿namespace Gwen.Dto.Summoner
 {
-    internal record SummonerDto
+    public record SummonerDto
     {
         public string AccountId { get; init; } = default!;
         public int ProfileIconId { get; init; }
