@@ -12,20 +12,22 @@ namespace Soraka.Api
 		private static readonly string _summonerByAccessTokenUri = _uri + "/me";
 		private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
 
-		public static SummonerApiCollection UseApi(HttpClient client, string riotApiKey, string routingValue, RiotGamesClient.MiddlewarePipeline middlewarePipeline)
-		{
-			RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewarePipeline);
-			return new SummonerApiCollection
+		public static Api.UseByRoutingValue<SummonerApiCollection>
+			Use(HttpClient client, string riotApiKey, RiotGamesClient.MiddlewarePipeline middlewarePipeline) =>
+			(routingValue) =>
 			{
-				GetSummonerBySummonerNameAsync = (string summonerName) => func(string.Format(_summonerBySummonerNameUri, summonerName), "")
+				RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewarePipeline);
+				return new SummonerApiCollection
+				{
+					GetSummonerBySummonerNameAsync = (string summonerName) => func(string.Format(_summonerBySummonerNameUri, summonerName), "")
+				};
 			};
+
+		public record SummonerApiCollection
+		{
+			public GetSummonersBySummonerNameAsyncFunc GetSummonerBySummonerNameAsync { get; init; } = default!;
 		}
-	}
 
-	public record SummonerApiCollection
-	{
-		public GetSummonersBySummonerNameAsyncFunc GetSummonerBySummonerNameAsync { get; init; } = default!;
+		public delegate Task<HttpResponseMessage> GetSummonersBySummonerNameAsyncFunc(string summonerName);
 	}
-
-	public delegate Task<HttpResponseMessage> GetSummonersBySummonerNameAsyncFunc(string summonerName);
 }

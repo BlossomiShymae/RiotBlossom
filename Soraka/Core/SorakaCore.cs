@@ -9,7 +9,7 @@ namespace Soraka.Core
 		{
 			return new SorakaApiCollection
 			{
-				Summoner = SummonerApi.UseApi(settings.HttpClient, settings.RiotApiKey, "na1", settings.MiddlewarePipeline)
+				Summoner = SummonerApi.Use(settings.HttpClient, settings.RiotApiKey, "na1", settings.MiddlewarePipeline)
 			};
 		}
 	}
