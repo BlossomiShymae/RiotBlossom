@@ -39,8 +39,14 @@ namespace Soraka.Http
 
 		public record MiddlewarePipeline
 		{
-			public ImmutableArray<RequestMiddleware> RequestMiddlewares { get; init; } = ImmutableArray<RequestMiddleware>.Empty;
-			public ImmutableArray<ResponseMiddleware> ResponseMiddlewares { get; init; } = ImmutableArray<ResponseMiddleware>.Empty;
+			public ImmutableArray<RequestMiddleware> RequestMiddlewares { get; init; } = new List<RequestMiddleware>
+			{
+				XBoundedCache.UseRequest
+			}.ToImmutableArray();
+			public ImmutableArray<ResponseMiddleware> ResponseMiddlewares { get; init; } = new List<ResponseMiddleware>
+			{
+				XBoundedCache.UseResponse
+			}.ToImmutableArray();
 			public RetryMiddleware RetryMiddleware { get; init; } = XRetryer.Use;
 		}
 
