@@ -30,9 +30,21 @@ namespace Gwen.Api
 
         public record Container
         {
+            /// <summary>
+            /// Get a <see cref="SummonerDto"/> by encrypted account ID.
+            /// </summary>
             public GetSummonerByAccountIdAsyncFunc GetSummonerByAccountIdAsync { get; init; } = default!;
+            /// <summary>
+            /// Get a <see cref="SummonerDto"/> by summoner name.
+            /// </summary>
             public GetSummonerByNameAsyncFunc GetSummonerByNameAsync { get; init; } = default!;
+            /// <summary>
+            /// Get a <see cref="SummonerDto"/> by encrypted PUUID.
+            /// </summary>
             public GetSummonerByPuuidAsyncFunc GetSummonerByPuuidAsync { get; init; } = default!;
+            /// <summary>
+            /// Get a <see cref="SummonerDto"/> by encrypted summoner ID.
+            /// </summary>
             public GetSummonerByIdAsyncFunc GetSummonerByIdAsync { get; init; } = default!;
 
         }
