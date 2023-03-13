@@ -24,7 +24,7 @@ namespace Gwen.Core
 						{
 							HttpClient = settings.HttpClient,
 							RiotApiKey = settings.RiotApiKey,
-							MiddlewarePipeline = settings.MiddlewarePipeline,
+							Middlewares = settings.Middlewares,
 							PlatformRoute = platformRoute
 						}))
 						.ToImmutableDictionary(x => x.PlatformRoute, x => x),
@@ -34,7 +34,7 @@ namespace Gwen.Core
 		private static RiotComponentClient CreateRiotComponentClient(Settings settings) =>
 			new()
 			{
-				Summoner = SummonerApi.Use(settings.HttpClient, settings.RiotApiKey, settings.MiddlewarePipeline)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
+				Summoner = SummonerApi.Use(settings.HttpClient, settings.RiotApiKey, settings.Middlewares)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
 				PlatformRoute = settings.PlatformRoute
 			};
 
@@ -43,7 +43,7 @@ namespace Gwen.Core
 			public HttpClient HttpClient { get; init; } = new();
 			public string RiotApiKey { get; init; } = string.Empty;
 			public Type.PlatformRoute PlatformRoute { get; init; } = Type.PlatformRoute.NorthAmerica;
-			public RiotGamesClient.MiddlewarePipeline MiddlewarePipeline { get; init; } = new();
+			public XMiddlewares Middlewares { get; init; } = new();
 		}
 
 		public record Client

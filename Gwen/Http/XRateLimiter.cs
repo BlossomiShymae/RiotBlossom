@@ -53,7 +53,7 @@ namespace Gwen.Http
             return Task.CompletedTask;
         }
 
-        public static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
+        private static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
         {
             var processHeader = ProcessHeader(headers);
 
@@ -76,23 +76,23 @@ namespace Gwen.Http
             };
         }
 
-        public static int ProcessRateLimit(XRateLimiterHeader xLimitHeader, XRateLimiterHeader xLimitCountHeader)
+        private static int ProcessRateLimit(XRateLimiterHeader xLimitHeader, XRateLimiterHeader xLimitCountHeader)
         {
-            if (xLimitHeader.rateLimiterArray.Length != xLimitCountHeader.rateLimiterArray.Length)
+            if (xLimitHeader.RateLimiterArray.Length != xLimitCountHeader.RateLimiterArray.Length)
                 throw new InvalidOperationException("X-Rate-Limit headers have unbalanced limits and counts");
 
             var retryAfterSeconds = 0;
-            for (int i = 0; i < xLimitHeader.rateLimiterArray.Length; i++)
+            for (int i = 0; i < xLimitHeader.RateLimiterArray.Length; i++)
             {
-                if (xLimitCountHeader.rateLimiterArray[i].requestCount + 1 >= xLimitHeader.rateLimiterArray[i].requestCount)
-                    if (retryAfterSeconds < xLimitHeader.rateLimiterArray[i].intervalSeconds)
-                        retryAfterSeconds = xLimitHeader.rateLimiterArray[i].intervalSeconds;
+                if (xLimitCountHeader.RateLimiterArray[i].requestCount + 1 >= xLimitHeader.RateLimiterArray[i].requestCount)
+                    if (retryAfterSeconds < xLimitHeader.RateLimiterArray[i].intervalSeconds)
+                        retryAfterSeconds = xLimitHeader.RateLimiterArray[i].intervalSeconds;
             }
 
             return retryAfterSeconds;
         }
 
-        public static ProcessHeaderFunc
+        private static ProcessHeaderFunc
             ProcessHeader(HttpResponseHeaders headers) =>
             (key) =>
             {
@@ -111,7 +111,7 @@ namespace Gwen.Http
                 return new XRateLimiterHeader(rateLimiterArray);
             };
 
-        public delegate XRateLimiterHeader ProcessHeaderFunc(string key);
+        private delegate XRateLimiterHeader ProcessHeaderFunc(string key);
 
         public static string Get(this HttpResponseHeaders headers, string key)
         {
@@ -120,32 +120,32 @@ namespace Gwen.Http
                 throw new NullReferenceException($"X-Rate-Limit header value for {key} is null");
             return value;
         }
-    }
 
-    public record XRateLimiterRoute
-    {
-        public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
-        public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
-        public int XAppRetryAfter { get; init; }
-        public ConcurrentDictionary<string, XRateLimiterMethod> XRateLimiterHeadersByMethod { get; init; } = new ConcurrentDictionary<string, XRateLimiterMethod>();
-    }
+        private record XRateLimiterRoute
+        {
+            public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
+            public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
+            public int XAppRetryAfter { get; init; }
+            public ConcurrentDictionary<string, XRateLimiterMethod> XRateLimiterHeadersByMethod { get; init; } = new ConcurrentDictionary<string, XRateLimiterMethod>();
+        }
 
-    public record XRateLimiterMethod
-    {
-        public XRateLimiterHeader XMethodRateLimit { get; init; } = default!;
-        public XRateLimiterHeader XMethodRateLimitCount { get; init; } = default!;
-        public int XMethodRetryAfter { get; init; }
-    }
+        private record XRateLimiterMethod
+        {
+            public XRateLimiterHeader XMethodRateLimit { get; init; } = default!;
+            public XRateLimiterHeader XMethodRateLimitCount { get; init; } = default!;
+            public int XMethodRetryAfter { get; init; }
+        }
 
-    public record XRateLimiterHeaders
-    {
-        public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
-        public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
-        public XRateLimiterHeader XMethodRateLimit { get; init; } = default!;
-        public XRateLimiterHeader XMethodRateLimitCount { get; init; } = default!;
-        public int XAppRetryAfterSeconds { get; init; }
-        public int XMethodRetryAfterSeconds { get; init; }
-    }
+        private record XRateLimiterHeaders
+        {
+            public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
+            public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
+            public XRateLimiterHeader XMethodRateLimit { get; init; } = default!;
+            public XRateLimiterHeader XMethodRateLimitCount { get; init; } = default!;
+            public int XAppRetryAfterSeconds { get; init; }
+            public int XMethodRetryAfterSeconds { get; init; }
+        }
 
-    public record XRateLimiterHeader(ImmutableArray<(int requestCount, int intervalSeconds)> rateLimiterArray);
+        private record XRateLimiterHeader(ImmutableArray<(int requestCount, int intervalSeconds)> RateLimiterArray);
+    }
 }

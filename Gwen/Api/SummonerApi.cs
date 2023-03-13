@@ -14,10 +14,10 @@ namespace Gwen.Api
         private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
 
         public static Api.UseByRoutingValue<Container>
-            Use(HttpClient client, string riotApiKey, RiotGamesClient.MiddlewarePipeline middlewarePipeline) =>
+            Use(HttpClient client, string riotApiKey, XMiddlewares middlewares) =>
             (routingValue) =>
             {
-                RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewarePipeline);
+                RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewares);
                 Api.GetDtoAsyncFunc<SummonerDto> dtoFunc = Api.GetDtoAsync<SummonerDto>(func);
                 return new Container
                 {
