@@ -12,14 +12,14 @@ namespace Gwen.Api.Tests
         [TestMethod()]
         public async Task UseApiTest()
         {
-            var Gwen = GwenCore.UsePlatformRouteDictionary(new GwenCoreSettings
+            var gwen = GwenCore.UseWidespreadClient(new GwenCore.Settings
             {
                 HttpClient = new HttpClient(),
                 RiotApiKey = _riotApiKey,
                 MiddlewarePipeline = new Http.RiotGamesClient.MiddlewarePipeline(),
             });
 
-            var summonerDto = await Gwen[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
+            var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
             Console.WriteLine(summonerDto.Puuid);
 
             Assert.IsTrue(summonerDto is SummonerDto);
