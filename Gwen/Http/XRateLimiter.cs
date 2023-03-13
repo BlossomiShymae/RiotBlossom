@@ -78,12 +78,16 @@ namespace Gwen.Http
 
         public static int ProcessRateLimit(XRateLimiterHeader xLimitHeader, XRateLimiterHeader xLimitCountHeader)
         {
+            if (xLimitHeader.rateLimiterArray.Length != xLimitCountHeader.rateLimiterArray.Length)
+                throw new InvalidOperationException("X-Rate-Limit headers have unbalanced limits and counts");
+
             var retryAfterSeconds = 0;
-            if (xLimitCountHeader.PrimaryLimiterArray[0] + 1 >= xLimitHeader.PrimaryLimiterArray[0])
-                retryAfterSeconds = xLimitHeader.PrimaryLimiterArray[1];
-            if (xLimitCountHeader.SecondaryLimiterArray[0] + 1 >= xLimitHeader.SecondaryLimiterArray[0])
-                if (retryAfterSeconds < xLimitHeader.SecondaryLimiterArray[0])
-                    retryAfterSeconds = xLimitHeader.SecondaryLimiterArray[1];
+            for (int i = 0; i < xLimitHeader.rateLimiterArray.Length; i++)
+            {
+                if (xLimitCountHeader.rateLimiterArray[i].requestCount + 1 >= xLimitHeader.rateLimiterArray[i].requestCount)
+                    if (retryAfterSeconds < xLimitHeader.rateLimiterArray[i].intervalSeconds)
+                        retryAfterSeconds = xLimitHeader.rateLimiterArray[i].intervalSeconds;
+            }
 
             return retryAfterSeconds;
         }
@@ -95,19 +99,16 @@ namespace Gwen.Http
                 var rateLimitCommaSeperatedString = headers.Get(key);
                 var rateLimitColonSeperatedArray = rateLimitCommaSeperatedString
                     .Split(',', StringSplitOptions.RemoveEmptyEntries);
-                if (rateLimitColonSeperatedArray.Length != 2)
-                    throw new InvalidOperationException($"There must be two rate limits for X header value");
 
-                var primaryLimiterArray = rateLimitColonSeperatedArray[0]
-                    .Split(':', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => int.Parse(x))
-                    .ToImmutableArray();
-                var secondaryLimiterArray = rateLimitColonSeperatedArray[1]
-                    .Split(':', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => int.Parse(x))
+                var rateLimiterArray = rateLimitColonSeperatedArray
+                    .Select(x => x
+                        .Split(':', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(x => int.Parse(x))
+                        .ToImmutableArray())
+                    .Select(x => (x[0], x[1]))
                     .ToImmutableArray();
 
-                return new XRateLimiterHeader(primaryLimiterArray, secondaryLimiterArray);
+                return new XRateLimiterHeader(rateLimiterArray);
             };
 
         public delegate XRateLimiterHeader ProcessHeaderFunc(string key);
@@ -146,5 +147,5 @@ namespace Gwen.Http
         public int XMethodRetryAfterSeconds { get; init; }
     }
 
-    public record XRateLimiterHeader(ImmutableArray<int> PrimaryLimiterArray, ImmutableArray<int> SecondaryLimiterArray);
+    public record XRateLimiterHeader(ImmutableArray<(int requestCount, int intervalSeconds)> rateLimiterArray);
 }

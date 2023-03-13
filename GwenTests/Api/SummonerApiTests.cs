@@ -16,7 +16,6 @@ namespace Gwen.Api.Tests
             {
                 HttpClient = new HttpClient(),
                 RiotApiKey = _riotApiKey,
-                MiddlewarePipeline = new Http.RiotGamesClient.MiddlewarePipeline(),
             });
 
             var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
