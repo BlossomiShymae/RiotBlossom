@@ -3,7 +3,7 @@
     public record SummonerDto
     {
         /// <summary>
-        /// The encrypted account ID. Should have a max length of 56 characters.
+        /// The encrypted account ID.
         /// </summary>
         public string AccountId { get; init; } = default!;
         /// <summary>
