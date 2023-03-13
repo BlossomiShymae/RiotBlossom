@@ -58,7 +58,7 @@ namespace Gwen.Core
 
 		public record RiotComponentClient
 		{
-			public SummonerApiContainer Summoner { get; init; } = new SummonerApiContainer();
+			public SummonerApi.Container Summoner { get; init; } = new SummonerApi.Container();
 			public Type.PlatformRoute PlatformRoute { get; init; } = Type.PlatformRoute.NorthAmerica;
 		}
 	}
