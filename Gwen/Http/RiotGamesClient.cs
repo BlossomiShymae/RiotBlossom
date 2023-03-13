@@ -13,11 +13,18 @@ namespace Gwen.Http
                 using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
                 requestMessage.Headers.Add("X-Riot-Token", riotApiKey);
 
-                var data = await ProcessMiddlewaresAsync(client, requestMessage, middlewarePipeline);
+                // Create execute info
+                var executeInfo = new XExecuteInfo
+                {
+                    RoutingValue = routingValue,
+                    MethodUri = uri
+                };
+
+                var data = await ProcessMiddlewaresAsync(client, requestMessage, executeInfo, middlewarePipeline);
                 return data;
             };
 
-        public static async Task<string> ProcessMiddlewaresAsync(HttpClient client, HttpRequestMessage requestMessage, MiddlewarePipeline middlewarePipeline)
+        public static async Task<string> ProcessMiddlewaresAsync(HttpClient client, HttpRequestMessage requestMessage, XExecuteInfo executeInfo, MiddlewarePipeline middlewarePipeline)
         {
             // Use request middlewares, if any
             string? data = null;
@@ -27,8 +34,7 @@ namespace Gwen.Http
             foreach (var requestMiddleware in middlewarePipeline.RequestMiddlewares)
             {
                 isNext = false;
-                if (data == null)
-                    await requestMiddleware.Invoke(requestMessage, hit, next);
+                await requestMiddleware.Invoke(executeInfo, requestMessage, hit, next);
                 if (!isNext)
                     break;
             }
@@ -42,7 +48,7 @@ namespace Gwen.Http
             foreach (var responseMiddleware in middlewarePipeline.ResponseMiddlewares)
             {
                 isNext = false;
-                await responseMiddleware.Invoke(res, next);
+                await responseMiddleware.Invoke(executeInfo, res, next);
                 if (!isNext)
                     break;
             }
@@ -65,17 +71,19 @@ namespace Gwen.Http
         {
             public ImmutableArray<RequestMiddleware> RequestMiddlewares { get; init; } = new List<RequestMiddleware>
             {
-                XBoundedCache.UseRequest
+                XBoundedCache.UseRequest,
+                XRateLimiter.UseRequest
             }.ToImmutableArray();
             public ImmutableArray<ResponseMiddleware> ResponseMiddlewares { get; init; } = new List<ResponseMiddleware>
             {
-                XBoundedCache.UseResponse
+                XBoundedCache.UseResponse,
+                XRateLimiter.UseResponse
             }.ToImmutableArray();
             public RetryMiddleware RetryMiddleware { get; init; } = XRetryer.Use;
         }
 
-        public delegate Task RequestMiddleware(HttpRequestMessage requestMessage, Action<string> hit, Action next);
-        public delegate Task ResponseMiddleware(HttpResponseMessage responseMessage, Action next);
+        public delegate Task RequestMiddleware(XExecuteInfo executeInfo, HttpRequestMessage requestMessage, Action<string> hit, Action next);
+        public delegate Task ResponseMiddleware(XExecuteInfo executeInfo, HttpResponseMessage responseMessage, Action next);
         public delegate Task<HttpResponseMessage> RetryMiddleware(Func<Task<HttpResponseMessage>> responseMessageFunc);
     }
 }

@@ -6,24 +6,29 @@ namespace Gwen.Http
     {
         private static readonly ConcurrentDictionary<string, string> _cache = new();
 
-        public static Task UseRequest(HttpRequestMessage requestMessage, Action<string> hit, Action next)
+        public static Task UseRequest(XExecuteInfo executeInfo, HttpRequestMessage requestMessage, Action<string> hit, Action next)
         {
             string key = requestMessage.RequestUri?.OriginalString ?? string.Empty;
+            bool isHit = false;
             if (!string.IsNullOrEmpty(key))
             {
                 try
                 {
                     var res = _cache[key];
                     if (res != null)
+                    {
+                        isHit = true;
                         hit(res);
+                    }
                 }
                 catch (Exception) { }
             }
-            next();
+            if (!isHit)
+                next();
             return Task.CompletedTask;
         }
 
-        public static async Task UseResponse(HttpResponseMessage responseMessage, Action next)
+        public static async Task UseResponse(XExecuteInfo executeInfo, HttpResponseMessage responseMessage, Action next)
         {
 
             String key = responseMessage.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
