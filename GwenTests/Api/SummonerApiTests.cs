@@ -19,7 +19,6 @@ namespace Gwen.Api.Tests
             });
 
             var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetSummonerByNameAsync("uwuie time");
-            Console.WriteLine(summonerDto.Puuid);
 
             Assert.IsTrue(summonerDto is SummonerDto);
         }

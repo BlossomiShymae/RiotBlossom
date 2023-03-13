@@ -13,22 +13,33 @@ namespace Gwen.Api
         private static readonly string _summonerByAccessTokenUri = _uri + "/me";
         private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
 
-        public static Api.UseByRoutingValue<SummonerApiCollection>
+        public static Api.UseByRoutingValue<Container>
             Use(HttpClient client, string riotApiKey, RiotGamesClient.MiddlewarePipeline middlewarePipeline) =>
             (routingValue) =>
             {
                 RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewarePipeline);
-                return new SummonerApiCollection
+                Api.GetDtoAsyncFunc<SummonerDto> dtoFunc = Api.GetDtoAsync<SummonerDto>(func);
+                return new Container
                 {
-                    GetSummonerByNameAsync = (string summonerName) => Api.GetDtoAsync<SummonerDto>(func)(string.Format(_summonerBySummonerNameUri, summonerName), "")
+                    GetSummonerByAccountIdAsync = (string accountId) => dtoFunc(string.Format(_summonerByAccountIdUri, accountId), string.Empty),
+                    GetSummonerByNameAsync = (string summonerName) => dtoFunc(string.Format(_summonerBySummonerNameUri, summonerName), string.Empty),
+                    GetSummonerByPuuidAsync = (string puuid) => dtoFunc(string.Format(_summonerByPuuidUri, puuid), string.Empty),
+                    GetSummonerByIdAsync = (string id) => dtoFunc(string.Format(_summonerBySummonerIdUri, id), string.Empty)
                 };
             };
 
-        public delegate Task<SummonerDto> GetSummonerByNameAsync(string summonerName);
-    }
+        public record Container
+        {
+            public GetSummonerByAccountIdAsyncFunc GetSummonerByAccountIdAsync { get; init; } = default!;
+            public GetSummonerByNameAsyncFunc GetSummonerByNameAsync { get; init; } = default!;
+            public GetSummonerByPuuidAsyncFunc GetSummonerByPuuidAsync { get; init; } = default!;
+            public GetSummonerByIdAsyncFunc GetSummonerByIdAsync { get; init; } = default!;
 
-    public record SummonerApiCollection
-    {
-        public SummonerApi.GetSummonerByNameAsync GetSummonerByNameAsync { get; init; } = default!;
+        }
+
+        public delegate Task<SummonerDto> GetSummonerByAccountIdAsyncFunc(string accountId);
+        public delegate Task<SummonerDto> GetSummonerByNameAsyncFunc(string summonerName);
+        public delegate Task<SummonerDto> GetSummonerByPuuidAsyncFunc(string puuid);
+        public delegate Task<SummonerDto> GetSummonerByIdAsyncFunc(string id);
     }
 }
