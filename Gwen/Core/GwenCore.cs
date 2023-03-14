@@ -44,6 +44,7 @@ namespace Gwen.Core
 		private static RiotComponentClient CreateRiotComponentClient(Settings settings) =>
 			new()
 			{
+				Account = AccountApi.Use(settings.HttpClient, settings.RiotApiKey, settings.Middlewares)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
 				Summoner = SummonerApi.Use(settings.HttpClient, settings.RiotApiKey, settings.Middlewares)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
 				PlatformRoute = settings.PlatformRoute
 			};
@@ -97,10 +98,13 @@ namespace Gwen.Core
 		public record RiotComponentClient
 		{
 			/// <summary>
+			/// The API container for Account-v1 endpoint functions.
+			/// </summary>
+			public AccountApi.Container Account { get; init; } = new AccountApi.Container();
+			/// <summary>
 			/// The API container for Summoner-v4 endpoint functions.
 			/// </summary>
 			public SummonerApi.Container Summoner { get; init; } = new SummonerApi.Container();
-
 			/// <summary>
 			/// The platform routing value used for accessing platform-specific data.
 			/// </summary>
