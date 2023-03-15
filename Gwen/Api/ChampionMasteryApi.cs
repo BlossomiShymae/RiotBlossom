@@ -11,7 +11,7 @@ namespace Gwen.Api
 		private static readonly string _masteriesTopBySummonerId = _masteriesBySummonerId + "/top";
 		private static readonly string _scoresBySummonerId = "/lol/champion-mastery/v4/scores/by-summoner/{0}";
 
-		public static Api.UseByRoutingValue<Container>
+		public static ComposableApi.UseByRoutingValue<Container>
 			Use(HttpClient client, string riotApiKey, XMiddlewares middlewares) =>
 			(routingValue) =>
 			{
@@ -19,13 +19,13 @@ namespace Gwen.Api
 				return new Container
 				{
 					GetChampionMasteriesBySummonerIdAsync = (string summonerId) =>
-						Api.GetDtoAsync<IEnumerable<ChampionMasteryDto>>(func)(string.Format(_masteriesBySummonerId, summonerId), string.Empty),
+						ComposableApi.GetDtoAsync<IEnumerable<ChampionMasteryDto>>(func)(string.Format(_masteriesBySummonerId, summonerId), string.Empty),
 					GetChampionMasteryByPlayerIdAndChampionIdAsync = (string summonerId, string championId) =>
-						Api.GetDtoAsync<ChampionMasteryDto>(func)(string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId), string.Empty),
+						ComposableApi.GetDtoAsync<ChampionMasteryDto>(func)(string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId), string.Empty),
 					GetTopChampionMasteriesBySummonerIdAsync = (string summonerId, int count) =>
-						Api.GetDtoAsync<IEnumerable<ChampionMasteryDto>>(func)(string.Format(_masteriesTopBySummonerId, summonerId), $"?count={count}"),
+						ComposableApi.GetDtoAsync<IEnumerable<ChampionMasteryDto>>(func)(string.Format(_masteriesTopBySummonerId, summonerId), $"?count={count}"),
 					GetTotalChampionMasteryScoreBySummonerIdAsync = (string summonerId) =>
-						Api.GetDtoAsync<int>(func)(string.Format(_scoresBySummonerId, summonerId), string.Empty)
+						ComposableApi.GetDtoAsync<int>(func)(string.Format(_scoresBySummonerId, summonerId), string.Empty)
 				};
 			};
 

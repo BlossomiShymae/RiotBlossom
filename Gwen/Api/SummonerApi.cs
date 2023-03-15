@@ -13,12 +13,12 @@ namespace Gwen.Api
         private static readonly string _summonerByAccessTokenUri = _uri + "/me";
         private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
 
-        public static Api.UseByRoutingValue<Container>
+        public static ComposableApi.UseByRoutingValue<Container>
             Use(HttpClient client, string riotApiKey, XMiddlewares middlewares) =>
             (routingValue) =>
             {
                 RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewares);
-                Api.GetDtoAsyncFunc<SummonerDto> dtoFunc = Api.GetDtoAsync<SummonerDto>(func);
+                ComposableApi.GetDtoAsyncFunc<SummonerDto> dtoFunc = ComposableApi.GetDtoAsync<SummonerDto>(func);
                 return new Container
                 {
                     GetSummonerByAccountIdAsync = (string accountId) => dtoFunc(string.Format(_summonerByAccountIdUri, accountId), string.Empty),

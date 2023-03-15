@@ -11,12 +11,12 @@ namespace Gwen.Api
         private static readonly string _accountByAccessTokenUri = _uri + "/me";
         private static readonly string _activeShardUri = "/riot/account/v1/active-shards/by-game/{0}/by-puuid/{1}";
 
-        public static Api.UseByRoutingValue<Container>
+        public static ComposableApi.UseByRoutingValue<Container>
             Use(HttpClient client, string riotApiKey, XMiddlewares middlewares) =>
             (routingValue) =>
             {
                 RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewares);
-                Api.GetDtoAsyncFunc<AccountDto> dtoFunc = Api.GetDtoAsync<AccountDto>(func);
+                ComposableApi.GetDtoAsyncFunc<AccountDto> dtoFunc = ComposableApi.GetDtoAsync<AccountDto>(func);
                 return new Container
                 {
                     GetAccountByPuuidAsync = (string puuid) => dtoFunc(string.Format(_accountByPuuidUri, puuid), string.Empty),
