@@ -22,7 +22,7 @@ namespace Gwen.Api
         /// </summary>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        public async Task<AccountDto> GetAccountByPuuidAsync(string puuid) => await _accountDtoApi.GetDtoAsync(string.Format(_accountByPuuidUri, puuid));
+        public async Task<AccountDto> GetAccountByPuuidAsync(string puuid) => await _accountDtoApi.GetValueAsync(string.Format(_accountByPuuidUri, puuid));
 
         /// <summary>
         /// Get an account by Riot ID (associated game name and tag line).
@@ -30,6 +30,6 @@ namespace Gwen.Api
         /// <param name="gameName"></param>
         /// <param name="tagLine"></param>
         /// <returns></returns>
-        public async Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine) => await _accountDtoApi.GetDtoAsync(string.Format(_accountByRiotIdUri, gameName, tagLine));
+        public async Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine) => await _accountDtoApi.GetValueAsync(string.Format(_accountByRiotIdUri, gameName, tagLine));
     }
 }

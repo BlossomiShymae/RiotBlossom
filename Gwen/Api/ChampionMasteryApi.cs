@@ -28,7 +28,7 @@ namespace Gwen.Api
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
 		public async Task<IEnumerable<ChampionMasteryDto>> ListBySummonerIdAsync(string summonerId)
-			=> await _championMasteriesDtoApi.GetDtoAsync(string.Format(_masteriesBySummonerId, summonerId));
+			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesBySummonerId, summonerId));
 
 		/// <summary>
 		/// Get champion mastery entry by player ID and champion ID.
@@ -37,7 +37,7 @@ namespace Gwen.Api
 		/// <param name="championId"></param>
 		/// <returns></returns>
 		public async Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(string summonerId, string championId)
-			=> await _championMasteryDtoApi.GetDtoAsync(string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId));
+			=> await _championMasteryDtoApi.GetValueAsync(string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId));
 
 		/// <summary>
 		/// Get an enumerable of requested champion mastery entries sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
@@ -47,7 +47,7 @@ namespace Gwen.Api
 		/// <param name="count"></param>
 		/// <returns></returns>
 		public async Task<IEnumerable<ChampionMasteryDto>> ListTopBySummonerIdAsync(string summonerId, int count = 3)
-			=> await _championMasteriesDtoApi.GetDtoAsync(string.Format(_masteriesTopBySummonerId, summonerId), $"?count=${count}");
+			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesTopBySummonerId, summonerId), $"?count=${count}");
 
 		/// <summary>
 		/// Get the total summation of individual champion mastery levels for associated summoner ID.
@@ -55,6 +55,6 @@ namespace Gwen.Api
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
 		public async Task<int> GetTotalScoreBySummonerIdAsync(string summonerId)
-			=> await _intApi.GetDtoAsync(string.Format(_scoresBySummonerId, summonerId));
+			=> await _intApi.GetValueAsync(string.Format(_scoresBySummonerId, summonerId));
 	}
 }

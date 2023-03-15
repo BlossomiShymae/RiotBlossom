@@ -25,7 +25,7 @@ namespace Gwen.Api
         /// <param name="accountId"></param>
         /// <returns></returns>
         public async Task<SummonerDto> GetByAccountIdAsync(string accountId)
-            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerByAccountIdUri, accountId));
+            => await _summonerDtoApi.GetValueAsync(string.Format(_summonerByAccountIdUri, accountId));
 
         /// <summary>
         /// Get a summoner by summoner name.
@@ -33,7 +33,7 @@ namespace Gwen.Api
         /// <param name="summonerName"></param>
         /// <returns></returns>
         public async Task<SummonerDto> GetByNameAsync(string summonerName)
-            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerBySummonerNameUri, summonerName));
+            => await _summonerDtoApi.GetValueAsync(string.Format(_summonerBySummonerNameUri, summonerName));
 
         /// <summary>
         /// Get a summoner by encrypted PUUID.
@@ -41,7 +41,7 @@ namespace Gwen.Api
         /// <param name="puuid"></param>
         /// <returns></returns>
         public async Task<SummonerDto> GetByPuuidAsync(string puuid)
-            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerByPuuidUri, puuid));
+            => await _summonerDtoApi.GetValueAsync(string.Format(_summonerByPuuidUri, puuid));
 
         /// <summary>
         /// Get a summoner by encrypted ID.
@@ -49,6 +49,6 @@ namespace Gwen.Api
         /// <param name="summonerId"></param>
         /// <returns></returns>
         public async Task<SummonerDto> GetByIdAsync(string summonerId)
-            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerBySummonerIdUri, summonerId));
+            => await _summonerDtoApi.GetValueAsync(string.Format(_summonerBySummonerIdUri, summonerId));
     }
 }

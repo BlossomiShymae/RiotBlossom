@@ -12,9 +12,9 @@ namespace Gwen.Api
 			_riotGamesClient = riotGamesClient;
 		}
 
-		internal async Task<T> GetDtoAsync(string uri) => await GetDtoAsync(uri, string.Empty);
+		internal async Task<T> GetValueAsync(string uri) => await GetValueAsync(uri, string.Empty);
 
-		internal async Task<T> GetDtoAsync(string uri, string query)
+		internal async Task<T> GetValueAsync(string uri, string query)
 		{
 			string data = await _riotGamesClient.GetStringAsync(uri, query);
 			var options = new JsonSerializerOptions
