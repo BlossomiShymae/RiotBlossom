@@ -45,6 +45,7 @@ namespace Gwen.Core
 			new()
 			{
 				Account = AccountApi.Use(settings.HttpClient, settings.RiotApiKey, settings.Middlewares)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
+				ChampionMastery = ChampionMasteryApi.Use(settings.HttpClient, settings.RiotApiKey, settings.Middlewares)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
 				Summoner = SummonerApi.Use(settings.HttpClient, settings.RiotApiKey, settings.Middlewares)(PlatformRouteMapper.GetId(settings.PlatformRoute)),
 				PlatformRoute = settings.PlatformRoute
 			};
@@ -101,6 +102,10 @@ namespace Gwen.Core
 			/// The API container for Account-v1 endpoint functions.
 			/// </summary>
 			public AccountApi.Container Account { get; init; } = new AccountApi.Container();
+			/// <summary>
+			/// The API container for Champion-Mastery-v4 endpoint functions.
+			/// </summary>
+			public ChampionMasteryApi.Container ChampionMastery { get; init; } = new ChampionMasteryApi.Container();
 			/// <summary>
 			/// The API container for Summoner-v4 endpoint functions.
 			/// </summary>
