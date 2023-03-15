@@ -1,32 +1,45 @@
 ﻿using Gwen.Api;
 using Gwen.Http;
+using Gwen.Type;
 
 namespace Gwen.Core
 {
-	internal class RiotCore
+	public interface IRiotCore
+	{
+		/// <summary>
+		/// The API for Account-v1 endpoints.
+		/// </summary>
+		IAccountApi Account { get; }
+		/// <summary>
+		/// The API for Champion-Mastery-v4 endpoints.
+		/// </summary>
+		IChampionMasteryApi ChampionMastery { get; }
+		/// <summary>
+		/// The platform routing value used for accessing data from.
+		/// </summary>
+		PlatformRoute PlatformRoute { get; }
+		/// <summary>
+		/// The platform routing value used for accessing data from.
+		/// </summary>
+		ISummonerApi Summoner { get; }
+	}
+
+	internal class RiotCore : IRiotCore
 	{
 		private readonly AccountApi _accountApi;
 		private readonly ChampionMasteryApi _championMasteryApi;
 		private readonly SummonerApi _summonerApi;
-		private readonly Type.PlatformRoute _platformRoute;
-		/// <summary>
-		/// The API for Account-v1 endpoints.
-		/// </summary>
-		public AccountApi Account { get { return _accountApi; } }
-		/// <summary>
-		/// The API for Champion-Mastery-v4 endpoints.
-		/// </summary>
-		public ChampionMasteryApi ChampionMastery { get { return _championMasteryApi; } }
-		/// <summary>
-		/// The API for Summoner-v4 endpoints.
-		/// </summary>
-		public SummonerApi Summoner { get { return _summonerApi; } }
-		/// <summary>
-		/// The platform routing value used for accessing data from.
-		/// </summary>
-		public Type.PlatformRoute PlatformRoute { get { return _platformRoute; } }
+		private readonly PlatformRoute _platformRoute;
+		/// <inheritdoc/>
+		public IAccountApi Account { get { return _accountApi; } }
+		/// <inheritdoc/>
+		public IChampionMasteryApi ChampionMastery { get { return _championMasteryApi; } }
+		/// <inheritdoc/>
+		public ISummonerApi Summoner { get { return _summonerApi; } }
+		/// <inheritdoc/>
+		public PlatformRoute PlatformRoute { get { return _platformRoute; } }
 
-		public RiotCore(RiotGamesClient riotGamesClient, Type.PlatformRoute platformRoute)
+		public RiotCore(RiotGamesClient riotGamesClient, PlatformRoute platformRoute)
 		{
 			_accountApi = new(riotGamesClient);
 			_championMasteryApi = new(riotGamesClient);

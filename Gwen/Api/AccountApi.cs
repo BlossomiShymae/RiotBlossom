@@ -3,33 +3,42 @@ using Gwen.Http;
 
 namespace Gwen.Api
 {
-    internal class AccountApi
-    {
-        private static readonly string _uri = "/riot/account/v1/accounts";
-        private static readonly string _accountByPuuidUri = _uri + "/by-puuid/{0}";
-        private static readonly string _accountByRiotIdUri = _uri + "/by-riot-id/{0}/{1}";
-        private static readonly string _accountByAccessTokenUri = _uri + "/me";
-        private static readonly string _activeShardUri = "/riot/account/v1/active-shards/by-game/{0}/by-puuid/{1}";
-        private readonly ComposableApi<AccountDto> _accountDtoApi;
+	public interface IAccountApi
+	{
+		/// <summary>
+		/// Get an account by PUUID.
+		/// </summary>
+		/// <param name="puuid"></param>
+		/// <returns></returns>
+		Task<AccountDto> GetAccountByPuuidAsync(string puuid);
 
-        public AccountApi(RiotGamesClient riotGamesClient)
-        {
-            _accountDtoApi = new(riotGamesClient);
-        }
+		/// <summary>
+		/// Get an account by Riot ID (associated game name and tag line).
+		/// </summary>
+		/// <param name="gameName"></param>
+		/// <param name="tagLine"></param>
+		/// <returns></returns>
+		Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine);
+	}
 
-        /// <summary>
-        /// Get an account by PUUID.
-        /// </summary>
-        /// <param name="puuid"></param>
-        /// <returns></returns>
-        public async Task<AccountDto> GetAccountByPuuidAsync(string puuid) => await _accountDtoApi.GetValueAsync(string.Format(_accountByPuuidUri, puuid));
+	internal class AccountApi : IAccountApi
+	{
+		private static readonly string _uri = "/riot/account/v1/accounts";
+		private static readonly string _accountByPuuidUri = _uri + "/by-puuid/{0}";
+		private static readonly string _accountByRiotIdUri = _uri + "/by-riot-id/{0}/{1}";
+		private static readonly string _accountByAccessTokenUri = _uri + "/me";
+		private static readonly string _activeShardUri = "/riot/account/v1/active-shards/by-game/{0}/by-puuid/{1}";
+		private readonly ComposableApi<AccountDto> _accountDtoApi;
 
-        /// <summary>
-        /// Get an account by Riot ID (associated game name and tag line).
-        /// </summary>
-        /// <param name="gameName"></param>
-        /// <param name="tagLine"></param>
-        /// <returns></returns>
-        public async Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine) => await _accountDtoApi.GetValueAsync(string.Format(_accountByRiotIdUri, gameName, tagLine));
-    }
+		public AccountApi(RiotGamesClient riotGamesClient)
+		{
+			_accountDtoApi = new(riotGamesClient);
+		}
+
+		/// <inheritdoc/>
+		public async Task<AccountDto> GetAccountByPuuidAsync(string puuid) => await _accountDtoApi.GetValueAsync(string.Format(_accountByPuuidUri, puuid));
+
+		/// <inheritdoc/>
+		public async Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine) => await _accountDtoApi.GetValueAsync(string.Format(_accountByRiotIdUri, gameName, tagLine));
+	}
 }
