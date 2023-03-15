@@ -19,6 +19,10 @@ namespace Gwen.Core
 		/// </summary>
 		IChampionMasteryApi ChampionMastery { get; }
 		/// <summary>
+		/// The API for Clash-v1 endpoints.
+		/// </summary>
+		IClashApi Clash { get; }
+		/// <summary>
 		/// The platform routing value used for accessing data from.
 		/// </summary>
 		PlatformRoute PlatformRoute { get; }
@@ -33,6 +37,7 @@ namespace Gwen.Core
 		private readonly AccountApi _accountApi;
 		private readonly ChampionApi _championApi;
 		private readonly ChampionMasteryApi _championMasteryApi;
+		private readonly ClashApi _clashApi;
 		private readonly SummonerApi _summonerApi;
 		private readonly PlatformRoute _platformRoute;
 		/// <inheritdoc/>
@@ -41,6 +46,8 @@ namespace Gwen.Core
 		public IChampionApi Champion => _championApi;
 		/// <inheritdoc/>
 		public IChampionMasteryApi ChampionMastery => _championMasteryApi;
+		/// <inheritdoc/>
+		public IClashApi Clash => _clashApi;
 		/// <inheritdoc/>
 		public ISummonerApi Summoner => _summonerApi;
 		/// <inheritdoc/>
@@ -51,6 +58,7 @@ namespace Gwen.Core
 			_accountApi = new(riotGamesClient);
 			_championApi = new(riotGamesClient);
 			_championMasteryApi = new(riotGamesClient);
+			_clashApi = new(riotGamesClient);
 			_summonerApi = new(riotGamesClient);
 			_platformRoute = platformRoute;
 		}
