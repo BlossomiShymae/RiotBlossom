@@ -2,6 +2,9 @@
 
 namespace Gwen.Core
 {
+	/// <summary>
+	/// A stitch client used for global platform use.
+	/// </summary>
 	internal class BlanketStitch
 	{
 		private readonly ImmutableDictionary<Type.PlatformRoute, RiotCore> _riotCoreByPlatform;

@@ -1,5 +1,8 @@
 ﻿namespace Gwen.Core
 {
+	/// <summary>
+	/// A stitch client used for single platform use.
+	/// </summary>
 	internal class SimpleStitch
 	{
 		private readonly RiotCore _riotCore;
