@@ -1,38 +1,49 @@
 ﻿namespace Gwen.Http
 {
-	public static partial class RiotGamesClient
+	internal class RiotGamesClient
 	{
-		public static GetAsyncFunc
-			GetAsync(HttpClient client, string riotApiKey, string routingValue, XMiddlewares middlewares) =>
-			async (uri, query) =>
+		private readonly HttpClient _httpClient;
+		private readonly string _riotApiKey;
+		private readonly string _routingValue;
+		private readonly XMiddlewares _xMiddlewares;
+
+		public RiotGamesClient(HttpClient httpClient, string riotApiKey, string routingValue, XMiddlewares xMiddlewares)
+		{
+			_httpClient = httpClient;
+			_riotApiKey = riotApiKey;
+			_routingValue = routingValue;
+			_xMiddlewares = xMiddlewares;
+		}
+
+		public async Task<string> GetStringAsync(string uri, string query)
+		{
+			// Create request message
+			var requestUri = new Uri($"https://{_routingValue}.api.riotgames.com{uri}{query}");
+			using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			requestMessage.Headers.Add("X-Riot-Token", _riotApiKey);
+
+			// Create execute info
+			var executeInfo = new XExecuteInfo
 			{
-				// Create request message
-				var requestUri = new Uri($"https://{routingValue}.api.riotgames.com{uri}{query}");
-				using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-				requestMessage.Headers.Add("X-Riot-Token", riotApiKey);
-
-				// Create execute info
-				var executeInfo = new XExecuteInfo
-				{
-					RoutingValue = routingValue,
-					MethodUri = uri
-				};
-
-				var data = await ProcessMiddlewaresAsync(client, requestMessage, executeInfo, middlewares);
-				return data;
+				RoutingValue = _routingValue,
+				MethodUri = uri
 			};
 
-		public static async Task<string> ProcessMiddlewaresAsync(HttpClient client, HttpRequestMessage requestMessage, XExecuteInfo executeInfo, XMiddlewares middlewares)
+			var data = await ProcessXMiddlewaresAsync(executeInfo, requestMessage);
+			return data;
+		}
+
+		private async Task<string> ProcessXMiddlewaresAsync(XExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)
 		{
 			// Use request middlewares, if any
 			string? data = null;
 			void hit(string value) => data = value;
 			bool isNext = false;
 			void next() => isNext = true;
-			foreach (var requestMiddleware in middlewares.XRequests)
+			foreach (var requestMiddleware in _xMiddlewares.XRequests)
 			{
 				isNext = false;
-				await requestMiddleware.Invoke(executeInfo, requestMessage, hit, next);
+				await requestMiddleware.Invoke(xExecuteInfo, requestMessage, hit, next);
 				if (!isNext)
 					break;
 			}
@@ -40,13 +51,13 @@
 				return data;
 
 			// Use retry middleware, if any
-			var res = await middlewares.XRetry.Invoke(async () => await client.SendAsync(requestMessage));
+			var res = await _xMiddlewares.XRetry.Invoke(async () => await _httpClient.SendAsync(requestMessage));
 
 			// Use response middlewares, if any
-			foreach (var responseMiddleware in middlewares.XResponses)
+			foreach (var responseMiddleware in _xMiddlewares.XResponses)
 			{
 				isNext = false;
-				await responseMiddleware.Invoke(executeInfo, res, next);
+				await responseMiddleware.Invoke(xExecuteInfo, res, next);
 				if (!isNext)
 					break;
 			}
@@ -62,7 +73,5 @@
 			res.Dispose();
 			return data;
 		}
-
-		public delegate Task<string> GetAsyncFunc(string uri, string query);
 	}
 }
