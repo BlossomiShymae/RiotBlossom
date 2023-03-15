@@ -12,6 +12,8 @@ namespace Gwen.Api
 			_riotGamesClient = riotGamesClient;
 		}
 
+		internal async Task<T> GetDtoAsync(string uri) => await GetDtoAsync(uri, string.Empty);
+
 		internal async Task<T> GetDtoAsync(string uri, string query)
 		{
 			string data = await _riotGamesClient.GetStringAsync(uri, query);
