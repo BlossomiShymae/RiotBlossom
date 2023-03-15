@@ -3,7 +3,7 @@ using Gwen.Http;
 
 namespace Gwen.Api
 {
-    public static class SummonerApi
+    internal class SummonerApi
     {
         private static readonly string _uri = "/lol/summoner/v4/summoners";
         private static readonly string _summonerByRSOPuuidUri = "/fufillment/v1/summoners/by-puuid/{0}";
@@ -12,46 +12,43 @@ namespace Gwen.Api
         private static readonly string _summonerByPuuidUri = _uri + "/by-puuid/{0}";
         private static readonly string _summonerByAccessTokenUri = _uri + "/me";
         private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
+        private readonly ComposableApi<SummonerDto> _summonerDtoApi;
 
-        public static ComposableApi.UseByRoutingValue<Container>
-            Use(HttpClient client, string riotApiKey, XMiddlewares middlewares) =>
-            (routingValue) =>
-            {
-                RiotGamesClient.GetAsyncFunc func = RiotGamesClient.GetAsync(client, riotApiKey, routingValue, middlewares);
-                ComposableApi.GetDtoAsyncFunc<SummonerDto> dtoFunc = ComposableApi.GetDtoAsync<SummonerDto>(func);
-                return new Container
-                {
-                    GetSummonerByAccountIdAsync = (string accountId) => dtoFunc(string.Format(_summonerByAccountIdUri, accountId), string.Empty),
-                    GetSummonerByNameAsync = (string summonerName) => dtoFunc(string.Format(_summonerBySummonerNameUri, summonerName), string.Empty),
-                    GetSummonerByPuuidAsync = (string puuid) => dtoFunc(string.Format(_summonerByPuuidUri, puuid), string.Empty),
-                    GetSummonerByIdAsync = (string id) => dtoFunc(string.Format(_summonerBySummonerIdUri, id), string.Empty)
-                };
-            };
-
-        public record Container
+        public SummonerApi(RiotGamesClient riotGamesClient)
         {
-            /// <summary>
-            /// Get a <see cref="SummonerDto"/> by encrypted account ID.
-            /// </summary>
-            public GetSummonerByAccountIdAsyncFunc GetSummonerByAccountIdAsync { get; init; } = default!;
-            /// <summary>
-            /// Get a <see cref="SummonerDto"/> by summoner name.
-            /// </summary>
-            public GetSummonerByNameAsyncFunc GetSummonerByNameAsync { get; init; } = default!;
-            /// <summary>
-            /// Get a <see cref="SummonerDto"/> by encrypted PUUID.
-            /// </summary>
-            public GetSummonerByPuuidAsyncFunc GetSummonerByPuuidAsync { get; init; } = default!;
-            /// <summary>
-            /// Get a <see cref="SummonerDto"/> by encrypted summoner ID.
-            /// </summary>
-            public GetSummonerByIdAsyncFunc GetSummonerByIdAsync { get; init; } = default!;
-
+            _summonerDtoApi = new(riotGamesClient);
         }
 
-        public delegate Task<SummonerDto> GetSummonerByAccountIdAsyncFunc(string accountId);
-        public delegate Task<SummonerDto> GetSummonerByNameAsyncFunc(string summonerName);
-        public delegate Task<SummonerDto> GetSummonerByPuuidAsyncFunc(string puuid);
-        public delegate Task<SummonerDto> GetSummonerByIdAsyncFunc(string id);
+        /// <summary>
+        /// Get a summoner by encrypted account ID.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public async Task<SummonerDto> GetByAccountIdAsync(string accountId)
+            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerByAccountIdUri, accountId));
+
+        /// <summary>
+        /// Get a summoner by summoner name.
+        /// </summary>
+        /// <param name="summonerName"></param>
+        /// <returns></returns>
+        public async Task<SummonerDto> GetByNameAsync(string summonerName)
+            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerBySummonerNameUri, summonerName));
+
+        /// <summary>
+        /// Get a summoner by encrypted PUUID.
+        /// </summary>
+        /// <param name="puuid"></param>
+        /// <returns></returns>
+        public async Task<SummonerDto> GetByPuuidAsync(string puuid)
+            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerByPuuidUri, puuid));
+
+        /// <summary>
+        /// Get a summoner by encrypted ID.
+        /// </summary>
+        /// <param name="summonerId"></param>
+        /// <returns></returns>
+        public async Task<SummonerDto> GetByIdAsync(string summonerId)
+            => await _summonerDtoApi.GetDtoAsync(string.Format(_summonerBySummonerIdUri, summonerId));
     }
 }
