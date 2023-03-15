@@ -11,6 +11,10 @@ namespace Gwen.Core
 		/// </summary>
 		IAccountApi Account { get; }
 		/// <summary>
+		/// The API for Champion-v3 endpoints.
+		/// </summary>
+		IChampionApi Champion { get; }
+		/// <summary>
 		/// The API for Champion-Mastery-v4 endpoints.
 		/// </summary>
 		IChampionMasteryApi ChampionMastery { get; }
@@ -27,21 +31,25 @@ namespace Gwen.Core
 	internal class RiotCore : IRiotCore
 	{
 		private readonly AccountApi _accountApi;
+		private readonly ChampionApi _championApi;
 		private readonly ChampionMasteryApi _championMasteryApi;
 		private readonly SummonerApi _summonerApi;
 		private readonly PlatformRoute _platformRoute;
 		/// <inheritdoc/>
-		public IAccountApi Account { get { return _accountApi; } }
+		public IAccountApi Account => _accountApi;
 		/// <inheritdoc/>
-		public IChampionMasteryApi ChampionMastery { get { return _championMasteryApi; } }
+		public IChampionApi Champion => _championApi;
 		/// <inheritdoc/>
-		public ISummonerApi Summoner { get { return _summonerApi; } }
+		public IChampionMasteryApi ChampionMastery => _championMasteryApi;
 		/// <inheritdoc/>
-		public PlatformRoute PlatformRoute { get { return _platformRoute; } }
+		public ISummonerApi Summoner => _summonerApi;
+		/// <inheritdoc/>
+		public PlatformRoute PlatformRoute => _platformRoute;
 
 		public RiotCore(RiotGamesClient riotGamesClient, PlatformRoute platformRoute)
 		{
 			_accountApi = new(riotGamesClient);
+			_championApi = new(riotGamesClient);
 			_championMasteryApi = new(riotGamesClient);
 			_summonerApi = new(riotGamesClient);
 			_platformRoute = platformRoute;
