@@ -2,10 +2,20 @@
 
 namespace Gwen.Dto.Champion
 {
-    internal record ChampionInfo
+    public record ChampionInfo
     {
+        /// <summary>
+        /// The maximum level the new player champion rotation is available before unlocking the 
+        /// regular champion rotation.
+        /// </summary>
         public int MaxNewPlayerLevel { get; init; }
+        /// <summary>
+        /// The current free champion rotation pool for new players. See <see cref="ChampionInfo.MaxNewPlayerLevel"/>.
+        /// </summary>
         public ImmutableList<int> FreeChampionIdsForNewPlayers { get; init; } = ImmutableList<int>.Empty;
+        /// <summary>
+        /// The current free champion rotation pool.
+        /// </summary>
         public ImmutableList<int> FreeChampionIds { get; init; } = ImmutableList<int>.Empty;
     }
 }
