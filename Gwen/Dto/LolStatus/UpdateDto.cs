@@ -21,6 +21,10 @@ namespace Gwen.Dto.LolStatus
         /// </summary>
         public ImmutableList<string> PublishLocations { get; init; } = ImmutableList<string>.Empty;
         /// <summary>
+        /// The text translations for update content.
+        /// </summary>
+        public ImmutableList<ContentDto> Translations { get; init; } = ImmutableList<ContentDto>.Empty;
+        /// <summary>
         /// <para>Oofie I don't know what the format is...have an example! :3</para>
         /// <example>2023-01-19T02:14:10.226109+00:00</example>
         /// </summary>
