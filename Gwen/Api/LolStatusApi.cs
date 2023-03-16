@@ -3,7 +3,7 @@ using Gwen.Http;
 
 namespace Gwen.Api
 {
-	public interface ILolStatus
+	public interface ILolStatusApi
 	{
 		/// <summary>
 		/// Get League of Legends status for the current platform.
@@ -12,12 +12,12 @@ namespace Gwen.Api
 		Task<PlatformDataDto> GetPlatformStatus();
 	}
 
-	internal class LolStatus : ILolStatus
+	internal class LolStatusApi : ILolStatusApi
 	{
 		private static readonly string _statusUri = "/lol/status/v4/platform-data";
 		private readonly ComposableApi<PlatformDataDto> _platformDataDtoApi;
 
-		public LolStatus(RiotGamesClient riotGamesClient)
+		public LolStatusApi(RiotGamesClient riotGamesClient)
 		{
 			_platformDataDtoApi = new(riotGamesClient);
 		}

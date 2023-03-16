@@ -29,7 +29,7 @@ namespace Gwen.Core
 		/// <summary>
 		/// The API for Lol-Status-v4 endpoint.
 		/// </summary>
-		ILolStatus LolStatus { get; }
+		ILolStatusApi LolStatus { get; }
 		/// <summary>
 		/// The API for Match-v5 endpoints.
 		/// </summary>
@@ -51,7 +51,7 @@ namespace Gwen.Core
 		private readonly ChampionMasteryApi _championMasteryApi;
 		private readonly ClashApi _clashApi;
 		private readonly LeagueApi _leagueApi;
-		private readonly LolStatus _lolStatusApi;
+		private readonly LolStatusApi _lolStatusApi;
 		private readonly MatchApi _matchApi;
 		private readonly SummonerApi _summonerApi;
 		private readonly PlatformRoute _platformRoute;
@@ -66,7 +66,7 @@ namespace Gwen.Core
 		/// <inheritdoc/>
 		public ILeagueApi League => _leagueApi;
 		/// <inheritdoc/>
-		public ILolStatus LolStatus => _lolStatusApi;
+		public ILolStatusApi LolStatus => _lolStatusApi;
 		public IMatchApi Match => _matchApi;
 		/// <inheritdoc/>
 		public ISummonerApi Summoner => _summonerApi;
