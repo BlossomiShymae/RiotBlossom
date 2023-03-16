@@ -31,6 +31,10 @@ namespace Gwen.Core
 		/// </summary>
 		ILolStatus LolStatus { get; }
 		/// <summary>
+		/// The API for Match-v5 endpoints.
+		/// </summary>
+		IMatchApi Match { get; }
+		/// <summary>
 		/// The platform routing value used for accessing data from.
 		/// </summary>
 		PlatformRoute PlatformRoute { get; }
@@ -48,6 +52,7 @@ namespace Gwen.Core
 		private readonly ClashApi _clashApi;
 		private readonly LeagueApi _leagueApi;
 		private readonly LolStatus _lolStatusApi;
+		private readonly MatchApi _matchApi;
 		private readonly SummonerApi _summonerApi;
 		private readonly PlatformRoute _platformRoute;
 		/// <inheritdoc/>
@@ -62,6 +67,7 @@ namespace Gwen.Core
 		public ILeagueApi League => _leagueApi;
 		/// <inheritdoc/>
 		public ILolStatus LolStatus => _lolStatusApi;
+		public IMatchApi Match => _matchApi;
 		/// <inheritdoc/>
 		public ISummonerApi Summoner => _summonerApi;
 		/// <inheritdoc/>
@@ -75,6 +81,7 @@ namespace Gwen.Core
 			_clashApi = new(riotGamesClient);
 			_leagueApi = new(riotGamesClient);
 			_lolStatusApi = new(riotGamesClient);
+			_matchApi = new(riotGamesClient);
 			_summonerApi = new(riotGamesClient);
 			_platformRoute = platformRoute;
 		}
