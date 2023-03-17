@@ -14,7 +14,8 @@ namespace Gwen.Core.Wrapper
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
 			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
-			return new SimpleWrapper(new RiotCore(riotGamesClient, settings.PlatformRoute));
+			var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
+			return new SimpleWrapper(new RiotCore(riotGamesClient, settings.PlatformRoute), cDragonHttpClient);
 		}
 
 		/// <summary>
@@ -26,11 +27,12 @@ namespace Gwen.Core.Wrapper
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
 			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
+			var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
 			ImmutableDictionary<Type.PlatformRoute, IRiotCore> riot = Enum
 				.GetValues<Type.PlatformRoute>()
 				.Select(platformRoute => (IRiotCore)new RiotCore(riotGamesClient, platformRoute))
 				.ToImmutableDictionary(x => x.PlatformRoute, x => x);
-			return new BlanketWrapper(riot);
+			return new BlanketWrapper(riot, cDragonHttpClient);
 		}
 
 		/// <summary>
