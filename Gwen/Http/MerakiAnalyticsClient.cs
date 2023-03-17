@@ -1,11 +1,15 @@
 ﻿namespace Gwen.Http
 {
-    public static class MerakiAnalyticsClient
+    internal class MerakiAnalyticsClient
     {
-        public static GetAsyncFunc
-            GetAsync(HttpClient client) =>
-            async (uri) => await client.GetAsync($"https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US{uri}");
+        private readonly HttpClient _httpClient;
 
-        public delegate Task<HttpResponseMessage> GetAsyncFunc(string uri);
+        public MerakiAnalyticsClient(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        public async Task<string> GetStringAsync(string uri)
+            => await _httpClient.GetStringAsync($"https://cdn.merakianalytics.com/riot/lol/resources/latest/en-US{uri}");
     }
 }
