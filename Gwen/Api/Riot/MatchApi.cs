@@ -43,7 +43,7 @@ namespace Gwen.Api.Riot
 		private readonly ComposableApi<MatchDto> _matchApi;
 		private readonly ComposableApi<MatchTimelineDto> _matchTimelineApi;
 
-		public MatchApi(RiotGamesClient riotGamesClient)
+		public MatchApi(RiotHttpClient riotGamesClient)
 		{
 			_stringsApi = new(riotGamesClient);
 			_matchApi = new(riotGamesClient);
@@ -54,7 +54,7 @@ namespace Gwen.Api.Riot
 			=> await _stringsApi.GetValueAsync(string.Format(_matchIdsByPuuidUri, puuid));
 
 		public async Task<IEnumerable<string>> ListIdsByPuuidAsync(string puuid, ListIdsByPuuidAsyncOptions parameters)
-			=> await _stringsApi.GetValueAsync(string.Format(_matchIdsByPuuidUri, puuid), PropertiesToQueryConverter.ToQuery(parameters));
+			=> await _stringsApi.GetValueAsync(string.Format(_matchIdsByPuuidUri, puuid) + PropertiesToQueryConverter.ToQuery(parameters));
 
 		public async Task<MatchDto> GetByIdAsync(string id)
 			=> await _matchApi.GetValueAsync(string.Format(_matchByMatchIdUri, id));

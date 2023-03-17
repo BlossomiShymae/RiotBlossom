@@ -50,7 +50,7 @@ namespace Gwen.Api.Riot
 		private readonly ComposableApi<IEnumerable<TournamentDto>> _tournamentDtosApi;
 		private readonly ComposableApi<TournamentDto> _tournamentDtoApi;
 
-		public ClashApi(RiotGamesClient riotGamesClient)
+		public ClashApi(RiotHttpClient riotGamesClient)
 		{
 			_playerDtosApi = new(riotGamesClient);
 			_teamDtoApi = new(riotGamesClient);

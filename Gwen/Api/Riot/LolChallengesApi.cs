@@ -60,7 +60,7 @@ namespace Gwen.Api.Riot
 		private readonly ComposableApi<ImmutableDictionary<string, double>> _challengeThresholdsApi;
 		private readonly ComposableApi<PlayerInfoDto> _playerInfoDtoApi;
 
-		public LolChallengesApi(RiotGamesClient riotGamesClient)
+		public LolChallengesApi(RiotHttpClient riotGamesClient)
 		{
 			_challengeConfigInfoDtosApi = new(riotGamesClient);
 			_challengePercentilesApi = new(riotGamesClient);
@@ -80,7 +80,7 @@ namespace Gwen.Api.Riot
 			=> await _challengeConfigInfoDtoApi.GetValueAsync(string.Format(_challengesConfigForChallengeIdUri, id));
 
 		public async Task<IEnumerable<ApexPlayerInfoDto>> ListApexPlayerInfosAsync(string level, long id, int limit = 0)
-			=> await _apexPlayerInfoDtosApi.GetValueAsync(string.Format(_challengesTopPlayersByChallengeIdAndLevelUri, id, level), limit == 0 ? string.Empty : $"?limit={limit}");
+			=> await _apexPlayerInfoDtosApi.GetValueAsync(string.Format(_challengesTopPlayersByChallengeIdAndLevelUri, id, level) + (limit == 0 ? string.Empty : $"?limit={limit}"));
 
 		public async Task<ImmutableDictionary<string, double>> GetPercentilesByIdAsync(long id)
 			=> await _challengeThresholdsApi.GetValueAsync(string.Format(_challengesPercentilesForChallengeIdUri, id));

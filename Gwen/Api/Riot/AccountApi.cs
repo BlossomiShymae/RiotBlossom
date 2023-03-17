@@ -30,15 +30,13 @@ namespace Gwen.Api.Riot
         private static readonly string _activeShardUri = "/riot/account/v1/active-shards/by-game/{0}/by-puuid/{1}";
         private readonly ComposableApi<AccountDto> _accountDtoApi;
 
-        public AccountApi(RiotGamesClient riotGamesClient)
+        public AccountApi(RiotHttpClient riotGamesClient)
         {
             _accountDtoApi = new(riotGamesClient);
         }
 
-        /// <inheritdoc/>
         public async Task<AccountDto> GetAccountByPuuidAsync(string puuid) => await _accountDtoApi.GetValueAsync(string.Format(_accountByPuuidUri, puuid));
 
-        /// <inheritdoc/>
         public async Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine) => await _accountDtoApi.GetValueAsync(string.Format(_accountByRiotIdUri, gameName, tagLine));
     }
 }

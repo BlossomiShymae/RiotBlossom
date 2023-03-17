@@ -45,24 +45,20 @@ namespace Gwen.Api.Riot
         private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
         private readonly ComposableApi<SummonerDto> _summonerDtoApi;
 
-        public SummonerApi(RiotGamesClient riotGamesClient)
+        public SummonerApi(RiotHttpClient riotGamesClient)
         {
             _summonerDtoApi = new(riotGamesClient);
         }
 
-        /// <inheritdoc/>
         public async Task<SummonerDto> GetByAccountIdAsync(string accountId)
             => await _summonerDtoApi.GetValueAsync(string.Format(_summonerByAccountIdUri, accountId));
 
-        /// <inheritdoc/>
         public async Task<SummonerDto> GetByNameAsync(string summonerName)
             => await _summonerDtoApi.GetValueAsync(string.Format(_summonerBySummonerNameUri, summonerName));
 
-        /// <inheritdoc/>
         public async Task<SummonerDto> GetByPuuidAsync(string puuid)
             => await _summonerDtoApi.GetValueAsync(string.Format(_summonerByPuuidUri, puuid));
 
-        /// <inheritdoc/>
         public async Task<SummonerDto> GetByIdAsync(string summonerId)
             => await _summonerDtoApi.GetValueAsync(string.Format(_summonerBySummonerIdUri, summonerId));
     }

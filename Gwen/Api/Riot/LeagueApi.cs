@@ -57,7 +57,7 @@ namespace Gwen.Api.Riot
 		private readonly ComposableApi<LeagueListDto> _leagueListDtoApi;
 		private readonly ComposableApi<IEnumerable<LeagueEntryDto>> _leagueEntryDtosApi;
 
-		public LeagueApi(RiotGamesClient riotGamesClient)
+		public LeagueApi(RiotHttpClient riotGamesClient)
 		{
 			_leagueListDtoApi = new(riotGamesClient);
 			_leagueEntryDtosApi = new(riotGamesClient);

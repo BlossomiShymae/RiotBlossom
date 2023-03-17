@@ -17,7 +17,7 @@ namespace Gwen.Api.Riot
 		private static readonly string _championRotationsUri = "/lol/platform/v3/champion-rotations";
 		private readonly ComposableApi<IEnumerable<ChampionInfo>> _championInfosApi;
 
-		public ChampionApi(RiotGamesClient riotGamesClient)
+		public ChampionApi(RiotHttpClient riotGamesClient)
 		{
 			_championInfosApi = new(riotGamesClient);
 		}

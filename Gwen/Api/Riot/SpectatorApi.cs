@@ -26,7 +26,7 @@ namespace Gwen.Api.Riot
         private readonly ComposableApi<CurrentGameInfo> _currentGameInfoApi;
         private readonly ComposableApi<FeaturedGames> _featuredGamesApi;
 
-        public SpectatorApi(RiotGamesClient riotGamesClient)
+        public SpectatorApi(RiotHttpClient riotGamesClient)
         {
             _currentGameInfoApi = new(riotGamesClient);
             _featuredGamesApi = new(riotGamesClient);

@@ -77,7 +77,7 @@ namespace Gwen.Core
 		public ISummonerApi Summoner => _summonerApi;
 		public PlatformRoute PlatformRoute => _platformRoute;
 
-		public RiotCore(RiotGamesClient riotGamesClient, PlatformRoute platformRoute)
+		public RiotCore(RiotHttpClient riotGamesClient, PlatformRoute platformRoute)
 		{
 			_accountApi = new(riotGamesClient);
 			_championApi = new(riotGamesClient);

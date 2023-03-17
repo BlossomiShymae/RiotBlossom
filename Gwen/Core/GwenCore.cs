@@ -13,7 +13,7 @@ namespace Gwen.Core
 		public static ISimpleStitch CreateStitch(Settings settings)
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
-			var riotGamesClient = new RiotGamesClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
+			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
 			return new SimpleStitch(new RiotCore(riotGamesClient, settings.PlatformRoute));
 		}
 
@@ -25,7 +25,7 @@ namespace Gwen.Core
 		public static IBlanketStitch CreateBlanketStitch(Settings settings)
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
-			var riotGamesClient = new RiotGamesClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
+			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
 			ImmutableDictionary<Type.PlatformRoute, IRiotCore> riot = Enum
 				.GetValues<Type.PlatformRoute>()
 				.Select(platformRoute => (IRiotCore)new RiotCore(riotGamesClient, platformRoute))

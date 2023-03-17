@@ -49,26 +49,22 @@ namespace Gwen.Api.Riot
 		private readonly ComposableApi<ChampionMasteryDto> _championMasteryDtoApi;
 		private readonly ComposableApi<int> _intApi;
 
-		public ChampionMasteryApi(RiotGamesClient riotGamesClient)
+		public ChampionMasteryApi(RiotHttpClient riotGamesClient)
 		{
 			_championMasteriesDtoApi = new(riotGamesClient);
 			_championMasteryDtoApi = new(riotGamesClient);
 			_intApi = new(riotGamesClient);
 		}
 
-		/// <inheritdoc/>
 		public async Task<IEnumerable<ChampionMasteryDto>> ListBySummonerIdAsync(string summonerId)
 			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesBySummonerId, summonerId));
 
-		/// <inheritdoc/>
 		public async Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(string summonerId, string championId)
 			=> await _championMasteryDtoApi.GetValueAsync(string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId));
 
-		/// <inheritdoc/>
 		public async Task<IEnumerable<ChampionMasteryDto>> ListTopBySummonerIdAsync(string summonerId, int count = 3)
-			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesTopBySummonerId, summonerId), $"?count=${count}");
+			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesTopBySummonerId, summonerId) + $"?count=${count}");
 
-		/// <inheritdoc/>
 		public async Task<int> GetTotalScoreBySummonerIdAsync(string summonerId)
 			=> await _intApi.GetValueAsync(string.Format(_scoresBySummonerId, summonerId));
 	}

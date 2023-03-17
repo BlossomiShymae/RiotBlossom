@@ -17,7 +17,7 @@ namespace Gwen.Api.Riot
         private static readonly string _statusUri = "/lol/status/v4/platform-data";
         private readonly ComposableApi<PlatformDataDto> _platformDataDtoApi;
 
-        public LolStatusApi(RiotGamesClient riotGamesClient)
+        public LolStatusApi(RiotHttpClient riotGamesClient)
         {
             _platformDataDtoApi = new(riotGamesClient);
         }

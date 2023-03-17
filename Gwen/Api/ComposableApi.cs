@@ -5,18 +5,16 @@ namespace Gwen.Api
 {
 	internal class ComposableApi<T>
 	{
-		private readonly RiotGamesClient _riotGamesClient;
+		private readonly IHttpClient _httpClient;
 
-		public ComposableApi(RiotGamesClient riotGamesClient)
+		public ComposableApi(IHttpClient httpClient)
 		{
-			_riotGamesClient = riotGamesClient;
+			_httpClient = httpClient;
 		}
 
-		internal async Task<T> GetValueAsync(string uri) => await GetValueAsync(uri, string.Empty);
-
-		internal async Task<T> GetValueAsync(string uri, string query)
+		internal async Task<T> GetValueAsync(string uri)
 		{
-			string data = await _riotGamesClient.GetStringAsync(uri, query);
+			string data = await _httpClient.GetStringAsync(uri);
 			var options = new JsonSerializerOptions
 			{
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

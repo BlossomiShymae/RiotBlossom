@@ -1,13 +1,13 @@
 ﻿namespace Gwen.Http
 {
-	internal class RiotGamesClient
+	internal class RiotHttpClient : IHttpClient
 	{
 		private readonly HttpClient _httpClient;
 		private readonly string _riotApiKey;
 		private readonly string _routingValue;
 		private readonly XMiddlewares _xMiddlewares;
 
-		public RiotGamesClient(HttpClient httpClient, string riotApiKey, string routingValue, XMiddlewares xMiddlewares)
+		public RiotHttpClient(HttpClient httpClient, string riotApiKey, string routingValue, XMiddlewares xMiddlewares)
 		{
 			_httpClient = httpClient;
 			_riotApiKey = riotApiKey;
@@ -15,10 +15,10 @@
 			_xMiddlewares = xMiddlewares;
 		}
 
-		public async Task<string> GetStringAsync(string uri, string query)
+		public async Task<string> GetStringAsync(string uri)
 		{
 			// Create request message
-			var requestUri = new Uri($"https://{_routingValue}.api.riotgames.com{uri}{query}");
+			var requestUri = new Uri($"https://{_routingValue}.api.riotgames.com{uri}");
 			using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
 			requestMessage.Headers.Add("X-Riot-Token", _riotApiKey);
 
