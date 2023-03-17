@@ -1,8 +1,8 @@
 ﻿namespace Gwen.Dto.CDragon
 {
-	public record ChromaDescription
+	public record ChromaRarity
 	{
 		public string Region { get; init; } = default!;
-		public string Description { get; init; } = default!;
+		public int Rarity { get; init; }
 	}
 }
