@@ -35,6 +35,10 @@ namespace Gwen.Core
 		/// </summary>
 		IMatchApi Match { get; }
 		/// <summary>
+		/// The Api for Spectator-v4 endpoints.
+		/// </summary>
+		ISpectatorApi Spectator { get; }
+		/// <summary>
 		/// The platform routing value used for accessing data from.
 		/// </summary>
 		PlatformRoute PlatformRoute { get; }
@@ -53,6 +57,7 @@ namespace Gwen.Core
 		private readonly LeagueApi _leagueApi;
 		private readonly LolStatusApi _lolStatusApi;
 		private readonly MatchApi _matchApi;
+		private readonly SpectatorApi _spectatorApi;
 		private readonly SummonerApi _summonerApi;
 		private readonly PlatformRoute _platformRoute;
 		/// <inheritdoc/>
@@ -68,6 +73,7 @@ namespace Gwen.Core
 		/// <inheritdoc/>
 		public ILolStatusApi LolStatus => _lolStatusApi;
 		public IMatchApi Match => _matchApi;
+		public ISpectatorApi Spectator => _spectatorApi;
 		/// <inheritdoc/>
 		public ISummonerApi Summoner => _summonerApi;
 		/// <inheritdoc/>
@@ -82,6 +88,7 @@ namespace Gwen.Core
 			_leagueApi = new(riotGamesClient);
 			_lolStatusApi = new(riotGamesClient);
 			_matchApi = new(riotGamesClient);
+			_spectatorApi = new(riotGamesClient);
 			_summonerApi = new(riotGamesClient);
 			_platformRoute = platformRoute;
 		}
