@@ -1,4 +1,4 @@
-﻿using Gwen.Api;
+﻿using Gwen.Api.Riot;
 using Gwen.Http;
 using Gwen.Type;
 

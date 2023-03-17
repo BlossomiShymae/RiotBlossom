@@ -1,7 +1,7 @@
 ﻿using Gwen.Dto.Champion;
 using Gwen.Http;
 
-namespace Gwen.Api
+namespace Gwen.Api.Riot
 {
 	public interface IChampionApi
 	{

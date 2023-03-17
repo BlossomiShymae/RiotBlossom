@@ -2,7 +2,7 @@
 using Gwen.Dto.Match;
 using Gwen.Http;
 
-namespace Gwen.Api
+namespace Gwen.Api.Riot
 {
 	public interface IMatchApi
 	{

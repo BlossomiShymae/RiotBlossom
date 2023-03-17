@@ -2,7 +2,7 @@
 using Gwen.Http;
 using System.Collections.Immutable;
 
-namespace Gwen.Api
+namespace Gwen.Api.Riot
 {
 	public interface ILolChallengesApi
 	{
