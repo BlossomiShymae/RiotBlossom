@@ -14,7 +14,7 @@ namespace Gwen.Api.Tests
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			var gwen = StubClient.BlanketStitch;
+			var gwen = StubClient.BlanketWrapper;
 
 			summoner = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
 		}
@@ -22,7 +22,7 @@ namespace Gwen.Api.Tests
 		[TestMethod()]
 		public async Task Api_WithAccountId_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketStitch;
+			var gwen = StubClient.BlanketWrapper;
 
 			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByAccountIdAsync(summoner.AccountId);
 
@@ -32,7 +32,7 @@ namespace Gwen.Api.Tests
 		[TestMethod()]
 		public async Task Api_WithSummonerName_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketStitch;
+			var gwen = StubClient.BlanketWrapper;
 
 			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
 
@@ -42,7 +42,7 @@ namespace Gwen.Api.Tests
 		[TestMethod()]
 		public async Task Api_WithSummonerPuuid_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketStitch;
+			var gwen = StubClient.BlanketWrapper;
 
 			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByPuuidAsync(summoner.Puuid);
 
@@ -52,7 +52,7 @@ namespace Gwen.Api.Tests
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketStitch;
+			var gwen = StubClient.BlanketWrapper;
 
 			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByIdAsync(summoner.Id);
 

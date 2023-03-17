@@ -2,7 +2,7 @@
 using Gwen.Http;
 using Gwen.Type;
 
-namespace Gwen.Core
+namespace Gwen.Core.Wrapper
 {
 	public interface IRiotCore
 	{
@@ -77,18 +77,18 @@ namespace Gwen.Core
 		public ISummonerApi Summoner => _summonerApi;
 		public PlatformRoute PlatformRoute => _platformRoute;
 
-		public RiotCore(RiotHttpClient riotGamesClient, PlatformRoute platformRoute)
+		public RiotCore(RiotHttpClient riotHttpClient, PlatformRoute platformRoute)
 		{
-			_accountApi = new(riotGamesClient);
-			_championApi = new(riotGamesClient);
-			_championMasteryApi = new(riotGamesClient);
-			_clashApi = new(riotGamesClient);
-			_leagueApi = new(riotGamesClient);
-			_lolChallengesApi = new(riotGamesClient);
-			_lolStatusApi = new(riotGamesClient);
-			_matchApi = new(riotGamesClient);
-			_spectatorApi = new(riotGamesClient);
-			_summonerApi = new(riotGamesClient);
+			_accountApi = new(riotHttpClient);
+			_championApi = new(riotHttpClient);
+			_championMasteryApi = new(riotHttpClient);
+			_clashApi = new(riotHttpClient);
+			_leagueApi = new(riotHttpClient);
+			_lolChallengesApi = new(riotHttpClient);
+			_lolStatusApi = new(riotHttpClient);
+			_matchApi = new(riotHttpClient);
+			_spectatorApi = new(riotHttpClient);
+			_summonerApi = new(riotHttpClient);
 			_platformRoute = platformRoute;
 		}
 	}

@@ -1,28 +1,28 @@
 ﻿using Gwen.Http;
 using System.Collections.Immutable;
 
-namespace Gwen.Core
+namespace Gwen.Core.Wrapper
 {
 	public class GwenCore
 	{
 		/// <summary>
-		/// Create a simple stitch client that is locked to a single platform route.
+		/// Create a simple wrapper client that is locked to a single platform route.
 		/// </summary>
 		/// <param name="settings"></param>
 		/// <returns></returns>
-		public static ISimpleStitch CreateStitch(Settings settings)
+		public static ISimpleWrapper CreateSimpleWrapper(Settings settings)
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
 			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
-			return new SimpleStitch(new RiotCore(riotGamesClient, settings.PlatformRoute));
+			return new SimpleWrapper(new RiotCore(riotGamesClient, settings.PlatformRoute));
 		}
 
 		/// <summary>
-		/// Create a blanket stitch client that is populated for all platform routes.
+		/// Create a blanket wrapper client that is populated for all platform routes.
 		/// </summary>
 		/// <param name="settings"></param>
 		/// <returns></returns>
-		public static IBlanketStitch CreateBlanketStitch(Settings settings)
+		public static IBlanketWrapper CreateBlanketWrapper(Settings settings)
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
 			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
@@ -30,11 +30,11 @@ namespace Gwen.Core
 				.GetValues<Type.PlatformRoute>()
 				.Select(platformRoute => (IRiotCore)new RiotCore(riotGamesClient, platformRoute))
 				.ToImmutableDictionary(x => x.PlatformRoute, x => x);
-			return new BlanketStitch(riot);
+			return new BlanketWrapper(riot);
 		}
 
 		/// <summary>
-		/// The settings used to pass into <see cref="GwenCore.CreateStitch(Settings))"/> or <see cref="GwenCore.CreateBlanketStitch(Settings)"/>."/>
+		/// The settings used to pass into <see cref="CreateSimpleWrapper(Settings))"/> or <see cref="CreateBlanketWrapper(Settings)"/>."/>
 		/// </summary>
 		public record Settings
 		{
