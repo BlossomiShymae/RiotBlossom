@@ -27,6 +27,10 @@ namespace Gwen.Core
 		/// </summary>
 		ILeagueApi League { get; }
 		/// <summary>
+		/// The API for Lol-Challenges-v1 endpoints.
+		/// </summary>
+		ILolChallengesApi LolChallenges { get; }
+		/// <summary>
 		/// The API for Lol-Status-v4 endpoint.
 		/// </summary>
 		ILolStatusApi LolStatus { get; }
@@ -55,28 +59,22 @@ namespace Gwen.Core
 		private readonly ChampionMasteryApi _championMasteryApi;
 		private readonly ClashApi _clashApi;
 		private readonly LeagueApi _leagueApi;
+		private readonly LolChallengesApi _lolChallengesApi;
 		private readonly LolStatusApi _lolStatusApi;
 		private readonly MatchApi _matchApi;
 		private readonly SpectatorApi _spectatorApi;
 		private readonly SummonerApi _summonerApi;
 		private readonly PlatformRoute _platformRoute;
-		/// <inheritdoc/>
 		public IAccountApi Account => _accountApi;
-		/// <inheritdoc/>
 		public IChampionApi Champion => _championApi;
-		/// <inheritdoc/>
 		public IChampionMasteryApi ChampionMastery => _championMasteryApi;
-		/// <inheritdoc/>
 		public IClashApi Clash => _clashApi;
-		/// <inheritdoc/>
 		public ILeagueApi League => _leagueApi;
-		/// <inheritdoc/>
+		public ILolChallengesApi LolChallenges => _lolChallengesApi;
 		public ILolStatusApi LolStatus => _lolStatusApi;
 		public IMatchApi Match => _matchApi;
 		public ISpectatorApi Spectator => _spectatorApi;
-		/// <inheritdoc/>
 		public ISummonerApi Summoner => _summonerApi;
-		/// <inheritdoc/>
 		public PlatformRoute PlatformRoute => _platformRoute;
 
 		public RiotCore(RiotGamesClient riotGamesClient, PlatformRoute platformRoute)
@@ -86,6 +84,7 @@ namespace Gwen.Core
 			_championMasteryApi = new(riotGamesClient);
 			_clashApi = new(riotGamesClient);
 			_leagueApi = new(riotGamesClient);
+			_lolChallengesApi = new(riotGamesClient);
 			_lolStatusApi = new(riotGamesClient);
 			_matchApi = new(riotGamesClient);
 			_spectatorApi = new(riotGamesClient);
