@@ -4,7 +4,7 @@ namespace Gwen.Dto.DDragon.Champion
 {
 	public record Leveltip
 	{
-		public ImmutableDictionary<int, string> Label { get; init; } = ImmutableDictionary<int, string>.Empty;
-		public ImmutableDictionary<int, string> Effect { get; init; } = ImmutableDictionary<int, string>.Empty;
+		public ImmutableList<string> Label { get; init; } = ImmutableList<string>.Empty;
+		public ImmutableList<string> Effect { get; init; } = ImmutableList<string>.Empty;
 	}
 }
