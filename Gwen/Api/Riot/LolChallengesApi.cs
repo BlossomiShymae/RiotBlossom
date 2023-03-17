@@ -1,10 +1,10 @@
-﻿using Gwen.Dto.LolChallenges;
+﻿using Gwen.Dto.Riot.LolChallenges;
 using Gwen.Http;
 using System.Collections.Immutable;
 
 namespace Gwen.Api.Riot
 {
-	public interface ILolChallengesApi
+    public interface ILolChallengesApi
 	{
 		/// <summary>
 		/// Get challenge configuration information by ID.

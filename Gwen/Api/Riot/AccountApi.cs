@@ -1,4 +1,4 @@
-﻿using Gwen.Dto.Account;
+﻿using Gwen.Dto.Riot.Account;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot

@@ -1,4 +1,4 @@
-﻿using Gwen.Dto.Spectator;
+﻿using Gwen.Dto.Riot.Spectator;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot

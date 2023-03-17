@@ -1,10 +1,10 @@
 ﻿using Gwen.Core;
-using Gwen.Dto.Match;
+using Gwen.Dto.Riot.Match;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot
 {
-	public interface IMatchApi
+    public interface IMatchApi
 	{
 		/// <summary>
 		/// Get a match by ID/

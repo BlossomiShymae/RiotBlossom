@@ -1,9 +1,9 @@
-﻿using Gwen.Dto.Champion;
+﻿using Gwen.Dto.Riot.Champion;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot
 {
-	public interface IChampionApi
+    public interface IChampionApi
 	{
 		/// <summary>
 		/// Get the current champion rotation pools.

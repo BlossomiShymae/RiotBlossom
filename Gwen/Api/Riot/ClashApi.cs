@@ -1,9 +1,9 @@
-﻿using Gwen.Dto.Clash;
+﻿using Gwen.Dto.Riot.Clash;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot
 {
-	public interface IClashApi
+    public interface IClashApi
 	{
 		/// <summary>
 		/// Get a clash team by ID.

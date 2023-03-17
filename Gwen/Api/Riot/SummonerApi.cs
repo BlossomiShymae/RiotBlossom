@@ -1,4 +1,4 @@
-﻿using Gwen.Dto.Summoner;
+﻿using Gwen.Dto.Riot.Summoner;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot

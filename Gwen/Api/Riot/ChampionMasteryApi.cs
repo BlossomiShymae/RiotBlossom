@@ -1,9 +1,9 @@
-﻿using Gwen.Dto.ChampionMastery;
+﻿using Gwen.Dto.Riot.ChampionMastery;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot
 {
-	public interface IChampionMasteryApi
+    public interface IChampionMasteryApi
 	{
 		/// <summary>
 		/// Get champion mastery entry by player ID and champion ID.

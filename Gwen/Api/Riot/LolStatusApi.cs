@@ -1,4 +1,4 @@
-﻿using Gwen.Dto.LolStatus;
+﻿using Gwen.Dto.Riot.LolStatus;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot

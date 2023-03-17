@@ -1,9 +1,9 @@
-﻿using Gwen.Dto.League;
+﻿using Gwen.Dto.Riot.League;
 using Gwen.Http;
 
 namespace Gwen.Api.Riot
 {
-	public interface ILeagueApi
+    public interface ILeagueApi
 	{
 		/// <summary>
 		/// Get the challenger league for given queue type.
