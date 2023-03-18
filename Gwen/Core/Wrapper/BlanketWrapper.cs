@@ -18,19 +18,26 @@ namespace Gwen.Core.Wrapper
         /// The raw API for CommunityDragon game data.
         /// </summary>
         ICDragonApi CDragon { get; }
+        /// <summary>
+        /// The raw API for DataDragon game data.
+        /// </summary>
+        IDDragonApi DDragon { get; }
     }
 
     internal class BlanketWrapper : IBlanketWrapper
     {
         private readonly ImmutableDictionary<Type.PlatformRoute, IRiotCore> _riotCoreByPlatform;
         private readonly CDragonApi _cDragonApi;
+        private readonly DDragonApi _dDragonApi;
         public ImmutableDictionary<Type.PlatformRoute, IRiotCore> Riot => _riotCoreByPlatform;
         public ICDragonApi CDragon => _cDragonApi;
+        public IDDragonApi DDragon => _dDragonApi;
 
-        public BlanketWrapper(ImmutableDictionary<Type.PlatformRoute, IRiotCore> riotCoreByPlatform, CDragonHttpClient cDragonHttpClient)
+        public BlanketWrapper(ImmutableDictionary<Type.PlatformRoute, IRiotCore> riotCoreByPlatform, CDragonHttpClient cDragonHttpClient, DDragonHttpClient dDragonHttpClient)
         {
             _riotCoreByPlatform = riotCoreByPlatform;
             _cDragonApi = new(cDragonHttpClient);
+            _dDragonApi = new(dDragonHttpClient);
         }
     }
 }
