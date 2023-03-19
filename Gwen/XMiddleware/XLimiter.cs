@@ -4,14 +4,14 @@ using System.Net.Http.Headers;
 
 namespace Gwen.XMiddleware
 {
-    public class XRateLimiter : IRequestMiddleware, IResponseMiddleware
+    public class XLimiter : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly ConcurrentDictionary<string, XRateLimiterRoute> _headersByRoutingValue = new();
         private static readonly string _appRateLimitKey = "x-app-rate-limit";
         private static readonly string _appRateLimitCountKey = "x-app-rate-limit-count";
         private static readonly string _methodRateLimitKey = "x-method-rate-limit";
         private static readonly string _methodRateLimitCountKey = "x-method-rate-limit-count";
-        public static XRateLimiter Default { get; } = new XRateLimiter();
+        public static XLimiter Default { get; } = new XLimiter();
 
         public async Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {

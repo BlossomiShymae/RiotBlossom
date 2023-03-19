@@ -7,12 +7,12 @@ namespace Gwen.XMiddleware
         public ImmutableArray<IRequestMiddleware> XRequests { get; init; } = new ImmutableArray<IRequestMiddleware>
         {
             XBoundedCache.Default,
-            XRateLimiter.Default
+            XLimiter.Default
         };
         public ImmutableArray<IResponseMiddleware> XResponses { get; init; } = new ImmutableArray<IResponseMiddleware>
         {
             XBoundedCache.Default,
-            XRateLimiter.Default
+            XLimiter.Default
         };
         public IRetryMiddleware XRetry { get; init; } = XMiddleware.XRetry.Default;
     }
