@@ -1,8 +1,10 @@
 ﻿namespace Gwen.XMiddleware
 {
-    public static class XRetry
+    public class XRetry : IRetryMiddleware
     {
-        public static async Task<HttpResponseMessage> UseRetry(Func<Task<HttpResponseMessage>> func)
+        public static XRetry Default { get; } = new XRetry();
+
+        public async Task<HttpResponseMessage> UseRetry(Func<Task<HttpResponseMessage>> resFunc)
         {
             var retryAfterSeconds = 15;
             HttpResponseMessage? responseMessage = null;
@@ -10,7 +12,7 @@
             {
                 try
                 {
-                    responseMessage = await func();
+                    responseMessage = await resFunc();
                 }
                 catch (Exception ex)
                 {

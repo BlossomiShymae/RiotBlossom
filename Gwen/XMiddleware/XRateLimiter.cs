@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 
 namespace Gwen.XMiddleware
 {
-    public static class XRateLimiter
+    public class XRateLimiter : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly ConcurrentDictionary<string, XRateLimiterRoute> _headersByRoutingValue = new();
         private static readonly string _appRateLimitKey = "x-app-rate-limit";
@@ -12,10 +12,10 @@ namespace Gwen.XMiddleware
         private static readonly string _methodRateLimitKey = "x-method-rate-limit";
         private static readonly string _methodRateLimitCountKey = "x-method-rate-limit-count";
 
-        public static async Task UseRequest(XExecuteInfo executeInfo, HttpRequestMessage requestMessage, Action<string> hit, Action next)
+        public async Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
-            var route = _headersByRoutingValue.GetValueOrDefault(executeInfo.RoutingValue, new());
-            var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(executeInfo.MethodUri, new());
+            var route = _headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+            var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
 
             var retryAfterSeconds = route.XAppRetryAfter > method.XMethodRetryAfter ? route.XAppRetryAfter : method.XMethodRetryAfter;
             if (retryAfterSeconds > 0)
@@ -26,10 +26,10 @@ namespace Gwen.XMiddleware
             next();
         }
 
-        public static Task UseResponse(XExecuteInfo executeInfo, HttpResponseMessage responseMessage, Action next)
+        public Task UseResponse(XExecuteInfo info, HttpResponseMessage responseMessage, Action next)
         {
             var xRateLimiterHeaders = ProcessHeaders(responseMessage.Headers);
-            var route = _headersByRoutingValue.GetValueOrDefault(executeInfo.RoutingValue, new());
+            var route = _headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var headersByMethod = route.XRateLimiterHeadersByMethod;
 
             var newMethod = new XRateLimiterMethod
@@ -38,7 +38,7 @@ namespace Gwen.XMiddleware
                 XMethodRateLimitCount = xRateLimiterHeaders.XMethodRateLimitCount,
                 XMethodRetryAfter = xRateLimiterHeaders.XMethodRetryAfterSeconds
             };
-            headersByMethod[executeInfo.MethodUri] = newMethod;
+            headersByMethod[info.MethodUri] = newMethod;
 
             var newRoute = new XRateLimiterRoute
             {
@@ -47,7 +47,7 @@ namespace Gwen.XMiddleware
                 XAppRetryAfter = xRateLimiterHeaders.XAppRetryAfterSeconds,
                 XRateLimiterHeadersByMethod = headersByMethod
             };
-            _headersByRoutingValue[executeInfo.RoutingValue] = newRoute;
+            _headersByRoutingValue[info.RoutingValue] = newRoute;
 
             next();
             return Task.CompletedTask;
@@ -55,12 +55,10 @@ namespace Gwen.XMiddleware
 
         private static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
         {
-            var processHeader = ProcessHeader(headers);
-
-            var appRateLimit = processHeader(_appRateLimitKey);
-            var appRateLimitCount = processHeader(_appRateLimitCountKey);
-            var methodRateLimit = processHeader(_methodRateLimitKey);
-            var methodRateLimitCount = processHeader(_methodRateLimitCountKey);
+            var appRateLimit = ProcessHeader(headers, _appRateLimitKey);
+            var appRateLimitCount = ProcessHeader(headers, _appRateLimitCountKey);
+            var methodRateLimit = ProcessHeader(headers, _methodRateLimitKey);
+            var methodRateLimitCount = ProcessHeader(headers, _methodRateLimitCountKey);
 
             var appRetryAfterSeconds = ProcessRateLimit(appRateLimit, appRateLimitCount);
             var methodRetryAfterSeconds = ProcessRateLimit(methodRateLimit, methodRateLimitCount);
@@ -92,28 +90,24 @@ namespace Gwen.XMiddleware
             return retryAfterSeconds;
         }
 
-        private static ProcessHeaderFunc
-            ProcessHeader(HttpResponseHeaders headers) =>
-            (key) =>
-            {
-                var rateLimitCommaSeperatedString = headers.Get(key);
-                var rateLimitColonSeperatedArray = rateLimitCommaSeperatedString
-                    .Split(',', StringSplitOptions.RemoveEmptyEntries);
+        private static XRateLimiterHeader ProcessHeader(HttpResponseHeaders headers, string key)
+        {
+            var rateLimitCommaSeperatedString = Get(headers, key);
+            var rateLimitColonSeperatedArray = rateLimitCommaSeperatedString
+                .Split(',', StringSplitOptions.RemoveEmptyEntries);
 
-                var rateLimiterArray = rateLimitColonSeperatedArray
-                    .Select(x => x
-                        .Split(':', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(x => int.Parse(x))
-                        .ToImmutableArray())
-                    .Select(x => (x[0], x[1]))
-                    .ToImmutableArray();
+            var rateLimiterArray = rateLimitColonSeperatedArray
+                .Select(x => x
+                    .Split(':', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => int.Parse(x))
+                    .ToImmutableArray())
+                .Select(x => (x[0], x[1]))
+                .ToImmutableArray();
 
-                return new XRateLimiterHeader(rateLimiterArray);
-            };
+            return new XRateLimiterHeader(rateLimiterArray);
+        }
 
-        private delegate XRateLimiterHeader ProcessHeaderFunc(string key);
-
-        public static string Get(this HttpResponseHeaders headers, string key)
+        private static string Get(HttpResponseHeaders headers, string key)
         {
             var value = headers.GetValues(key).FirstOrDefault();
             if (value == null)
