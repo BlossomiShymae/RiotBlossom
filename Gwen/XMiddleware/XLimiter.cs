@@ -79,7 +79,12 @@ namespace Gwen.XMiddleware
 
             var appRetryAfterSeconds = ProcessRateLimit(appRateLimit, appRateLimitCount);
             var methodRetryAfterSeconds = ProcessRateLimit(methodRateLimit, methodRateLimitCount);
-            var retryAfterSeconds = int.Parse(ExtractHeader(headers, _retryAfterKey));
+            int retryAfterSeconds = 0;
+            try
+            {
+                retryAfterSeconds = int.Parse(ExtractHeader(headers, _retryAfterKey));
+            }
+            catch (InvalidOperationException) { }
 
             return new XRateLimiterHeaders
             {
