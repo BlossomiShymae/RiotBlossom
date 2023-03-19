@@ -13,10 +13,12 @@
                 try
                 {
                     responseMessage = await resFunc();
+                    if ((int)responseMessage.StatusCode == 429)
+                        throw new HttpRequestException(responseMessage.ReasonPhrase, null, System.Net.HttpStatusCode.TooManyRequests);
                 }
                 catch (Exception ex)
                 {
-                    Console.Error.WriteLine(ex);
+                    throw new SystemException(ex.Message);
                 }
                 retryAfterSeconds *= 2;
                 if (responseMessage != null)
