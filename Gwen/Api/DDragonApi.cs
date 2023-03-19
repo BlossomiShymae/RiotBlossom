@@ -1,5 +1,6 @@
 ﻿using Gwen.Dto.CDragon.Item;
 using Gwen.Dto.DDragon.Champion;
+using Gwen.Dto.DDragon.Perk;
 using Gwen.Http;
 using System.Collections.Immutable;
 using System.Text.Json.Nodes;
@@ -40,6 +41,20 @@ namespace Gwen.Api
 		/// <returns></returns>
 		Task<string> GetLatestVersionAsync();
 		/// <summary>
+		/// Get a League perk style by ID from version.
+		/// </summary>
+		/// <param name="version"></param>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		Task<PerkStyle> GetPerkStyleByIdAsync(string version, int id);
+		/// <summary>
+		/// Get a dictionary of League perk style by ID from version.
+		/// </summary>
+		/// <param name="version"></param>
+		/// <returns></returns>
+		Task<ImmutableDictionary<int, PerkStyle>> GetPerkStyleDictionaryAsync(string version);
+
+		/// <summary>
 		/// List all League game versions.
 		/// </summary>
 		/// <returns></returns>
@@ -51,13 +66,16 @@ namespace Gwen.Api
 		private static readonly string s_championFullJsonUri = "/cdn/{0}/data/en_US/championFull.json";
 		private static readonly string s_itemJsonUri = "/cdn/{0}/data/en_US/item.json";
 		private static readonly string s_versionsJsonUri = "/api/versions.json";
+		private static readonly string s_runesReforgedJsonUri = "/cdn/{0}/data/en_US/runesReforged.json";
 		private readonly ComposableApi<JsonNode> _jsonNodeApi;
 		private readonly ComposableApi<IEnumerable<string>> _versionsApi;
+		private readonly ComposableApi<IEnumerable<PerkStyle>> _perkStylesApi;
 
 		public DDragonApi(DDragonHttpClient dDragonHttpClient)
 		{
 			_jsonNodeApi = new(dDragonHttpClient);
 			_versionsApi = new(dDragonHttpClient);
+			_perkStylesApi = new(dDragonHttpClient);
 		}
 
 		public async Task<string> GetLatestVersionAsync()
@@ -85,6 +103,16 @@ namespace Gwen.Api
 			JsonNode node = await _jsonNodeApi.GetValueAsync(string.Format(s_itemJsonUri, version));
 			ImmutableDictionary<int, Item> items = node["data"]?.GetValue<ImmutableDictionary<int, Item>>() ?? ImmutableDictionary<int, Item>.Empty;
 			return items;
+		}
+
+		public async Task<PerkStyle> GetPerkStyleByIdAsync(string version, int id)
+			=> (await GetPerkStyleDictionaryAsync(version))[id];
+
+		public async Task<ImmutableDictionary<int, PerkStyle>> GetPerkStyleDictionaryAsync(string version)
+		{
+			IEnumerable<PerkStyle> perkStyles = await _perkStylesApi.GetValueAsync(string.Format(s_runesReforgedJsonUri, version));
+			return perkStyles
+				.ToImmutableDictionary(k => k.Id, v => v);
 		}
 	}
 }
