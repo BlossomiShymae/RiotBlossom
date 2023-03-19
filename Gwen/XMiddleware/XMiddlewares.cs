@@ -4,12 +4,12 @@ namespace Gwen.XMiddleware
 {
     public record XMiddlewares
     {
-        public ImmutableArray<IRequestMiddleware> XRequests { get; init; } = ImmutableArray.Create<IRequestMiddleware>(new IRequestMiddleware[]
+        public ImmutableArray<IRequestMiddleware> XRequests { get; init; } = ImmutableArray.Create(new IRequestMiddleware[]
         {
             XMemoryCache.Default,
             XLimiter.Default
         });
-        public ImmutableArray<IResponseMiddleware> XResponses { get; init; } = ImmutableArray.Create<IResponseMiddleware>(new IResponseMiddleware[]
+        public ImmutableArray<IResponseMiddleware> XResponses { get; init; } = ImmutableArray.Create(new IResponseMiddleware[]
         {
             XMemoryCache.Default,
             XLimiter.Default
