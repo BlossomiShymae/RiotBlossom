@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Net.Http.Headers;
 
-namespace Gwen.Http
+namespace Gwen.XMiddleware
 {
     public static class XRateLimiter
     {

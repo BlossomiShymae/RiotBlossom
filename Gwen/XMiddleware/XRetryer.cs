@@ -1,4 +1,4 @@
-﻿namespace Gwen.Http
+﻿namespace Gwen.XMiddleware
 {
     public static class XRetry
     {

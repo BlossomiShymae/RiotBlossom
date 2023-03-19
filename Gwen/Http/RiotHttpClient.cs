@@ -1,6 +1,8 @@
-﻿namespace Gwen.Http
+﻿using Gwen.XMiddleware;
+
+namespace Gwen.Http
 {
-	internal class RiotHttpClient : IHttpClient
+    internal class RiotHttpClient : IHttpClient
 	{
 		private readonly HttpClient _httpClient;
 		private readonly string _riotApiKey;

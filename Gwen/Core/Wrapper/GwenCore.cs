@@ -1,9 +1,10 @@
 ﻿using Gwen.Http;
+using Gwen.XMiddleware;
 using System.Collections.Immutable;
 
 namespace Gwen.Core.Wrapper
 {
-	public class GwenCore
+    public class GwenCore
 	{
 		/// <summary>
 		/// Create a simple wrapper client that is locked to a single platform route.
@@ -55,7 +56,7 @@ namespace Gwen.Core.Wrapper
 			/// </summary>
 			public Type.PlatformRoute PlatformRoute { get; init; } = Type.PlatformRoute.NorthAmerica;
 			/// <summary>
-			/// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="Http.XMiddlewares"/>.
+			/// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="XMiddleware.XMiddlewares"/>.
 			/// </summary>
 			public XMiddlewares XMiddlewares { get; init; } = new();
 		}

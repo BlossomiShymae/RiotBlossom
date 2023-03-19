@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Gwen.Http
+namespace Gwen.XMiddleware
 {
     public static class XBoundedCache
     {
@@ -31,7 +31,7 @@ namespace Gwen.Http
         public static async Task UseResponse(XExecuteInfo executeInfo, HttpResponseMessage responseMessage, Action next)
         {
 
-            String key = responseMessage.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
+            string key = responseMessage.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
             if (!string.IsNullOrEmpty(key) && responseMessage.IsSuccessStatusCode)
             {
                 // When cache is too big, play Mario Party dice block and remove a key-value item from it to make room! >w<
