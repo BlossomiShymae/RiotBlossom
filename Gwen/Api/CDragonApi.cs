@@ -1,5 +1,6 @@
 ﻿using Gwen.Dto.CDragon.Champion;
 using Gwen.Dto.CDragon.Item;
+using Gwen.Dto.CDragon.Perk;
 using Gwen.Http;
 using System.Collections.Immutable;
 
@@ -24,19 +25,33 @@ namespace Gwen.Api
 		/// </summary>
 		/// <returns></returns>
 		Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync();
+		/// <summary>
+		/// Get a League perk by ID from the latest game data;
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		Task<PerkRune> GetPerkRuneByIdAsync(int id);
+		/// <summary>
+		/// Get a dictionary of League perks by ID pairs from the latest game data.
+		/// </summary>
+		/// <returns></returns>
+		Task<ImmutableDictionary<int, PerkRune>> GetPerkRuneDictionaryAsync();
 	}
 
 	internal class CDragonApi : ICDragonApi
 	{
 		private static readonly string _itemsJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json";
 		private static readonly string _championByIdJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/{0}.json";
+		private static readonly string _perksJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json";
 		private readonly ComposableApi<IEnumerable<Item>> _itemsApi;
 		private readonly ComposableApi<Champion> _championApi;
+		private readonly ComposableApi<IEnumerable<PerkRune>> _perkRunesApi;
 
 		public CDragonApi(CDragonHttpClient cDragonHttpClient)
 		{
 			_itemsApi = new(cDragonHttpClient);
 			_championApi = new(cDragonHttpClient);
+			_perkRunesApi = new(cDragonHttpClient);
 		}
 
 		public async Task<Item?> GetItemByIdAsync(int id)
@@ -49,6 +64,16 @@ namespace Gwen.Api
 		{
 			IEnumerable<Item> items = await _itemsApi.GetValueAsync(_itemsJsonUri);
 			return items
+				.ToImmutableDictionary(k => k.Id, v => v);
+		}
+
+		public async Task<PerkRune> GetPerkRuneByIdAsync(int id)
+			=> (await GetPerkRuneDictionaryAsync())[id];
+
+		public async Task<ImmutableDictionary<int, PerkRune>> GetPerkRuneDictionaryAsync()
+		{
+			IEnumerable<PerkRune> perkRunes = await _perkRunesApi.GetValueAsync(_perksJsonUri);
+			return perkRunes
 				.ToImmutableDictionary(k => k.Id, v => v);
 		}
 	}
