@@ -53,7 +53,13 @@ namespace Gwen.Api
 		/// <param name="version"></param>
 		/// <returns></returns>
 		Task<ImmutableDictionary<int, PerkStyle>> GetPerkStyleDictionaryAsync(string version);
-
+		/// <summary>
+		/// Get the byte array of a League profile icon by ID from version.
+		/// </summary>
+		/// <param name="version"></param>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		Task<byte[]> GetProfileIconByteArrayByIdAsync(string version, int id);
 		/// <summary>
 		/// List all League game versions.
 		/// </summary>
@@ -67,15 +73,18 @@ namespace Gwen.Api
 		private static readonly string s_itemJsonUri = "/cdn/{0}/data/en_US/item.json";
 		private static readonly string s_versionsJsonUri = "/api/versions.json";
 		private static readonly string s_runesReforgedJsonUri = "/cdn/{0}/data/en_US/runesReforged.json";
+		private static readonly string s_profileIconUri = "/cdn/{0}/img/profileicon/{1}.png";
 		private readonly ComposableApi<JsonNode> _jsonNodeApi;
 		private readonly ComposableApi<IEnumerable<string>> _versionsApi;
 		private readonly ComposableApi<IEnumerable<PerkStyle>> _perkStylesApi;
+		private readonly ComposableApi<byte[]> _byteArrayApi;
 
 		public DDragonApi(DDragonHttpClient dDragonHttpClient)
 		{
 			_jsonNodeApi = new(dDragonHttpClient);
 			_versionsApi = new(dDragonHttpClient);
 			_perkStylesApi = new(dDragonHttpClient);
+			_byteArrayApi = new(dDragonHttpClient);
 		}
 
 		public async Task<string> GetLatestVersionAsync()
@@ -114,5 +123,8 @@ namespace Gwen.Api
 			return perkStyles
 				.ToImmutableDictionary(k => k.Id, v => v);
 		}
+
+		public async Task<byte[]> GetProfileIconByteArrayByIdAsync(string version, int id)
+			=> await _byteArrayApi.GetValueAsync(string.Format(s_profileIconUri, version, id));
 	}
 }
