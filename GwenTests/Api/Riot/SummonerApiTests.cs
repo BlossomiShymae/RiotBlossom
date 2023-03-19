@@ -1,8 +1,8 @@
 ﻿using Gwen.Dto.Riot.Summoner;
-using GwenTests;
+using Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Gwen.Api.Tests
+namespace GwenTests.Api.Riot
 {
 	[TestClass()]
 	public class SummonerApiTests
@@ -16,7 +16,7 @@ namespace Gwen.Api.Tests
 		{
 			var gwen = StubClient.BlanketWrapper;
 
-			summoner = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
+			summoner = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
 		}
 
 		[TestMethod()]
@@ -24,7 +24,7 @@ namespace Gwen.Api.Tests
 		{
 			var gwen = StubClient.BlanketWrapper;
 
-			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByAccountIdAsync(summoner.AccountId);
+			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByAccountIdAsync(summoner.AccountId);
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
@@ -34,7 +34,7 @@ namespace Gwen.Api.Tests
 		{
 			var gwen = StubClient.BlanketWrapper;
 
-			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
+			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
@@ -44,7 +44,7 @@ namespace Gwen.Api.Tests
 		{
 			var gwen = StubClient.BlanketWrapper;
 
-			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByPuuidAsync(summoner.Puuid);
+			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByPuuidAsync(summoner.Puuid);
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
@@ -54,7 +54,7 @@ namespace Gwen.Api.Tests
 		{
 			var gwen = StubClient.BlanketWrapper;
 
-			var summonerDto = await gwen.Riot[Type.PlatformRoute.NorthAmerica].Summoner.GetByIdAsync(summoner.Id);
+			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByIdAsync(summoner.Id);
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
