@@ -1,11 +1,11 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Runtime.Caching;
 
 namespace Gwen.XMiddleware
 {
-	public class XBoundedCache : IRequestMiddleware, IResponseMiddleware
+	public class XMemoryCache : IRequestMiddleware, IResponseMiddleware
 	{
-		private static readonly ConcurrentDictionary<string, string> _cache = new();
-		public static XBoundedCache Default { get; } = new XBoundedCache();
+		private static readonly MemoryCache s_cache = MemoryCache.Default;
+		public static XMemoryCache Default { get; } = new XMemoryCache();
 
 		public Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
 		{
@@ -15,7 +15,7 @@ namespace Gwen.XMiddleware
 			{
 				try
 				{
-					var res = _cache[key];
+					var res = (string)s_cache[key];
 					if (res != null)
 					{
 						isHit = true;
@@ -31,19 +31,25 @@ namespace Gwen.XMiddleware
 
 		public async Task UseResponse(XExecuteInfo info, HttpResponseMessage res, Action next)
 		{
+
 			string key = res.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
 			if (!string.IsNullOrEmpty(key) && res.IsSuccessStatusCode)
 			{
 				// When cache is too big, play Mario Party dice block and remove a key-value item from it to make room! >w<
-				if (_cache.Count > 1000)
+				if (s_cache.GetCount() > 1000)
 				{
-					var item = _cache.ElementAt(Random.Shared.Next(0, _cache.Count - 1));
-					_cache.Remove(item.Key, out _);
+					var item = s_cache.ElementAt(Random.Shared.Next(0, (int)s_cache.GetCount() - 1));
+					s_cache.Remove(item.Key);
 				}
 
 				if (res.IsSuccessStatusCode)
 				{
-					_cache[key] = await res.Content.ReadAsStringAsync();
+					string data = await res.Content.ReadAsStringAsync();
+					s_cache.Add(key, data, new CacheItemPolicy
+					{
+						AbsoluteExpiration = DateTimeOffset.Now.AddHours(6)
+					});
+					s_cache[key] = await res.Content.ReadAsStringAsync();
 				}
 			}
 			next();
