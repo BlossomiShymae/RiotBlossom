@@ -1,17 +1,18 @@
 ﻿using Gwen.Dto.CDragon.Champion;
 using Gwen.Dto.CDragon.Item;
 using Gwen.Http;
+using System.Collections.Immutable;
 
 namespace Gwen.Api
 {
 	public interface ICDragonApi
 	{
 		/// <summary>
-		/// Get a League champion from the latest game data.
+		/// Get a League champion by ID from the latest game data.
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<Champion> GetChampionAsync(int id);
+		Task<Champion> GetChampionByIdAsync(int id);
 		/// <summary>
 		/// Get a League shop item by ID from the latest game data.
 		/// </summary>
@@ -19,10 +20,10 @@ namespace Gwen.Api
 		/// <returns></returns>
 		Task<Item?> GetItemByIdAsync(int id);
 		/// <summary>
-		/// List all League shop items from the latest game data.
+		/// Get a dictionary of League shop item by ID pairs from the latest game data.
 		/// </summary>
 		/// <returns></returns>
-		Task<IEnumerable<Item>> ListItemsAsync();
+		Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync();
 	}
 
 	internal class CDragonApi : ICDragonApi
@@ -38,15 +39,17 @@ namespace Gwen.Api
 			_championApi = new(cDragonHttpClient);
 		}
 
-		public async Task<IEnumerable<Item>> ListItemsAsync()
-			=> await _itemsApi.GetValueAsync(_itemsJsonUri);
-
 		public async Task<Item?> GetItemByIdAsync(int id)
-			=> (await ListItemsAsync())
-				.Where(x => x.Id == id)
-				.FirstOrDefault();
+			=> (await GetItemDictionaryAsync())[id];
 
-		public async Task<Champion> GetChampionAsync(int id)
+		public async Task<Champion> GetChampionByIdAsync(int id)
 			=> await _championApi.GetValueAsync(string.Format(_championByIdJsonUri, id));
+
+		public async Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync()
+		{
+			IEnumerable<Item> items = await _itemsApi.GetValueAsync(_itemsJsonUri);
+			return items
+				.ToImmutableDictionary(k => k.Id, v => v);
+		}
 	}
 }
