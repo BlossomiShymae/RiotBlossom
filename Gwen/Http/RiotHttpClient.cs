@@ -2,7 +2,7 @@
 
 namespace Gwen.Http
 {
-    internal class RiotHttpClient : IHttpClient
+	internal class RiotHttpClient : IHttpClient
 	{
 		private readonly HttpClient _httpClient;
 		private readonly string _riotApiKey;
@@ -45,7 +45,7 @@ namespace Gwen.Http
 			foreach (var requestMiddleware in _xMiddlewares.XRequests)
 			{
 				isNext = false;
-				await requestMiddleware.Invoke(xExecuteInfo, requestMessage, hit, next);
+				await requestMiddleware.UseRequest(xExecuteInfo, requestMessage, next, hit);
 				if (!isNext)
 					break;
 			}
@@ -53,13 +53,13 @@ namespace Gwen.Http
 				return data;
 
 			// Use retry middleware, if any
-			var res = await _xMiddlewares.XRetry.Invoke(async () => await _httpClient.SendAsync(requestMessage));
+			var res = await _xMiddlewares.XRetry.UseRetry(async () => await _httpClient.SendAsync(requestMessage));
 
 			// Use response middlewares, if any
 			foreach (var responseMiddleware in _xMiddlewares.XResponses)
 			{
 				isNext = false;
-				await responseMiddleware.Invoke(xExecuteInfo, res, next);
+				await responseMiddleware.UseResponse(xExecuteInfo, res, next);
 				if (!isNext)
 					break;
 			}
