@@ -6,7 +6,7 @@
         /// The number of points needed to achieve next mastery level. Zero when player has reached
         /// the maximum level.
         /// </summary>
-        public string ChampionPointsUntilNextLevel { get; init; } = default!;
+        public long ChampionPointsUntilNextLevel { get; init; } = default!;
         /// <summary>
         /// If hextech chest was earned in the current patch season.
         /// </summary>
