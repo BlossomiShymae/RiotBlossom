@@ -1,6 +1,5 @@
 ﻿using Gwen.Core.Wrapper;
 using Gwen.Dto.Riot.Account;
-using Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GwenTests.Api.Riot
@@ -13,17 +12,17 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			account = await gwen.Riot.Account.GetAccountByRiotIdAsync(RegionalRoute.Americas, "uwuie time", "NA1");
+			account = await gwen.Riot.Account.GetAccountByRiotIdAsync(StubConfig.SummonerRegion, StubConfig.SummonerName, StubConfig.SummonerTagLine);
 		}
 
 		[TestMethod()]
 		public async Task Api_WithPuuid_ShouldReturnAccountDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			AccountDto dto = await gwen.Riot.Account.GetAccountByPuuidAsync(RegionalRoute.Americas, account.Puuid);
+			AccountDto dto = await gwen.Riot.Account.GetAccountByPuuidAsync(StubConfig.SummonerRegion, account.Puuid);
 
 			Assert.IsInstanceOfType(dto, typeof(AccountDto));
 		}
@@ -31,9 +30,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithRiotId_ShouldReturnAccountDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			AccountDto dto = await gwen.Riot.Account.GetAccountByRiotIdAsync(RegionalRoute.Americas, "uwuie time", "NA1");
+			AccountDto dto = await gwen.Riot.Account.GetAccountByRiotIdAsync(StubConfig.SummonerRegion, StubConfig.SummonerName, StubConfig.SummonerTagLine);
 
 			Assert.IsInstanceOfType(dto, typeof(AccountDto));
 		}

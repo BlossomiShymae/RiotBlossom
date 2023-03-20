@@ -1,7 +1,6 @@
 ﻿using Gwen.Core.Wrapper;
 using Gwen.Dto.Riot.Match;
 using Gwen.Dto.Riot.Summoner;
-using Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.ObjectModel;
 
@@ -16,18 +15,18 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			summoner = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
-			matchId = (await gwen.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid)).First();
+			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
+			matchId = (await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid)).First();
 		}
 
 		[TestMethod()]
 		public async Task Api_WithSummonerPuuid_ShouldReturnMatchIdCollection()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid);
+			ReadOnlyCollection<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid);
 
 			Assert.IsInstanceOfType(ids, typeof(ReadOnlyCollection<string>));
 		}
@@ -35,9 +34,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnMatchDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			MatchDto dto = await gwen.Riot.Match.GetByIdAsync(RegionalRoute.Americas, matchId);
+			MatchDto dto = await gwen.Riot.Match.GetByIdAsync(StubConfig.SummonerRegion, matchId);
 
 			Assert.IsInstanceOfType(dto, typeof(MatchDto));
 		}
@@ -45,9 +44,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnMatchTimelineDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			MatchTimelineDto dto = await gwen.Riot.Match.GetTimelineByIdAsync(RegionalRoute.Americas, matchId);
+			MatchTimelineDto dto = await gwen.Riot.Match.GetTimelineByIdAsync(StubConfig.SummonerRegion, matchId);
 
 			Assert.IsInstanceOfType(dto, typeof(MatchTimelineDto));
 		}

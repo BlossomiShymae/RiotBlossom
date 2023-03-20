@@ -15,15 +15,15 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			summoner = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
+			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 		}
 
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnPercentiles()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			ImmutableDictionary<string, ImmutableDictionary<string, double>> percentiles = await gwen.Riot.LolChallenges.GetPercentilesAsync(PlatformRoute.NorthAmerica);
 
@@ -33,7 +33,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnChallengeConfigInfoDtoCollection()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			ImmutableList<ChallengeConfigInfoDto> dtoCollection = await gwen.Riot.LolChallenges.ListConfigInfosAsync(PlatformRoute.NorthAmerica);
 
@@ -43,7 +43,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnChallengeConfigDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			ChallengeConfigInfoDto dto = await gwen.Riot.LolChallenges.GetConfigInfoByIdAsync(PlatformRoute.NorthAmerica, 301200);
 
@@ -53,7 +53,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnPercentiles()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			ImmutableDictionary<string, double> percentiles = await gwen.Riot.LolChallenges.GetPercentilesByIdAsync(PlatformRoute.NorthAmerica, 301200);
 
@@ -63,9 +63,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerPuuid_ShouldReturnPlayerInfoDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			PlayerInfoDto dto = await gwen.Riot.LolChallenges.GetPlayerInfoByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
+			PlayerInfoDto dto = await gwen.Riot.LolChallenges.GetPlayerInfoByPuuidAsync(StubConfig.SummonerPlatform, summoner.Puuid);
 
 			Assert.IsInstanceOfType(dto, typeof(PlayerInfoDto));
 		}
@@ -73,7 +73,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnApexPlayerInfoDtoCollection()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			ImmutableList<ApexPlayerInfoDto> dtoCollection = await gwen.Riot.LolChallenges.ListApexPlayerInfosAsync(PlatformRoute.NorthAmerica, ChallengeLevel.Grandmaster, 2022018);
 

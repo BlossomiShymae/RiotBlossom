@@ -15,15 +15,15 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			summoner = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
+			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 		}
 
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnTournamentDtoCollection()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			ReadOnlyCollection<TournamentDto> dtoCollection = await gwen.Riot.Clash.ListActiveTournamentsAsync(PlatformRoute.NorthAmerica);
 
@@ -33,9 +33,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnPlayerDtoCollection()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<PlayerDto> dtoCollection = await gwen.Riot.Clash.ListPlayersBySummonerIdAsync(PlatformRoute.NorthAmerica, summoner.Id);
+			ReadOnlyCollection<PlayerDto> dtoCollection = await gwen.Riot.Clash.ListPlayersBySummonerIdAsync(StubConfig.SummonerPlatform, summoner.Id);
 
 			Assert.IsInstanceOfType(dtoCollection, typeof(ReadOnlyCollection<PlayerDto>));
 		}

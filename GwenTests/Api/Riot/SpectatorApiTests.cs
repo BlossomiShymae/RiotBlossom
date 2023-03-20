@@ -14,19 +14,19 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			summoner = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
+			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 		}
 
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnCurrentGameInfo()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			try
 			{
-				CurrentGameInfo info = await gwen.Riot.Spectator.GetCurrentGameInfoBySummonerIdAsync(PlatformRoute.NorthAmerica, summoner.Id);
+				CurrentGameInfo info = await gwen.Riot.Spectator.GetCurrentGameInfoBySummonerIdAsync(StubConfig.SummonerPlatform, summoner.Id);
 
 				Assert.IsInstanceOfType(info, typeof(CurrentGameInfo));
 			}
@@ -45,7 +45,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnFeaturedGames()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			FeaturedGames games = await gwen.Riot.Spectator.GetFeaturedGamesAsync(PlatformRoute.NorthAmerica);
 

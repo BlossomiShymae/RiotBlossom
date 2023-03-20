@@ -11,7 +11,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnPlatformDataDto()
 		{
-			ISimpleWrapper gwen = StubClient.SimpleWrapper;
+			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
 			PlatformDataDto dto = await gwen.Riot.LolStatus.GetPlatformStatusAsync(PlatformRoute.NorthAmerica);
 
