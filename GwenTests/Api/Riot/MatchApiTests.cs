@@ -1,6 +1,8 @@
 ﻿using Gwen.Core.Wrapper;
 using Gwen.Dto.Riot.Match;
 using Gwen.Dto.Riot.Summoner;
+using Gwen.PException;
+using Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Immutable;
 
@@ -11,6 +13,8 @@ namespace GwenTests.Api.Riot
 	{
 		public static SummonerDto summoner = default!;
 		public static string matchId = default!;
+		public static RegionalRoute corruptedMatchRegion = RegionalRoute.Americas;
+		public static string corruptedMatchId = "LA1_1364255918";
 
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
@@ -19,6 +23,24 @@ namespace GwenTests.Api.Riot
 
 			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 			matchId = (await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid)).First();
+		}
+
+		[TestMethod()]
+		[ExpectedException(typeof(GwenCorruptedMatchException))]
+		public async Task Api_WithCorruptedMatchId_ShouldThrowExceptionForMatchDto()
+		{
+			IGwenClient gwen = StubConfig.Gwen;
+
+			MatchDto dto = await gwen.Riot.Match.GetByIdAsync(corruptedMatchRegion, corruptedMatchId);
+		}
+
+		[TestMethod()]
+		[ExpectedException(typeof(GwenCorruptedMatchException))]
+		public async Task Api_WithCorruptedMatchId_ShouldThrowExceptionForMatchTimelineDto()
+		{
+			IGwenClient gwen = StubConfig.Gwen;
+
+			MatchTimelineDto dto = await gwen.Riot.Match.GetTimelineByIdAsync(corruptedMatchRegion, corruptedMatchId);
 		}
 
 		[TestMethod()]

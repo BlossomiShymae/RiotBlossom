@@ -1,7 +1,7 @@
 ﻿using Gwen.Core;
 using Gwen.Dto.Riot.Match;
-using Gwen.Exception;
 using Gwen.Http;
+using Gwen.PException;
 using Gwen.Type;
 using System.Collections.Immutable;
 
