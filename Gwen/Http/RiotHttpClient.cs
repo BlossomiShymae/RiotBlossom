@@ -35,9 +35,25 @@ namespace Gwen.Http
 			return data;
 		}
 
+		public async Task<string> GetStringAsync(string routingValue, string uri)
+		{
+			Uri requestUri = new($"https://{routingValue}.api.riotgames.com{uri}");
+			using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+			requestMessage.Headers.Add("X-Riot-Token", _riotApiKey);
+
+			var info = new XExecuteInfo
+			{
+				RoutingValue = _routingValue,
+				MethodUri = uri,
+			};
+
+			string data = await ProcessXMiddlewaresAsync(info, requestMessage);
+			return data;
+		}
+
 		private async Task<string> ProcessXMiddlewaresAsync(XExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)
 		{
-			// Use request middlewares, if any
+			// Use requestUri middlewares, if any
 			string? data = null;
 			void hit(string value) => data = value;
 			bool isNext = false;
