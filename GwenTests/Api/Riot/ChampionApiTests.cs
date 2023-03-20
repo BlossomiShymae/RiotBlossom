@@ -9,7 +9,7 @@ namespace GwenTests.Api.Riot
 	public class ChampionApiTests
 	{
 		[TestMethod()]
-		public async Task Api_ByDefault_ShouldReturnChampionInfoEnumerable()
+		public async Task Api_ByDefault_ShouldReturnChampionInfo()
 		{
 			ISimpleWrapper gwen = StubClient.SimpleWrapper;
 
