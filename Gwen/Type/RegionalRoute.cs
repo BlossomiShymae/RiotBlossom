@@ -1,6 +1,6 @@
 ﻿namespace Gwen.Type
 {
-    internal enum RegionalRoute
+    public enum RegionalRoute
     {
         Americas,
         Asia,

@@ -2,7 +2,7 @@
 
 namespace Gwen.Core
 {
-    internal static class RegionRouteMapper
+    public static class RegionRouteMapper
     {
         private static readonly ImmutableDictionary<Type.RegionalRoute, string> _regionByRoute =
             new Dictionary<Type.RegionalRoute, string>

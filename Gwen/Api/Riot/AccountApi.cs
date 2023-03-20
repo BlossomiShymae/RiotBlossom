@@ -1,5 +1,7 @@
-﻿using Gwen.Dto.Riot.Account;
+﻿using Gwen.Core;
+using Gwen.Dto.Riot.Account;
 using Gwen.Http;
+using Gwen.Type;
 
 namespace Gwen.Api.Riot
 {
@@ -10,7 +12,7 @@ namespace Gwen.Api.Riot
         /// </summary>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        Task<AccountDto> GetAccountByPuuidAsync(string puuid);
+        Task<AccountDto> GetAccountByPuuidAsync(RegionalRoute regionalRoute, string puuid);
 
         /// <summary>
         /// Get an account by Riot ID (associated game name and tag line).
@@ -18,7 +20,7 @@ namespace Gwen.Api.Riot
         /// <param name="gameName"></param>
         /// <param name="tagLine"></param>
         /// <returns></returns>
-        Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine);
+        Task<AccountDto> GetAccountByRiotIdAsync(RegionalRoute regionalRoute, string gameName, string tagLine);
     }
 
     internal class AccountApi : IAccountApi
@@ -35,8 +37,10 @@ namespace Gwen.Api.Riot
             _accountDtoApi = new(riotGamesClient);
         }
 
-        public async Task<AccountDto> GetAccountByPuuidAsync(string puuid) => await _accountDtoApi.GetValueAsync(string.Format(_accountByPuuidUri, puuid));
+        public async Task<AccountDto> GetAccountByPuuidAsync(RegionalRoute regionalRoute, string puuid)
+            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_accountByPuuidUri, puuid));
 
-        public async Task<AccountDto> GetAccountByRiotIdAsync(string gameName, string tagLine) => await _accountDtoApi.GetValueAsync(string.Format(_accountByRiotIdUri, gameName, tagLine));
+        public async Task<AccountDto> GetAccountByRiotIdAsync(RegionalRoute regionalRoute, string gameName, string tagLine)
+            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_accountByRiotIdUri, gameName, tagLine));
     }
 }
