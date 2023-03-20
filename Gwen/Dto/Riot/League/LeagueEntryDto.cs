@@ -59,6 +59,7 @@ namespace Gwen.Dto.Riot.League
         /// <summary>
         /// The current miniseries (rank promotions) the player is involved in.
         /// </summary>
+        /// TODO - Potential bug where MiniSeriesDto fails to deserialize into ImmutableList on deterministic input
         public ImmutableList<MiniSeriesDto> MiniSeries { get; init; } = ImmutableList<MiniSeriesDto>.Empty;
     }
 }

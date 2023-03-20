@@ -1,45 +1,26 @@
 ﻿using Gwen.Http;
 using Gwen.XMiddleware;
-using System.Collections.Immutable;
 
 namespace Gwen.Core.Wrapper
 {
-    public class GwenCore
+	public class GwenCore
 	{
 		/// <summary>
-		/// Create a simple wrapper client that is locked to a single platform route.
+		/// Create a Gwen client to access Riot Games, DataDragon, and CommunityDragon APIs.
 		/// </summary>
 		/// <param name="settings"></param>
 		/// <returns></returns>
-		public static ISimpleWrapper CreateSimpleWrapper(Settings settings)
+		public static IGwenClient CreateClient(Settings settings)
 		{
 			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
 			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
 			var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
 			var dDragonHttpClient = new DDragonHttpClient(settings.HttpClient);
-			return new SimpleWrapper(new RiotCore(riotGamesClient, settings.PlatformRoute), cDragonHttpClient, dDragonHttpClient);
+			return new GwenClient(new RiotCore(riotGamesClient, settings.PlatformRoute), cDragonHttpClient, dDragonHttpClient);
 		}
 
 		/// <summary>
-		/// Create a blanket wrapper client that is populated for all platform routes.
-		/// </summary>
-		/// <param name="settings"></param>
-		/// <returns></returns>
-		public static IBlanketWrapper CreateBlanketWrapper(Settings settings)
-		{
-			var routingValue = PlatformRouteMapper.GetId(settings.PlatformRoute);
-			var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, routingValue, settings.XMiddlewares);
-			var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
-			var dDragonHttpClient = new DDragonHttpClient(settings.HttpClient);
-			ImmutableDictionary<Type.PlatformRoute, IRiotCore> riot = Enum
-				.GetValues<Type.PlatformRoute>()
-				.Select(platformRoute => (IRiotCore)new RiotCore(riotGamesClient, platformRoute))
-				.ToImmutableDictionary(x => x.PlatformRoute, x => x);
-			return new BlanketWrapper(riot, cDragonHttpClient, dDragonHttpClient);
-		}
-
-		/// <summary>
-		/// The settings used to pass into <see cref="CreateSimpleWrapper(Settings))"/> or <see cref="CreateBlanketWrapper(Settings)"/>."/>
+		/// The settings used to pass into <see cref="CreateClient(Settings))"/>."/>
 		/// </summary>
 		public record Settings
 		{

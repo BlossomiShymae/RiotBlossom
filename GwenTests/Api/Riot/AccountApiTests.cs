@@ -12,7 +12,7 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			account = await gwen.Riot.Account.GetAccountByRiotIdAsync(StubConfig.SummonerRegion, StubConfig.SummonerName, StubConfig.SummonerTagLine);
 		}
@@ -20,7 +20,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithPuuid_ShouldReturnAccountDto()
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			AccountDto dto = await gwen.Riot.Account.GetAccountByPuuidAsync(StubConfig.SummonerRegion, account.Puuid);
 
@@ -30,7 +30,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithRiotId_ShouldReturnAccountDto()
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			AccountDto dto = await gwen.Riot.Account.GetAccountByRiotIdAsync(StubConfig.SummonerRegion, StubConfig.SummonerName, StubConfig.SummonerTagLine);
 

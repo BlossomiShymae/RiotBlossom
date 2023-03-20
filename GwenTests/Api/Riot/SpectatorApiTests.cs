@@ -14,7 +14,7 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 		}
@@ -22,7 +22,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnCurrentGameInfo()
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			try
 			{
@@ -45,7 +45,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnFeaturedGames()
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			FeaturedGames games = await gwen.Riot.Spectator.GetFeaturedGamesAsync(PlatformRoute.NorthAmerica);
 

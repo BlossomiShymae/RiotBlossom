@@ -11,7 +11,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnChampionInfo()
 		{
-			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.SimpleWrapper;
 
 			ChampionInfo info = await gwen.Riot.Champion.ListAsync(PlatformRoute.NorthAmerica);
 

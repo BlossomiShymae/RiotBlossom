@@ -4,12 +4,12 @@ using Gwen.Http;
 namespace Gwen.Core.Wrapper
 {
     /// <summary>
-    /// A wrapper client used for single platform use.
+    /// A client use to access Riot Games, DataDragon, and CommunityDragon APIs.
     /// </summary>
-    public interface ISimpleWrapper
+    public interface IGwenClient
     {
         /// <summary>
-        /// The component used to access Riot Games APIs. Locked to given <see cref="Type.PlatformRoute"/>.
+        /// The component used to access Riot Games APIs. 
         /// </summary>
         IRiotCore Riot { get; }
         /// <summary>
@@ -22,7 +22,7 @@ namespace Gwen.Core.Wrapper
         IDDragonApi DDragon { get; }
     }
 
-    internal class SimpleWrapper : ISimpleWrapper
+    internal class GwenClient : IGwenClient
     {
         private readonly RiotCore _riotCore;
         private readonly CDragonApi _cDragonApi;
@@ -31,7 +31,7 @@ namespace Gwen.Core.Wrapper
         public ICDragonApi CDragon => _cDragonApi;
         public IDDragonApi DDragon => _dDragonApi;
 
-        public SimpleWrapper(RiotCore riotCore, CDragonHttpClient cDragonHttpClient, DDragonHttpClient dDragonHttpClient)
+        public GwenClient(RiotCore riotCore, CDragonHttpClient cDragonHttpClient, DDragonHttpClient dDragonHttpClient)
         {
             _riotCore = riotCore;
             _cDragonApi = new(cDragonHttpClient);
