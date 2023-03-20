@@ -11,7 +11,7 @@ namespace Gwen.Api.Riot
         /// Get League of Legends status for the current platform.
         /// </summary>
         /// <returns></returns>
-        Task<PlatformDataDto> GetPlatformStatus(PlatformRoute platformRoute);
+        Task<PlatformDataDto> GetPlatformStatusAsync(PlatformRoute platformRoute);
     }
 
     internal class LolStatusApi : ILolStatusApi
@@ -24,7 +24,7 @@ namespace Gwen.Api.Riot
             _platformDataDtoApi = new(riotGamesClient);
         }
 
-        public async Task<PlatformDataDto> GetPlatformStatus(PlatformRoute platformRoute)
+        public async Task<PlatformDataDto> GetPlatformStatusAsync(PlatformRoute platformRoute)
             => await _platformDataDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _statusUri);
     }
 }
