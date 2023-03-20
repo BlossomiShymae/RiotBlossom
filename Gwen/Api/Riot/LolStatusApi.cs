@@ -1,5 +1,7 @@
-﻿using Gwen.Dto.Riot.LolStatus;
+﻿using Gwen.Core;
+using Gwen.Dto.Riot.LolStatus;
 using Gwen.Http;
+using Gwen.Type;
 
 namespace Gwen.Api.Riot
 {
@@ -9,7 +11,7 @@ namespace Gwen.Api.Riot
         /// Get League of Legends status for the current platform.
         /// </summary>
         /// <returns></returns>
-        Task<PlatformDataDto> GetPlatformStatus();
+        Task<PlatformDataDto> GetPlatformStatus(PlatformRoute platformRoute);
     }
 
     internal class LolStatusApi : ILolStatusApi
@@ -22,7 +24,7 @@ namespace Gwen.Api.Riot
             _platformDataDtoApi = new(riotGamesClient);
         }
 
-        public async Task<PlatformDataDto> GetPlatformStatus()
-            => await _platformDataDtoApi.GetValueAsync(_statusUri);
+        public async Task<PlatformDataDto> GetPlatformStatus(PlatformRoute platformRoute)
+            => await _platformDataDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _statusUri);
     }
 }
