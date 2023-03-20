@@ -1,6 +1,6 @@
 ﻿namespace Gwen.Type
 {
-    internal enum LeagueQueue
+    public enum LeagueQueue
     {
         RankedSolo5x5,
         RankedFlexSummonersRift,

@@ -1,34 +1,37 @@
-﻿using Gwen.Dto.Riot.League;
+﻿using Gwen.Core;
+using Gwen.Dto.Riot.League;
 using Gwen.Http;
+using Gwen.Type;
+using System.Collections.ObjectModel;
 
 namespace Gwen.Api.Riot
 {
-    public interface ILeagueApi
+	public interface ILeagueApi
 	{
 		/// <summary>
 		/// Get the challenger league for given queue type.
 		/// </summary>
 		/// <param name="queue"></param>
 		/// <returns></returns>
-		Task<LeagueListDto> GetChallengerLeagueByQueueAsync(string queue);
+		Task<LeagueListDto> GetChallengerLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
 		/// <summary>
 		/// Get the grandmaster league for given queue type.
 		/// </summary>
 		/// <param name="queue"></param>
 		/// <returns></returns>
-		Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(string queue);
+		Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
 		/// <summary>
 		/// Get league with given ID (includes inactive entries).
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		Task<LeagueListDto> GetLeagueByIdAsync(string id);
+		Task<LeagueListDto> GetLeagueByIdAsync(PlatformRoute platformRoute, string id);
 		/// <summary>
 		/// Get the master league for given queue type.
 		/// </summary>
 		/// <param name="queue"></param>
 		/// <returns></returns>
-		Task<LeagueListDto> GetMasterLeagueByQueueAsync(string queue);
+		Task<LeagueListDto> GetMasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
 		/// <summary>
 		/// List all league entries for given queue type, rank tier, and rank division.
 		/// </summary>
@@ -36,13 +39,13 @@ namespace Gwen.Api.Riot
 		/// <param name="tier"></param>
 		/// <param name="division"></param>
 		/// <returns></returns>
-		Task<IEnumerable<LeagueEntryDto>> ListLeagueEntriesAsync(string queue, string tier, string division);
+		Task<ReadOnlyCollection<LeagueEntryDto>> ListLeagueEntriesAsync(PlatformRoute platformRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division);
 		/// <summary>
 		/// List league entries in all queues for encrypted summoner ID.
 		/// </summary>
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
-		Task<IEnumerable<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(string summonerId);
+		Task<ReadOnlyCollection<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
 	}
 
 	internal class LeagueApi : ILeagueApi
@@ -55,7 +58,7 @@ namespace Gwen.Api.Riot
 		private static readonly string _leagueByLeagueId = _uri + "/leagues/{0}";
 		private static readonly string _masterLeagueByQueue = _uri + "/masterleagues/by-queue/{0}";
 		private readonly ComposableApi<LeagueListDto> _leagueListDtoApi;
-		private readonly ComposableApi<IEnumerable<LeagueEntryDto>> _leagueEntryDtosApi;
+		private readonly ComposableApi<List<LeagueEntryDto>> _leagueEntryDtosApi;
 
 		public LeagueApi(RiotHttpClient riotGamesClient)
 		{
@@ -63,22 +66,28 @@ namespace Gwen.Api.Riot
 			_leagueEntryDtosApi = new(riotGamesClient);
 		}
 
-		public async Task<LeagueListDto> GetChallengerLeagueByQueueAsync(string queue)
-			=> await _leagueListDtoApi.GetValueAsync(string.Format(_challengerLeagueByQueue, queue));
+		public async Task<LeagueListDto> GetChallengerLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue)
+			=> await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_challengerLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
 
-		public async Task<IEnumerable<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(string summonerId)
-			=> await _leagueEntryDtosApi.GetValueAsync(string.Format(_leagueEntriesBySummonerId, summonerId));
+		public async Task<ReadOnlyCollection<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+		{
+			List<LeagueEntryDto> dtoCollection = await _leagueEntryDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_leagueEntriesBySummonerId, summonerId));
+			return dtoCollection.AsReadOnly();
+		}
 
-		public async Task<IEnumerable<LeagueEntryDto>> ListLeagueEntriesAsync(string queue, string tier, string division)
-			=> await _leagueEntryDtosApi.GetValueAsync(string.Format(_leagueEntriesByQueueTierDivision, queue, tier, division));
+		public async Task<ReadOnlyCollection<LeagueEntryDto>> ListLeagueEntriesAsync(PlatformRoute platformRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division)
+		{
+			List<LeagueEntryDto> dtoCollection = await _leagueEntryDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_leagueEntriesByQueueTierDivision, LeagueQueueMapper.GetValue(queue), LeagueTierMapper.GetValue(tier), LeagueDivisionMapper.GetValue(division)));
+			return dtoCollection.AsReadOnly();
+		}
 
-		public async Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(string queue)
-			=> await _leagueListDtoApi.GetValueAsync(string.Format(_grandmasterLeagueByQueue, queue));
+		public async Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue)
+			=> await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_grandmasterLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
 
-		public async Task<LeagueListDto> GetLeagueByIdAsync(string id)
-			=> await _leagueListDtoApi.GetValueAsync(string.Format(_leagueByLeagueId, id));
+		public async Task<LeagueListDto> GetLeagueByIdAsync(PlatformRoute platformRoute, string id)
+			=> await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_leagueByLeagueId, id));
 
-		public async Task<LeagueListDto> GetMasterLeagueByQueueAsync(string queue)
-			=> await _leagueListDtoApi.GetValueAsync(string.Format(_masterLeagueByQueue, queue));
+		public async Task<LeagueListDto> GetMasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue)
+			=> await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masterLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
 	}
 }

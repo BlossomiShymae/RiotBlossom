@@ -1,6 +1,6 @@
 ﻿namespace Gwen.Type
 {
-    internal enum LeagueDivision
+    public enum LeagueDivision
     {
         I,
         II,

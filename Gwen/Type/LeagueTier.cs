@@ -1,6 +1,6 @@
 ﻿namespace Gwen.Type
 {
-    internal enum LeagueTier
+    public enum LeagueTier
     {
         Iron,
         Bronze,
