@@ -12,9 +12,9 @@ namespace Gwen.Dto.CDragon.Champion
         public string Cooldown { get; init; } = default!;
         public string Description { get; init; } = default!;
         public string DynamicDescription { get; init; } = default!;
-        public ImmutableList<int> Range { get; init; } = ImmutableList<int>.Empty;
-        public ImmutableList<int> CostCoefficients { get; init; } = ImmutableList<int>.Empty;
-        public ImmutableList<int> CooldownCoefficients { get; init; } = ImmutableList<int>.Empty;
+        public ImmutableList<double> Range { get; init; } = ImmutableList<double>.Empty;
+        public ImmutableList<double> CostCoefficients { get; init; } = ImmutableList<double>.Empty;
+        public ImmutableList<double> CooldownCoefficients { get; init; } = ImmutableList<double>.Empty;
         public object Coefficients { get; init; } = default!;
         public object EffectAmounts { get; init; } = default!;
         public object Ammo { get; init; } = default!;

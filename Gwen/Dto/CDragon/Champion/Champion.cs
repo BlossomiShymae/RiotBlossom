@@ -15,7 +15,7 @@ namespace Gwen.Dto.CDragon.Champion
         public string StingerSfxPath { get; init; } = default!;
         public string ChooseVoPath { get; init; } = default!;
         public string BanVoPath { get; init; } = default!;
-        public ImmutableDictionary<int, string> Roles { get; init; } = ImmutableDictionary<int, string>.Empty;
+        public ImmutableList<string> Roles { get; init; } = ImmutableList<string>.Empty;
         public object? RecommendedItemDefaults { get; init; }
         public ImmutableList<Skin> Skins { get; init; } = ImmutableList<Skin>.Empty;
         public Passive Passive { get; init; } = new();

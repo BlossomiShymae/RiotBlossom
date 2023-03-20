@@ -50,9 +50,9 @@ namespace Gwen.Api
 		private static readonly string _championByIdJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/{0}.json";
 		private static readonly string _perksJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json";
 		private static readonly string s_profileIconUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/{0}.jpg";
-		private readonly ComposableApi<IEnumerable<Item>> _itemsApi;
+		private readonly ComposableApi<List<Item>> _itemsApi;
 		private readonly ComposableApi<Champion> _championApi;
-		private readonly ComposableApi<IEnumerable<PerkRune>> _perkRunesApi;
+		private readonly ComposableApi<List<PerkRune>> _perkRunesApi;
 		private readonly ComposableApi<byte[]> _byteArrayApi;
 
 		public CDragonApi(CDragonHttpClient cDragonHttpClient)
@@ -71,7 +71,7 @@ namespace Gwen.Api
 
 		public async Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync()
 		{
-			IEnumerable<Item> items = await _itemsApi.GetValueAsync(_itemsJsonUri);
+			List<Item> items = await _itemsApi.GetValueAsync(_itemsJsonUri);
 			return items
 				.ToImmutableDictionary(k => k.Id, v => v);
 		}
@@ -81,12 +81,12 @@ namespace Gwen.Api
 
 		public async Task<ImmutableDictionary<int, PerkRune>> GetPerkRuneDictionaryAsync()
 		{
-			IEnumerable<PerkRune> perkRunes = await _perkRunesApi.GetValueAsync(_perksJsonUri);
+			List<PerkRune> perkRunes = await _perkRunesApi.GetValueAsync(_perksJsonUri);
 			return perkRunes
 				.ToImmutableDictionary(k => k.Id, v => v);
 		}
 
 		public async Task<byte[]> GetProfileIconByteArrayByIdAsync(int id)
-			=> await _byteArrayApi.GetValueAsync(string.Format(s_profileIconUri, id));
+			=> await _byteArrayApi.GetByteArrayAsync(string.Format(s_profileIconUri, id));
 	}
 }
