@@ -14,17 +14,17 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			var gwen = StubClient.BlanketWrapper;
+			var gwen = StubClient.SimpleWrapper;
 
-			summoner = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
+			summoner = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
 		}
 
 		[TestMethod()]
 		public async Task Api_WithAccountId_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketWrapper;
+			var gwen = StubClient.SimpleWrapper;
 
-			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByAccountIdAsync(summoner.AccountId);
+			var summonerDto = await gwen.Riot.Summoner.GetByAccountIdAsync(PlatformRoute.NorthAmerica, summoner.AccountId);
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
@@ -32,9 +32,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerName_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketWrapper;
+			var gwen = StubClient.SimpleWrapper;
 
-			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByNameAsync("uwuie time");
+			var summonerDto = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
@@ -42,9 +42,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerPuuid_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketWrapper;
+			var gwen = StubClient.SimpleWrapper;
 
-			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByPuuidAsync(summoner.Puuid);
+			var summonerDto = await gwen.Riot.Summoner.GetByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
@@ -52,9 +52,9 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnSummonerDto()
 		{
-			var gwen = StubClient.BlanketWrapper;
+			var gwen = StubClient.SimpleWrapper;
 
-			var summonerDto = await gwen.Riot[PlatformRoute.NorthAmerica].Summoner.GetByIdAsync(summoner.Id);
+			var summonerDto = await gwen.Riot.Summoner.GetByIdAsync(PlatformRoute.NorthAmerica, summoner.Id);
 
 			Assert.IsInstanceOfType(summonerDto, typeof(SummonerDto));
 		}
