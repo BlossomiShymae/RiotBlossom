@@ -1,5 +1,7 @@
-﻿using Gwen.Dto.Riot.Spectator;
+﻿using Gwen.Core;
+using Gwen.Dto.Riot.Spectator;
 using Gwen.Http;
+using Gwen.Type;
 
 namespace Gwen.Api.Riot
 {
@@ -10,12 +12,12 @@ namespace Gwen.Api.Riot
         /// </summary>
         /// <param name="summonerId"></param>
         /// <returns></returns>
-        Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(string summonerId);
+        Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
         /// <summary>
         /// Get the list of featured games.
         /// </summary>
         /// <returns></returns>
-        Task<FeaturedGames> GetFeaturedGamesAsync();
+        Task<FeaturedGames> GetFeaturedGamesAsync(PlatformRoute platformRoute);
     }
 
     internal class SpectatorApi : ISpectatorApi
@@ -32,10 +34,10 @@ namespace Gwen.Api.Riot
             _featuredGamesApi = new(riotGamesClient);
         }
 
-        public async Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(string summonerId)
-            => await _currentGameInfoApi.GetValueAsync(string.Format(_currentGameInfoBySummonerIdUri, summonerId));
+        public async Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+            => await _currentGameInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_currentGameInfoBySummonerIdUri, summonerId));
 
-        public async Task<FeaturedGames> GetFeaturedGamesAsync()
-            => await _featuredGamesApi.GetValueAsync(_featuredGamesUri);
+        public async Task<FeaturedGames> GetFeaturedGamesAsync(PlatformRoute platformRoute)
+            => await _featuredGamesApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _featuredGamesUri);
     }
 }
