@@ -1,7 +1,7 @@
 ﻿namespace Gwen.Exception
 {
 	/// <summary>
-	/// <para>An exception class for a corrupted Riot API game match.</para>
+	/// <para>An exception class for a corrupted Riot API game match. :c</para>
 	/// <see href="https://github.com/RiotGames/developer-relations/issues/642"/>
 	/// </summary>
 	public class GwenCorruptedMatchException : System.Exception

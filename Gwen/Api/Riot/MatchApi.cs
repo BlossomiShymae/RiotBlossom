@@ -1,5 +1,6 @@
 ﻿using Gwen.Core;
 using Gwen.Dto.Riot.Match;
+using Gwen.Exception;
 using Gwen.Http;
 using Gwen.Type;
 using System.Collections.Immutable;
@@ -9,14 +10,16 @@ namespace Gwen.Api.Riot
 	public interface IMatchApi
 	{
 		/// <summary>
-		/// Get a match by ID/
+		/// Get a match by ID.
 		/// </summary>
+		/// <exception cref="GwenCorruptedMatchException"></exception>
 		/// <param name="id"></param>
 		/// <returns></returns>
 		Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id);
 		/// <summary>
 		/// Get a match timeline by ID.
 		/// </summary>
+		/// <exception cref="GwenCorruptedMatchException"></exception>
 		/// <param name="id"></param>
 		/// <returns></returns>
 		Task<MatchTimelineDto> GetTimelineByIdAsync(RegionalRoute regionalRoute, string id);
@@ -65,10 +68,29 @@ namespace Gwen.Api.Riot
 		}
 
 		public async Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id)
-			=> await _matchApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchByMatchIdUri, id));
+		{
+			MatchDto match = await _matchApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchByMatchIdUri, id));
+			if (IsCorrupted(match))
+				throw new GwenCorruptedMatchException(match.Metadata.MatchId);
+			return match;
+		}
 
 		public async Task<MatchTimelineDto> GetTimelineByIdAsync(RegionalRoute regionalRoute, string id)
-			=> await _matchTimelineApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchTimelineByMatchIdUri, id));
+		{
+			MatchTimelineDto matchTimelineDto = await _matchTimelineApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchTimelineByMatchIdUri, id));
+			if (IsCorrupted(matchTimelineDto))
+				throw new GwenCorruptedMatchException(matchTimelineDto.Metadata.MatchId);
+			return matchTimelineDto;
+		}
+
+		private static bool IsCorrupted(object dto)
+		{
+			if (dto is MatchDto match)
+				return match.Info.GameCreation == 0;
+			if (dto is MatchTimelineDto timeline)
+				return timeline.Info.FrameInterval == 0;
+			throw new NotImplementedException();
+		}
 	}
 
 	public record ListIdsByPuuidAsyncOptions
