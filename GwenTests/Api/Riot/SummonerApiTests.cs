@@ -12,7 +12,7 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 		}
@@ -20,7 +20,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithAccountId_ShouldReturnSummonerDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			SummonerDto dto = await gwen.Riot.Summoner.GetByAccountIdAsync(StubConfig.SummonerPlatform, summoner.AccountId);
 
@@ -30,7 +30,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerName_ShouldReturnSummonerDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			SummonerDto dto = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 
@@ -40,7 +40,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerPuuid_ShouldReturnSummonerDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			SummonerDto dto = await gwen.Riot.Summoner.GetByPuuidAsync(StubConfig.SummonerPlatform, summoner.Puuid);
 
@@ -50,7 +50,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnSummonerDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			SummonerDto dto = await gwen.Riot.Summoner.GetByIdAsync(StubConfig.SummonerPlatform, summoner.Id);
 

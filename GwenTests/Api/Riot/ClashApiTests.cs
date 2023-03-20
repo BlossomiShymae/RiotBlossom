@@ -15,7 +15,7 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 		}
@@ -23,7 +23,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ByDefault_ShouldReturnTournamentDtoCollection()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			ImmutableList<TournamentDto> dtoCollection = await gwen.Riot.Clash.ListActiveTournamentsAsync(PlatformRoute.NorthAmerica);
 
@@ -33,7 +33,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerId_ShouldReturnPlayerDtoCollection()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			ImmutableList<PlayerDto> dtoCollection = await gwen.Riot.Clash.ListPlayersBySummonerIdAsync(StubConfig.SummonerPlatform, summoner.Id);
 

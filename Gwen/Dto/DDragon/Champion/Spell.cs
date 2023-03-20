@@ -10,7 +10,7 @@ namespace Gwen.Dto.DDragon.Champion
 		public string Tooltip { get; init; } = default!;
 		public Leveltip Leveltip { get; init; } = new();
 		public int Maxrank { get; init; }
-		public ImmutableList<int> Cooldown { get; init; } = ImmutableList<int>.Empty;
+		public ImmutableList<double> Cooldown { get; init; } = ImmutableList<double>.Empty;
 		public string CooldownBurn { get; init; } = default!;
 		public ImmutableList<int> Cost { get; init; } = ImmutableList<int>.Empty;
 		public string CostBurn { get; init; } = default!;

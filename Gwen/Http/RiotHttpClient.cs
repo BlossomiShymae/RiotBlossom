@@ -17,6 +17,11 @@ namespace Gwen.Http
 			_xMiddlewares = xMiddlewares;
 		}
 
+		public Task<byte[]> GetByteArrayAsync(string uri)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<string> GetStringAsync(string uri)
 		{
 			// Create request message

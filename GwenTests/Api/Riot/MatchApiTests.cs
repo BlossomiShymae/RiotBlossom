@@ -15,7 +15,7 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			summoner = await gwen.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
 			matchId = (await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid)).First();
@@ -24,7 +24,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithSummonerPuuid_ShouldReturnMatchIdCollection()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			ImmutableList<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid);
 
@@ -34,7 +34,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnMatchDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			MatchDto dto = await gwen.Riot.Match.GetByIdAsync(StubConfig.SummonerRegion, matchId);
 
@@ -44,7 +44,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithId_ShouldReturnMatchTimelineDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			MatchTimelineDto dto = await gwen.Riot.Match.GetTimelineByIdAsync(StubConfig.SummonerRegion, matchId);
 

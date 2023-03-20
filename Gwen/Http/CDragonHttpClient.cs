@@ -9,6 +9,11 @@
 			_httpClient = httpClient;
 		}
 
+		public Task<byte[]> GetByteArrayAsync(string uri)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<string> GetStringAsync(string uri)
 		{
 			return await _httpClient.GetStringAsync($"https://raw.communitydragon.org{uri}");

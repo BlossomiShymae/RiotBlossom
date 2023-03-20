@@ -5,14 +5,14 @@ namespace GwenTests
 {
 	public static class StubConfig
 	{
-		private static readonly string _riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? string.Empty;
-		private static readonly IGwenClient _simpleWrapper = GwenCore.CreateClient(
+		private static readonly string s_riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? string.Empty;
+		private static readonly IGwenClient s_gwen = GwenCore.CreateClient(
 			new GwenCore.Settings
 			{
 				HttpClient = new HttpClient(),
-				RiotApiKey = _riotApiKey
+				RiotApiKey = s_riotApiKey
 			});
-		public static IGwenClient SimpleWrapper => _simpleWrapper;
+		public static IGwenClient Gwen => s_gwen;
 		public static string SummonerName { get; } = "uwuie time";
 		public static string SummonerTagLine { get; } = "NA1";
 		public static PlatformRoute SummonerPlatform { get; } = PlatformRoute.NorthAmerica;

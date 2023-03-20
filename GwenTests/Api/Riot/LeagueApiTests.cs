@@ -14,7 +14,7 @@ namespace GwenTests.Api.Riot
 		[ClassInitialize()]
 		public static async Task Initialize(TestContext testContext)
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			leagueList = await gwen.Riot.League.GetChallengerLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
 		}
@@ -22,7 +22,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_ChallengerWithQueue_ShouldReturnLeagueListDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			LeagueListDto dto = await gwen.Riot.League.GetChallengerLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
 
@@ -32,7 +32,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_GrandmasterWithQueue_ShouldReturnLeagueListDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			LeagueListDto dto = await gwen.Riot.League.GetGrandmasterLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
 
@@ -42,7 +42,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_MasterWithQueue_ShouldReturnLeagueListDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			LeagueListDto dto = await gwen.Riot.League.GetMasterLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
 
@@ -52,7 +52,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithLeagueId_ShouldReturnLeagueListDto()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			LeagueListDto dto = await gwen.Riot.League.GetLeagueByIdAsync(PlatformRoute.NorthAmerica, leagueList.LeagueId);
 
@@ -62,7 +62,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithLeagueTypes_ShouldReturnLeagueEntryDtoCollection()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			ImmutableList<LeagueEntryDto> dtoCollection = await gwen.Riot.League.ListLeagueEntriesAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.II);
 
@@ -72,7 +72,7 @@ namespace GwenTests.Api.Riot
 		[TestMethod()]
 		public async Task Api_WithLeagueId_ShouldReturnLeagueEntryDtoCollection()
 		{
-			IGwenClient gwen = StubConfig.SimpleWrapper;
+			IGwenClient gwen = StubConfig.Gwen;
 
 			ImmutableList<LeagueEntryDto> dtoCollection = await gwen.Riot.League.ListLeagueEntriesBySummonerIdAsync(PlatformRoute.NorthAmerica, leagueList.Entries.First().SummonerId);
 
