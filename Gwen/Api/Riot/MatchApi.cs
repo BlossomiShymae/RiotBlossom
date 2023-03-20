@@ -2,7 +2,7 @@
 using Gwen.Dto.Riot.Match;
 using Gwen.Http;
 using Gwen.Type;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 
 namespace Gwen.Api.Riot
 {
@@ -25,14 +25,14 @@ namespace Gwen.Api.Riot
 		/// </summary>
 		/// <param name="puuid"></param>
 		/// <returns></returns>
-		Task<ReadOnlyCollection<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid);
+		Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid);
 		/// <summary>
 		/// List the match IDs for encrypted PUUID with given option constraints.
 		/// </summary>
 		/// <param name="puuid"></param>
 		/// <param name="parameters"></param>
 		/// <returns></returns>
-		Task<ReadOnlyCollection<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
+		Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
 	}
 
 	internal class MatchApi : IMatchApi
@@ -52,16 +52,16 @@ namespace Gwen.Api.Riot
 			_matchTimelineApi = new(riotGamesClient);
 		}
 
-		public async Task<ReadOnlyCollection<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid)
+		public async Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid)
 		{
 			List<string> ids = await _stringsApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchIdsByPuuidUri, puuid));
-			return ids.AsReadOnly();
+			return ids.ToImmutableList();
 		}
 
-		public async Task<ReadOnlyCollection<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
+		public async Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
 		{
 			List<string> ids = await _stringsApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchIdsByPuuidUri, puuid) + PropertiesToQueryConverter.ToQuery(parameters));
-			return ids.AsReadOnly();
+			return ids.ToImmutableList();
 		}
 
 		public async Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id)

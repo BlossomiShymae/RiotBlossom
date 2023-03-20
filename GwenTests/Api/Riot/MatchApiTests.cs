@@ -2,7 +2,7 @@
 using Gwen.Dto.Riot.Match;
 using Gwen.Dto.Riot.Summoner;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 
 namespace GwenTests.Api.Riot
 {
@@ -26,9 +26,9 @@ namespace GwenTests.Api.Riot
 		{
 			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid);
+			ImmutableList<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid);
 
-			Assert.IsInstanceOfType(ids, typeof(ReadOnlyCollection<string>));
+			Assert.IsInstanceOfType(ids, typeof(ImmutableList<string>));
 		}
 
 		[TestMethod()]

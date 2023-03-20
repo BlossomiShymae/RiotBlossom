@@ -2,7 +2,7 @@
 using Gwen.Dto.Riot.ChampionMastery;
 using Gwen.Http;
 using Gwen.Type;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 
 namespace Gwen.Api.Riot
 {
@@ -24,21 +24,21 @@ namespace Gwen.Api.Riot
 		Task<int> GetTotalScoreBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
 
 		/// <summary>
-		/// Get a read-only collection of all champion mastery entries for summoner ID. Sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
+		/// Get an immutable collection of all champion mastery entries for summoner ID. Sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
 		/// descending.
 		/// </summary>
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
-		Task<ReadOnlyCollection<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
+		Task<ImmutableList<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
 
 		/// <summary>
-		/// Get a read-only collection of requested champion mastery entries sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
+		/// Get an immutable collection of requested champion mastery entries sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
 		/// descending.
 		/// </summary>
 		/// <param name="summonerId"></param>
 		/// <param name="count"></param>
 		/// <returns></returns>
-		Task<ReadOnlyCollection<ChampionMasteryDto>> ListTopBySummonerIdAsync(PlatformRoute platformRoute, string summonerId, int count = 3);
+		Task<ImmutableList<ChampionMasteryDto>> ListTopBySummonerIdAsync(PlatformRoute platformRoute, string summonerId, int count = 3);
 	}
 
 	internal class ChampionMasteryApi : IChampionMasteryApi
@@ -59,21 +59,21 @@ namespace Gwen.Api.Riot
 			_intApi = new(riotGamesClient);
 		}
 
-		public async Task<ReadOnlyCollection<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+		public async Task<ImmutableList<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
 		{
 			List<ChampionMasteryDto> dtoCollection = await _championMasteriesDtoApi
 				.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masteriesBySummonerId, summonerId));
-			return dtoCollection.AsReadOnly();
+			return dtoCollection.ToImmutableList();
 		}
 
 		public async Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(PlatformRoute platformRoute, string summonerId, long championId)
 			=> await _championMasteryDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId));
 
-		public async Task<ReadOnlyCollection<ChampionMasteryDto>> ListTopBySummonerIdAsync(PlatformRoute platformRoute, string summonerId, int count = 3)
+		public async Task<ImmutableList<ChampionMasteryDto>> ListTopBySummonerIdAsync(PlatformRoute platformRoute, string summonerId, int count = 3)
 		{
 			List<ChampionMasteryDto> dtoCollection = await _championMasteriesDtoApi
 				.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masteriesTopBySummonerId, summonerId) + $"?count={count}");
-			return dtoCollection.AsReadOnly();
+			return dtoCollection.ToImmutableList();
 		}
 
 		public async Task<int> GetTotalScoreBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)

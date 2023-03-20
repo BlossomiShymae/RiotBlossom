@@ -3,7 +3,7 @@ using Gwen.Dto.Riot.Clash;
 using Gwen.Dto.Riot.Summoner;
 using Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 
 namespace GwenTests.Api.Riot
 {
@@ -25,9 +25,9 @@ namespace GwenTests.Api.Riot
 		{
 			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<TournamentDto> dtoCollection = await gwen.Riot.Clash.ListActiveTournamentsAsync(PlatformRoute.NorthAmerica);
+			ImmutableList<TournamentDto> dtoCollection = await gwen.Riot.Clash.ListActiveTournamentsAsync(PlatformRoute.NorthAmerica);
 
-			Assert.IsInstanceOfType(dtoCollection, typeof(ReadOnlyCollection<TournamentDto>));
+			Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<TournamentDto>));
 		}
 
 		[TestMethod()]
@@ -35,9 +35,9 @@ namespace GwenTests.Api.Riot
 		{
 			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<PlayerDto> dtoCollection = await gwen.Riot.Clash.ListPlayersBySummonerIdAsync(StubConfig.SummonerPlatform, summoner.Id);
+			ImmutableList<PlayerDto> dtoCollection = await gwen.Riot.Clash.ListPlayersBySummonerIdAsync(StubConfig.SummonerPlatform, summoner.Id);
 
-			Assert.IsInstanceOfType(dtoCollection, typeof(ReadOnlyCollection<PlayerDto>));
+			Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<PlayerDto>));
 		}
 
 

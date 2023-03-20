@@ -2,7 +2,7 @@
 using Gwen.Dto.Riot.League;
 using Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 
 namespace GwenTests.Api.Riot
 {
@@ -64,9 +64,9 @@ namespace GwenTests.Api.Riot
 		{
 			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<LeagueEntryDto> dtoCollection = await gwen.Riot.League.ListLeagueEntriesAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.II);
+			ImmutableList<LeagueEntryDto> dtoCollection = await gwen.Riot.League.ListLeagueEntriesAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.II);
 
-			Assert.IsInstanceOfType(dtoCollection, typeof(ReadOnlyCollection<LeagueEntryDto>));
+			Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<LeagueEntryDto>));
 		}
 
 		[TestMethod()]
@@ -74,9 +74,9 @@ namespace GwenTests.Api.Riot
 		{
 			ISimpleWrapper gwen = StubConfig.SimpleWrapper;
 
-			ReadOnlyCollection<LeagueEntryDto> dtoCollection = await gwen.Riot.League.ListLeagueEntriesBySummonerIdAsync(PlatformRoute.NorthAmerica, leagueList.Entries.First().SummonerId);
+			ImmutableList<LeagueEntryDto> dtoCollection = await gwen.Riot.League.ListLeagueEntriesBySummonerIdAsync(PlatformRoute.NorthAmerica, leagueList.Entries.First().SummonerId);
 
-			Assert.IsInstanceOfType(dtoCollection, typeof(ReadOnlyCollection<LeagueEntryDto>));
+			Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<LeagueEntryDto>));
 		}
 	}
 }

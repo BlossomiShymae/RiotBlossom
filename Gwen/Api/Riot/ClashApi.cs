@@ -1,7 +1,7 @@
 ﻿using Gwen.Dto.Riot.Clash;
 using Gwen.Http;
 using Gwen.Type;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 
 namespace Gwen.Api.Riot
 {
@@ -29,14 +29,14 @@ namespace Gwen.Api.Riot
 		/// List all active or upcoming clash tournaments.
 		/// </summary>
 		/// <returns></returns>
-		Task<ReadOnlyCollection<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute);
+		Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute);
 		/// <summary>
 		/// List active Clash players for encrypted summoner ID. If a summoner registers for multiple tournaments
 		/// at once, then both registrations will appear.
 		/// </summary>
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
-		Task<ReadOnlyCollection<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
+		Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
 	}
 
 	internal class ClashApi : IClashApi
@@ -60,19 +60,19 @@ namespace Gwen.Api.Riot
 			_tournamentDtoApi = new(riotGamesClient);
 		}
 
-		public async Task<ReadOnlyCollection<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+		public async Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
 		{
 			List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(string.Format(_playersBySummonerIdUri, summonerId));
-			return dtoCollection.AsReadOnly();
+			return dtoCollection.ToImmutableList();
 		}
 
 		public async Task<TeamDto> GetTeamByIdAsync(PlatformRoute platformRoute, string teamId)
 			=> await _teamDtoApi.GetValueAsync(string.Format(_teamByTeamIdUri, teamId));
 
-		public async Task<ReadOnlyCollection<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute)
+		public async Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute)
 		{
 			List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(_tournamentsUri);
-			return dtoCollection.AsReadOnly();
+			return dtoCollection.ToImmutableList();
 		}
 
 		public async Task<TournamentDto> GetTournamentByTeamIdAsync(PlatformRoute platformRoute, string teamId)
