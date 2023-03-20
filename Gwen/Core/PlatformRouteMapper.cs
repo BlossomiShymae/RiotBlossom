@@ -2,7 +2,7 @@
 
 namespace Gwen.Core
 {
-    internal static class PlatformRouteMapper
+    public static class PlatformRouteMapper
     {
         private static readonly ImmutableDictionary<Type.PlatformRoute, string> _platformIdByRoute =
             new Dictionary<Type.PlatformRoute, string>

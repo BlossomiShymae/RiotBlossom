@@ -2,7 +2,7 @@
 
 namespace Gwen.Core
 {
-    internal static class LeagueTierMapper
+    public static class LeagueTierMapper
     {
         private static readonly ImmutableDictionary<Type.LeagueTier, string> _valueByLeagueTier =
             new Dictionary<Type.LeagueTier, string>
