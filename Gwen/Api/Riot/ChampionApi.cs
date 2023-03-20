@@ -11,20 +11,20 @@ namespace Gwen.Api.Riot
 		/// Get the current champion rotation pools.
 		/// </summary>
 		/// <returns></returns>
-		Task<IEnumerable<ChampionInfo>> ListAsync(PlatformRoute platformRoute);
+		Task<ChampionInfo> ListAsync(PlatformRoute platformRoute);
 	}
 
 	internal class ChampionApi : IChampionApi
 	{
 		private static readonly string _championRotationsUri = "/lol/platform/v3/champion-rotations";
-		private readonly ComposableApi<IEnumerable<ChampionInfo>> _championInfosApi;
+		private readonly ComposableApi<ChampionInfo> _championInfoApi;
 
 		public ChampionApi(RiotHttpClient riotGamesClient)
 		{
-			_championInfosApi = new(riotGamesClient);
+			_championInfoApi = new(riotGamesClient);
 		}
 
-		public async Task<IEnumerable<ChampionInfo>> ListAsync(PlatformRoute platformRoute)
-			=> await _championInfosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _championRotationsUri);
+		public async Task<ChampionInfo> ListAsync(PlatformRoute platformRoute)
+			=> await _championInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _championRotationsUri);
 	}
 }
