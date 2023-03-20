@@ -3,8 +3,8 @@
     public record ChallengePoints
     {
         public string Level { get; init; } = default!;
-        public int Current { get; init; }
-        public int Max { get; init; }
-        public int Percentile { get; init; }
+        public double Current { get; init; }
+        public double Max { get; init; }
+        public double Percentile { get; init; }
     }
 }

@@ -89,7 +89,7 @@ namespace Gwen.Api.Riot
 
 		public async Task<ImmutableList<ApexPlayerInfoDto>> ListApexPlayerInfosAsync(PlatformRoute platformRoute, ChallengeLevel level, long id, int limit = 0)
 		{
-			List<ApexPlayerInfoDto> dtoCollection = await _apexPlayerInfoDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_challengesTopPlayersByChallengeIdAndLevelUri, id, nameof(level).ToUpper()) + (limit == 0 ? string.Empty : $"?limit={limit}"));
+			List<ApexPlayerInfoDto> dtoCollection = await _apexPlayerInfoDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_challengesTopPlayersByChallengeIdAndLevelUri, id, level.ToString().ToUpper()) + (limit == 0 ? string.Empty : $"?limit={limit}"));
 			return dtoCollection.ToImmutableList();
 		}
 

@@ -13,6 +13,6 @@
         /// <summary>
         /// The leaderboard position of apex player.
         /// </summary>
-        public int Position { get; init; }
+        public long Position { get; init; }
     }
 }
