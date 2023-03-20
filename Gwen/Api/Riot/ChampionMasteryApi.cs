@@ -1,9 +1,11 @@
-﻿using Gwen.Dto.Riot.ChampionMastery;
+﻿using Gwen.Core;
+using Gwen.Dto.Riot.ChampionMastery;
 using Gwen.Http;
+using Gwen.Type;
 
 namespace Gwen.Api.Riot
 {
-    public interface IChampionMasteryApi
+	public interface IChampionMasteryApi
 	{
 		/// <summary>
 		/// Get champion mastery entry by player ID and champion ID.
@@ -11,14 +13,14 @@ namespace Gwen.Api.Riot
 		/// <param name="summonerId"></param>
 		/// <param name="championId"></param>
 		/// <returns></returns>
-		Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(string summonerId, string championId);
+		Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(PlatformRoute platformRoute, string summonerId, string championId);
 
 		/// <summary>
 		/// Get the total summation of individual champion mastery levels for associated summoner ID.
 		/// </summary>
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
-		Task<int> GetTotalScoreBySummonerIdAsync(string summonerId);
+		Task<int> GetTotalScoreBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
 
 		/// <summary>
 		/// Get an enumerable of all champion mastery entries for summoner ID. Sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
@@ -26,7 +28,7 @@ namespace Gwen.Api.Riot
 		/// </summary>
 		/// <param name="summonerId"></param>
 		/// <returns></returns>
-		Task<IEnumerable<ChampionMasteryDto>> ListBySummonerIdAsync(string summonerId);
+		Task<IEnumerable<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
 
 		/// <summary>
 		/// Get an enumerable of requested champion mastery entries sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
@@ -35,7 +37,7 @@ namespace Gwen.Api.Riot
 		/// <param name="summonerId"></param>
 		/// <param name="count"></param>
 		/// <returns></returns>
-		Task<IEnumerable<ChampionMasteryDto>> ListTopBySummonerIdAsync(string summonerId, int count = 3);
+		Task<IEnumerable<ChampionMasteryDto>> ListTopBySummonerIdAsync(PlatformRoute platformRoute, string summonerId, int count = 3);
 	}
 
 	internal class ChampionMasteryApi : IChampionMasteryApi
@@ -56,16 +58,16 @@ namespace Gwen.Api.Riot
 			_intApi = new(riotGamesClient);
 		}
 
-		public async Task<IEnumerable<ChampionMasteryDto>> ListBySummonerIdAsync(string summonerId)
-			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesBySummonerId, summonerId));
+		public async Task<IEnumerable<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+			=> await _championMasteriesDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masteriesBySummonerId, summonerId));
 
-		public async Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(string summonerId, string championId)
-			=> await _championMasteryDtoApi.GetValueAsync(string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId));
+		public async Task<ChampionMasteryDto> GetBySummonerIdAndChampionIdAsync(PlatformRoute platformRoute, string summonerId, string championId)
+			=> await _championMasteryDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masteryBySummonerIdAndChampionId, summonerId, championId));
 
-		public async Task<IEnumerable<ChampionMasteryDto>> ListTopBySummonerIdAsync(string summonerId, int count = 3)
-			=> await _championMasteriesDtoApi.GetValueAsync(string.Format(_masteriesTopBySummonerId, summonerId) + $"?count=${count}");
+		public async Task<IEnumerable<ChampionMasteryDto>> ListTopBySummonerIdAsync(PlatformRoute platformRoute, string summonerId, int count = 3)
+			=> await _championMasteriesDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_masteriesTopBySummonerId, summonerId) + $"?count=${count}");
 
-		public async Task<int> GetTotalScoreBySummonerIdAsync(string summonerId)
-			=> await _intApi.GetValueAsync(string.Format(_scoresBySummonerId, summonerId));
+		public async Task<int> GetTotalScoreBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+			=> await _intApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_scoresBySummonerId, summonerId));
 	}
 }
