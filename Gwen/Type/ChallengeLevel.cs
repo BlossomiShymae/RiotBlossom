@@ -2,15 +2,15 @@
 {
 	public enum ChallengeLevel
 	{
-		NONE,
-		IRON,
-		BRONZE,
-		SILVER,
-		GOLD,
-		PLATINUM,
-		DIAMOND,
-		MASTER,
-		GRANDMASTER,
-		CHALLENGER,
+		None,
+		Iron,
+		Bronze,
+		Silver,
+		Gold,
+		Platinum,
+		Diamond,
+		Master,
+		Grandmaster,
+		Challenger,
 	}
 }
