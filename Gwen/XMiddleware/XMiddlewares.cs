@@ -2,6 +2,9 @@
 
 namespace Gwen.XMiddleware
 {
+    /// <summary>
+    /// A collection of middlewares used for the HTTP request/execute/response cycle.
+    /// </summary>
     public record XMiddlewares
     {
         public ImmutableArray<IRequestMiddleware> XRequests { get; init; } = ImmutableArray.Create(new IRequestMiddleware[]
