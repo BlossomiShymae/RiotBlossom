@@ -2,6 +2,11 @@
 
 namespace Gwen.XMiddleware
 {
+	/// <summary>
+	/// The default middleware implementation for caching associated response data. Data will be 
+	/// removed when the cache count limit is reached. Data will also expire after a determined amount
+	/// of time passes.
+	/// </summary>
 	public class XMemoryCache : IRequestMiddleware, IResponseMiddleware
 	{
 		private static readonly MemoryCache s_cache = MemoryCache.Default;
