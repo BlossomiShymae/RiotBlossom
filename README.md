@@ -4,7 +4,7 @@
 
 An asynchronous, extensible, and magical Riot Games API wrapper library for C#. ☆*:.｡.o(≧▽≦)o.｡.:*☆
 
-Our magical doll helps to make things totes' easier! This library includes naive cache, rate limter, and retryer middleware plugins 
+Our magical doll helps to make things totes' easier! This library includes naive cache, rate limiter, and retryer middleware plugins 
 out of the box. Other services such as DataDragon and CommunityDragon are also supported! ＼(＾▽＾)／
 
 # Features
