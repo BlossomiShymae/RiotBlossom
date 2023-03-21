@@ -5,6 +5,9 @@ using System.Net.Http.Headers;
 
 namespace Gwen.XMiddleware
 {
+    /// <summary>
+    /// The default middleware implementation for rate limiting requests to the Riot Games API.
+    /// </summary>
     public class XLimiter : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly AsyncKeyedLocker<string> s_locker = new AsyncKeyedLocker<string>();
