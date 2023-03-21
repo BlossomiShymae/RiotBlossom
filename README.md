@@ -92,29 +92,29 @@ using BlossomiShymae.Gwen.XMiddleware;
 // Custom middleware initialization
 var xRedisCache = new XRedisCache();
 
-IGwenClient gwen = GwenCore.CreateClient(
-	new GwenCore.Settings
+GwenCore.Settings settings = new()
+{
+	RiotApiKey = "RGAPI-snippy-snip",
+	HttpClient = httpClient,
+	XMiddlewares = new()
 	{
-		RiotApiKey = "RGAPI-snippy-snip",
-		HttpClient = httpClient,
-		XMiddlewares = new()
+		XRequests = ImmutableArray.Create(new IRequestMiddleware[]
 		{
-			XRequests = ImmutableArray.Create(new IRequestMiddleware[]
-			{
-				// Passing the middleware instance assuming it implements IRequestMiddleware
-				xRedisCache,
-				XLimiter.Default
-			}),
-			XResponses = ImmutableArray.Create(new IResponseMiddleware[]
-			{
-				// Passing the middleware instance assuming it implements IResponseMiddleware
-				xRedisCache,
-				XLimiter.Default
-			}),
-			XRetry = XMiddleware.XRetryer.Default
-		}
+			// Passing the middleware instance assuming it implements IRequestMiddleware
+			xRedisCache,
+			XLimiter.Default
+		}),
+		XResponses = ImmutableArray.Create(new IResponseMiddleware[]
+		{
+			// Passing the middleware instance assuming it implements IResponseMiddleware
+			xRedisCache,
+			XLimiter.Default
+		}),
+		XRetry = XMiddleware.XRetryer.Default
 	}
-);
+};
+
+IGwenClient gwen = GwenCore.CreateClient(settings);
 ```
 
 ## With Riot API
