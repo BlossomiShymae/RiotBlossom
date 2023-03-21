@@ -1,4 +1,7 @@
 ﻿# Gwen
+ 
+![gwen_api_banner](https://user-images.githubusercontent.com/87099578/226517556-7d1b70bc-3ecb-4fbc-b04d-e4062c49353b.png)
+
 An asynchronous, extensible, and magical Riot Games API wrapper library for C#. ☆*:.｡.o(≧▽≦)o.｡.:*☆
 
 Our magical doll helps to make things totes' easier! This library includes naive cache, rate limter, and retryer middleware plugins 
