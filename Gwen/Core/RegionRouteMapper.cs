@@ -1,24 +1,28 @@
-﻿using System.Collections.Immutable;
+﻿using Gwen.Type;
+using System.Collections.Immutable;
 
 namespace Gwen.Core
 {
-    public static class RegionRouteMapper
-    {
-        private static readonly ImmutableDictionary<Type.RegionalRoute, string> _regionByRoute =
-            new Dictionary<Type.RegionalRoute, string>
-            {
-                { Type.RegionalRoute.Americas, "americas" },
-                { Type.RegionalRoute.Europe, "europe" },
-                { Type.RegionalRoute.Asia, "asia" },
-                { Type.RegionalRoute.SouthEastAsia, "sea" }
-            }.ToImmutableDictionary();
+	/// <summary>
+	/// A mapper class for the <see cref="RegionalRoute"/> enum. Used for obtaining the raw value.
+	/// </summary>
+	public static class RegionRouteMapper
+	{
+		private static readonly ImmutableDictionary<RegionalRoute, string> _regionByRoute =
+			new Dictionary<RegionalRoute, string>
+			{
+				{ RegionalRoute.Americas, "americas" },
+				{ RegionalRoute.Europe, "europe" },
+				{ RegionalRoute.Asia, "asia" },
+				{ RegionalRoute.SouthEastAsia, "sea" }
+			}.ToImmutableDictionary();
 
-        public static string GetRegion(Type.RegionalRoute regionalRoute)
-        {
-            var region = _regionByRoute.GetValueOrDefault(regionalRoute);
-            if (string.IsNullOrEmpty(region))
-                throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
-            return region;
-        }
-    }
+		public static string GetRegion(RegionalRoute regionalRoute)
+		{
+			var region = _regionByRoute.GetValueOrDefault(regionalRoute);
+			if (string.IsNullOrEmpty(region))
+				throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
+			return region;
+		}
+	}
 }

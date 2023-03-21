@@ -1,24 +1,28 @@
-﻿using System.Collections.Immutable;
+﻿using Gwen.Type;
+using System.Collections.Immutable;
 
 namespace Gwen.Core
 {
-    public class LeagueDivisionMapper
-    {
-        private static readonly ImmutableDictionary<Type.LeagueDivision, string> _valueByLeagueDivision =
-            new Dictionary<Type.LeagueDivision, string>
-            {
-                { Type.LeagueDivision.I, "I" },
-                { Type.LeagueDivision.II, "II" },
-                { Type.LeagueDivision.III, "III" },
-                { Type.LeagueDivision.IV, "IV" }
-            }.ToImmutableDictionary();
+	/// <summary>
+	/// A mapper class for the <see cref="LeagueDivision"/> enum.
+	/// </summary>
+	public class LeagueDivisionMapper
+	{
+		private static readonly ImmutableDictionary<LeagueDivision, string> _valueByLeagueDivision =
+			new Dictionary<LeagueDivision, string>
+			{
+				{ LeagueDivision.I, "I" },
+				{ LeagueDivision.II, "II" },
+				{ LeagueDivision.III, "III" },
+				{ LeagueDivision.IV, "IV" }
+			}.ToImmutableDictionary();
 
-        public static string GetValue(Type.LeagueDivision leagueDivision)
-        {
-            var value = _valueByLeagueDivision.GetValueOrDefault(leagueDivision);
-            if (string.IsNullOrEmpty(value))
-                throw new NotImplementedException($"Value for league division {leagueDivision} is not implemented");
-            return value;
-        }
-    }
+		public static string GetValue(LeagueDivision leagueDivision)
+		{
+			var value = _valueByLeagueDivision.GetValueOrDefault(leagueDivision);
+			if (string.IsNullOrEmpty(value))
+				throw new NotImplementedException($"Value for league division {leagueDivision} is not implemented");
+			return value;
+		}
+	}
 }

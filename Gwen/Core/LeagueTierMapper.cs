@@ -1,26 +1,30 @@
-﻿using System.Collections.Immutable;
+﻿using Gwen.Type;
+using System.Collections.Immutable;
 
 namespace Gwen.Core
 {
-    public static class LeagueTierMapper
-    {
-        private static readonly ImmutableDictionary<Type.LeagueTier, string> _valueByLeagueTier =
-            new Dictionary<Type.LeagueTier, string>
-            {
-                { Type.LeagueTier.Iron, "IRON" },
-                { Type.LeagueTier.Bronze, "BRONZE" },
-                { Type.LeagueTier.Silver, "SILVER" },
-                { Type.LeagueTier.Gold, "GOLD" },
-                { Type.LeagueTier.Platinum, "PLATINUM" },
-                { Type.LeagueTier.Diamond, "DIAMOND" }
-            }.ToImmutableDictionary();
+	/// <summary>
+	/// A mapper class for the <see cref="LeagueTier"/> enum.
+	/// </summary>
+	public static class LeagueTierMapper
+	{
+		private static readonly ImmutableDictionary<LeagueTier, string> _valueByLeagueTier =
+			new Dictionary<LeagueTier, string>
+			{
+				{ LeagueTier.Iron, "IRON" },
+				{ LeagueTier.Bronze, "BRONZE" },
+				{ LeagueTier.Silver, "SILVER" },
+				{ LeagueTier.Gold, "GOLD" },
+				{ LeagueTier.Platinum, "PLATINUM" },
+				{ LeagueTier.Diamond, "DIAMOND" }
+			}.ToImmutableDictionary();
 
-        public static string GetValue(Type.LeagueTier leagueTier)
-        {
-            var value = _valueByLeagueTier.GetValueOrDefault(leagueTier);
-            if (string.IsNullOrEmpty(value))
-                throw new NotImplementedException($"Value for league tier {leagueTier} is not implemented");
-            return value;
-        }
-    }
+		public static string GetValue(LeagueTier leagueTier)
+		{
+			var value = _valueByLeagueTier.GetValueOrDefault(leagueTier);
+			if (string.IsNullOrEmpty(value))
+				throw new NotImplementedException($"Value for league tier {leagueTier} is not implemented");
+			return value;
+		}
+	}
 }
