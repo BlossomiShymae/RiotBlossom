@@ -1,5 +1,9 @@
 ﻿namespace Gwen.XMiddleware
 {
+	/// <summary>
+	/// The default middleware implementation for retrying requests. Unsuccessful requests will be retried a set 
+	/// amount of times. Exhausting the retry limit will throw an exception.
+	/// </summary>
 	public class XRetry : IRetryMiddleware
 	{
 		public static XRetry Default { get; } = new XRetry();
