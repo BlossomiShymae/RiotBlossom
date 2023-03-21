@@ -26,6 +26,20 @@ namespace GwenTests.Api.Riot
 		}
 
 		[TestMethod()]
+		public async Task Api_WithQueryOptions_ShouldReturnMatchIdCollection()
+		{
+			IGwenClient gwen = StubConfig.Gwen;
+
+			ImmutableList<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerRegion, summoner.Puuid, new Gwen.Api.Riot.ListIdsByPuuidAsyncOptions
+			{
+				Count = 100,
+				Start = 0,
+			});
+
+			Assert.AreEqual(ids.Count, 100);
+		}
+
+		[TestMethod()]
 		[ExpectedException(typeof(GwenCorruptedMatchException))]
 		public async Task Api_WithCorruptedMatchId_ShouldThrowExceptionForMatchDto()
 		{
