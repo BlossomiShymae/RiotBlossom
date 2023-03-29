@@ -1,5 +1,5 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Type;
+﻿using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Core
 {
@@ -36,6 +36,17 @@ namespace BlossomiShymae.Gwen.Core
             if (string.IsNullOrEmpty(id))
                 throw new NotImplementedException($"Id for platform route {platformRoute} not implemented");
             return id;
+        }
+
+        public static PlatformRoute FromId(string id)
+        {
+            var kvs = _platformIdByRoute.ToList();
+            foreach (var kv in kvs)
+            {
+                if (kv.Value == id)
+                    return kv.Key;
+            }
+            throw new InvalidOperationException($"Could not find platform route for id {id}");
         }
     }
 }

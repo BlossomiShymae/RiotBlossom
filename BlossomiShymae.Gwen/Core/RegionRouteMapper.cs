@@ -1,5 +1,5 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Type;
+﻿using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Core
 {
@@ -23,6 +23,17 @@ namespace BlossomiShymae.Gwen.Core
             if (string.IsNullOrEmpty(region))
                 throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
             return region;
+        }
+
+        public static RegionalRoute FromRegion(string region)
+        {
+            var kvs = _regionByRoute.ToList();
+            foreach (var kv in kvs)
+            {
+                if (kv.Value == region)
+                    return kv.Key;
+            }
+            throw new InvalidOperationException($"Could not find region route for region {region}");
         }
     }
 }
