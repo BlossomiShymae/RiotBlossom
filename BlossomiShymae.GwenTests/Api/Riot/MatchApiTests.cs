@@ -40,7 +40,7 @@ namespace BlossomiShymae.GwenTests.Api.Riot
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(GwenCorruptedMatchException))]
+        [ExpectedException(typeof(CorruptedMatchException))]
         public async Task Api_WithCorruptedMatchId_ShouldThrowExceptionForMatchDto()
         {
             IGwenClient gwen = StubConfig.Gwen;
@@ -49,7 +49,7 @@ namespace BlossomiShymae.GwenTests.Api.Riot
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(GwenCorruptedMatchException))]
+        [ExpectedException(typeof(CorruptedMatchException))]
         public async Task Api_WithCorruptedMatchId_ShouldThrowExceptionForMatchTimelineDto()
         {
             IGwenClient gwen = StubConfig.Gwen;

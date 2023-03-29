@@ -12,7 +12,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a match by ID.
         /// </summary>
-        /// <exception cref="GwenCorruptedMatchException"></exception>
+        /// <exception cref="CorruptedMatchException"></exception>
         /// <param name="regionalRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -20,7 +20,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a match timeline by ID.
         /// </summary>
-        /// <exception cref="GwenCorruptedMatchException"></exception>
+        /// <exception cref="CorruptedMatchException"></exception>
         /// <param name="regionalRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -75,7 +75,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         {
             MatchDto match = await _matchApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchByMatchIdUri, id));
             if (IsCorrupted(match))
-                throw new GwenCorruptedMatchException(match.Metadata.MatchId);
+                throw new CorruptedMatchException(match.Metadata.MatchId);
             return match;
         }
 
@@ -83,7 +83,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         {
             MatchTimelineDto matchTimelineDto = await _matchTimelineApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_matchTimelineByMatchIdUri, id));
             if (IsCorrupted(matchTimelineDto))
-                throw new GwenCorruptedMatchException(matchTimelineDto.Metadata.MatchId);
+                throw new CorruptedMatchException(matchTimelineDto.Metadata.MatchId);
             return matchTimelineDto;
         }
 
