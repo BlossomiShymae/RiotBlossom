@@ -3,10 +3,10 @@
     /// <summary>
     /// <para>An exception class for an invalid Riot API key. :c</para>
     /// </summary>
-    public class InvalidRiotKeyException : Exception
+    public class InvalidRiotKeyException : System.Exception
     {
         public InvalidRiotKeyException(string message) : base(message) { }
 
-        public InvalidRiotKeyException(string message, Exception inner) : base(message, inner) { }
+        public InvalidRiotKeyException(string message, System.Exception inner) : base(message, inner) { }
     }
 }

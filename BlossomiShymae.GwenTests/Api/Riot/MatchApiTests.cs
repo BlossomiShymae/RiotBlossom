@@ -1,7 +1,7 @@
 ﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Dto.Riot.Match;
 using BlossomiShymae.Gwen.Dto.Riot.Summoner;
-using BlossomiShymae.Gwen.PException;
+using BlossomiShymae.Gwen.Exception;
 using BlossomiShymae.Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Immutable;

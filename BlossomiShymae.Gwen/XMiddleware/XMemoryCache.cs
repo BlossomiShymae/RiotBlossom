@@ -27,7 +27,7 @@ namespace BlossomiShymae.Gwen.XMiddleware
                         hit(res);
                     }
                 }
-                catch (Exception) { }
+                catch (System.Exception) { }
             }
             if (!isHit)
                 next();
