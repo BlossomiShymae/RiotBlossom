@@ -15,7 +15,8 @@
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PackageTags>riot;riotgames;lol;riotapi;leagueoflegends;</PackageTags>
 	<PackageIcon>icon.png</PackageIcon>
-	<Version>1.0.2</Version>
+	<Version>1.0.4</Version>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
