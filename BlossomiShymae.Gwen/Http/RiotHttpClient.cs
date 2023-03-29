@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.Gwen.XMiddleware;
+﻿using BlossomiShymae.Gwen.PException;
+using BlossomiShymae.Gwen.XMiddleware;
 
 namespace BlossomiShymae.Gwen.Http
 {
@@ -42,6 +43,9 @@ namespace BlossomiShymae.Gwen.Http
 
         public async Task<string> GetStringAsync(string routingValue, string uri)
         {
+            if (string.IsNullOrEmpty(_riotApiKey))
+                throw new InvalidRiotKeyException("Riot API key is required to access this service");
+
             Uri requestUri = new($"https://{routingValue}.api.riotgames.com{uri}");
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Add("X-Riot-Token", _riotApiKey);

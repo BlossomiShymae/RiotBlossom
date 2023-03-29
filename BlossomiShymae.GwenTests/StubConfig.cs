@@ -1,7 +1,7 @@
 ﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Type;
 
-namespace GwenTests
+namespace BlossomiShymae.GwenTests
 {
     public static class StubConfig
     {

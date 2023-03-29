@@ -2,7 +2,7 @@
 using BlossomiShymae.Gwen.Dto.Riot.Account;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GwenTests.Api.Riot
+namespace BlossomiShymae.GwenTests.Api.Riot
 {
     [TestClass()]
     public class AccountApiTests

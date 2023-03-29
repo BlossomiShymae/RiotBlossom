@@ -4,7 +4,7 @@ using BlossomiShymae.Gwen.Dto.Riot.Summoner;
 using BlossomiShymae.Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GwenTests.Api.Riot
+namespace BlossomiShymae.GwenTests.Api.Riot
 {
     [TestClass()]
     public class SpectatorApiTests

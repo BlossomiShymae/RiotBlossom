@@ -3,7 +3,7 @@ using BlossomiShymae.Gwen.Dto.Riot.Champion;
 using BlossomiShymae.Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GwenTests.Api.Riot
+namespace BlossomiShymae.GwenTests.Api.Riot
 {
     [TestClass()]
     public class ChampionApiTests

@@ -1,11 +1,11 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core.Wrapper;
+﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Dto.Riot.Clash;
 using BlossomiShymae.Gwen.Dto.Riot.Summoner;
 using BlossomiShymae.Gwen.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Immutable;
 
-namespace GwenTests.Api.Riot
+namespace BlossomiShymae.GwenTests.Api.Riot
 {
     [TestClass()]
     public class ClashApiTests

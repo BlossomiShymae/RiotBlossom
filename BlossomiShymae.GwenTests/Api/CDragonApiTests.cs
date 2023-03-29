@@ -1,11 +1,11 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core.Wrapper;
+﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Dto.CDragon.Champion;
 using BlossomiShymae.Gwen.Dto.CDragon.Item;
 using BlossomiShymae.Gwen.Dto.CDragon.Perk;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Immutable;
 
-namespace GwenTests.Api
+namespace BlossomiShymae.GwenTests.Api
 {
     [TestClass()]
     public class CDragonApiTests

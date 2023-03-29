@@ -1,10 +1,10 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core.Wrapper;
+﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Dto.Riot.ChampionMastery;
 using BlossomiShymae.Gwen.Dto.Riot.Summoner;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Immutable;
 
-namespace GwenTests.Api.Riot
+namespace BlossomiShymae.GwenTests.Api.Riot
 {
     [TestClass()]
     public class ChampionMasteryApiTests
