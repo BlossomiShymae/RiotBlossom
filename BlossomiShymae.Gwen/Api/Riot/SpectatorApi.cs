@@ -10,12 +10,14 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get the current game information by encrypted summoner ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
         Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
         /// <summary>
         /// Get the list of featured games.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <returns></returns>
         Task<FeaturedGames> GetFeaturedGamesAsync(PlatformRoute platformRoute);
     }

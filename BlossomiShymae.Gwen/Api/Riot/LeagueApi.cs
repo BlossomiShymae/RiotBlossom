@@ -1,8 +1,8 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core;
+﻿using BlossomiShymae.Gwen.Core;
 using BlossomiShymae.Gwen.Dto.Riot.League;
 using BlossomiShymae.Gwen.Http;
 using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Api.Riot
 {
@@ -11,30 +11,35 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get the challenger league for given queue type.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
         Task<LeagueListDto> GetChallengerLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
         /// <summary>
         /// Get the grandmaster league for given queue type.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
         Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
         /// <summary>
         /// Get league with given ID (includes inactive entries).
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<LeagueListDto> GetLeagueByIdAsync(PlatformRoute platformRoute, string id);
         /// <summary>
         /// Get the master league for given queue type.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
         Task<LeagueListDto> GetMasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
         /// <summary>
         /// List all league entries for given queue type, rank tier, and rank division.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <param name="tier"></param>
         /// <param name="division"></param>
@@ -43,6 +48,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// List league entries in all queues for encrypted summoner ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
         Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);

@@ -1,7 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using AsyncKeyedLock;
+using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Net.Http.Headers;
-using AsyncKeyedLock;
 
 namespace BlossomiShymae.Gwen.XMiddleware
 {
@@ -10,7 +10,7 @@ namespace BlossomiShymae.Gwen.XMiddleware
     /// </summary>
     public class XLimiter : IRequestMiddleware, IResponseMiddleware
     {
-        private static readonly AsyncKeyedLocker<string> s_locker = new AsyncKeyedLocker<string>();
+        private static readonly AsyncKeyedLocker<string> s_locker = new();
         private static readonly ConcurrentDictionary<string, XRateLimiterRoute> _headersByRoutingValue = new();
         private static readonly string _appRateLimitKey = "x-app-rate-limit";
         private static readonly string _appRateLimitCountKey = "x-app-rate-limit-count";
@@ -137,9 +137,7 @@ namespace BlossomiShymae.Gwen.XMiddleware
         private static string ExtractHeader(HttpResponseHeaders headers, string key)
         {
             string? value = headers.GetValues(key).FirstOrDefault();
-            if (value == null)
-                throw new NullReferenceException($"X-Rate-Limit header value for {key} is null");
-            return value;
+            return value ?? throw new NullReferenceException($"X-Rate-Limit header value for {key} is null");
         }
 
         private record XRateLimiterRoute

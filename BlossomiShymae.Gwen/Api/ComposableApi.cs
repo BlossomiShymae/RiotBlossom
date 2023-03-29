@@ -1,12 +1,12 @@
-﻿using System.Text.Json;
+﻿using BlossomiShymae.Gwen.Http;
+using System.Text.Json;
 using System.Text.Json.Nodes;
-using BlossomiShymae.Gwen.Http;
 
 namespace BlossomiShymae.Gwen.Api
 {
     internal class ComposableApi<T>
     {
-        private static readonly JsonSerializerOptions s_options = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions s_options = new()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
@@ -22,9 +22,7 @@ namespace BlossomiShymae.Gwen.Api
         internal U Deserialize<U>(JsonObject obj)
         {
             var value = JsonSerializer.Deserialize<U>(obj, s_options);
-            if (value == null)
-                throw new NullReferenceException($"Failed to deserialize object {obj}");
-            return value;
+            return value == null ? throw new NullReferenceException($"Failed to deserialize object {obj}") : value;
         }
 
         internal async Task<byte[]> GetByteArrayAsync(string uri)
@@ -36,9 +34,7 @@ namespace BlossomiShymae.Gwen.Api
         {
             string data = await _httpClient.GetStringAsync(uri);
             var dto = JsonSerializer.Deserialize<T>(data, s_options);
-            if (dto == null)
-                throw new NullReferenceException($"Failed to deserialize response data {data}");
-            return dto;
+            return dto == null ? throw new NullReferenceException($"Failed to deserialize response data {data}") : dto;
         }
 
         internal async Task<T> GetValueAsync(string routingValue, string uri)
@@ -53,9 +49,7 @@ namespace BlossomiShymae.Gwen.Api
                     WriteIndented = true,
                 };
                 var dto = JsonSerializer.Deserialize<T>(data, options);
-                if (dto == null)
-                    throw new NullReferenceException($"Failed to deserialize response data {data}");
-                return dto;
+                return dto == null ? throw new NullReferenceException($"Failed to deserialize response data {data}") : dto;
             }
             else
             {

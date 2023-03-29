@@ -1,7 +1,7 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Dto.Riot.Clash;
+﻿using BlossomiShymae.Gwen.Dto.Riot.Clash;
 using BlossomiShymae.Gwen.Http;
 using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Api.Riot
 {
@@ -10,30 +10,35 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a clash team by ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="teamId"></param>
         /// <returns></returns>
         Task<TeamDto> GetTeamByIdAsync(PlatformRoute platformRoute, string teamId);
         /// <summary>
         /// Get a clash tournament by ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="tournamentId"></param>
         /// <returns></returns>
         Task<TournamentDto> GetTournamentByIdAsync(PlatformRoute platformRoute, string tournamentId);
         /// <summary>
         /// Get a clash tournament by team ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="teamId"></param>
         /// <returns></returns>
         Task<TournamentDto> GetTournamentByTeamIdAsync(PlatformRoute platformRoute, string teamId);
         /// <summary>
         /// List all active or upcoming clash tournaments.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <returns></returns>
         Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute);
         /// <summary>
         /// List active Clash players for encrypted summoner ID. If a summoner registers for multiple tournaments
         /// at once, then both registrations will appear.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
         Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);

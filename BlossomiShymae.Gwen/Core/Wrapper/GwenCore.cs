@@ -20,7 +20,7 @@ namespace BlossomiShymae.Gwen.Core.Wrapper
         }
 
         /// <summary>
-        /// The settings used to pass into <see cref="CreateClient(Settings))"/>."/>
+        /// The settings used to pass into <see cref="CreateClient(Settings)"/>."/>
         /// </summary>
         public record Settings
         {

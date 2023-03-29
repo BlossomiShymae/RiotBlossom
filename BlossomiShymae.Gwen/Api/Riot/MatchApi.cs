@@ -1,9 +1,9 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core;
+﻿using BlossomiShymae.Gwen.Core;
 using BlossomiShymae.Gwen.Dto.Riot.Match;
 using BlossomiShymae.Gwen.Http;
 using BlossomiShymae.Gwen.PException;
 using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Api.Riot
 {
@@ -13,6 +13,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// Get a match by ID.
         /// </summary>
         /// <exception cref="GwenCorruptedMatchException"></exception>
+        /// <param name="regionalRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id);
@@ -20,18 +21,21 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// Get a match timeline by ID.
         /// </summary>
         /// <exception cref="GwenCorruptedMatchException"></exception>
+        /// <param name="regionalRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<MatchTimelineDto> GetTimelineByIdAsync(RegionalRoute regionalRoute, string id);
         /// <summary>
         /// List the last 20 most recent match IDs for encrypted PUUID.
         /// </summary>
+        /// <param name="regionalRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
         Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid);
         /// <summary>
         /// List the match IDs for encrypted PUUID with given option constraints.
         /// </summary>
+        /// <param name="regionalRoute"></param>
         /// <param name="puuid"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>

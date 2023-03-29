@@ -1,8 +1,8 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core;
+﻿using BlossomiShymae.Gwen.Core;
 using BlossomiShymae.Gwen.Dto.Riot.ChampionMastery;
 using BlossomiShymae.Gwen.Http;
 using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Api.Riot
 {
@@ -11,6 +11,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get champion mastery entry by player ID and champion ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <param name="championId"></param>
         /// <returns></returns>
@@ -19,6 +20,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get the total summation of individual champion mastery levels for associated summoner ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
         Task<int> GetTotalScoreBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
@@ -27,6 +29,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// Get an immutable collection of all champion mastery entries for summoner ID. Sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
         /// descending.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
         Task<ImmutableList<ChampionMasteryDto>> ListBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
@@ -35,6 +38,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// Get an immutable collection of requested champion mastery entries sorted by <see cref="ChampionMasteryDto.ChampionPoints"/>
         /// descending.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <param name="count"></param>
         /// <returns></returns>

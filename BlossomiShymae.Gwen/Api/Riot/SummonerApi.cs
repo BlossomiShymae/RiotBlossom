@@ -10,6 +10,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a summoner by encrypted account ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="accountId"></param>
         /// <returns></returns>
         Task<SummonerDto> GetByAccountIdAsync(PlatformRoute platformRoute, string accountId);
@@ -17,6 +18,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a summoner by encrypted ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
         Task<SummonerDto> GetByIdAsync(PlatformRoute platformRoute, string summonerId);
@@ -24,6 +26,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a summoner by summoner name.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="summonerName"></param>
         /// <returns></returns>
         Task<SummonerDto> GetByNameAsync(PlatformRoute platformRoute, string summonerName);
@@ -31,6 +34,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get a summoner by encrypted PUUID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
         Task<SummonerDto> GetByPuuidAsync(PlatformRoute platformRoute, string puuid);
@@ -39,11 +43,9 @@ namespace BlossomiShymae.Gwen.Api.Riot
     internal class SummonerApi : ISummonerApi
     {
         private static readonly string _uri = "/lol/summoner/v4/summoners";
-        private static readonly string _summonerByRSOPuuidUri = "/fufillment/v1/summoners/by-puuid/{0}";
         private static readonly string _summonerByAccountIdUri = _uri + "/by-account/{0}";
         private static readonly string _summonerBySummonerNameUri = _uri + "/by-name/{0}";
         private static readonly string _summonerByPuuidUri = _uri + "/by-puuid/{0}";
-        private static readonly string _summonerByAccessTokenUri = _uri + "/me";
         private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
         private readonly ComposableApi<SummonerDto> _summonerDtoApi;
 

@@ -1,8 +1,8 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core;
+﻿using BlossomiShymae.Gwen.Core;
 using BlossomiShymae.Gwen.Dto.Riot.LolChallenges;
 using BlossomiShymae.Gwen.Http;
 using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Api.Riot
 {
@@ -11,6 +11,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get challenge configuration information by ID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ChallengeConfigInfoDto> GetConfigInfoByIdAsync(PlatformRoute platformRoute, long id);
@@ -22,18 +23,21 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// Get challenge percentiles from ID for players who have achieved it.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ImmutableDictionary<string, double>> GetPercentilesByIdAsync(PlatformRoute platformRoute, long id);
         /// <summary>
         /// Get progressed challenge information details for encrypted PUUID.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
         Task<PlayerInfoDto> GetPlayerInfoByPuuidAsync(PlatformRoute platformRoute, string puuid);
         /// <summary>
         /// Get the apex players for challenge level.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <param name="level"></param>
         /// <param name="id"></param>
         /// <param name="limit"></param>
@@ -42,6 +46,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
         /// <summary>
         /// List all basic challenge configuration information.
         /// </summary>
+        /// <param name="platformRoute"></param>
         /// <returns></returns>
         Task<ImmutableList<ChallengeConfigInfoDto>> ListConfigInfosAsync(PlatformRoute platformRoute);
     }
