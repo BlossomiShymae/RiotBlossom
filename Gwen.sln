@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gwen", "Gwen\Gwen.csproj", "{983D08DE-0E08-449C-8EF0-F99FA0FD8950}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlossomiShymae.Gwen", "BlossomiShymae.Gwen\BlossomiShymae.Gwen.csproj", "{983D08DE-0E08-449C-8EF0-F99FA0FD8950}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GwenTests", "GwenTests\GwenTests.csproj", "{8F64BFFB-F2A0-4FEC-A51E-2E169020313F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlossomiShymae.GwenTests", "BlossomiShymae.GwenTests\BlossomiShymae.GwenTests.csproj", "{8F64BFFB-F2A0-4FEC-A51E-2E169020313F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
