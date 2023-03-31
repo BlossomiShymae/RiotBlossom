@@ -28,7 +28,7 @@ namespace BlossomiShymae.Gwen.Core.Wrapper
             /// </summary>
             public HttpClient HttpClient { get; init; } = new();
             /// <summary>
-            /// The Riot API key used to gain access with. Defaults to empty string which will throw an exception.
+            /// The Riot API key used to gain access with. Defaults to empty string which will throw an exception upon making a Riot request.
             /// </summary>
             public string RiotApiKey { get; init; } = string.Empty;
             /// <summary>
