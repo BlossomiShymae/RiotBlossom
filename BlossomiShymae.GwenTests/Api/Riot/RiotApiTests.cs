@@ -1,6 +1,6 @@
 ﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Dto.Riot.Summoner;
-using BlossomiShymae.Gwen.PException;
+using BlossomiShymae.Gwen.Exception;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BlossomiShymae.GwenTests.Api.Riot
@@ -9,7 +9,7 @@ namespace BlossomiShymae.GwenTests.Api.Riot
     public class RiotApiTests
     {
         [TestMethod()]
-        [ExpectedException(typeof(InvalidRiotKeyException))]
+        [ExpectedException(typeof(MissingApiKeyException))]
         public async Task Api_WithNoRiotKey_ShouldThrowException()
         {
             IGwenClient gwen = GwenCore.CreateClient(new()
