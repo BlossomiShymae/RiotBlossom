@@ -7,38 +7,18 @@ namespace BlossomiShymae.Gwen.Http
     {
         private readonly HttpClient _httpClient;
         private readonly string _riotApiKey;
-        private readonly string _routingValue;
         private readonly XMiddlewares _xMiddlewares;
 
-        public RiotHttpClient(HttpClient httpClient, string riotApiKey, string routingValue, XMiddlewares xMiddlewares)
+        public RiotHttpClient(HttpClient httpClient, string riotApiKey, XMiddlewares xMiddlewares)
         {
             _httpClient = httpClient;
             _riotApiKey = riotApiKey;
-            _routingValue = routingValue;
             _xMiddlewares = xMiddlewares;
         }
 
         public Task<byte[]> GetByteArrayAsync(string uri)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<string> GetStringAsync(string uri)
-        {
-            // Create request message
-            var requestUri = new Uri($"https://{_routingValue}.api.riotgames.com{uri}");
-            using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            requestMessage.Headers.Add("X-Riot-Token", _riotApiKey);
-
-            // Create execute info
-            var executeInfo = new XExecuteInfo
-            {
-                RoutingValue = _routingValue,
-                MethodUri = uri
-            };
-
-            var data = await ProcessXMiddlewaresAsync(executeInfo, requestMessage);
-            return data;
         }
 
         public async Task<string> GetStringAsync(string routingValue, string uri)
@@ -52,12 +32,17 @@ namespace BlossomiShymae.Gwen.Http
 
             var info = new XExecuteInfo
             {
-                RoutingValue = _routingValue,
+                RoutingValue = routingValue,
                 MethodUri = uri,
             };
 
             string data = await ProcessXMiddlewaresAsync(info, requestMessage);
             return data;
+        }
+
+        public Task<string> GetStringAsync(string uri)
+        {
+            throw new NotImplementedException();
         }
 
         private async Task<string> ProcessXMiddlewaresAsync(XExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)

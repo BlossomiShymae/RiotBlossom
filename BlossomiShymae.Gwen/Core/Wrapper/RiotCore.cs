@@ -1,6 +1,5 @@
 ﻿using BlossomiShymae.Gwen.Api.Riot;
 using BlossomiShymae.Gwen.Http;
-using BlossomiShymae.Gwen.Type;
 
 namespace BlossomiShymae.Gwen.Core.Wrapper
 {
@@ -45,10 +44,6 @@ namespace BlossomiShymae.Gwen.Core.Wrapper
         /// <summary>
         /// The platform routing value used for accessing data from.
         /// </summary>
-        PlatformRoute PlatformRoute { get; }
-        /// <summary>
-        /// The platform routing value used for accessing data from.
-        /// </summary>
         ISummonerApi Summoner { get; }
     }
 
@@ -64,7 +59,6 @@ namespace BlossomiShymae.Gwen.Core.Wrapper
         private readonly MatchApi _matchApi;
         private readonly SpectatorApi _spectatorApi;
         private readonly SummonerApi _summonerApi;
-        private readonly PlatformRoute _platformRoute;
         public IAccountApi Account => _accountApi;
         public IChampionApi Champion => _championApi;
         public IChampionMasteryApi ChampionMastery => _championMasteryApi;
@@ -75,9 +69,8 @@ namespace BlossomiShymae.Gwen.Core.Wrapper
         public IMatchApi Match => _matchApi;
         public ISpectatorApi Spectator => _spectatorApi;
         public ISummonerApi Summoner => _summonerApi;
-        public PlatformRoute PlatformRoute => _platformRoute;
 
-        public RiotCore(RiotHttpClient riotHttpClient, PlatformRoute platformRoute)
+        public RiotCore(RiotHttpClient riotHttpClient)
         {
             _accountApi = new(riotHttpClient);
             _championApi = new(riotHttpClient);
@@ -89,7 +82,6 @@ namespace BlossomiShymae.Gwen.Core.Wrapper
             _matchApi = new(riotHttpClient);
             _spectatorApi = new(riotHttpClient);
             _summonerApi = new(riotHttpClient);
-            _platformRoute = platformRoute;
         }
     }
 }

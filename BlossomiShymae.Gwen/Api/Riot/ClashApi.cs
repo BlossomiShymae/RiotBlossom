@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.Gwen.Dto.Riot.Clash;
+﻿using BlossomiShymae.Gwen.Core;
+using BlossomiShymae.Gwen.Dto.Riot.Clash;
 using BlossomiShymae.Gwen.Http;
 using BlossomiShymae.Gwen.Type;
 using System.Collections.Immutable;
@@ -67,23 +68,23 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
         public async Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
         {
-            List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(string.Format(_playersBySummonerIdUri, summonerId));
+            List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_playersBySummonerIdUri, summonerId));
             return dtoCollection.ToImmutableList();
         }
 
         public async Task<TeamDto> GetTeamByIdAsync(PlatformRoute platformRoute, string teamId)
-            => await _teamDtoApi.GetValueAsync(string.Format(_teamByTeamIdUri, teamId));
+            => await _teamDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_teamByTeamIdUri, teamId));
 
         public async Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute)
         {
-            List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(_tournamentsUri);
+            List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _tournamentsUri);
             return dtoCollection.ToImmutableList();
         }
 
         public async Task<TournamentDto> GetTournamentByTeamIdAsync(PlatformRoute platformRoute, string teamId)
-            => await _tournamentDtoApi.GetValueAsync(string.Format(_tournamentByTeamIdUri, teamId));
+            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_tournamentByTeamIdUri, teamId));
 
         public async Task<TournamentDto> GetTournamentByIdAsync(PlatformRoute platformRoute, string tournamentId)
-            => await _tournamentDtoApi.GetValueAsync(string.Format(_tournamentById, tournamentId));
+            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_tournamentById, tournamentId));
     }
 }
