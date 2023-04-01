@@ -435,5 +435,62 @@
         /// Whether the player has won the match.
         /// </summary>
         public bool Win { get; init; }
+
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int AllInPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int AssistMePings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int BaitPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int BasicPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int CommandPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int DangerPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int EnemyMissingPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int EnemyVisionPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int HoldPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int NeedVisionPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int OnMyWayPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int PushPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public int VisionClearedPings { get; init; }
+        /// <summary>
+        /// UNDOCUMENTED
+        /// </summary>
+        public bool EligibleForProgression { get; init; }
     }
 }
