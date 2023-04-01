@@ -47,12 +47,12 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
     internal class ClashApi : IClashApi
     {
-        private static readonly string _uri = "/lol/clash/v1";
-        private static readonly string _playersBySummonerIdUri = _uri + "/players/by-summoner/{0}";
-        private static readonly string _teamByTeamIdUri = _uri + "/teams/{0}";
-        private static readonly string _tournamentsUri = _uri + "/tournaments";
-        private static readonly string _tournamentByTeamIdUri = _tournamentsUri + "/by-team/{0}";
-        private static readonly string _tournamentById = _tournamentsUri + "/{0}";
+        private static readonly string s_uri = "/lol/clash/v1";
+        private static readonly string s_playersBySummonerIdUri = s_uri + "/players/by-summoner/{0}";
+        private static readonly string s_teamByTeamIdUri = s_uri + "/teams/{0}";
+        private static readonly string s_tournamentsUri = s_uri + "/tournaments";
+        private static readonly string s_tournamentByTeamIdUri = s_tournamentsUri + "/by-team/{0}";
+        private static readonly string s_tournamentById = s_tournamentsUri + "/{0}";
         private readonly ComposableApi<List<PlayerDto>> _playerDtosApi;
         private readonly ComposableApi<TeamDto> _teamDtoApi;
         private readonly ComposableApi<List<TournamentDto>> _tournamentDtosApi;
@@ -68,23 +68,23 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
         public async Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
         {
-            List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_playersBySummonerIdUri, summonerId));
+            List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_playersBySummonerIdUri, summonerId));
             return dtoCollection.ToImmutableList();
         }
 
         public async Task<TeamDto> GetTeamByIdAsync(PlatformRoute platformRoute, string teamId)
-            => await _teamDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_teamByTeamIdUri, teamId));
+            => await _teamDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_teamByTeamIdUri, teamId));
 
         public async Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute)
         {
-            List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _tournamentsUri);
+            List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_tournamentsUri);
             return dtoCollection.ToImmutableList();
         }
 
         public async Task<TournamentDto> GetTournamentByTeamIdAsync(PlatformRoute platformRoute, string teamId)
-            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_tournamentByTeamIdUri, teamId));
+            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_tournamentByTeamIdUri, teamId));
 
         public async Task<TournamentDto> GetTournamentByIdAsync(PlatformRoute platformRoute, string tournamentId)
-            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_tournamentById, tournamentId));
+            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_tournamentById, tournamentId));
     }
 }

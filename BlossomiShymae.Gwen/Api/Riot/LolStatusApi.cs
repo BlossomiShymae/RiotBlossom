@@ -16,7 +16,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
     internal class LolStatusApi : ILolStatusApi
     {
-        private static readonly string _statusUri = "/lol/status/v4/platform-data";
+        private static readonly string s_statusUri = "/lol/status/v4/platform-data";
         private readonly ComposableApi<PlatformDataDto> _platformDataDtoApi;
 
         public LolStatusApi(RiotHttpClient riotGamesClient)
@@ -25,6 +25,6 @@ namespace BlossomiShymae.Gwen.Api.Riot
         }
 
         public async Task<PlatformDataDto> GetPlatformStatusAsync(PlatformRoute platformRoute)
-            => await _platformDataDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _statusUri);
+            => await _platformDataDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_statusUri);
     }
 }

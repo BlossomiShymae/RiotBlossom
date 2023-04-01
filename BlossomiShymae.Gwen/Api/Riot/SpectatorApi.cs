@@ -24,9 +24,9 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
     internal class SpectatorApi : ISpectatorApi
     {
-        private static readonly string _uri = "/lol/spectator/v4";
-        private static readonly string _currentGameInfoBySummonerIdUri = _uri + "/active-games/by-summoner/{0}";
-        private static readonly string _featuredGamesUri = _uri + "/featured-games";
+        private static readonly string s_uri = "/lol/spectator/v4";
+        private static readonly string s_currentGameInfoBySummonerIdUri = s_uri + "/active-games/by-summoner/{0}";
+        private static readonly string s_featuredGamesUri = s_uri + "/featured-games";
         private readonly ComposableApi<CurrentGameInfo> _currentGameInfoApi;
         private readonly ComposableApi<FeaturedGames> _featuredGamesApi;
 
@@ -37,9 +37,9 @@ namespace BlossomiShymae.Gwen.Api.Riot
         }
 
         public async Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
-            => await _currentGameInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_currentGameInfoBySummonerIdUri, summonerId));
+            => await _currentGameInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_currentGameInfoBySummonerIdUri, summonerId));
 
         public async Task<FeaturedGames> GetFeaturedGamesAsync(PlatformRoute platformRoute)
-            => await _featuredGamesApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _featuredGamesUri);
+            => await _featuredGamesApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_featuredGamesUri);
     }
 }

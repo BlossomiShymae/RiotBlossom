@@ -8,7 +8,7 @@ namespace BlossomiShymae.Gwen.Core
     /// </summary>
     public static class RegionRouteMapper
     {
-        private static readonly ImmutableDictionary<RegionalRoute, string> _regionByRoute =
+        private static readonly ImmutableDictionary<RegionalRoute, string> s_regionByRoute =
             new Dictionary<RegionalRoute, string>
             {
                 { RegionalRoute.Americas, "americas" },
@@ -19,7 +19,7 @@ namespace BlossomiShymae.Gwen.Core
 
         public static string GetRegion(RegionalRoute regionalRoute)
         {
-            var region = _regionByRoute.GetValueOrDefault(regionalRoute);
+            var region = s_regionByRoute.GetValueOrDefault(regionalRoute);
             if (string.IsNullOrEmpty(region))
                 throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
             return region;
@@ -27,7 +27,7 @@ namespace BlossomiShymae.Gwen.Core
 
         public static RegionalRoute FromRegion(string region)
         {
-            var kvs = _regionByRoute.ToList();
+            var kvs = s_regionByRoute.ToList();
             foreach (var kv in kvs)
             {
                 if (kv.Value == region)

@@ -42,11 +42,11 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
     internal class SummonerApi : ISummonerApi
     {
-        private static readonly string _uri = "/lol/summoner/v4/summoners";
-        private static readonly string _summonerByAccountIdUri = _uri + "/by-account/{0}";
-        private static readonly string _summonerBySummonerNameUri = _uri + "/by-name/{0}";
-        private static readonly string _summonerByPuuidUri = _uri + "/by-puuid/{0}";
-        private static readonly string _summonerBySummonerIdUri = _uri + "/{0}";
+        private static readonly string s_uri = "/lol/summoner/v4/summoners";
+        private static readonly string s_summonerByAccountIdUri = s_uri + "/by-account/{0}";
+        private static readonly string s_summonerBySummonerNameUri = s_uri + "/by-name/{0}";
+        private static readonly string s_summonerByPuuidUri = s_uri + "/by-puuid/{0}";
+        private static readonly string s_summonerBySummonerIdUri = s_uri + "/{0}";
         private readonly ComposableApi<SummonerDto> _summonerDtoApi;
 
         public SummonerApi(RiotHttpClient riotGamesClient)
@@ -55,15 +55,15 @@ namespace BlossomiShymae.Gwen.Api.Riot
         }
 
         public async Task<SummonerDto> GetByAccountIdAsync(PlatformRoute platformRoute, string accountId)
-            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_summonerByAccountIdUri, accountId));
+            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_summonerByAccountIdUri, accountId));
 
         public async Task<SummonerDto> GetByNameAsync(PlatformRoute platformRoute, string summonerName)
-            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_summonerBySummonerNameUri, summonerName));
+            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_summonerBySummonerNameUri, summonerName));
 
         public async Task<SummonerDto> GetByPuuidAsync(PlatformRoute platformRoute, string puuid)
-            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_summonerByPuuidUri, puuid));
+            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_summonerByPuuidUri, puuid));
 
         public async Task<SummonerDto> GetByIdAsync(PlatformRoute platformRoute, string summonerId)
-            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(_summonerBySummonerIdUri, summonerId));
+            => await _summonerDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_summonerBySummonerIdUri, summonerId));
     }
 }

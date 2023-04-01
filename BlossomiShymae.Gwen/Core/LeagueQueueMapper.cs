@@ -1,5 +1,5 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Type;
+﻿using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Core
 {
@@ -8,7 +8,7 @@ namespace BlossomiShymae.Gwen.Core
     /// </summary>
     public static class LeagueQueueMapper
     {
-        private static readonly ImmutableDictionary<LeagueQueue, string> _valueByLeagueQueue =
+        private static readonly ImmutableDictionary<LeagueQueue, string> s_valueByLeagueQueue =
             new Dictionary<LeagueQueue, string>
             {
                 { LeagueQueue.RankedSolo5x5, "RANKED_SOLO_5x5" },
@@ -18,7 +18,7 @@ namespace BlossomiShymae.Gwen.Core
 
         public static string GetValue(LeagueQueue leagueQueue)
         {
-            var value = _valueByLeagueQueue.GetValueOrDefault(leagueQueue);
+            var value = s_valueByLeagueQueue.GetValueOrDefault(leagueQueue);
             if (string.IsNullOrEmpty(value))
                 throw new NotImplementedException($"Value for league queue {leagueQueue} is not implemented");
             return value;

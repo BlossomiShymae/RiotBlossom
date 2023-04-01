@@ -1,5 +1,5 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Type;
+﻿using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.Core
 {
@@ -8,7 +8,7 @@ namespace BlossomiShymae.Gwen.Core
     /// </summary>
     public class LeagueDivisionMapper
     {
-        private static readonly ImmutableDictionary<LeagueDivision, string> _valueByLeagueDivision =
+        private static readonly ImmutableDictionary<LeagueDivision, string> s_valueByLeagueDivision =
             new Dictionary<LeagueDivision, string>
             {
                 { LeagueDivision.I, "I" },
@@ -19,7 +19,7 @@ namespace BlossomiShymae.Gwen.Core
 
         public static string GetValue(LeagueDivision leagueDivision)
         {
-            var value = _valueByLeagueDivision.GetValueOrDefault(leagueDivision);
+            var value = s_valueByLeagueDivision.GetValueOrDefault(leagueDivision);
             if (string.IsNullOrEmpty(value))
                 throw new NotImplementedException($"Value for league division {leagueDivision} is not implemented");
             return value;

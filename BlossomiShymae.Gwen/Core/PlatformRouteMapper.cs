@@ -8,7 +8,7 @@ namespace BlossomiShymae.Gwen.Core
     /// </summary>
     public static class PlatformRouteMapper
     {
-        private static readonly ImmutableDictionary<PlatformRoute, string> _platformIdByRoute =
+        private static readonly ImmutableDictionary<PlatformRoute, string> s_platformIdByRoute =
             new Dictionary<PlatformRoute, string>
             {
                 { PlatformRoute.NorthAmerica, "na1" },
@@ -32,7 +32,7 @@ namespace BlossomiShymae.Gwen.Core
 
         public static string GetId(PlatformRoute platformRoute)
         {
-            var id = _platformIdByRoute.GetValueOrDefault(platformRoute);
+            var id = s_platformIdByRoute.GetValueOrDefault(platformRoute);
             if (string.IsNullOrEmpty(id))
                 throw new NotImplementedException($"Id for platform route {platformRoute} not implemented");
             return id;
@@ -40,7 +40,7 @@ namespace BlossomiShymae.Gwen.Core
 
         public static PlatformRoute FromId(string id)
         {
-            var kvs = _platformIdByRoute.ToList();
+            var kvs = s_platformIdByRoute.ToList();
             foreach (var kv in kvs)
             {
                 if (kv.Value == id)

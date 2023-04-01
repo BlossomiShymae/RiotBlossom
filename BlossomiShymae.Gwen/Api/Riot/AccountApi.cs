@@ -27,9 +27,9 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
     internal class AccountApi : IAccountApi
     {
-        private static readonly string _uri = "/riot/account/v1/accounts";
-        private static readonly string _accountByPuuidUri = _uri + "/by-puuid/{0}";
-        private static readonly string _accountByRiotIdUri = _uri + "/by-riot-id/{0}/{1}";
+        private static readonly string s_uri = "/riot/account/v1/accounts";
+        private static readonly string s_accountByPuuidUri = s_uri + "/by-puuid/{0}";
+        private static readonly string s_accountByRiotIdUri = s_uri + "/by-riot-id/{0}/{1}";
         private readonly ComposableApi<AccountDto> _accountDtoApi;
 
         public AccountApi(RiotHttpClient riotGamesClient)
@@ -38,9 +38,9 @@ namespace BlossomiShymae.Gwen.Api.Riot
         }
 
         public async Task<AccountDto> GetAccountByPuuidAsync(RegionalRoute regionalRoute, string puuid)
-            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_accountByPuuidUri, puuid));
+            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_accountByPuuidUri, puuid));
 
         public async Task<AccountDto> GetAccountByRiotIdAsync(RegionalRoute regionalRoute, string gameName, string tagLine)
-            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(_accountByRiotIdUri, gameName, tagLine));
+            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_accountByRiotIdUri, gameName, tagLine));
     }
 }

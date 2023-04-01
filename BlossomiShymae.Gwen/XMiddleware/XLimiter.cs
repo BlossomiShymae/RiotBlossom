@@ -11,19 +11,19 @@ namespace BlossomiShymae.Gwen.XMiddleware
     public class XLimiter : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly AsyncKeyedLocker<string> s_locker = new();
-        private static readonly ConcurrentDictionary<string, XRateLimiterRoute> _headersByRoutingValue = new();
-        private static readonly string _appRateLimitKey = "x-app-rate-limit";
-        private static readonly string _appRateLimitCountKey = "x-app-rate-limit-count";
-        private static readonly string _methodRateLimitKey = "x-method-rate-limit";
-        private static readonly string _methodRateLimitCountKey = "x-method-rate-limit-count";
-        private static readonly string _retryAfterKey = "retry-after";
+        private static readonly ConcurrentDictionary<string, XRateLimiterRoute> s_headersByRoutingValue = new();
+        private static readonly string s_appRateLimitKey = "x-app-rate-limit";
+        private static readonly string s_appRateLimitCountKey = "x-app-rate-limit-count";
+        private static readonly string s_methodRateLimitKey = "x-method-rate-limit";
+        private static readonly string s_methodRateLimitCountKey = "x-method-rate-limit-count";
+        private static readonly string s_retryAfterKey = "retry-after";
         public static XLimiter Default { get; } = new XLimiter();
 
         public async Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
             using (await s_locker.LockAsync(info.RoutingValue))
             {
-                var route = _headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+                var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
                 var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
 
                 var retryAfter429Seconds = route.XRetryAfter;
@@ -48,7 +48,7 @@ namespace BlossomiShymae.Gwen.XMiddleware
             using (await s_locker.LockAsync(info.RoutingValue))
             {
                 var xRateLimiterHeaders = ProcessHeaders(res.Headers);
-                var route = _headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+                var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
                 var headersByMethod = route.XRateLimiterHeadersByMethod;
 
                 var newMethod = new XRateLimiterMethod
@@ -67,7 +67,7 @@ namespace BlossomiShymae.Gwen.XMiddleware
                     XRateLimiterHeadersByMethod = headersByMethod,
                     XRetryAfter = xRateLimiterHeaders.XRetryAfterSeconds
                 };
-                _headersByRoutingValue[info.RoutingValue] = newRoute;
+                s_headersByRoutingValue[info.RoutingValue] = newRoute;
 
                 next();
             }
@@ -75,17 +75,17 @@ namespace BlossomiShymae.Gwen.XMiddleware
 
         private static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
         {
-            var appRateLimit = ProcessHeader(headers, _appRateLimitKey);
-            var appRateLimitCount = ProcessHeader(headers, _appRateLimitCountKey);
-            var methodRateLimit = ProcessHeader(headers, _methodRateLimitKey);
-            var methodRateLimitCount = ProcessHeader(headers, _methodRateLimitCountKey);
+            var appRateLimit = ProcessHeader(headers, s_appRateLimitKey);
+            var appRateLimitCount = ProcessHeader(headers, s_appRateLimitCountKey);
+            var methodRateLimit = ProcessHeader(headers, s_methodRateLimitKey);
+            var methodRateLimitCount = ProcessHeader(headers, s_methodRateLimitCountKey);
 
             var appRetryAfterSeconds = ProcessRateLimit(appRateLimit, appRateLimitCount);
             var methodRetryAfterSeconds = ProcessRateLimit(methodRateLimit, methodRateLimitCount);
             int retryAfterSeconds = 0;
             try
             {
-                retryAfterSeconds = int.Parse(ExtractHeader(headers, _retryAfterKey));
+                retryAfterSeconds = int.Parse(ExtractHeader(headers, s_retryAfterKey));
             }
             catch (InvalidOperationException) { }
 

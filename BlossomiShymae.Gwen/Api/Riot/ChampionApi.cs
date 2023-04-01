@@ -16,7 +16,7 @@ namespace BlossomiShymae.Gwen.Api.Riot
 
     internal class ChampionApi : IChampionApi
     {
-        private static readonly string _championRotationsUri = "/lol/platform/v3/champion-rotations";
+        private static readonly string s_championRotationsUri = "/lol/platform/v3/champion-rotations";
         private readonly ComposableApi<ChampionInfo> _championInfoApi;
 
         public ChampionApi(RiotHttpClient riotGamesClient)
@@ -25,6 +25,6 @@ namespace BlossomiShymae.Gwen.Api.Riot
         }
 
         public async Task<ChampionInfo> ListAsync(PlatformRoute platformRoute)
-            => await _championInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), _championRotationsUri);
+            => await _championInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_championRotationsUri);
     }
 }
