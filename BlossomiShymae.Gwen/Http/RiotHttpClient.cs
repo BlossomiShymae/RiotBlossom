@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.Gwen.Exception;
+﻿using AsyncKeyedLock;
+using BlossomiShymae.Gwen.Exception;
 using BlossomiShymae.Gwen.XMiddleware;
 
 namespace BlossomiShymae.Gwen.Http
@@ -8,6 +9,7 @@ namespace BlossomiShymae.Gwen.Http
         private readonly HttpClient _httpClient;
         private readonly string _riotApiKey;
         private readonly XMiddlewares _xMiddlewares;
+        private readonly AsyncKeyedLocker<string> _locker = new();
 
         public RiotHttpClient(HttpClient httpClient, string riotApiKey, XMiddlewares xMiddlewares)
         {
@@ -36,8 +38,11 @@ namespace BlossomiShymae.Gwen.Http
                 MethodUri = uri,
             };
 
-            string data = await ProcessXMiddlewaresAsync(info, requestMessage);
-            return data;
+            using (await _locker.LockAsync(routingValue))
+            {
+                string data = await ProcessXMiddlewaresAsync(info, requestMessage);
+                return data;
+            }
         }
 
         public Task<string> GetStringAsync(string uri)

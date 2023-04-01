@@ -1,5 +1,4 @@
-﻿using AsyncKeyedLock;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Net.Http.Headers;
 
@@ -10,7 +9,6 @@ namespace BlossomiShymae.Gwen.XMiddleware
     /// </summary>
     public class XLimiter : IRequestMiddleware, IResponseMiddleware
     {
-        private static readonly AsyncKeyedLocker<string> s_locker = new();
         private static readonly ConcurrentDictionary<string, XRateLimiterRoute> s_headersByRoutingValue = new();
         private static readonly string s_appRateLimitKey = "x-app-rate-limit";
         private static readonly string s_appRateLimitCountKey = "x-app-rate-limit-count";
@@ -21,56 +19,51 @@ namespace BlossomiShymae.Gwen.XMiddleware
 
         public async Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
-            using (await s_locker.LockAsync(info.RoutingValue))
+            var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+            var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
+
+            var retryAfter429Seconds = route.XRetryAfter;
+            if (retryAfter429Seconds > 0)
             {
-                var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
-                var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
-
-                var retryAfter429Seconds = route.XRetryAfter;
-                if (retryAfter429Seconds > 0)
-                {
-                    Console.WriteLine($"Encountered an enforced 429 response, retrying after {retryAfter429Seconds} seconds...");
-                    await Task.Delay(retryAfter429Seconds * 1000);
-                }
-
-                var retryAfterSeconds = route.XAppRetryAfter > method.XMethodRetryAfter ? route.XAppRetryAfter : method.XMethodRetryAfter;
-                if (retryAfterSeconds > 0)
-                {
-                    Console.WriteLine($"Delaying for {retryAfterSeconds} seconds to avoid 429...");
-                    await Task.Delay(retryAfterSeconds * 1000);
-                }
-                next();
+                Console.WriteLine($"Encountered an enforced 429 response, retrying after {retryAfter429Seconds} seconds...");
+                await Task.Delay(retryAfter429Seconds * 1000);
             }
+
+            var retryAfterSeconds = route.XAppRetryAfter > method.XMethodRetryAfter ? route.XAppRetryAfter : method.XMethodRetryAfter;
+            if (retryAfterSeconds > 0)
+            {
+                Console.WriteLine($"Delaying for {retryAfterSeconds} seconds to avoid 429...");
+                await Task.Delay(retryAfterSeconds * 1000);
+            }
+            next();
         }
 
-        public async Task UseResponse(XExecuteInfo info, HttpResponseMessage res, Action next)
+        public Task UseResponse(XExecuteInfo info, HttpResponseMessage res, Action next)
         {
-            using (await s_locker.LockAsync(info.RoutingValue))
+            var xRateLimiterHeaders = ProcessHeaders(res.Headers);
+            var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+            var headersByMethod = route.XRateLimiterHeadersByMethod;
+
+            var newMethod = new XRateLimiterMethod
             {
-                var xRateLimiterHeaders = ProcessHeaders(res.Headers);
-                var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
-                var headersByMethod = route.XRateLimiterHeadersByMethod;
+                XMethodRateLimit = xRateLimiterHeaders.XMethodRateLimit,
+                XMethodRateLimitCount = xRateLimiterHeaders.XMethodRateLimitCount,
+                XMethodRetryAfter = xRateLimiterHeaders.XMethodRetryAfterSeconds
+            };
+            headersByMethod[info.MethodUri] = newMethod;
 
-                var newMethod = new XRateLimiterMethod
-                {
-                    XMethodRateLimit = xRateLimiterHeaders.XMethodRateLimit,
-                    XMethodRateLimitCount = xRateLimiterHeaders.XMethodRateLimitCount,
-                    XMethodRetryAfter = xRateLimiterHeaders.XMethodRetryAfterSeconds
-                };
-                headersByMethod[info.MethodUri] = newMethod;
+            var newRoute = new XRateLimiterRoute
+            {
+                XAppRateLimit = xRateLimiterHeaders.XAppRateLimit,
+                XAppRateLimitCount = xRateLimiterHeaders.XAppRateLimitCount,
+                XAppRetryAfter = xRateLimiterHeaders.XAppRetryAfterSeconds,
+                XRateLimiterHeadersByMethod = headersByMethod,
+                XRetryAfter = xRateLimiterHeaders.XRetryAfterSeconds
+            };
+            s_headersByRoutingValue[info.RoutingValue] = newRoute;
 
-                var newRoute = new XRateLimiterRoute
-                {
-                    XAppRateLimit = xRateLimiterHeaders.XAppRateLimit,
-                    XAppRateLimitCount = xRateLimiterHeaders.XAppRateLimitCount,
-                    XAppRetryAfter = xRateLimiterHeaders.XAppRetryAfterSeconds,
-                    XRateLimiterHeadersByMethod = headersByMethod,
-                    XRetryAfter = xRateLimiterHeaders.XRetryAfterSeconds
-                };
-                s_headersByRoutingValue[info.RoutingValue] = newRoute;
-
-                next();
-            }
+            next();
+            return Task.CompletedTask;
         }
 
         private static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
