@@ -20,10 +20,7 @@
                     if ((int)responseMessage.StatusCode == 429)
                         throw new HttpRequestException(responseMessage.ReasonPhrase, null, System.Net.HttpStatusCode.TooManyRequests);
                 }
-                catch (System.Exception ex)
-                {
-                    throw new SystemException(ex.Message);
-                }
+                catch (System.Exception) { throw; }
                 retryAfterSeconds *= 2;
                 if (responseMessage != null)
                     return responseMessage;
