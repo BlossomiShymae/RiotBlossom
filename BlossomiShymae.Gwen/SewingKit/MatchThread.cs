@@ -1,9 +1,9 @@
-﻿using System.Collections.Immutable;
-using BlossomiShymae.Gwen.Core.Wrapper;
+﻿using BlossomiShymae.Gwen.Core.Wrapper;
 using BlossomiShymae.Gwen.Dto.Riot.League;
 using BlossomiShymae.Gwen.Dto.Riot.Match;
 using BlossomiShymae.Gwen.Dto.Riot.Summoner;
 using BlossomiShymae.Gwen.Type;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.Gwen.SewingKit
 {
@@ -24,34 +24,39 @@ namespace BlossomiShymae.Gwen.SewingKit
         /// Get the next League match from asynchronous enumerable with given parameters. Will loop back to start of 
         /// League entries when end is reached.
         /// </summary>
+        /// <param name="latestVersion"></param>
+        /// <param name="platformRoute"></param>
+        /// <param name="regionalRoute"></param>
+        /// <param name="queue"></param>
+        /// <param name="tier"></param>
+        /// <param name="division"></param>
         /// <returns></returns>
-        public async IAsyncEnumerable<MatchDto> GetNextAsync()
+        public async IAsyncEnumerable<MatchDto> GetNextFromLeagueAsync(string latestVersion, PlatformRoute platformRoute, RegionalRoute regionalRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division)
         {
             while (true)
             {
-                string latestVersion = await _gwen.DDragon.GetLatestVersionAsync();
                 int[] latestVersions = latestVersion
                     .Split(".", StringSplitOptions.RemoveEmptyEntries)
                     .Take(2)
                     .Select(x => int.Parse(x))
                     .ToArray();
-                ImmutableList<LeagueEntryDto> leagueEntryCollection = await _gwen.Riot.League.ListLeagueEntriesAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.II);
+                ImmutableList<LeagueEntryDto> leagueEntryCollection = await _gwen.Riot.League.ListLeagueEntriesAsync(platformRoute, queue, tier, division);
                 IEnumerable<string> summonerIdCollection = leagueEntryCollection.Select(x => x.SummonerId);
                 foreach (string summonerId in summonerIdCollection)
                 {
-                    SummonerDto summoner = await _gwen.Riot.Summoner.GetByIdAsync(PlatformRoute.NorthAmerica, summonerId);
+                    SummonerDto summoner = await _gwen.Riot.Summoner.GetByIdAsync(platformRoute, summonerId);
 
                     int start = 0;
                     int count = 100;
                     bool isOldGameVersion = false;
                     while (true)
                     {
-                        ImmutableList<string> matchIdCollection = await _gwen.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid, new() { Count = count, Start = start });
+                        ImmutableList<string> matchIdCollection = await _gwen.Riot.Match.ListIdsByPuuidAsync(regionalRoute, summoner.Puuid, new() { Count = count, Start = start });
                         if (matchIdCollection.Count == 0)
                             break;
                         foreach (string matchId in matchIdCollection)
                         {
-                            MatchDto match = await _gwen.Riot.Match.GetByIdAsync(RegionalRoute.Americas, matchId);
+                            MatchDto match = await _gwen.Riot.Match.GetByIdAsync(regionalRoute, matchId);
                             // Hehe, take 2. >.<
                             int[] gameVersions = match.Info.GameVersion
                                 .Split(".", StringSplitOptions.RemoveEmptyEntries)
