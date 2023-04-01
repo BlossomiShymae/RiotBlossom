@@ -2,6 +2,9 @@
 
 namespace BlossomiShymae.Gwen.Dto.Riot.Match
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Frame
     {
         public ImmutableList<Event> Events { get; init; } = ImmutableList<Event>.Empty;

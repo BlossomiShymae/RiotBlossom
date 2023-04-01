@@ -1,7 +1,7 @@
 ﻿namespace BlossomiShymae.Gwen.Dto.Riot.Match
 {
     /// <summary>
-    /// UNDOCUMENTED - this Dto type may change at any time. owo
+    /// UNDOCUMENTED
     /// </summary>
     public record ChampionStats
     {

@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.Gwen.Dto.Riot.Match
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record DamageStats
     {
         public long MagicDamageDone { get; init; }

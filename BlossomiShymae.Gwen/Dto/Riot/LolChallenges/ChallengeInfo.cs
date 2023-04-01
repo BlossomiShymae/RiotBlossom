@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.Gwen.Dto.Riot.LolChallenges
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record ChallengeInfo
     {
         public long ChallengeId { get; init; }

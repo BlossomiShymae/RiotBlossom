@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.Gwen.Dto.Riot.Match
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record TimelineParticipant
     {
         public int ParticipantId { get; init; }
