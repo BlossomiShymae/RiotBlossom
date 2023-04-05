@@ -1,7 +1,7 @@
 ﻿using BlossomiShymae.RiotBlossom.Api.Riot;
 using BlossomiShymae.RiotBlossom.Http;
 
-namespace BlossomiShymae.RiotBlossom.Core.Wrapper
+namespace BlossomiShymae.RiotBlossom.Core
 {
     public interface IRiotCore
     {

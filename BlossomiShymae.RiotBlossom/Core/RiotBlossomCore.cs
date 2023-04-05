@@ -1,7 +1,7 @@
 ﻿using BlossomiShymae.RiotBlossom.Http;
 using BlossomiShymae.RiotBlossom.XMiddleware;
 
-namespace BlossomiShymae.RiotBlossom.Core.Wrapper
+namespace BlossomiShymae.RiotBlossom.Core
 {
     public class RiotBlossomCore
     {

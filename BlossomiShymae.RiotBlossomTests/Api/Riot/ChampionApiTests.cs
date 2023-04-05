@@ -1,4 +1,4 @@
-﻿using BlossomiShymae.RiotBlossom.Core.Wrapper;
+﻿using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Dto.Riot.Champion;
 using BlossomiShymae.RiotBlossom.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

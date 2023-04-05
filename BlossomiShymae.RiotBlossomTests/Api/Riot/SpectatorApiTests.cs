@@ -1,4 +1,4 @@
-﻿using BlossomiShymae.RiotBlossom.Core.Wrapper;
+﻿using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Dto.Riot.Spectator;
 using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
 using BlossomiShymae.RiotBlossom.Type;

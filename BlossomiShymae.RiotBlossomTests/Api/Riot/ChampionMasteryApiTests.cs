@@ -1,4 +1,4 @@
-﻿using BlossomiShymae.RiotBlossom.Core.Wrapper;
+﻿using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery;
 using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

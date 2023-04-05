@@ -1,4 +1,4 @@
-﻿using BlossomiShymae.RiotBlossom.Core.Wrapper;
+﻿using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Dto.DDragon.Champion;
 using BlossomiShymae.RiotBlossom.Dto.DDragon.Item;
 using BlossomiShymae.RiotBlossom.Dto.DDragon.Perk;
