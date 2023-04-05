@@ -1,10 +1,8 @@
-﻿# Gwen
+﻿# RiotBlossom
  
-![gwen_api_banner](https://user-images.githubusercontent.com/87099578/226517556-7d1b70bc-3ecb-4fbc-b04d-e4062c49353b.png)
-
 An asynchronous, extensible, and magical Riot Games API wrapper library for C#. ☆*:.｡.o(≧▽≦)o.｡.:*☆
 
-Our magical doll helps to make things totes' easier! This library includes naive cache, rate limiter, and retryer middleware plugins 
+This library helps to make things totes' easier! Goodies include naive cache, rate limiter, and retryer middleware plugins 
 out of the box. Other services such as DataDragon and CommunityDragon are also supported! ＼(＾▽＾)／
 
 # Features
@@ -12,17 +10,17 @@ out of the box. Other services such as DataDragon and CommunityDragon are also s
 - Extensible HTTP middleware (express.js inspired).
 - Caching, rate limiting, and request retrying by default.
 - League of Legends API support.
-- Gwen. (੭ु ›ω‹ )੭ु⁾⁾♡
+- Magic. (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
-Install via NuGet, `BlossomiShymae.Gwen`.
+Install via NuGet, `BlossomiShymae.RiotBlossom`.
 For package manager console:
 ```
-Install-Package BlossomiShymae.Gwen
+Install-Package BlossomiShymae.RiotBlossom
 ```
 Or the .NET CLI:
 ```
-dotnet add package BlossomiShymae.Gwen
+dotnet add package BlossomiShymae.RiotBlossom
 ```
 
 # Endpoints
@@ -73,13 +71,13 @@ dotnet add package BlossomiShymae.Gwen
 - ✅ Perks (`perks.json`)
 
 # Usage
-The API client is accessed by using the static constructor in `GwenCore`. By default, `GwenCore.Settings` will create 
+The API client is accessed by using the static constructor in `RiotBlossomCore`. By default, `RiotBlossomCore.Settings` will create 
 a new instance of `HttpClient` and `XMiddlewares`. `XMiddlewares` will use the default implementation (`XLimiter`, `XRetryer`, and `XMemoryCache`).
 ```csharp
-using BlossomiShymae.Gwen.Core;
+using BlossomiShymae.RiotBlossom.Core;
 
-IGwenClient gwen = GwenCore.CreateClient(
-	new GwenCore.Settings
+IRiotBlossomClient client = RiotBlossomCore.CreateClient(
+	new RiotBlossomCore.Settings
 	{
 		RiotApiKey = "RGAPI-snippy-snip"
 	}
@@ -88,14 +86,14 @@ IGwenClient gwen = GwenCore.CreateClient(
 
 We can use a dependency injected `HttpClient` or add our own middleware implementation if needed:
 ```csharp
-using BlossomiShymae.Gwen;
-using BlossomiShymae.Gwen.Core;
-using BlossomiShymae.Gwen.XMiddleware;
+using BlossomiShymae.RiotBlossom;
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.XMiddleware;
 
 // Custom middleware initialization
 var xRedisCache = new XRedisCache();
 
-GwenCore.Settings settings = new()
+RiotBlossomCore.Settings settings = new()
 {
 	RiotApiKey = "RGAPI-snippy-snip",
 	HttpClient = httpClient,
@@ -117,34 +115,34 @@ GwenCore.Settings settings = new()
 	}
 };
 
-IGwenClient gwen = GwenCore.CreateClient(settings);
+IRiotBlossomClient client = RiotBlossomCore.CreateClient(settings);
 ```
 
 ## With Riot API
 Retrieving a `SummonerDto`
 ```csharp
-using BlossomiShymae.Gwen.Dto.Riot.Summoner;
-using BlossomiShymae.Gwen.Type;
+using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
+using BlossomiShymae.RiotBlossom.Type;
 
-SummonerDto summoner = await gwen.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
+SummonerDto summoner = await client.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
 Console.WriteLine(summoner.SummonerLevel);
 ```
 
 Getting a `MatchDto`
 ```csharp
-using BlossomiShymae.Gwen.Dto.Riot.Match;
-using BlossomiShymae.Gwen.Type;
+using BlossomiShymae.RiotBlossom.Dto.Riot.Match;
+using BlossomiShymae.RiotBlossom.Type;
 
-ImmutableList<string> ids = await gwen.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid);
-MatchDto match = await gwen.Riot.Match.GetByIdAsync(RegionalRoute.Americas, ids.First());
+ImmutableList<string> ids = await client.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid);
+MatchDto match = await client.Riot.Match.GetByIdAsync(RegionalRoute.Americas, ids.First());
 ```
 
 ## With CommunityDragon API
 Fetch `Champion` for Gwen's ID of `887`.
 ```csharp
-using BlossomiShymae.Gwen.Dto.CDragon.Champion;
+using BlossomiShymae.RiotBlossom.Dto.CDragon.Champion;
 
-Champion champion = await gwen.CDragon.GetChampionByIdAsync(887);
+Champion champion = await client.CDragon.GetChampionByIdAsync(887);
 // => "The Hallowed Seamstress"
 Console.WriteLine(champion.Title);
 ```
@@ -152,10 +150,10 @@ Console.WriteLine(champion.Title);
 ## With DataDragon API
 Get a dictionary of all items from latest game version.
 ```csharp
-using BlossomiShymae.Gwen.Dto.DDragon.Item;
+using BlossomiShymae.RiotBlossom.Dto.DDragon.Item;
 
-string gameVersion = await gwen.DDragon.GetLatestVersion();
-ImmutableDictionary<int, Item> itemDictionary = await gwen.DDragon.GetItemDictionaryAsync(gameVersion);
+string gameVersion = await client.DDragon.GetLatestVersion();
+ImmutableDictionary<int, Item> itemDictionary = await client.DDragon.GetItemDictionaryAsync(gameVersion);
 ```
 
 # Contributing
@@ -165,4 +163,4 @@ ImmutableDictionary<int, Item> itemDictionary = await gwen.DDragon.GetItemDictio
 This library is under the MIT license.
 
 # Disclaimer
-Gwen isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+RiotBlossom isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
