@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.RiotBlossom.Http;
+﻿using BlossomiShymae.RiotBlossom.Api;
+using BlossomiShymae.RiotBlossom.Http;
 using BlossomiShymae.RiotBlossom.XMiddleware;
 
 namespace BlossomiShymae.RiotBlossom.Core
@@ -15,7 +16,7 @@ namespace BlossomiShymae.RiotBlossom.Core
             var riotGamesClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, settings.XMiddlewares);
             var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
             var dDragonHttpClient = new DDragonHttpClient(settings.HttpClient);
-            return new RiotBlossomClient(new RiotCore(riotGamesClient), cDragonHttpClient, dDragonHttpClient);
+            return new RiotBlossomClient(new RiotApi(riotGamesClient), cDragonHttpClient, dDragonHttpClient);
         }
 
         /// <summary>

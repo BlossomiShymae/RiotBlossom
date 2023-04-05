@@ -1,9 +1,9 @@
 ﻿using BlossomiShymae.RiotBlossom.Api.Riot;
 using BlossomiShymae.RiotBlossom.Http;
 
-namespace BlossomiShymae.RiotBlossom.Core
+namespace BlossomiShymae.RiotBlossom.Api
 {
-    public interface IRiotCore
+    public interface IRiotApi
     {
         /// <summary>
         /// The API for Account-v1 endpoints.
@@ -47,7 +47,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         ISummonerApi Summoner { get; }
     }
 
-    internal class RiotCore : IRiotCore
+    internal class RiotApi : IRiotApi
     {
         private readonly AccountApi _accountApi;
         private readonly ChampionApi _championApi;
@@ -70,7 +70,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         public ISpectatorApi Spectator => _spectatorApi;
         public ISummonerApi Summoner => _summonerApi;
 
-        public RiotCore(RiotHttpClient riotHttpClient)
+        public RiotApi(RiotHttpClient riotHttpClient)
         {
             _accountApi = new(riotHttpClient);
             _championApi = new(riotHttpClient);
