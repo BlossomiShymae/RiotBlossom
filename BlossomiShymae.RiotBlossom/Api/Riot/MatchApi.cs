@@ -18,6 +18,14 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <returns></returns>
         Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id);
         /// <summary>
+        /// Get a match by ID.
+        /// </summary>
+        /// <exception cref="CorruptedMatchException"></exception>
+        /// <param name="platformRoute"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<MatchDto> GetByIdAsync(PlatformRoute platformRoute, string id);
+        /// <summary>
         /// Get a match timeline by ID.
         /// </summary>
         /// <exception cref="CorruptedMatchException"></exception>
@@ -26,12 +34,27 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <returns></returns>
         Task<MatchTimelineDto> GetTimelineByIdAsync(RegionalRoute regionalRoute, string id);
         /// <summary>
+        /// Get a match timeline by ID.
+        /// </summary>
+        /// <exception cref="CorruptedMatchException"></exception>
+        /// <param name="platformRoute"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<MatchTimelineDto> GetTimelineByIdAsync(PlatformRoute platformRoute, string id);
+        /// <summary>
         /// List the last 20 most recent match IDs for encrypted PUUID.
         /// </summary>
         /// <param name="regionalRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
         Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid);
+        /// <summary>
+        /// List the last 20 most recent match IDs for encrypted PUUID.
+        /// </summary>
+        /// <param name="platformRoute"></param>
+        /// <param name="puuid"></param>
+        /// <returns></returns>
+        Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid);
         /// <summary>
         /// List the match IDs for encrypted PUUID with given option constraints.
         /// </summary>
@@ -40,6 +63,14 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="parameters"></param>
         /// <returns></returns>
         Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
+        /// <summary>
+        /// List the match IDs for encrypted PUUID with given option constraints.
+        /// </summary>
+        /// <param name="platformRoute"></param>
+        /// <param name="puuid"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
     }
 
     internal class MatchApi : IMatchApi
@@ -95,6 +126,18 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
                 return timeline.Info.FrameInterval == 0;
             throw new NotImplementedException();
         }
+
+        public async Task<MatchDto> GetByIdAsync(PlatformRoute platformRoute, string id)
+            => await GetByIdAsync(PlatformToRegionConverter.ToRegion(platformRoute), id);
+
+        public async Task<MatchTimelineDto> GetTimelineByIdAsync(PlatformRoute platformRoute, string id)
+            => await GetTimelineByIdAsync(PlatformToRegionConverter.ToRegion(platformRoute), id);
+
+        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid)
+            => await ListIdsByPuuidAsync(PlatformToRegionConverter.ToRegion(platformRoute), puuid);
+
+        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
+            => await ListIdsByPuuidAsync(PlatformToRegionConverter.ToRegion(platformRoute), puuid, parameters);
     }
 
     public record ListIdsByPuuidAsyncOptions
