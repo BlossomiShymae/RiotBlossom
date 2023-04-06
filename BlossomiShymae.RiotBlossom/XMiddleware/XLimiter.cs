@@ -17,7 +17,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
         private static readonly string s_retryAfterKey = "retry-after";
         public static XLimiter Default { get; } = new XLimiter();
 
-        public async Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
+        public async Task UseRequestAsync(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
             var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
@@ -38,7 +38,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             next();
         }
 
-        public Task UseResponse(XExecuteInfo info, HttpResponseMessage res, Action next)
+        public Task UseResponseAsync(XExecuteInfo info, HttpResponseMessage res, Action next)
         {
             var xRateLimiterHeaders = ProcessHeaders(res.Headers);
             var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());

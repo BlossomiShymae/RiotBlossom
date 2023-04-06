@@ -16,7 +16,7 @@
             RetryDelay = retryDelay;
         }
 
-        public async Task<HttpResponseMessage> UseRetry(Func<Task<HttpResponseMessage>> resFunc)
+        public async Task<HttpResponseMessage> UseRetryAsync(Func<Task<HttpResponseMessage>> resFunc)
         {
             var retryAfterSeconds = RetryDelay;
             while (true)

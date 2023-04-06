@@ -60,7 +60,7 @@ namespace BlossomiShymae.RiotBlossom.Http
             foreach (var requestMiddleware in _xMiddlewares.XRequests)
             {
                 isNext = false;
-                await requestMiddleware.UseRequest(xExecuteInfo, requestMessage, next, hit);
+                await requestMiddleware.UseRequestAsync(xExecuteInfo, requestMessage, next, hit);
                 if (!isNext)
                     break;
             }
@@ -68,13 +68,13 @@ namespace BlossomiShymae.RiotBlossom.Http
                 return data;
 
             // Use retry middleware, if any
-            var res = await _xMiddlewares.XRetry.UseRetry(async () => await _httpClient.SendAsync(requestMessage));
+            var res = await _xMiddlewares.XRetry.UseRetryAsync(async () => await _httpClient.SendAsync(requestMessage));
 
             // Use response middlewares, if any
             foreach (var responseMiddleware in _xMiddlewares.XResponses)
             {
                 isNext = false;
-                await responseMiddleware.UseResponse(xExecuteInfo, res, next);
+                await responseMiddleware.UseResponseAsync(xExecuteInfo, res, next);
                 if (!isNext)
                     break;
             }

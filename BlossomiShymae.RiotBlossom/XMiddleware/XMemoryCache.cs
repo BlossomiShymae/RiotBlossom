@@ -12,7 +12,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
         private static readonly MemoryCache s_cache = MemoryCache.Default;
         public static XMemoryCache Default { get; } = new XMemoryCache();
 
-        public Task UseRequest(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
+        public Task UseRequestAsync(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
             string key = req.RequestUri?.OriginalString ?? string.Empty;
             bool isHit = false;
@@ -34,7 +34,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return Task.CompletedTask;
         }
 
-        public async Task UseResponse(XExecuteInfo info, HttpResponseMessage res, Action next)
+        public async Task UseResponseAsync(XExecuteInfo info, HttpResponseMessage res, Action next)
         {
 
             string key = res.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
