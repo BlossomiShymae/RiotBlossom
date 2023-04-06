@@ -32,7 +32,7 @@ namespace BlossomiShymae.RiotBlossom.Api
 
         internal async Task<T> GetValueAsync(string uri)
         {
-            string data = await _httpClient.GetStringAsync(uri);
+            string data = await _httpClient.GetStringAsync(uri, string.Empty);
             var dto = JsonSerializer.Deserialize<T>(data, s_options);
             return dto == null ? throw new NullReferenceException($"Failed to deserialize response data {data}") : dto;
         }
@@ -41,7 +41,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         {
             if (_httpClient is RiotHttpClient client)
             {
-                string data = await client.GetStringAsync(routingValue, uri);
+                string data = await client.GetStringAsync(uri, routingValue);
                 var options = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

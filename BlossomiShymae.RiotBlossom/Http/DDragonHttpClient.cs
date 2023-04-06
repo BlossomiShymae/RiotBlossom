@@ -3,21 +3,25 @@
     internal class DDragonHttpClient : IHttpClient
     {
         private static readonly string s_url = "https://ddragon.leagueoflegends.com";
-        private readonly HttpClient _httpClient;
+        private readonly ComposableHttpClient _composableHttpClient;
 
-        public DDragonHttpClient(HttpClient httpClient)
+        public DDragonHttpClient(ComposableHttpClient composableHttpClient)
         {
-            _httpClient = httpClient;
+            _composableHttpClient = composableHttpClient;
         }
 
         public async Task<byte[]> GetByteArrayAsync(string uri)
         {
-            return await _httpClient.GetByteArrayAsync($"{s_url}{uri}");
+            Uri requestUri = new($"{s_url}{uri}");
+            using HttpRequestMessage requestMessage = new(HttpMethod.Get, requestUri);
+            return await _composableHttpClient.GetByteArrayAsync(requestMessage, string.Empty, uri); ;
         }
 
-        public async Task<string> GetStringAsync(string uri)
+        public async Task<string> GetStringAsync(string uri, string routingValue)
         {
-            return await _httpClient.GetStringAsync($"{s_url}{uri}");
+            Uri requestUri = new($"{s_url}{uri}");
+            using HttpRequestMessage requestMessage = new(HttpMethod.Get, requestUri);
+            return await _composableHttpClient.GetStringAsync(requestMessage, string.Empty, uri);
         }
     }
 }

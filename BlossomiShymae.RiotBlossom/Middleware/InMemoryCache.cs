@@ -15,21 +15,13 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         /// <summary>
         /// The maximum amount of items permitted to the cache.
         /// </summary>
-        public long CacheSize { get; init; }
+        public long CacheSize { get; init; } = 1000;
         /// <summary>
         /// The expiration of a cache item in hours.
         /// </summary>
-        public int CacheExpiration { get; init; }
+        public int CacheExpiration { get; init; } = 6;
 
-        public static InMemoryCache Default { get; } = new InMemoryCache(1000, 6);
-
-        public InMemoryCache(long cacheSize, int cacheExpiration)
-        {
-            CacheSize = cacheSize;
-            CacheExpiration = cacheExpiration;
-        }
-
-        public Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
+        public Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit)
         {
             string key = req.RequestUri?.OriginalString ?? string.Empty;
             bool isHit = false;
@@ -38,7 +30,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             {
                 try
                 {
-                    var res = (string)s_cache[key];
+                    var res = (byte[])s_cache[key];
                     if (res != null)
                     {
                         isHit = true;
@@ -85,12 +77,11 @@ namespace BlossomiShymae.RiotBlossom.Middleware
 
                 if (res.IsSuccessStatusCode)
                 {
-                    string data = await res.Content.ReadAsStringAsync();
+                    byte[] data = await res.Content.ReadAsByteArrayAsync();
                     s_cache.Add(key, data, new CacheItemPolicy
                     {
                         AbsoluteExpiration = DateTimeOffset.Now.AddHours(CacheExpiration)
                     });
-                    s_cache[key] = await res.Content.ReadAsStringAsync();
                 }
             }
             next();

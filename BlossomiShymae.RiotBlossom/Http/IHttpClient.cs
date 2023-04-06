@@ -2,7 +2,7 @@
 {
     internal interface IHttpClient
     {
-        Task<string> GetStringAsync(string uri);
+        Task<string> GetStringAsync(string uri, string routingValue);
         Task<byte[]> GetByteArrayAsync(string uri);
     }
 }

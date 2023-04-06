@@ -15,9 +15,8 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         private static readonly string s_methodRateLimitKey = "x-method-rate-limit";
         private static readonly string s_methodRateLimitCountKey = "x-method-rate-limit-count";
         private static readonly string s_retryAfterKey = "retry-after";
-        public static Limiter Default { get; } = new Limiter();
 
-        public async Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
+        public async Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit)
         {
             var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());

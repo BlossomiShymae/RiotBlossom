@@ -8,21 +8,14 @@ namespace BlossomiShymae.RiotBlossom.Middleware
     /// </summary>
     public class Retryer : IRetryMiddleware
     {
-        public static Retryer Default { get; } = new Retryer(2, TimeSpan.FromSeconds(15.0));
         /// <summary>
         /// The attempts to retry before throwing an <see cref="ExhaustedRetryerException"/>.
         /// </summary>
-        public int RetryCount { get; init; }
+        public int RetryCount { get; init; } = 2;
         /// <summary>
         /// The time span to delay after an unsuccessful request.
         /// </summary>
-        public TimeSpan RetryDelay { get; init; }
-
-        public Retryer(int retryCount, TimeSpan retryDelay)
-        {
-            RetryCount = retryCount;
-            RetryDelay = retryDelay;
-        }
+        public TimeSpan RetryDelay { get; init; } = TimeSpan.FromSeconds(15.0);
 
         public async Task<HttpResponseMessage> UseRetryAsync(Func<Task<HttpResponseMessage>> resFunc)
         {

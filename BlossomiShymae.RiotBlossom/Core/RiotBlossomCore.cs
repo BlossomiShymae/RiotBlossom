@@ -12,9 +12,13 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <returns></returns>
         public static IRiotBlossomClient CreateClient(Settings settings)
         {
-            var riotHttpClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, settings.MiddlewareStack);
-            var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
-            var dDragonHttpClient = new DDragonHttpClient(settings.HttpClient);
+            ComposableHttpClient riotComposableHttpClient = new(settings.HttpClient, settings.RiotMiddlewareStack);
+            ComposableHttpClient dataComposableHttpClient = new(settings.HttpClient, settings.DataMiddlewareStack);
+
+            RiotHttpClient riotHttpClient = new(riotComposableHttpClient, settings.RiotApiKey);
+            CDragonHttpClient cDragonHttpClient = new(dataComposableHttpClient);
+            DDragonHttpClient dDragonHttpClient = new(dataComposableHttpClient);
+
             return new RiotBlossomClient(riotHttpClient, cDragonHttpClient, dDragonHttpClient);
         }
 
@@ -28,13 +32,17 @@ namespace BlossomiShymae.RiotBlossom.Core
             /// </summary>
             public HttpClient HttpClient { get; init; } = new();
             /// <summary>
-            /// The Riot API key used to gain access with. Defaults to empty string which will throw an exception upon making a Riot request.
+            /// The Riot API key used to gain access with. Defaults to empty string which will throw <see cref="Exception.MissingApiKeyException"/> upon making a Riot request.
             /// </summary>
             public string RiotApiKey { get; init; } = string.Empty;
             /// <summary>
-            /// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="Middleware.MiddlewareStack"/>.
+            /// Application-level middlewares used for the request-response cycle. Injected into Riot APIs.
             /// </summary>
-            public MiddlewareStack MiddlewareStack { get; init; } = new();
+            public MiddlewareStack RiotMiddlewareStack { get; init; } = new(true);
+            /// <summary>
+            /// Application-level middleware stack used for the request-response cycle. Injected into DataDragon and CommunityDragon APIs.
+            /// </summary>
+            public MiddlewareStack DataMiddlewareStack { get; init; } = new(false);
         }
     }
 }

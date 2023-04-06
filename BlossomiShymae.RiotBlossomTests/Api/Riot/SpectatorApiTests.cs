@@ -30,14 +30,15 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
 
                 Assert.IsInstanceOfType(info, typeof(CurrentGameInfo));
             }
-            catch (InvalidOperationException ex)
+            catch (HttpRequestException ex)
             {
-                if (!ex.Message.Contains("404"))
+                int code = (int)(ex?.StatusCode ?? 0);
+                if (code != 404)
                     Assert.Fail();
             }
             catch (Exception)
             {
-                Assert.Fail();
+                throw;
             }
 
         }
