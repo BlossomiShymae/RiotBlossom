@@ -1,14 +1,14 @@
 ﻿using System.Collections.Concurrent;
 using System.Runtime.Caching;
 
-namespace BlossomiShymae.RiotBlossom.XMiddleware
+namespace BlossomiShymae.RiotBlossom.Middleware
 {
     /// <summary>
     /// The default middleware implementation for caching associated response data. Data will be 
     /// removed when the cache count limit is reached. Data will also expire after a determined amount
     /// of time passes.
     /// </summary>
-    public class XInMemoryCache : IRequestMiddleware, IResponseMiddleware
+    public class InMemoryCache : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly MemoryCache s_cache = MemoryCache.Default;
         private static readonly ConcurrentDictionary<string, long> s_counter = new();
@@ -21,15 +21,15 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
         /// </summary>
         public int CacheExpiration { get; init; }
 
-        public static XInMemoryCache Default { get; } = new XInMemoryCache(1000, 6);
+        public static InMemoryCache Default { get; } = new InMemoryCache(1000, 6);
 
-        public XInMemoryCache(long cacheSize, int cacheExpiration)
+        public InMemoryCache(long cacheSize, int cacheExpiration)
         {
             CacheSize = cacheSize;
             CacheExpiration = cacheExpiration;
         }
 
-        public Task UseRequestAsync(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
+        public Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
             string key = req.RequestUri?.OriginalString ?? string.Empty;
             bool isHit = false;
@@ -62,7 +62,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return Task.CompletedTask;
         }
 
-        public async Task UseResponseAsync(XExecuteInfo info, HttpResponseMessage res, Action next)
+        public async Task UseResponseAsync(ExecuteInfo info, HttpResponseMessage res, Action next)
         {
 
             string key = res.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;

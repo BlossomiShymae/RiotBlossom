@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.XMiddleware
+﻿namespace BlossomiShymae.RiotBlossom.Middleware
 {
     /// <summary>
     /// An interface for establishing a contract as retry middleware. <see cref="UseRetryAsync(Func{Task{HttpResponseMessage}})"/> 

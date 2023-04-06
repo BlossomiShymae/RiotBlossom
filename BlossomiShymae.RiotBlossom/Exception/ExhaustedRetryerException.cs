@@ -1,7 +1,7 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Exception
 {
     /// <summary>
-    /// <para>An exception class for <see cref="XMiddleware.XRetryer"/> when all retries are exhausted.</para>
+    /// <para>An exception class for <see cref="Middleware.Retryer"/> when all retries are exhausted.</para>
     /// </summary>
     public class ExhaustedRetryerException : System.Exception
     {

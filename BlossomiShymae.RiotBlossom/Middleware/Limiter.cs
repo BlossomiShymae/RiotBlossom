@@ -2,12 +2,12 @@
 using System.Collections.Immutable;
 using System.Net.Http.Headers;
 
-namespace BlossomiShymae.RiotBlossom.XMiddleware
+namespace BlossomiShymae.RiotBlossom.Middleware
 {
     /// <summary>
     /// The default middleware implementation for rate limiting requests to the Riot Games API.
     /// </summary>
-    public partial class XLimiter : IRequestMiddleware, IResponseMiddleware
+    public partial class Limiter : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly ConcurrentDictionary<string, XLimiterRoute> s_headersByRoutingValue = new();
         private static readonly string s_appRateLimitKey = "x-app-rate-limit";
@@ -15,9 +15,9 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
         private static readonly string s_methodRateLimitKey = "x-method-rate-limit";
         private static readonly string s_methodRateLimitCountKey = "x-method-rate-limit-count";
         private static readonly string s_retryAfterKey = "retry-after";
-        public static XLimiter Default { get; } = new XLimiter();
+        public static Limiter Default { get; } = new Limiter();
 
-        public async Task UseRequestAsync(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
+        public async Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
             var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
@@ -38,7 +38,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             next();
         }
 
-        public Task UseResponseAsync(XExecuteInfo info, HttpResponseMessage res, Action next)
+        public Task UseResponseAsync(ExecuteInfo info, HttpResponseMessage res, Action next)
         {
             var xRateLimiterHeaders = ProcessHeaders(res.Headers);
             var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
@@ -66,7 +66,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return Task.CompletedTask;
         }
 
-        public static XLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
+        public static LimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
         {
             var appRateLimit = ProcessHeader(headers, s_appRateLimitKey);
             var appRateLimitCount = ProcessHeader(headers, s_appRateLimitCountKey);
@@ -82,7 +82,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             }
             catch (InvalidOperationException) { }
 
-            return new XLimiterHeaders
+            return new LimiterHeaders
             {
                 XAppRateLimit = appRateLimit,
                 XAppRateLimitCount = appRateLimitCount,
@@ -94,7 +94,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             };
         }
 
-        private static int ProcessRateLimit(XLimiterHeader xLimitHeader, XLimiterHeader xLimitCountHeader)
+        private static int ProcessRateLimit(LimiterHeader xLimitHeader, LimiterHeader xLimitCountHeader)
         {
             if (xLimitHeader.RateLimiterArray.Length != xLimitCountHeader.RateLimiterArray.Length)
                 throw new InvalidOperationException("X-Rate-Limit headers have unbalanced limits and counts");
@@ -110,7 +110,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return retryAfterSeconds;
         }
 
-        private static XLimiterHeader ProcessHeader(HttpResponseHeaders headers, string key)
+        private static LimiterHeader ProcessHeader(HttpResponseHeaders headers, string key)
         {
             string commaSeperatedRateLimit = ExtractHeader(headers, key);
             string[] commaSeperatedRateLimits = commaSeperatedRateLimit
@@ -124,7 +124,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
                 .Select(x => (x[0], x[1]))
                 .ToImmutableArray();
 
-            return new XLimiterHeader(rateLimiters);
+            return new LimiterHeader(rateLimiters);
         }
 
         private static string ExtractHeader(HttpResponseHeaders headers, string key)
@@ -135,8 +135,8 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
 
         private record XLimiterRoute
         {
-            public XLimiterHeader XAppRateLimit { get; init; } = default!;
-            public XLimiterHeader XAppRateLimitCount { get; init; } = default!;
+            public LimiterHeader XAppRateLimit { get; init; } = default!;
+            public LimiterHeader XAppRateLimitCount { get; init; } = default!;
             public int XAppRetryAfter { get; init; }
             public int XRetryAfter { get; init; }
             public ConcurrentDictionary<string, XLimiterMethod> XRateLimiterHeadersByMethod { get; init; } = new ConcurrentDictionary<string, XLimiterMethod>();
@@ -144,8 +144,8 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
 
         private record XLimiterMethod
         {
-            public XLimiterHeader XMethodRateLimit { get; init; } = default!;
-            public XLimiterHeader XMethodRateLimitCount { get; init; } = default!;
+            public LimiterHeader XMethodRateLimit { get; init; } = default!;
+            public LimiterHeader XMethodRateLimitCount { get; init; } = default!;
             public int XMethodRetryAfter { get; init; }
         }
     }

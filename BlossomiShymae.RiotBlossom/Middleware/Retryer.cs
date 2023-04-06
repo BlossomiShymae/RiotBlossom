@@ -1,14 +1,14 @@
 ﻿using BlossomiShymae.RiotBlossom.Exception;
 
-namespace BlossomiShymae.RiotBlossom.XMiddleware
+namespace BlossomiShymae.RiotBlossom.Middleware
 {
     /// <summary>
     /// The default middleware implementation for retrying requests. Unsuccessful requests will be retried a set 
     /// amount of times. Exhausting the retry limit or receiving a 429 - Too Many Requests will throw an exception.
     /// </summary>
-    public class XRetryer : IRetryMiddleware
+    public class Retryer : IRetryMiddleware
     {
-        public static XRetryer Default { get; } = new XRetryer(2, TimeSpan.FromSeconds(15.0));
+        public static Retryer Default { get; } = new Retryer(2, TimeSpan.FromSeconds(15.0));
         /// <summary>
         /// The attempts to retry before throwing an <see cref="ExhaustedRetryerException"/>.
         /// </summary>
@@ -18,7 +18,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
         /// </summary>
         public TimeSpan RetryDelay { get; init; }
 
-        public XRetryer(int retryCount, TimeSpan retryDelay)
+        public Retryer(int retryCount, TimeSpan retryDelay)
         {
             RetryCount = retryCount;
             RetryDelay = retryDelay;
@@ -40,7 +40,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
                     int code = (int)responseMessage.StatusCode;
                     if (code == 429)
                     {
-                        XLimiterHeaders headers = XLimiter.ProcessHeaders(responseMessage.Headers);
+                        LimiterHeaders headers = Limiter.ProcessHeaders(responseMessage.Headers);
                         retryAfter = TimeSpan.FromSeconds(headers.XRetryAfterSeconds);
                         Console.WriteLine("Encountered enforced 429 - Too Many Requests...");
                     }

@@ -1,6 +1,6 @@
 ﻿using AsyncKeyedLock;
 using BlossomiShymae.RiotBlossom.Exception;
-using BlossomiShymae.RiotBlossom.XMiddleware;
+using BlossomiShymae.RiotBlossom.Middleware;
 
 namespace BlossomiShymae.RiotBlossom.Http
 {
@@ -8,10 +8,10 @@ namespace BlossomiShymae.RiotBlossom.Http
     {
         private readonly HttpClient _httpClient;
         private readonly string _riotApiKey;
-        private readonly XMiddlewares _xMiddlewares;
+        private readonly Middlewares _xMiddlewares;
         private readonly AsyncKeyedLocker<string> _locker = new();
 
-        public RiotHttpClient(HttpClient httpClient, string riotApiKey, XMiddlewares xMiddlewares)
+        public RiotHttpClient(HttpClient httpClient, string riotApiKey, Middlewares xMiddlewares)
         {
             _httpClient = httpClient;
             _riotApiKey = riotApiKey;
@@ -32,7 +32,7 @@ namespace BlossomiShymae.RiotBlossom.Http
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Add("X-Riot-Token", _riotApiKey);
 
-            var info = new XExecuteInfo
+            var info = new ExecuteInfo
             {
                 RoutingValue = routingValue,
                 MethodUri = uri,
@@ -50,7 +50,7 @@ namespace BlossomiShymae.RiotBlossom.Http
             throw new NotImplementedException();
         }
 
-        private async Task<string> ProcessXMiddlewaresAsync(XExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)
+        private async Task<string> ProcessXMiddlewaresAsync(ExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)
         {
             // Use requestUri middlewares, if any
             string? data = null;

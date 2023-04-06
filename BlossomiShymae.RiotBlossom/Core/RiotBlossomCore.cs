@@ -1,5 +1,5 @@
 ﻿using BlossomiShymae.RiotBlossom.Http;
-using BlossomiShymae.RiotBlossom.XMiddleware;
+using BlossomiShymae.RiotBlossom.Middleware;
 
 namespace BlossomiShymae.RiotBlossom.Core
 {
@@ -32,9 +32,9 @@ namespace BlossomiShymae.RiotBlossom.Core
             /// </summary>
             public string RiotApiKey { get; init; } = string.Empty;
             /// <summary>
-            /// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="XMiddleware.XMiddlewares"/>.
+            /// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="Middleware.Middlewares"/>.
             /// </summary>
-            public XMiddlewares XMiddlewares { get; init; } = new();
+            public Middlewares XMiddlewares { get; init; } = new();
         }
     }
 }
