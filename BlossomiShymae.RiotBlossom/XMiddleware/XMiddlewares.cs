@@ -9,12 +9,12 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
     {
         public ImmutableArray<IRequestMiddleware> XRequests { get; init; } = ImmutableArray.Create(new IRequestMiddleware[]
         {
-            XMemoryCache.Default,
+            XInMemoryCache.Default,
             XLimiter.Default
         });
         public ImmutableArray<IResponseMiddleware> XResponses { get; init; } = ImmutableArray.Create(new IResponseMiddleware[]
         {
-            XMemoryCache.Default,
+            XInMemoryCache.Default,
             XLimiter.Default
         });
         public IRetryMiddleware XRetry { get; init; } = XMiddleware.XRetryer.Default;
