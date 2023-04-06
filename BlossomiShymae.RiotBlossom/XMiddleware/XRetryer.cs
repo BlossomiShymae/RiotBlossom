@@ -9,7 +9,13 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
     public class XRetryer : IRetryMiddleware
     {
         public static XRetryer Default { get; } = new XRetryer(2, TimeSpan.FromSeconds(15.0));
+        /// <summary>
+        /// The attempts to retry before throwing an <see cref="ExhaustedRetryerException"/>.
+        /// </summary>
         public int RetryCount { get; init; }
+        /// <summary>
+        /// The time span to delay after an unsuccessful request.
+        /// </summary>
         public TimeSpan RetryDelay { get; init; }
 
         public XRetryer(int retryCount, TimeSpan retryDelay)
