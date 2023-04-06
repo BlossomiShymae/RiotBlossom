@@ -8,14 +8,14 @@ namespace BlossomiShymae.RiotBlossom.Http
     {
         private readonly HttpClient _httpClient;
         private readonly string _riotApiKey;
-        private readonly Middlewares _xMiddlewares;
+        private readonly MiddlewareStack _middlewareStack;
         private readonly AsyncKeyedLocker<string> _locker = new();
 
-        public RiotHttpClient(HttpClient httpClient, string riotApiKey, Middlewares xMiddlewares)
+        public RiotHttpClient(HttpClient httpClient, string riotApiKey, MiddlewareStack middlewareStack)
         {
             _httpClient = httpClient;
             _riotApiKey = riotApiKey;
-            _xMiddlewares = xMiddlewares;
+            _middlewareStack = middlewareStack;
         }
 
         public Task<byte[]> GetByteArrayAsync(string uri)
@@ -40,7 +40,7 @@ namespace BlossomiShymae.RiotBlossom.Http
 
             using (await _locker.LockAsync(routingValue))
             {
-                string data = await ProcessXMiddlewaresAsync(info, requestMessage);
+                string data = await ProcessMiddlewareStackAsync(info, requestMessage);
                 return data;
             }
         }
@@ -50,14 +50,14 @@ namespace BlossomiShymae.RiotBlossom.Http
             throw new NotImplementedException();
         }
 
-        private async Task<string> ProcessXMiddlewaresAsync(ExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)
+        private async Task<string> ProcessMiddlewareStackAsync(ExecuteInfo xExecuteInfo, HttpRequestMessage requestMessage)
         {
             // Use requestUri middlewares, if any
             string? data = null;
             void hit(string value) => data = value;
             bool isNext = false;
             void next() => isNext = true;
-            foreach (var requestMiddleware in _xMiddlewares.XRequests)
+            foreach (var requestMiddleware in _middlewareStack.RequestSeries)
             {
                 isNext = false;
                 await requestMiddleware.UseRequestAsync(xExecuteInfo, requestMessage, next, hit);
@@ -68,10 +68,10 @@ namespace BlossomiShymae.RiotBlossom.Http
                 return data;
 
             // Use retry middleware, if any
-            var res = await _xMiddlewares.XRetry.UseRetryAsync(async () => await _httpClient.SendAsync(requestMessage));
+            var res = await _middlewareStack.Retry.UseRetryAsync(async () => await _httpClient.SendAsync(requestMessage));
 
             // Use response middlewares, if any
-            foreach (var responseMiddleware in _xMiddlewares.XResponses)
+            foreach (var responseMiddleware in _middlewareStack.ResponseSeries)
             {
                 isNext = false;
                 await responseMiddleware.UseResponseAsync(xExecuteInfo, res, next);

@@ -12,7 +12,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <returns></returns>
         public static IRiotBlossomClient CreateClient(Settings settings)
         {
-            var riotHttpClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, settings.XMiddlewares);
+            var riotHttpClient = new RiotHttpClient(settings.HttpClient, settings.RiotApiKey, settings.MiddlewareStack);
             var cDragonHttpClient = new CDragonHttpClient(settings.HttpClient);
             var dDragonHttpClient = new DDragonHttpClient(settings.HttpClient);
             return new RiotBlossomClient(riotHttpClient, cDragonHttpClient, dDragonHttpClient);
@@ -32,9 +32,9 @@ namespace BlossomiShymae.RiotBlossom.Core
             /// </summary>
             public string RiotApiKey { get; init; } = string.Empty;
             /// <summary>
-            /// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="Middleware.Middlewares"/>.
+            /// Application-level middlewares used for the request-response cycle. Defaults to defined values set in <see cref="Middleware.MiddlewareStack"/>.
             /// </summary>
-            public Middlewares XMiddlewares { get; init; } = new();
+            public MiddlewareStack MiddlewareStack { get; init; } = new();
         }
     }
 }
