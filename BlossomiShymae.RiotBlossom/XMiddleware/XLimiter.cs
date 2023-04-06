@@ -7,9 +7,9 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
     /// <summary>
     /// The default middleware implementation for rate limiting requests to the Riot Games API.
     /// </summary>
-    public class XLimiter : IRequestMiddleware, IResponseMiddleware
+    public partial class XLimiter : IRequestMiddleware, IResponseMiddleware
     {
-        private static readonly ConcurrentDictionary<string, XRateLimiterRoute> s_headersByRoutingValue = new();
+        private static readonly ConcurrentDictionary<string, XLimiterRoute> s_headersByRoutingValue = new();
         private static readonly string s_appRateLimitKey = "x-app-rate-limit";
         private static readonly string s_appRateLimitCountKey = "x-app-rate-limit-count";
         private static readonly string s_methodRateLimitKey = "x-method-rate-limit";
@@ -44,7 +44,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var headersByMethod = route.XRateLimiterHeadersByMethod;
 
-            var newMethod = new XRateLimiterMethod
+            var newMethod = new XLimiterMethod
             {
                 XMethodRateLimit = xRateLimiterHeaders.XMethodRateLimit,
                 XMethodRateLimitCount = xRateLimiterHeaders.XMethodRateLimitCount,
@@ -52,7 +52,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             };
             headersByMethod[info.MethodUri] = newMethod;
 
-            var newRoute = new XRateLimiterRoute
+            var newRoute = new XLimiterRoute
             {
                 XAppRateLimit = xRateLimiterHeaders.XAppRateLimit,
                 XAppRateLimitCount = xRateLimiterHeaders.XAppRateLimitCount,
@@ -66,7 +66,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return Task.CompletedTask;
         }
 
-        public static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
+        public static XLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
         {
             var appRateLimit = ProcessHeader(headers, s_appRateLimitKey);
             var appRateLimitCount = ProcessHeader(headers, s_appRateLimitCountKey);
@@ -82,7 +82,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             }
             catch (InvalidOperationException) { }
 
-            return new XRateLimiterHeaders
+            return new XLimiterHeaders
             {
                 XAppRateLimit = appRateLimit,
                 XAppRateLimitCount = appRateLimitCount,
@@ -94,7 +94,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             };
         }
 
-        private static int ProcessRateLimit(XRateLimiterHeader xLimitHeader, XRateLimiterHeader xLimitCountHeader)
+        private static int ProcessRateLimit(XLimiterHeader xLimitHeader, XLimiterHeader xLimitCountHeader)
         {
             if (xLimitHeader.RateLimiterArray.Length != xLimitCountHeader.RateLimiterArray.Length)
                 throw new InvalidOperationException("X-Rate-Limit headers have unbalanced limits and counts");
@@ -110,7 +110,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return retryAfterSeconds;
         }
 
-        private static XRateLimiterHeader ProcessHeader(HttpResponseHeaders headers, string key)
+        private static XLimiterHeader ProcessHeader(HttpResponseHeaders headers, string key)
         {
             string commaSeperatedRateLimit = ExtractHeader(headers, key);
             string[] commaSeperatedRateLimits = commaSeperatedRateLimit
@@ -124,7 +124,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
                 .Select(x => (x[0], x[1]))
                 .ToImmutableArray();
 
-            return new XRateLimiterHeader(rateLimiters);
+            return new XLimiterHeader(rateLimiters);
         }
 
         private static string ExtractHeader(HttpResponseHeaders headers, string key)
@@ -133,33 +133,20 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return value ?? throw new NullReferenceException($"X-Rate-Limit header value for {key} is null");
         }
 
-        private record XRateLimiterRoute
+        private record XLimiterRoute
         {
-            public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
-            public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
+            public XLimiterHeader XAppRateLimit { get; init; } = default!;
+            public XLimiterHeader XAppRateLimitCount { get; init; } = default!;
             public int XAppRetryAfter { get; init; }
             public int XRetryAfter { get; init; }
-            public ConcurrentDictionary<string, XRateLimiterMethod> XRateLimiterHeadersByMethod { get; init; } = new ConcurrentDictionary<string, XRateLimiterMethod>();
+            public ConcurrentDictionary<string, XLimiterMethod> XRateLimiterHeadersByMethod { get; init; } = new ConcurrentDictionary<string, XLimiterMethod>();
         }
 
-        private record XRateLimiterMethod
+        private record XLimiterMethod
         {
-            public XRateLimiterHeader XMethodRateLimit { get; init; } = default!;
-            public XRateLimiterHeader XMethodRateLimitCount { get; init; } = default!;
+            public XLimiterHeader XMethodRateLimit { get; init; } = default!;
+            public XLimiterHeader XMethodRateLimitCount { get; init; } = default!;
             public int XMethodRetryAfter { get; init; }
         }
-
-        public record XRateLimiterHeaders
-        {
-            public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
-            public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
-            public XRateLimiterHeader XMethodRateLimit { get; init; } = default!;
-            public XRateLimiterHeader XMethodRateLimitCount { get; init; } = default!;
-            public int XAppRetryAfterSeconds { get; init; }
-            public int XMethodRetryAfterSeconds { get; init; }
-            public int XRetryAfterSeconds { get; init; }
-        }
-
-        public record XRateLimiterHeader(ImmutableArray<(int requestCount, int intervalSeconds)> RateLimiterArray);
     }
 }

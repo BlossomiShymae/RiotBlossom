@@ -8,7 +8,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
     /// removed when the cache count limit is reached. Data will also expire after a determined amount
     /// of time passes.
     /// </summary>
-    public class XMemoryCache : IRequestMiddleware, IResponseMiddleware
+    public class XInMemoryCache : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly MemoryCache s_cache = MemoryCache.Default;
         private static readonly ConcurrentDictionary<string, long> s_counter = new();
@@ -21,9 +21,9 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
         /// </summary>
         public int CacheExpiration { get; init; }
 
-        public static XMemoryCache Default { get; } = new XMemoryCache(1000, 6);
+        public static XInMemoryCache Default { get; } = new XInMemoryCache(1000, 6);
 
-        public XMemoryCache(long cacheSize, int cacheExpiration)
+        public XInMemoryCache(long cacheSize, int cacheExpiration)
         {
             CacheSize = cacheSize;
             CacheExpiration = cacheExpiration;
