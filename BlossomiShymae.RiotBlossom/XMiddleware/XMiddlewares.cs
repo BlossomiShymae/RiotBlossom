@@ -17,6 +17,6 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             XMemoryCache.Default,
             XLimiter.Default
         });
-        public IRetryMiddleware XRetry { get; init; } = XMiddleware.XRetry.Default;
+        public IRetryMiddleware XRetry { get; init; } = XMiddleware.XRetryer.Default;
     }
 }

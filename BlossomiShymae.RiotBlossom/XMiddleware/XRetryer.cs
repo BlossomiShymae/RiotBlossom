@@ -4,13 +4,13 @@
     /// The default middleware implementation for retrying requests. Unsuccessful requests will be retried a set 
     /// amount of times. Exhausting the retry limit or receiving a 429 - Too Many Requests will throw an exception.
     /// </summary>
-    public class XRetry : IRetryMiddleware
+    public class XRetryer : IRetryMiddleware
     {
-        public static XRetry Default { get; } = new XRetry(2, TimeSpan.FromSeconds(15.0));
+        public static XRetryer Default { get; } = new XRetryer(2, TimeSpan.FromSeconds(15.0));
         public int RetryCount { get; init; }
         public TimeSpan RetryDelay { get; init; }
 
-        public XRetry(int retryCount, TimeSpan retryDelay)
+        public XRetryer(int retryCount, TimeSpan retryDelay)
         {
             RetryCount = retryCount;
             RetryDelay = retryDelay;
