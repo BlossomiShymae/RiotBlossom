@@ -66,7 +66,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             return Task.CompletedTask;
         }
 
-        private static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
+        public static XRateLimiterHeaders ProcessHeaders(HttpResponseHeaders headers)
         {
             var appRateLimit = ProcessHeader(headers, s_appRateLimitKey);
             var appRateLimitCount = ProcessHeader(headers, s_appRateLimitCountKey);
@@ -149,7 +149,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             public int XMethodRetryAfter { get; init; }
         }
 
-        private record XRateLimiterHeaders
+        public record XRateLimiterHeaders
         {
             public XRateLimiterHeader XAppRateLimit { get; init; } = default!;
             public XRateLimiterHeader XAppRateLimitCount { get; init; } = default!;
@@ -160,6 +160,6 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             public int XRetryAfterSeconds { get; init; }
         }
 
-        private record XRateLimiterHeader(ImmutableArray<(int requestCount, int intervalSeconds)> RateLimiterArray);
+        public record XRateLimiterHeader(ImmutableArray<(int requestCount, int intervalSeconds)> RateLimiterArray);
     }
 }
