@@ -7,18 +7,18 @@ namespace BlossomiShymae.RiotBlossom.Middleware
     /// <summary>
     /// The default middleware implementation for rate limiting requests to the Riot Games API.
     /// </summary>
-    public partial class Limiter : IRequestMiddleware, IResponseMiddleware
+    public class Limiter : IRequestMiddleware, IResponseMiddleware
     {
-        private static readonly ConcurrentDictionary<string, XLimiterRoute> s_headersByRoutingValue = new();
         private static readonly string s_appRateLimitKey = "x-app-rate-limit";
         private static readonly string s_appRateLimitCountKey = "x-app-rate-limit-count";
         private static readonly string s_methodRateLimitKey = "x-method-rate-limit";
         private static readonly string s_methodRateLimitCountKey = "x-method-rate-limit-count";
         private static readonly string s_retryAfterKey = "retry-after";
+        private readonly ConcurrentDictionary<string, XLimiterRoute> _headersByRoutingValue = new();
 
         public async Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit)
         {
-            var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+            var route = _headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var method = route.XRateLimiterHeadersByMethod.GetValueOrDefault(info.MethodUri, new());
 
             var retryAfter429Seconds = route.XRetryAfter;
@@ -40,7 +40,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         public Task UseResponseAsync(ExecuteInfo info, HttpResponseMessage res, Action next)
         {
             var xRateLimiterHeaders = ProcessHeaders(res.Headers);
-            var route = s_headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
+            var route = _headersByRoutingValue.GetValueOrDefault(info.RoutingValue, new());
             var headersByMethod = route.XRateLimiterHeadersByMethod;
 
             var newMethod = new XLimiterMethod
@@ -59,7 +59,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                 XRateLimiterHeadersByMethod = headersByMethod,
                 XRetryAfter = xRateLimiterHeaders.XRetryAfterSeconds
             };
-            s_headersByRoutingValue[info.RoutingValue] = newRoute;
+            _headersByRoutingValue[info.RoutingValue] = newRoute;
 
             next();
             return Task.CompletedTask;
