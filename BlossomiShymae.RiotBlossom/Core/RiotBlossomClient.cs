@@ -31,9 +31,9 @@ namespace BlossomiShymae.RiotBlossom.Core
         public ICDragonApi CDragon => _cDragonApi;
         public IDDragonApi DDragon => _dDragonApi;
 
-        public RiotBlossomClient(RiotApi riotApi, CDragonHttpClient cDragonHttpClient, DDragonHttpClient dDragonHttpClient)
+        public RiotBlossomClient(RiotHttpClient riotHttpClient, CDragonHttpClient cDragonHttpClient, DDragonHttpClient dDragonHttpClient)
         {
-            _riotApi = riotApi;
+            _riotApi = new(riotHttpClient);
             _cDragonApi = new(cDragonHttpClient);
             _dDragonApi = new(dDragonHttpClient);
         }
