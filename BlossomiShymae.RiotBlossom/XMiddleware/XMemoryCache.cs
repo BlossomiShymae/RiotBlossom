@@ -1,4 +1,5 @@
-﻿using System.Runtime.Caching;
+﻿using System.Collections.Concurrent;
+using System.Runtime.Caching;
 
 namespace BlossomiShymae.RiotBlossom.XMiddleware
 {
@@ -10,12 +11,29 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
     public class XMemoryCache : IRequestMiddleware, IResponseMiddleware
     {
         private static readonly MemoryCache s_cache = MemoryCache.Default;
-        public static XMemoryCache Default { get; } = new XMemoryCache();
+        private static readonly ConcurrentDictionary<string, long> s_counter = new();
+        /// <summary>
+        /// The maximum amount of items permitted to the cache.
+        /// </summary>
+        public long CacheSize { get; init; }
+        /// <summary>
+        /// The expiration of a cache item in hours.
+        /// </summary>
+        public int CacheExpiration { get; init; }
+
+        public static XMemoryCache Default { get; } = new XMemoryCache(1000, 6);
+
+        public XMemoryCache(long cacheSize, int cacheExpiration)
+        {
+            CacheSize = cacheSize;
+            CacheExpiration = cacheExpiration;
+        }
 
         public Task UseRequestAsync(XExecuteInfo info, HttpRequestMessage req, Action next, Action<string> hit)
         {
             string key = req.RequestUri?.OriginalString ?? string.Empty;
             bool isHit = false;
+
             if (!string.IsNullOrEmpty(key))
             {
                 try
@@ -24,7 +42,17 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
                     if (res != null)
                     {
                         isHit = true;
+                        bool isValue = s_counter.TryGetValue(key, out long count);
+                        if (isValue)
+                            s_counter[key] = count + 1;
+                        else
+                            s_counter[key] = 0;
+
                         hit(res);
+                    }
+                    else
+                    {
+                        s_counter.TryRemove(key, out long _);
                     }
                 }
                 catch (System.Exception) { }
@@ -40,11 +68,19 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
             string key = res.RequestMessage?.RequestUri?.OriginalString ?? string.Empty;
             if (!string.IsNullOrEmpty(key) && res.IsSuccessStatusCode)
             {
-                // When cache is too big, play Mario Party dice block and remove a key-value item from it to make room! >w<
-                if (s_cache.GetCount() > 1000)
+                // Remove items from the cache that are the less used
+                if (s_cache.GetCount() > CacheSize)
                 {
-                    var item = s_cache.ElementAt(Random.Shared.Next(0, (int)s_cache.GetCount() - 1));
-                    s_cache.Remove(item.Key);
+                    var items = s_counter
+                        .ToList()
+                        .OrderBy(x => x.Value)
+                        .Take((int)(CacheSize / 5));
+
+                    foreach (var item in items)
+                    {
+                        s_cache.Remove(item.Key);
+                        s_counter.TryRemove(item);
+                    }
                 }
 
                 if (res.IsSuccessStatusCode)
@@ -52,7 +88,7 @@ namespace BlossomiShymae.RiotBlossom.XMiddleware
                     string data = await res.Content.ReadAsStringAsync();
                     s_cache.Add(key, data, new CacheItemPolicy
                     {
-                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(6)
+                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(CacheExpiration)
                     });
                     s_cache[key] = await res.Content.ReadAsStringAsync();
                 }
