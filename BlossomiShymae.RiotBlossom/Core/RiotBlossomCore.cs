@@ -38,11 +38,11 @@ namespace BlossomiShymae.RiotBlossom.Core
             /// <summary>
             /// Application-level middlewares used for the request-response cycle. Injected into Riot APIs.
             /// </summary>
-            public MiddlewareStack RiotMiddlewareStack { get; init; } = new(true);
+            public MiddlewareStack RiotMiddlewareStack { get; init; } = new(true, "riotblossom-riot");
             /// <summary>
             /// Application-level middleware stack used for the request-response cycle. Injected into DataDragon and CommunityDragon APIs.
             /// </summary>
-            public MiddlewareStack DataMiddlewareStack { get; init; } = new(false);
+            public MiddlewareStack DataMiddlewareStack { get; init; } = new(false, "riotblossom-data");
         }
     }
 }

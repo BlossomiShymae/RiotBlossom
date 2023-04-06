@@ -10,16 +10,26 @@ namespace BlossomiShymae.RiotBlossom.Middleware
     /// </summary>
     public class InMemoryCache : IRequestMiddleware, IResponseMiddleware
     {
-        private static readonly MemoryCache s_cache = MemoryCache.Default;
-        private static readonly ConcurrentDictionary<string, long> s_counter = new();
         /// <summary>
         /// The maximum amount of items permitted to the cache.
         /// </summary>
-        public long CacheSize { get; init; } = 1000;
+        public long Size { get; init; } = 1000;
         /// <summary>
         /// The expiration of a cache item in hours.
         /// </summary>
-        public int CacheExpiration { get; init; } = 6;
+        public int Expiration { get; init; } = 6;
+        private readonly MemoryCache _cache;
+        private readonly ConcurrentDictionary<string, long> _counter = new();
+
+        private InMemoryCache()
+        {
+            _cache = new("RiotBlossom");
+        }
+
+        public InMemoryCache(string name)
+        {
+            _cache = new(name);
+        }
 
         public Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit)
         {
@@ -30,21 +40,21 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             {
                 try
                 {
-                    var res = (byte[])s_cache[key];
+                    var res = (byte[])_cache[key];
                     if (res != null)
                     {
                         isHit = true;
-                        bool isValue = s_counter.TryGetValue(key, out long count);
+                        bool isValue = _counter.TryGetValue(key, out long count);
                         if (isValue)
-                            s_counter[key] = count + 1;
+                            _counter[key] = count + 1;
                         else
-                            s_counter[key] = 0;
+                            _counter[key] = 0;
 
                         hit(res);
                     }
                     else
                     {
-                        s_counter.TryRemove(key, out long _);
+                        _counter.TryRemove(key, out long _);
                     }
                 }
                 catch (System.Exception) { }
@@ -61,26 +71,26 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             if (!string.IsNullOrEmpty(key) && res.IsSuccessStatusCode)
             {
                 // Remove items from the cache that are the less used
-                if (s_cache.GetCount() > CacheSize)
+                if (_cache.GetCount() > Size)
                 {
-                    var items = s_counter
+                    var items = _counter
                         .ToList()
                         .OrderBy(x => x.Value)
-                        .Take((int)(CacheSize / 5));
+                        .Take((int)(Size / 5));
 
                     foreach (var item in items)
                     {
-                        s_cache.Remove(item.Key);
-                        s_counter.TryRemove(item);
+                        _cache.Remove(item.Key);
+                        _counter.TryRemove(item);
                     }
                 }
 
                 if (res.IsSuccessStatusCode)
                 {
                     byte[] data = await res.Content.ReadAsByteArrayAsync();
-                    s_cache.Add(key, data, new CacheItemPolicy
+                    _cache.Add(key, data, new CacheItemPolicy
                     {
-                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(CacheExpiration)
+                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(Expiration)
                     });
                 }
             }
