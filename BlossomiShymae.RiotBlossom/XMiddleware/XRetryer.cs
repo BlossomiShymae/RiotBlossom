@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.XMiddleware
+﻿using BlossomiShymae.RiotBlossom.Exception;
+
+namespace BlossomiShymae.RiotBlossom.XMiddleware
 {
     /// <summary>
     /// The default middleware implementation for retrying requests. Unsuccessful requests will be retried a set 
@@ -56,7 +58,7 @@
                 // Double the delay duration
                 retryDelay *= 2;
             }
-            throw new InvalidOperationException("Retries exceeded");
+            throw new ExhaustedRetryerException("Retries exceeded");
         }
     }
 }
