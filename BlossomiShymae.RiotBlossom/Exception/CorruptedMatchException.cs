@@ -6,12 +6,8 @@
     /// </summary>
     public class CorruptedMatchException : System.Exception
     {
-        public CorruptedMatchException(string matchId) : base(matchId)
-        {
-        }
+        public CorruptedMatchException(string matchId) : base(matchId) { }
 
-        public CorruptedMatchException(string matchId, System.Exception inner) : base(matchId, inner)
-        {
-        }
+        public CorruptedMatchException(string matchId, System.Exception inner) : base(matchId, inner) { }
     }
 }
