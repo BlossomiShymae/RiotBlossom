@@ -20,7 +20,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             responseSeries.Add(cache);
             if (createLimiter)
             {
-                Limiter limiter = new();
+                AlgorithmicLimiter limiter = new();
                 requestSeries.Add(limiter);
                 responseSeries.Add(limiter);
             }

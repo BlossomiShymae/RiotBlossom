@@ -33,8 +33,8 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                     int code = (int)responseMessage.StatusCode;
                     if (code == 429)
                     {
-                        LimiterHeaders headers = Limiter.ProcessHeaders(responseMessage.Headers);
-                        retryAfter = TimeSpan.FromSeconds(headers.XRetryAfterSeconds);
+                        AlgorithmicLimiter.Headers headers = AlgorithmicLimiter.ProcessHeaders(responseMessage.Headers);
+                        retryAfter = TimeSpan.FromSeconds(headers.RetryAfterSeconds);
                         Console.WriteLine("Encountered enforced 429 - Too Many Requests...");
                     }
                     else if (code >= 400 && code < 500)
