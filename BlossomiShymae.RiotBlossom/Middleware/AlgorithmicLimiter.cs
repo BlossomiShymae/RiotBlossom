@@ -28,7 +28,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             await _shaper[ShaperType].UseResponseAsync(info, res, next);
         }
 
-        public static Headers ProcessHeaders(HttpResponseHeaders headers)
+        internal static Headers ProcessHeaders(HttpResponseHeaders headers)
         {
             Header applicationLimit = ProcessHeader(headers, RiotHeader.ApplicationLimit);
             Header applicationCounter = ProcessHeader(headers, RiotHeader.ApplicationCount);
@@ -95,7 +95,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             return value ?? throw new NullReferenceException($"X-Rate-Limit header value for {key} is null");
         }
 
-        public record Headers
+        internal record Headers
         {
             public Header ApplicationLimit { get; init; } = default!;
             public Header ApplicationCounter { get; init; } = default!;
@@ -106,7 +106,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             public int RetryAfterSeconds { get; init; }
         }
 
-        public record Header(ImmutableArray<(int Count, int Seconds)> Limit);
+        internal record Header(ImmutableArray<(int Count, int Seconds)> Limit);
 
         internal record Route
         {
