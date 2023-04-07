@@ -7,8 +7,8 @@ out of the box. Other services such as DataDragon and CommunityDragon are also s
 
 # Features
 - Asynchronous and immutable API.
-- Extensible HTTP middleware (express.js inspired).
-- Caching, rate limiting, and request retrying by default.
+- Extensible HTTP middleware system (express.js inspired).
+- In-memory caching, burst rate limiting, and automatic retrying by default.
 - League of Legends API support.
 - Magic. (੭ु ›ω‹ )੭ु⁾⁾♡
 
@@ -72,46 +72,51 @@ dotnet add package BlossomiShymae.RiotBlossom
 
 # Usage
 The API client is accessed by using the static constructor in `RiotBlossomCore`. By default, `RiotBlossomCore.Settings` will create 
-a new instance of `HttpClient` and `XMiddlewares`. `XMiddlewares` will use the default implementation (`XLimiter`, `XRetryer`, and `XMemoryCache`).
+a new instance of `HttpClient`, `RiotMiddlewareStack`, and `DataMiddlewareStack`.
 ```csharp
 using BlossomiShymae.RiotBlossom.Core;
 
 IRiotBlossomClient client = RiotBlossomCore.CreateClient(
 	new RiotBlossomCore.Settings
 	{
-		RiotApiKey = "RGAPI-snippy-snip"
+		RiotApiKey = "RGAPI-a0a0a0a0-aa0a-0a00-a00a-a0a000a0a000"
 	}
 );
 ```
 
-We can use a dependency injected `HttpClient` or add our own middleware implementation if needed:
+`RiotMiddlewareStack` and `DataMiddlewareStack` are dedicated middleware stacks. The default implementation is shown below:
+- Riot API => `RiotMiddlewareStack` => (`InMemoryCache`, `AlgorithmicLimiter`, `Retryer`)
+- DataDragon, CommunityDragon API => `DataMiddlewareStack` => (`InMemoryCache`, `Retryer`)
+
+We can use a dependency injected `HttpClient` or set own middleware implementation if needed:
 ```csharp
 using BlossomiShymae.RiotBlossom;
 using BlossomiShymae.RiotBlossom.Core;
-using BlossomiShymae.RiotBlossom.XMiddleware;
+using BlossomiShymae.RiotBlossom.Middleware;
 
-// Custom middleware initialization
-var xRedisCache = new XRedisCache();
+// NOT INCLUDED
+// Custom cache middleware using Redis
+RedisCache riotCache = new();
+RedisCache dataCache = new();
+
+// Other middleware
+AlgorithmicLimiter limiter = new();
 
 RiotBlossomCore.Settings settings = new()
 {
-	RiotApiKey = "RGAPI-snippy-snip",
+	RiotApiKey = "RGAPI-a0a0a0a0-aa0a-0a00-a00a-a0a000a0a000",
 	HttpClient = httpClient,
-	XMiddlewares = new()
+	RiotMiddlewareStack = new()
 	{
-		XRequests = ImmutableArray.Create(new IRequestMiddleware[]
-		{
-			// Passing the middleware instance assuming it implements IRequestMiddleware
-			xRedisCache,
-			XLimiter.Default
-		}),
-		XResponses = ImmutableArray.Create(new IResponseMiddleware[]
-		{
-			// Passing the middleware instance assuming it implements IResponseMiddleware
-			xRedisCache,
-			XLimiter.Default
-		}),
-		XRetry = XMiddleware.XRetryer.Default
+		RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { riotCache, limiter }),
+		ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { riotCache, limiter }),
+		Retry = new Retryer()
+	},
+	DataMiddlewareStack = new()
+	{
+		RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { dataCache }),
+		ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { dataCache }),
+		Retry = new Retryer()
 	}
 };
 
@@ -125,7 +130,7 @@ using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
 using BlossomiShymae.RiotBlossom.Type;
 
 SummonerDto summoner = await client.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
-Console.WriteLine(summoner.SummonerLevel);
+Console.WriteLine(summoner);
 ```
 
 Getting a `MatchDto`
@@ -134,11 +139,14 @@ using BlossomiShymae.RiotBlossom.Dto.Riot.Match;
 using BlossomiShymae.RiotBlossom.Type;
 
 ImmutableList<string> ids = await client.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid);
+// Or alternatively with a PlaformRoute enum
+ids = await client.Riot.Match.ListIdsByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
+
 MatchDto match = await client.Riot.Match.GetByIdAsync(RegionalRoute.Americas, ids.First());
 ```
 
 ## With CommunityDragon API
-Fetch `Champion` for Gwen's ID of `887`.
+Fetch a `CDragon.Champion` for Gwen's numerical ID of `887`.
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.CDragon.Champion;
 
