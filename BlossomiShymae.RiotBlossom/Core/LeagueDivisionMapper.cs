@@ -20,7 +20,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         public static string GetValue(LeagueDivision leagueDivision)
         {
             string? value = s_valueByLeagueDivision.GetValueOrDefault(leagueDivision);
-            return value ?? throw new NotImplementedException($"Value for league division {leagueDivision} not implemented");)
+            return value ?? throw new NotImplementedException($"Value for league division {leagueDivision} not implemented");
         }
     }
 }
