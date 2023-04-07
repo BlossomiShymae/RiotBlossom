@@ -19,16 +19,14 @@ namespace BlossomiShymae.RiotBlossom.Core
 
         public static string GetRegion(RegionalRoute regionalRoute)
         {
-            var region = s_regionByRoute.GetValueOrDefault(regionalRoute);
-            if (string.IsNullOrEmpty(region))
-                throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
-            return region;
+            string? region = s_regionByRoute.GetValueOrDefault(regionalRoute);
+            return region ?? throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
         }
 
         public static RegionalRoute FromRegion(string region)
         {
-            var kvs = s_regionByRoute.ToList();
-            foreach (var kv in kvs)
+            var kvpList = s_regionByRoute.ToList();
+            foreach (var kv in kvpList)
             {
                 if (kv.Value == region)
                     return kv.Key;

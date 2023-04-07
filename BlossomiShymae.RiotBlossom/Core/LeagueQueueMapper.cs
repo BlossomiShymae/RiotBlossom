@@ -18,10 +18,8 @@ namespace BlossomiShymae.RiotBlossom.Core
 
         public static string GetValue(LeagueQueue leagueQueue)
         {
-            var value = s_valueByLeagueQueue.GetValueOrDefault(leagueQueue);
-            if (string.IsNullOrEmpty(value))
-                throw new NotImplementedException($"Value for league queue {leagueQueue} is not implemented");
-            return value;
+            string? value = s_valueByLeagueQueue.GetValueOrDefault(leagueQueue);
+            return value ?? throw new NotImplementedException($"Value for league queue {leagueQueue} not implemented");
         }
     }
 }

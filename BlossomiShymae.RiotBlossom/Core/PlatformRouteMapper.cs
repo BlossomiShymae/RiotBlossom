@@ -32,16 +32,14 @@ namespace BlossomiShymae.RiotBlossom.Core
 
         public static string GetId(PlatformRoute platformRoute)
         {
-            var id = s_platformIdByRoute.GetValueOrDefault(platformRoute);
-            if (string.IsNullOrEmpty(id))
-                throw new NotImplementedException($"Id for platform route {platformRoute} not implemented");
-            return id;
+            string? id = s_platformIdByRoute.GetValueOrDefault(platformRoute);
+            return id ?? throw new NotImplementedException($"Id for platform route {platformRoute} not implemented");
         }
 
         public static PlatformRoute FromId(string id)
         {
-            var kvs = s_platformIdByRoute.ToList();
-            foreach (var kv in kvs)
+            var kvpList = s_platformIdByRoute.ToList();
+            foreach (var kv in kvpList)
             {
                 if (kv.Value == id)
                     return kv.Key;
