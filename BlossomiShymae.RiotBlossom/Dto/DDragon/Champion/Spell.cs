@@ -2,6 +2,9 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.DDragon.Champion
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Spell
     {
         public string Id { get; init; } = default!;

@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.DDragon.Item
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Gold
     {
         public int Base { get; init; }

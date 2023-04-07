@@ -2,6 +2,9 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.DDragon.Perk
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record PerkStyle
     {
         public int Id { get; init; }

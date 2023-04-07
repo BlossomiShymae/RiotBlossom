@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.DDragon.Champion
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Passive
     {
         public string Name { get; init; } = default!;

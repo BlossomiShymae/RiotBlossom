@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.DDragon.Perk
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record PerkRune
     {
         public int Id { get; init; }

@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.CDragon.Champion
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record PlaystyleInfo
     {
         public int Damage { get; init; }

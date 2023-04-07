@@ -2,6 +2,9 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.CDragon.Champion
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Skin
     {
         public int Id { get; init; }

@@ -2,6 +2,9 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.CDragon.Item
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Item
     {
         public int Id { get; init; }

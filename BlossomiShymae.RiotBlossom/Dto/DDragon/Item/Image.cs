@@ -1,5 +1,8 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.DDragon.Item
 {
+    /// <summary>
+    /// UNDOCUMENTED
+    /// </summary>
     public record Image
     {
         public string Full { get; init; } = default!;
