@@ -17,7 +17,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         /// <summary>
         /// The expiration of a cache item in hours.
         /// </summary>
-        public int Expiration { get; init; } = 6;
+        public int Expiration { get; init; } = 2;
         private readonly MemoryCache _cache;
         private readonly ConcurrentDictionary<string, long> _counter = new();
 
