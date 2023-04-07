@@ -16,6 +16,10 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         /// The time span to delay after an unsuccessful request.
         /// </summary>
         public TimeSpan RetryDelay { get; init; } = TimeSpan.FromSeconds(15.0);
+        /// <summary>
+        /// The choice to throw an exception when receiving a 429 - Too Many Requests.
+        /// </summary>
+        public bool CanThrowOn429 { get; init; } = true;
 
         public async Task<HttpResponseMessage> UseRetryAsync(Func<Task<HttpResponseMessage>> resFunc)
         {
@@ -35,11 +39,14 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                     {
                         AlgorithmicLimiter.Headers headers = AlgorithmicLimiter.ProcessHeaders(responseMessage.Headers);
                         retryAfter = TimeSpan.FromSeconds(headers.RetryAfterSeconds);
-                        Console.WriteLine("Encountered enforced 429 - Too Many Requests...");
+                        if (CanThrowOn429)
+                            throw new TooManyRequestsException(headers.ToString(), retryAfter);
+                        Console.WriteLine("Retrying for 429 - Too Many Requests...");
                     }
                     else if (code >= 400 && code < 500)
                         throw new HttpRequestException(string.Empty, null, responseMessage.StatusCode);
                 }
+                catch (TooManyRequestsException) { throw; }
                 catch (HttpRequestException) { throw; }
                 catch (ArgumentNullException) { throw; }
                 catch (InvalidOperationException) { throw; }
