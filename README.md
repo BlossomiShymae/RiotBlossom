@@ -70,7 +70,7 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Items (`items.json`)
 - ✅ Perks (`perks.json`)
 
-# Usage
+# Quickstart
 The API client is accessed by using the static constructor in `RiotBlossomCore`. By default, `RiotBlossomCore.Settings` will create 
 a new instance of `HttpClient`, `RiotMiddlewareStack`, and `DataMiddlewareStack`.
 ```csharp
@@ -138,21 +138,24 @@ RiotBlossomCore.Settings settings = new()
 IRiotBlossomClient client = RiotBlossomCore.CreateClient(settings);
 ```
 
-## With Riot API
+## Fetching some data with the Riot API
 Let us try getting a summoner from the Riot API!
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
 using BlossomiShymae.RiotBlossom.Type;
 
-SummonerDto summoner = await client.Riot.Summoner.GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
+SummonerDto summoner = await client.Riot.Summoner
+    .GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
 Console.WriteLine(summoner);
 ```
 
 Output:
 ```
 SummonerDto { AccountId = 0WvZHECxpBFNlntYzcCNyDkGeaqA6vthcLsklngrPVYofWE, ProfileIconId = 5367,
-RevisionDate = 1675651090000, Name = uwuie time, Id = Ao5ffQ2dOV-99YKs_iB0g2EGzGD159jXIk2Z5MjvMafLwbQ,
-Puuid = Bd1zj7cFt3MlCZl2GI-5N94D2PHRsfpsjl-6ZM9LjXIm90Bz4JAdwR6Kw4fzbSPFfLoQI5p9hGIhfA, SummonerLevel = 936 }
+RevisionDate = 1675651090000, Name = uwuie time,
+Id = Ao5ffQ2dOV-99YKs_iB0g2EGzGD159jXIk2Z5MjvMafLwbQ,
+Puuid = Bd1zj7cFt3MlCZl2GI-5N94D2PHRsfpsjl-6ZM9LjXIm90Bz4JAdwR6Kw4fzbSPFfLoQI5p9hGIhfA,
+SummonerLevel = 936 }
 ```
 
 If we're commonly making requests to the same API, we can store an API reference to make requests with instead!
@@ -164,7 +167,8 @@ using BlossomiShymae.RiotBlossom.Dto.Riot.Match;
 
 IRiotApi riot = client.Riot;
 
-ImmutableList<string> ids = await riot.Match.ListIdsByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
+ImmutableList<string> ids = 
+    await riot.Match.ListIdsByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
 List<MatchDto> matches = new();
 foreach (string id in ids)
     matches.Add(await riot.Match.GetByIdAsync(PlatformRoute.NorthAmerica, id));
@@ -172,7 +176,8 @@ foreach (string id in ids)
 matches
     .First()
     .Info.Participants
-    .ForEach(p => Console.WriteLine($"{p.SummonerName}, {p.ChampionName}, {p.Kills}/{p.Deaths}/{p.Assists}"));
+    .ForEach(p => Console
+        .WriteLine($"{p.SummonerName}, {p.ChampionName}, {p.Kills}/{p.Deaths}/{p.Assists}"));
 ```
 
 Output:
@@ -189,13 +194,14 @@ Zaxer, Jinx, 11/5/9
 uwuie time, Soraka, 2/1/17 
 ```
 
-## With DataDragon API
-RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! *most sane suggestion*
+## What about DataDragon?
+RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.DDragon.Item;
 
 string gameVersion = await client.DDragon.GetLatestVersionAsync();
-ImmutableDictionary<int, Item> itemDictionary = await client.DDragon.GetItemDictionaryAsync(gameVersion);
+ImmutableDictionary<int, Item> itemDictionary = 
+    await client.DDragon.GetItemDictionaryAsync(gameVersion);
 
 itemDictionary
     .ToList()
@@ -212,7 +218,7 @@ Output:
 ...
 ```
 
-## With CommunityDragon API
+## CommunityDragon!?
 RiotBlossom supports CommunityDragon as well! 💚💜
 
 We know that Gwen's numerical ID is `887`. Let us find out more about her using CommunityDragon!
