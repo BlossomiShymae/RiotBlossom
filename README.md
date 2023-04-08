@@ -76,6 +76,9 @@ a new instance of `HttpClient`, `RiotMiddlewareStack`, and `DataMiddlewareStack`
 ```csharp
 using BlossomiShymae.RiotBlossom.Core;
 
+// You can hard-code your API key in if you like as an alternative.
+string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") 
+    ?? throw new NullReferenceException();
 IRiotBlossomClient client = RiotBlossomCore.CreateClient(new()
 {
     RiotApiKey = riotApiKey
@@ -117,6 +120,8 @@ Retryer retryer = new()
     RetryDelay = TimeSpan.FromSeconds(10d)
 };
 
+string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") 
+    ?? throw new NullReferenceException();
 RiotBlossomCore.Settings settings = new()
 {
     HttpClient = httpClient,
