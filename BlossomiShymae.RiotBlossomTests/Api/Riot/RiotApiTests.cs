@@ -15,10 +15,25 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = RiotBlossomCore.CreateClient(new()
             {
-                HttpClient = new HttpClient()
+                HttpClient = StubConfig.HttpClient
             });
 
             SummonerDto dto = await client.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(WarningLimiterException))]
+        public async Task Api_RunIterativelyForLimiter_ShouldThrowWarningException()
+        {
+            IRiotBlossomClient client = StubConfig.ThrowingClient;
+
+            SummonerDto summonerDto = await client.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
+            ImmutableList<string> matchIds = await client.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerPlatform, summonerDto.Puuid);
+
+            for (int i = 0; i < 121; i++)
+            {
+                await client.Riot.Match.GetByIdAsync(StubConfig.SummonerPlatform, matchIds.First());
+            }
         }
 
         [TestMethod()]
@@ -34,6 +49,18 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
                 await client.Riot.Match.GetByIdAsync(StubConfig.SummonerRegion, matchId);
             }
             Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(WarningLimiterException))]
+        public async Task Api_WhenAllForLimiter_ShouldThrowWarningException()
+        {
+            IRiotBlossomClient client = StubConfig.ThrowingClient;
+
+            SummonerDto summonerDto = await client.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
+            ImmutableList<string> matchIds = await client.Riot.Match.ListIdsByPuuidAsync(StubConfig.SummonerPlatform, summonerDto.Puuid);
+
+            await Task.WhenAll(Enumerable.Range(0, 121).Select(x => client.Riot.Match.GetByIdAsync(StubConfig.SummonerPlatform, matchIds.First())));
         }
 
         [TestMethod()]

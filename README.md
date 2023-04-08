@@ -109,11 +109,11 @@ InMemoryCache dataCache = new("rb-data-cache")
     Size = 10000
 };
 
-AlgorithmicLimiter limiter = new()
+AlgorithmicLimiter limiter = new(new()
 {
     CanThrowOn429 = true,
     ShaperType = LimiterShaper.Burst
-};
+});
 
 Retryer retryer = new()
 {

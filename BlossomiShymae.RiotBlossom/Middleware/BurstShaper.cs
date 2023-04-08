@@ -5,6 +5,14 @@ namespace BlossomiShymae.RiotBlossom.Middleware
     internal class BurstShaper : IShaper
     {
         private readonly ConcurrentDictionary<string, AlgorithmicLimiter.Route> _headersByRoutingValue = new();
+        private readonly bool _canThrowOn429;
+        private readonly bool _canThrowOnLimit;
+
+        public BurstShaper(bool canThrowOn429, bool canThrowOnLimit)
+        {
+            _canThrowOn429 = canThrowOn429;
+            _canThrowOnLimit = canThrowOnLimit;
+        }
 
         public async Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit)
         {
@@ -14,14 +22,20 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             var retryAfter429Seconds = route.RetryAfterSeconds;
             if (retryAfter429Seconds > 0)
             {
-                Console.WriteLine($"Encountered an enforced 429 response, retrying after {retryAfter429Seconds} seconds...");
+                string message = $"Retry after {retryAfter429Seconds} seconds";
+                if (_canThrowOn429)
+                    throw new Exception.TooManyRequestsException(message, TimeSpan.FromSeconds(retryAfter429Seconds));
+                Console.WriteLine(message);
                 await Task.Delay(retryAfter429Seconds * 1000);
             }
 
             var retryAfterSeconds = route.ApplicationRetryAfterSeconds > method.RetryAfter ? route.ApplicationRetryAfterSeconds : method.RetryAfter;
             if (retryAfterSeconds > 0)
             {
-                Console.WriteLine($"Delaying for {retryAfterSeconds} seconds to avoid 429...");
+                string message = $"Wait for {retryAfterSeconds} seconds before making another request";
+                if (_canThrowOnLimit)
+                    throw new Exception.WarningLimiterException(message, TimeSpan.FromSeconds(retryAfterSeconds));
+                Console.WriteLine(message);
                 await Task.Delay(retryAfterSeconds * 1000);
             }
             next();

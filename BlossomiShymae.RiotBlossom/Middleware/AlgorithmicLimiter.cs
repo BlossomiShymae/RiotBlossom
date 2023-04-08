@@ -10,21 +10,35 @@ namespace BlossomiShymae.RiotBlossom.Middleware
     /// </summary>
     public class AlgorithmicLimiter : IRequestMiddleware, IResponseMiddleware
     {
-        private readonly ImmutableDictionary<LimiterShaper, IShaper> _shaper = new Dictionary<LimiterShaper, IShaper>()
+        public record Settings
         {
-            { LimiterShaper.Burst, new BurstShaper() },
-        }.ToImmutableDictionary();
-        public LimiterShaper ShaperType { get; init; } = LimiterShaper.Burst;
-        public bool CanThrowOn429 { get; init; } = true;
+            public LimiterShaper ShaperType { get; init; } = LimiterShaper.Burst;
+            public bool CanThrowOn429 { get; init; } = true;
+            public bool CanThrowOnLimit { get; init; } = true;
+        }
+
+        private readonly ImmutableDictionary<LimiterShaper, IShaper> _shaper;
+        private readonly LimiterShaper _shaperType;
+
+        public AlgorithmicLimiter(Settings settings)
+        {
+            _shaperType = settings.ShaperType;
+            _shaper = new Dictionary<LimiterShaper, IShaper>()
+            {
+                { settings.ShaperType, new BurstShaper(settings.CanThrowOn429, settings.CanThrowOnLimit) },
+            }.ToImmutableDictionary();
+        }
+
+        public AlgorithmicLimiter() : this(new()) { }
 
         public async Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit)
         {
-            await _shaper[ShaperType].UseRequestAsync(info, req, next, hit);
+            await _shaper[_shaperType].UseRequestAsync(info, req, next, hit);
         }
 
         public async Task UseResponseAsync(ExecuteInfo info, HttpResponseMessage res, Action next)
         {
-            await _shaper[ShaperType].UseResponseAsync(info, res, next);
+            await _shaper[_shaperType].UseResponseAsync(info, res, next);
         }
 
         internal static Headers ProcessHeaders(HttpResponseHeaders headers)
