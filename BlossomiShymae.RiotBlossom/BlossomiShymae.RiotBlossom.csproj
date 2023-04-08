@@ -15,7 +15,7 @@
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PackageTags>riot;riotgames;lol;riotapi;leagueoflegends;</PackageTags>
 	<PackageIcon>icon.png</PackageIcon>
-	<Version>0.1.1</Version>
+	<Version>0.2.0</Version>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<Title>RiotBlossom</Title>
   </PropertyGroup>
