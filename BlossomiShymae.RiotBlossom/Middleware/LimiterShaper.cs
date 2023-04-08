@@ -5,7 +5,6 @@
     /// </summary>
     public enum LimiterShaper
     {
-        Burst,
-        Spread
+        Burst
     }
 }

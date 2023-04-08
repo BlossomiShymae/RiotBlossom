@@ -13,7 +13,6 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         private readonly ImmutableDictionary<LimiterShaper, IShaper> _shaper = new Dictionary<LimiterShaper, IShaper>()
         {
             { LimiterShaper.Burst, new BurstShaper() },
-            { LimiterShaper.Spread, new SpreadShaper() }
         }.ToImmutableDictionary();
         public LimiterShaper ShaperType { get; init; } = LimiterShaper.Burst;
         public bool CanThrowOn429 { get; init; } = true;
