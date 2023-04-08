@@ -5,6 +5,8 @@ An asynchronous, extensible, and magical Riot Games API wrapper library for C#. 
 This library helps to make things totes' easier! Goodies include naive cache, rate limiter, and retryer middleware plugins 
 out of the box. Other services such as DataDragon and CommunityDragon are also supported! ＼(＾▽＾)／
 
+This library is currently compatible with .NET 6 and higher.
+
 # Features
 - Asynchronous and immutable API.
 - Extensible HTTP middleware system (express.js inspired).
