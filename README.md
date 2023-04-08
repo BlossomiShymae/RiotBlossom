@@ -76,12 +76,10 @@ a new instance of `HttpClient`, `RiotMiddlewareStack`, and `DataMiddlewareStack`
 ```csharp
 using BlossomiShymae.RiotBlossom.Core;
 
-IRiotBlossomClient client = RiotBlossomCore.CreateClient(
-	new RiotBlossomCore.Settings
-	{
-		RiotApiKey = "RGAPI-a0a0a0a0-aa0a-0a00-a00a-a0a000a0a000"
-	}
-);
+IRiotBlossomClient client = RiotBlossomCore.CreateClient(new()
+{
+    RiotApiKey = riotApiKey
+});
 ```
 
 `RiotMiddlewareStack` and `DataMiddlewareStack` are dedicated middleware stacks. The default implementation is shown below:
@@ -94,37 +92,54 @@ using BlossomiShymae.RiotBlossom;
 using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Middleware;
 
-// NOT INCLUDED
-// Custom cache middleware using Redis
-RedisCache riotCache = new();
-RedisCache dataCache = new();
+HttpClient httpClient = new()
+{
+    Timeout = TimeSpan.FromSeconds(15d),
+};
 
-// Other middleware
-AlgorithmicLimiter limiter = new();
+InMemoryCache riotCache = new("rb-riot-cache");
+InMemoryCache dataCache = new("rb-data-cache")
+{
+    Expiration = 24,
+    Size = 10000
+};
+
+AlgorithmicLimiter limiter = new()
+{
+    CanThrowOn429 = true,
+    ShaperType = LimiterShaper.Burst
+};
+
+Retryer retryer = new()
+{
+    CanThrowOn429 = true,
+    RetryCount = 10,
+    RetryDelay = TimeSpan.FromSeconds(10d)
+};
 
 RiotBlossomCore.Settings settings = new()
 {
-	RiotApiKey = "RGAPI-a0a0a0a0-aa0a-0a00-a00a-a0a000a0a000",
-	HttpClient = httpClient,
-	RiotMiddlewareStack = new()
-	{
-		RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { riotCache, limiter }),
-		ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { riotCache, limiter }),
-		Retry = new Retryer()
-	},
-	DataMiddlewareStack = new()
-	{
-		RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { dataCache }),
-		ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { dataCache }),
-		Retry = new Retryer()
-	}
+    HttpClient = httpClient,
+    RiotApiKey = riotApiKey,
+    RiotMiddlewareStack = new()
+    {
+        RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { riotCache, limiter }),
+        ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { riotCache, limiter }),
+        Retry = retryer
+    },
+    DataMiddlewareStack = new()
+    {
+        RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { dataCache }),
+        ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { dataCache }),
+        Retry = retryer
+    }
 };
 
 IRiotBlossomClient client = RiotBlossomCore.CreateClient(settings);
 ```
 
 ## With Riot API
-Retrieving a `SummonerDto`
+Let us try getting a summoner from the Riot API!
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
 using BlossomiShymae.RiotBlossom.Type;
@@ -133,39 +148,89 @@ SummonerDto summoner = await client.Riot.Summoner.GetByNameAsync(PlatformRoute.N
 Console.WriteLine(summoner);
 ```
 
-Getting a `MatchDto`
+Output:
+```
+SummonerDto { AccountId = 0WvZHECxpBFNlntYzcCNyDkGeaqA6vthcLsklngrPVYofWE, ProfileIconId = 5367,
+RevisionDate = 1675651090000, Name = uwuie time, Id = Ao5ffQ2dOV-99YKs_iB0g2EGzGD159jXIk2Z5MjvMafLwbQ,
+Puuid = Bd1zj7cFt3MlCZl2GI-5N94D2PHRsfpsjl-6ZM9LjXIm90Bz4JAdwR6Kw4fzbSPFfLoQI5p9hGIhfA, SummonerLevel = 936 }
+```
+
+If we're commonly making requests to the same API, we can store an API reference to make requests with instead!
+
+Now how about getting some fresh matches with the summoner we received? >w<
 ```csharp
+using BlossomiShymae.RiotBlossom.Api;
 using BlossomiShymae.RiotBlossom.Dto.Riot.Match;
-using BlossomiShymae.RiotBlossom.Type;
 
-ImmutableList<string> ids = await client.Riot.Match.ListIdsByPuuidAsync(RegionalRoute.Americas, summoner.Puuid);
-// Or alternatively with a PlaformRoute enum
-ids = await client.Riot.Match.ListIdsByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
+IRiotApi riot = client.Riot;
 
-MatchDto match = await client.Riot.Match.GetByIdAsync(RegionalRoute.Americas, ids.First());
+ImmutableList<string> ids = await riot.Match.ListIdsByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
+List<MatchDto> matches = new();
+foreach (string id in ids)
+    matches.Add(await riot.Match.GetByIdAsync(PlatformRoute.NorthAmerica, id));
+
+matches
+    .First()
+    .Info.Participants
+    .ForEach(p => Console.WriteLine($"{p.SummonerName}, {p.ChampionName}, {p.Kills}/{p.Deaths}/{p.Assists}"));
+```
+
+Output:
+```
+Aears, Camille, 5/8/1
+BIG MONEY 1, Belveth, 5/4/3
+The Iranian, Kassadin, 3/2/4
+Lotûs, Ashe, 2/5/5
+Gairennedyl, Amumu, 2/9/5
+AIppano, Karthus, 5/7/13
+FZ Shion, Nidalee, 8/1/11
+LintRemover8000, Xerath, 2/3/9
+Zaxer, Jinx, 11/5/9
+uwuie time, Soraka, 2/1/17 
+```
+
+## With DataDragon API
+RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! *most sane suggestion*
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.DDragon.Item;
+
+string gameVersion = await client.DDragon.GetLatestVersionAsync();
+ImmutableDictionary<int, Item> itemDictionary = await client.DDragon.GetItemDictionaryAsync(gameVersion);
+
+itemDictionary
+    .ToList()
+    .ForEach(kvp => Console.WriteLine($"{kvp.Key}: {kvp.Value.Name}"));
+```
+
+Output:
+```
+1001: Boots
+1004: Faerie Charm
+1006: Rejuvenation Bead
+1011: Giant's Belt
+1018: Cloak of Agility
+...
 ```
 
 ## With CommunityDragon API
-Fetch a `CDragon.Champion` for Gwen's numerical ID of `887`.
+RiotBlossom supports CommunityDragon as well! 💚💜
+
+We know that Gwen's numerical ID is `887`. Let us find out more about her using CommunityDragon!
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.CDragon.Champion;
 
 Champion champion = await client.CDragon.GetChampionByIdAsync(887);
-// => "The Hallowed Seamstress"
-Console.WriteLine(champion.Title);
+Console.WriteLine(champion);
 ```
 
-## With DataDragon API
-Get a dictionary of all items from latest game version.
-```csharp
-using BlossomiShymae.RiotBlossom.Dto.DDragon.Item;
-
-string gameVersion = await client.DDragon.GetLatestVersion();
-ImmutableDictionary<int, Item> itemDictionary = await client.DDragon.GetItemDictionaryAsync(gameVersion);
 ```
-
-# Contributing
-
+Champion { Id = 887, Name = Gwen, Alias = Gwen, Title = The Hallowed Seamstress,
+ShortBio = A former doll transformed and brought to life by magic, Gwen wields the very tools that
+once created her. She carries the weight of her maker's love with every step, taking nothing for
+granted. At her command is the Hallowed Mist, an ancient and protective magic that has blessed
+Gwen's scissors, needles, and sewing thread. So much is new to her, but Gwen remains joyfully
+determined to fight for the good that survives in a broken world.,  ...}
+```
 
 # License
 This library is under the MIT license.
