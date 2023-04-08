@@ -17,6 +17,7 @@
 	<PackageIcon>icon.png</PackageIcon>
 	<Version>0.1.0</Version>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<Title>RiotBlossom</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
