@@ -11,6 +11,8 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         public IRetryMiddleware? Retry { get; init; } = null;
         public ImmutableArray<IResponseMiddleware> ResponseSeries { get; init; } = ImmutableArray<IResponseMiddleware>.Empty;
 
+        public MiddlewareStack() { }
+
         public MiddlewareStack(bool createLimiter, string cacheName)
         {
             InMemoryCache cache = new(cacheName);
