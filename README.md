@@ -245,6 +245,98 @@ Gwen's scissors, needles, and sewing thread. So much is new to her, but Gwen rem
 determined to fight for the good that survives in a broken world.,  ...}
 ```
 
+# Middleware Plugins
+
+## Overview
+
+RiotBlossom uses pluggable middlewares as part of the HTTP request-response cycle. Creating a middleware plugin requires 
+implementing from any of the following interfaces:
+- `IRequestMiddleware`
+- `IResponseMiddleware`
+- `IRetryMiddleware`
+
+As part of the HTTP request-response lifecycle:
+- Before request sent (request information goes through request middlewares `IRequestMiddleware[]`)
+- On request (request function reference is passed to single retry middleware `IRetryMiddleware`)
+- After response received (response information goes through response middlewares `IResponseMiddleware[]`)
+
+Following this lifecycle, `MiddlewareStack` is the system composition of `IRequestMiddleware[]`, `IRetryMiddleware`, and `IResponseMiddleware[]`. 
+A middleware stack is encapsulated to the APIs it is assigned to. RiotBlossom settings currently accept the following:
+- `RiotMiddlewareStack` - Riot APIs
+- `DataMiddlewareStack` - CommunityDragon and DataDragon APIs
+
+Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, `RiotMiddlewareStack` is 
+created with a `AlgorithmicLimiter` where `DataMiddlewareStack` does not.
+
+`ExecuteInfo` is a data record passed to `IRequestMiddleware` and `IResponseMiddleware` that contains routing and method URI 
+information.
+
+## Request interface
+```csharp
+public interface IRequestMiddleware
+{
+    Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit);
+}
+```
+Example plugins:
+- AlgorithmicLimiter
+- InMemoryCache
+
+## Response interface
+```csharp
+public interface IResponseMiddleware
+{
+    Task UseResponseAsync(ExecuteInfo info, HttpResponseMessage res, Action next);
+}
+```
+Example plugins:
+- AlgorithmicLimiter
+- InMemoryCache
+
+## Retry interface
+```csharp
+public interface IRetryMiddleware
+{
+    Task<HttpResponseMessage> UseRetryAsync(Func<Task<HttpResponseMessage>> resFunc);
+}
+```
+Example plugins:
+- Retryer
+
+## AlgorithmicLimiter
+```csharp
+AlgorithmicLimiter limiter = new(new()
+{
+    CanThrowOn429 = true,
+    CanThrowOnLimit = true,
+    ShaperType = LimiterShaper.Burst
+});
+```
+More documentation can be found in the [AlgorithmicLimiter](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Middleware/AlgorithmicLimiter.cs)
+class.
+
+## InMemoryCache
+```csharp
+InMemoryCache riotCache = new("rb-riot-cache");
+InMemoryCache dataCache = new("rb-data-cache")
+{
+    Expiration = 24,
+    Size = 10000
+};
+```
+More documentation can be found in the [InMemoryCache](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Middleware/InMemoryCache.cs) class.
+
+## Retryer
+```csharp
+Retryer retryer = new()
+{
+    CanThrowOn429 = true,
+    RetryCount = 10,
+    RetryDelay = TimeSpan.FromSeconds(10d)
+};
+```
+More documentation can be found in the [Retryer](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Middleware/Retryer.cs) class.
+
 # License
 This library is under the MIT license.
 

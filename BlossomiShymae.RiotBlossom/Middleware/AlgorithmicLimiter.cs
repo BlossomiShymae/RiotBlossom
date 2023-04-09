@@ -12,8 +12,18 @@ namespace BlossomiShymae.RiotBlossom.Middleware
     {
         public record Settings
         {
+            /// <summary>
+            /// The type to use for shaping requests.
+            /// </summary>
             public LimiterShaper ShaperType { get; init; } = LimiterShaper.Burst;
+            /// <summary>
+            /// Whether to throw a <see cref="Exception.TooManyRequestsException"/> on receiving a 429.
+            /// </summary>
             public bool CanThrowOn429 { get; init; } = true;
+            /// <summary>
+            /// Whether to throw a <see cref="Exception.WarningLimiterException"/> when a rate limit is reached.
+            /// Setting to false will have the limiter automatically await the time remaining before retrying.
+            /// </summary>
             public bool CanThrowOnLimit { get; init; } = true;
         }
 
