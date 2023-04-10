@@ -7,6 +7,22 @@ out of the box. Other services such as DataDragon and CommunityDragon are also s
 
 This library is currently compatible with .NET 6 and higher.
 
+# Table of Contents
+1. [Features](#features)
+2. [Installation](#installation)
+3. [Endpoints](#endpoints)
+4. [Quickstart](#quickstart)
+5. [API Interfaces](#api-interfaces)
+6. [Middleware Plugins](#middleware-plugins)
+7. [Exceptions](#exceptions-oh-noes)
+8. [Types](#types)
+9. [Utilities](#utilities)
+10. [Data transfer objects](#data-transfer-objects-dto)
+11. [Dependent packages](#dependent-packages)
+12. [Contributing](#contributing)
+13. [License](#license)
+14. [Disclaimer](#disclaimer)
+
 # Features
 - Asynchronous and immutable API.
 - Extensible HTTP middleware system (express.js inspired).
