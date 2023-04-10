@@ -252,6 +252,8 @@ RiotBlossom currently serves three major API interfaces:
 - CommunityDragon, [`ICDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/CDragonApi.cs) --> `CDragon`
 - DataDragon, [`IDDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/DDragonApi.cs) --> `DDragon`
 
+All API interfaces are meant for consumption, not for implementation. ⚠️
+
 # Middleware Plugins
 
 ## Overview
