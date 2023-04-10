@@ -33,14 +33,14 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Champion-Mastery-v4
 - ✅ Champion-v3
 - ✅ Clash-v1
-- ❌ League-Exp-v4 (will not support as this is an experimental endpoint)
+- ❌ League-Exp-v4 (will not support, experimental endpoint)
 - ✅ League-v4
 - ✅ Lol-Challenges-v1
 - ✅ Lol-Status-v4
 - ✅ Match-v5
 - ✅ Spectator-v4
-- ✅ Summoner-v4
-- ❌ Tournament-Stub-v4 (endpoint that is associated with being unreliable)
+- ⭕ Summoner-v4 (no RSO)
+- ❌ Tournament-Stub-v4 (will not support, endpoint that is associated with being unreliable)
 - ❌ Tournament-v4 (will not support)
 
 ### Teamfight Tactics
@@ -380,6 +380,59 @@ and `CanThrowOn429` is true.
 ## WarningLimiterException
 When a rate limit was reached for `AlgorithmicLimiter` and `CanThrowOnLimit` is true. Not to be confused with 
 the above exception where an actual `429` occurs.
+
+# Types
+RiotBlossom uses types to represent named values used for the Riot Games API.
+- `ChallengeLevel`
+- `LeagueDivision`
+- `LeagueQueue`
+- `LeagueTier`
+- `PlatformRoute`
+- `RegionalRoute`
+- `RiotHeader`
+
+## ChallengeLevel
+Represents the possible challenge levels for `lol-challenges-v1`.
+
+## LeagueDivision
+Represents League ranked divisions for `league-v4`.
+
+## LeagueQueue
+Represents League ranked queue types for `league-v4`.
+
+## LeagueTier
+Represents League ranks for `league-v4`.
+
+## PlatformRoute
+Represents the available platform routing values used for the Riot API.
+
+[Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
+
+## RegionalRoute
+Represents the available regional routing values used for the Riot API.
+
+[Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
+
+## RiotHeader
+A structure of string constants used for [Riot rate limiting headers](https://hextechdocs.dev/rate-limiting/).
+
+# Utilities
+Mappers and converters are also included to get the raw or converted values of the aformentioned types. 
+These are used internally for projecting values when making requests to the Riot APIs.
+- `LeagueDivisionMapper`
+- `LeagueQueueMapper`
+- `LeagueTierMapper`
+- `PlatformRouteMapper`
+- `PlatformToRegionMapper`
+- `RegionRouteMapper`
+
+# Data transfer objects (DTO)
+RiotBlossom uses simple objects with no behavior for JSON deserialization. These objects are strongly typed and are 
+close to 1-to-1 as possible for property names of the original data transfer objects received.
+
+Data objects that have been commented as `UNDOCUMENTED` do not have an official schema and are likely unstable between any versions. Use at your own risk. ⚠️
+
+[The complete directory of objects used can be found here under the `Dto` namespace.](https://github.com/BlossomiShymae/RiotBlossom/tree/master/BlossomiShymae.RiotBlossom/Dto)
 
 # License
 This library is under the MIT license.
