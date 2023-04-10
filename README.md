@@ -285,6 +285,11 @@ public interface IRequestMiddleware
     Task UseRequestAsync(ExecuteInfo info, HttpRequestMessage req, Action next, Action<byte[]> hit);
 }
 ```
+- `info`, routing information of request
+- `req`, the raw HTTP request message
+- `next`, action to invoke for continuing to the next request middleware. Not invoking will end the request middleware chain.
+- `hit`, action to invoke for sending cached data
+
 Example plugins:
 - AlgorithmicLimiter
 - InMemoryCache
@@ -295,6 +300,10 @@ public interface IResponseMiddleware
 {
     Task UseResponseAsync(ExecuteInfo info, HttpResponseMessage res, Action next);
 }
+- `info`, routing information of request
+- `res`, the raw HTTP response message
+- `next`, action to invoke for continuing to the next response middleware. Not invoking will end the response middleware chain.
+
 ```
 Example plugins:
 - AlgorithmicLimiter
@@ -306,6 +315,8 @@ public interface IRetryMiddleware
 {
     Task<HttpResponseMessage> UseRetryAsync(Func<Task<HttpResponseMessage>> resFunc);
 }
+- `resFunc`, function to invoke for receiving a HTTP response
+
 ```
 Example plugins:
 - Retryer

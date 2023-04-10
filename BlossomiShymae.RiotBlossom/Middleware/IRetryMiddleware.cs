@@ -6,6 +6,11 @@
     /// </summary>
     public interface IRetryMiddleware
     {
+        /// <summary>
+        /// Executed on request.
+        /// </summary>
+        /// <param name="resFunc">Function to invoke for receiving a HTTP response.</param>
+        /// <returns></returns>
         Task<HttpResponseMessage> UseRetryAsync(Func<Task<HttpResponseMessage>> resFunc);
     }
 }
