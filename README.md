@@ -245,6 +245,13 @@ Gwen's scissors, needles, and sewing thread. So much is new to her, but Gwen rem
 determined to fight for the good that survives in a broken world.,  ...}
 ```
 
+# API Interfaces
+
+RiotBlossom currently serves three major API interfaces:
+- Riot Games, [`IRiotApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/RiotApi.cs) --> `Riot`
+- CommunityDragon, [`ICDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/CDragonApi.cs) --> `CDragon`
+- DataDragon, [`IDDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/DDragonApi.cs) --> `DDragon`
+
 # Middleware Plugins
 
 ## Overview
