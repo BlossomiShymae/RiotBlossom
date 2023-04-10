@@ -272,11 +272,11 @@ A middleware stack is encapsulated to the APIs it is assigned to. RiotBlossom se
 - `RiotMiddlewareStack` - Riot APIs
 - `DataMiddlewareStack` - CommunityDragon and DataDragon APIs
 
+Each request processed under `RiotMiddlewareStack` is asynchronously locked per routing value to maintain data synchronization.
+
 Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, `RiotMiddlewareStack` is 
 created with a `AlgorithmicLimiter` where `DataMiddlewareStack` does not.
 
-`ExecuteInfo` is a data record passed to `IRequestMiddleware` and `IResponseMiddleware` that contains routing and method URI 
-information.
 
 ## Request interface
 ```csharp
@@ -447,6 +447,10 @@ close to 1-to-1 as possible for property names of the original data transfer obj
 Data objects that have been commented as `UNDOCUMENTED` do not have an official schema and are likely unstable between any versions. Use at your own risk. ⚠️
 
 [The complete directory of objects used can be found here under the `Dto` namespace.](https://github.com/BlossomiShymae/RiotBlossom/tree/master/BlossomiShymae.RiotBlossom/Dto)
+
+# Dependent packages
+- AsyncKeyedLock
+- System.Runtime.Caching
 
 # License
 This library is under the MIT license.
