@@ -455,7 +455,7 @@ These are used internally for projecting values when making requests to the Riot
 - `LeagueQueueMapper`
 - `LeagueTierMapper`
 - `PlatformRouteMapper`
-- `PlatformToRegionMapper`
+- `PlatformToRegionConverter`
 - `RegionRouteMapper`
 
 # Data transfer objects (DTO)
