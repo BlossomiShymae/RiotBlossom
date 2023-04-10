@@ -454,6 +454,13 @@ Data objects that have been commented as `UNDOCUMENTED` do not have an official 
 - AsyncKeyedLock
 - System.Runtime.Caching
 
+# Contributing
+Create an issue or submit a pull request! ˖⁺‧₊˚ ♡ ˚₊‧⁺˖
+
+Before submitting a pull request, be sure to include unit tests if applicable. Unit tests use common objects from 
+the [StubConfig file](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossomTests/StubConfig.cs). Be sure to include your Riot API key under the `RIOT_API_KEY` 
+system environment variable.
+
 # License
 This library is under the MIT license.
 
