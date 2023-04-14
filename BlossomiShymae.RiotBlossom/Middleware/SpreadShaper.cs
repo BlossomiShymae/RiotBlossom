@@ -99,7 +99,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                 (int limitCount, int limitSeconds) = limitHeader.Limit[i];
                 (int counterCount, int counterSeconds) = countHeader.Limit[i];
 
-                double progress = (double)counterCount / counterSeconds;
+                double progress = (double)counterCount / limitCount;
                 TimeSpan delay = TimeSpan.FromSeconds((double)limitSeconds / limitCount);
                 list.Add((progress, delay));
             }
