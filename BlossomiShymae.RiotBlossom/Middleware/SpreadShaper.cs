@@ -60,7 +60,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                 .OrderByDescending(x => x.Progress)
                 .First();
 
-            await Task.Delay(progress >= 95 ? delay * 2 : delay);
+            await Task.Delay(delay * (3 * Math.Pow(progress, 2)));
             next();
         }
 
