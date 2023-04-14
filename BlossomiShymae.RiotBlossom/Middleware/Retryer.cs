@@ -41,7 +41,6 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                         retryAfter = TimeSpan.FromSeconds(headers.RetryAfterSeconds);
                         if (CanThrowOn429)
                             throw new TooManyRequestsException(headers.ToString(), retryAfter);
-                        Console.WriteLine(headers.ToString());
                     }
                     else if (code >= 400 && code < 500)
                         throw new HttpRequestException(string.Empty, null, responseMessage.StatusCode);

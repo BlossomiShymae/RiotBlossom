@@ -35,7 +35,6 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                 string message = $"Retry after {retryAfter429Seconds} seconds";
                 if (_canThrowOn429)
                     throw new Exception.TooManyRequestsException(message, TimeSpan.FromSeconds(retryAfter429Seconds));
-                Console.WriteLine(message);
                 await Task.Delay(retryAfter429Seconds * 1000);
             }
 
@@ -46,8 +45,6 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                 string message = $"Wait for {retryAfterSeconds} seconds before making another request";
                 if (_canThrowOnLimit)
                     throw new Exception.WarningLimiterException(message, TimeSpan.FromSeconds(retryAfterSeconds));
-                Console.WriteLine(message);
-                await Task.Delay(retryAfterSeconds * 1000);
                 next();
                 return;
             }
