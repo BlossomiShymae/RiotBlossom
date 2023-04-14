@@ -15,23 +15,23 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <summary>
         /// The raw API for CommunityDragon game data.
         /// </summary>
-        ICDragonApi CDragon { get; }
+        ICommunityDragonApi CommunityDragon { get; }
         /// <summary>
         /// The raw API for DataDragon game data.
         /// </summary>
-        IDDragonApi DDragon { get; }
+        IDataDragonApi DataDragon { get; }
     }
 
     internal class RiotBlossomClient : IRiotBlossomClient
     {
         private readonly RiotApi _riotApi;
-        private readonly CDragonApi _cDragonApi;
-        private readonly DDragonApi _dDragonApi;
+        private readonly CommunityDragonApi _cDragonApi;
+        private readonly DataDragonApi _dDragonApi;
         public IRiotApi Riot => _riotApi;
-        public ICDragonApi CDragon => _cDragonApi;
-        public IDDragonApi DDragon => _dDragonApi;
+        public ICommunityDragonApi CommunityDragon => _cDragonApi;
+        public IDataDragonApi DataDragon => _dDragonApi;
 
-        public RiotBlossomClient(RiotHttpClient riotHttpClient, CDragonHttpClient cDragonHttpClient, DDragonHttpClient dDragonHttpClient)
+        public RiotBlossomClient(RiotHttpClient riotHttpClient, CommunityDragonHttpClient cDragonHttpClient, DataDragonHttpClient dDragonHttpClient)
         {
             _riotApi = new(riotHttpClient);
             _cDragonApi = new(cDragonHttpClient);

@@ -221,11 +221,11 @@ uwuie time, Soraka, 2/1/17
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
 ```csharp
-using BlossomiShymae.RiotBlossom.Dto.DDragon.Item;
+using BlossomiShymae.RiotBlossom.Dto.DataDragon.Item;
 
-string gameVersion = await client.DDragon.GetLatestVersionAsync();
+string gameVersion = await client.DataDragon.GetLatestVersionAsync();
 ImmutableDictionary<int, Item> itemDictionary = 
-    await client.DDragon.GetItemDictionaryAsync(gameVersion);
+    await client.DataDragon.GetItemDictionaryAsync(gameVersion);
 
 itemDictionary
     .ToList()
@@ -247,9 +247,9 @@ RiotBlossom supports CommunityDragon as well! 💚💜
 
 We know that Gwen's numerical ID is `887`. Let us find out more about her using CommunityDragon!
 ```csharp
-using BlossomiShymae.RiotBlossom.Dto.CDragon.Champion;
+using BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion;
 
-Champion champion = await client.CDragon.GetChampionByIdAsync(887);
+Champion champion = await client.CommunityDragon.GetChampionByIdAsync(887);
 Console.WriteLine(champion);
 ```
 
@@ -266,8 +266,8 @@ determined to fight for the good that survives in a broken world.,  ...}
 
 RiotBlossom currently serves three major API interfaces:
 - Riot Games, [`IRiotApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/RiotApi.cs) --> `Riot`
-- CommunityDragon, [`ICDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/CDragonApi.cs) --> `CDragon`
-- DataDragon, [`IDDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/DDragonApi.cs) --> `DDragon`
+- CommunityDragon, [`ICommunityDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/CommunityDragonApi.cs) --> `CommunityDragon`
+- DataDragon, [`IDataDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/DataDragonApi.cs) --> `DataDragon`
 
 All API interfaces are meant for consumption, not for implementation. ⚠️
 

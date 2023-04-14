@@ -16,8 +16,8 @@ namespace BlossomiShymae.RiotBlossom.Core
             ComposableHttpClient dataComposableHttpClient = new(settings.HttpClient, settings.DataMiddlewareStack);
 
             RiotHttpClient riotHttpClient = new(riotComposableHttpClient, settings.RiotApiKey);
-            CDragonHttpClient cDragonHttpClient = new(dataComposableHttpClient);
-            DDragonHttpClient dDragonHttpClient = new(dataComposableHttpClient);
+            CommunityDragonHttpClient cDragonHttpClient = new(dataComposableHttpClient);
+            DataDragonHttpClient dDragonHttpClient = new(dataComposableHttpClient);
 
             return new RiotBlossomClient(riotHttpClient, cDragonHttpClient, dDragonHttpClient);
         }
