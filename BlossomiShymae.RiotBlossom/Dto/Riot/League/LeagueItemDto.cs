@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
     public record LeagueItemDto
     {
@@ -19,7 +17,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// <summary>
         /// The current miniseries (rank promotions) the player is involved in.
         /// </summary>
-        public ImmutableList<MiniSeriesDto> MiniSeries { get; init; } = ImmutableList<MiniSeriesDto>.Empty;
+        public MiniSeriesDto? MiniSeries { get; init; }
         /// <summary>
         /// The player no longer actively players in the league.
         /// </summary>

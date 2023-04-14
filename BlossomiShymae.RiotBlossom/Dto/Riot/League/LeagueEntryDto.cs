@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
     public record LeagueEntryDto
     {
@@ -59,7 +57,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// <summary>
         /// The current miniseries (rank promotions) the player is involved in.
         /// </summary>
-        /// TODO - Potential bug where MiniSeriesDto fails to deserialize into ImmutableList on deterministic input
-        public ImmutableList<MiniSeriesDto> MiniSeries { get; init; } = ImmutableList<MiniSeriesDto>.Empty;
+        public MiniSeriesDto? MiniSeries { get; init; }
     }
 }
