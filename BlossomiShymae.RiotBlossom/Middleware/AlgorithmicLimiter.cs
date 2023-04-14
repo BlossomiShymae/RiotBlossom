@@ -35,7 +35,8 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             _shaperType = settings.ShaperType;
             _shaper = new Dictionary<LimiterShaper, IShaper>()
             {
-                { settings.ShaperType, new BurstShaper(settings.CanThrowOn429, settings.CanThrowOnLimit) },
+                { LimiterShaper.Burst, new BurstShaper(settings.CanThrowOn429, settings.CanThrowOnLimit) },
+                { LimiterShaper.Spread, new SpreadShaper(settings.CanThrowOn429, settings.CanThrowOnLimit) },
             }.ToImmutableDictionary();
         }
 
