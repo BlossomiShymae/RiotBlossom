@@ -198,25 +198,16 @@ foreach (string id in ids)
     matches.Add(await riot.Match.GetByIdAsync(PlatformRoute.NorthAmerica, id));
 
 matches
-    .First()
-    .Info.Participants
+    .Select(m => m.Info.Participants
+        .Where(p => p.SummonerId == summoner.Id)
+        .First())
+    .ToList()
     .ForEach(p => Console
-        .WriteLine($"{p.SummonerName}, {p.ChampionName}, {p.Kills}/{p.Deaths}/{p.Assists}"));
+        .WriteLine($"{p.ChampionName,-16}{$"{p.Kills}/{p.Deaths}/{p.Assists}",16}"));
 ```
 
 Output:
-```
-Aears, Camille, 5/8/1
-BIG MONEY 1, Belveth, 5/4/3
-The Iranian, Kassadin, 3/2/4
-Lotûs, Ashe, 2/5/5
-Gairennedyl, Amumu, 2/9/5
-AIppano, Karthus, 5/7/13
-FZ Shion, Nidalee, 8/1/11
-LintRemover8000, Xerath, 2/3/9
-Zaxer, Jinx, 11/5/9
-uwuie time, Soraka, 2/1/17 
-```
+
 
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
