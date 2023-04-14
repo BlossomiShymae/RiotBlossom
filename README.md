@@ -208,6 +208,7 @@ matches
 
 Output:
 
+![image](https://user-images.githubusercontent.com/87099578/232168413-19747394-a8f2-4af3-b601-d3bf849d08a7.png)
 
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
