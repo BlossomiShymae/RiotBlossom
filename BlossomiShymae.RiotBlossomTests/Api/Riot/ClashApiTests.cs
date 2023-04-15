@@ -25,7 +25,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableList<TournamentDto> dtoCollection = await client.Riot.Clash.ListActiveTournamentsAsync(PlatformRoute.NorthAmerica);
+            ImmutableList<TournamentDto> dtoCollection = await client.Riot.Clash.ListActiveTournamentsAsync(Platform.NorthAmerica);
 
             Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<TournamentDto>));
         }

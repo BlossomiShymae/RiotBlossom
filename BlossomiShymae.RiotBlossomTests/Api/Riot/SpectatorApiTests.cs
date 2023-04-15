@@ -48,7 +48,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            FeaturedGames games = await client.Riot.Spectator.GetFeaturedGamesAsync(PlatformRoute.NorthAmerica);
+            FeaturedGames games = await client.Riot.Spectator.GetFeaturedGamesAsync(Platform.NorthAmerica);
 
             Assert.IsInstanceOfType(games, typeof(FeaturedGames));
         }

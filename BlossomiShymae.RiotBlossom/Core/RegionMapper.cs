@@ -4,26 +4,26 @@ using System.Collections.Immutable;
 namespace BlossomiShymae.RiotBlossom.Core
 {
     /// <summary>
-    /// A mapper class for the <see cref="RegionalRoute"/> enum. Used for obtaining the raw value.
+    /// A mapper class for the <see cref="Region"/> enum. Used for obtaining the raw value.
     /// </summary>
-    public static class RegionRouteMapper
+    public static class RegionMapper
     {
-        private static readonly ImmutableDictionary<RegionalRoute, string> s_regionByRoute =
-            new Dictionary<RegionalRoute, string>
+        private static readonly ImmutableDictionary<Region, string> s_regionByRoute =
+            new Dictionary<Region, string>
             {
-                { RegionalRoute.Americas, "americas" },
-                { RegionalRoute.Europe, "europe" },
-                { RegionalRoute.Asia, "asia" },
-                { RegionalRoute.SouthEastAsia, "sea" }
+                { Region.Americas, "americas" },
+                { Region.Europe, "europe" },
+                { Region.Asia, "asia" },
+                { Region.SouthEastAsia, "sea" }
             }.ToImmutableDictionary();
 
-        public static string GetRegion(RegionalRoute regionalRoute)
+        public static string GetId(Region regionalRoute)
         {
             string? region = s_regionByRoute.GetValueOrDefault(regionalRoute);
             return region ?? throw new NotImplementedException($"Region for regional route {regionalRoute} not implemented");
         }
 
-        public static RegionalRoute FromRegion(string region)
+        public static Region FromId(string region)
         {
             var kvpList = s_regionByRoute.ToList();
             foreach (var kv in kvpList)

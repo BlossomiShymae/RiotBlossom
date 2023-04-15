@@ -13,7 +13,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            PlatformDataDto dto = await client.Riot.LolStatus.GetPlatformStatusAsync(PlatformRoute.NorthAmerica);
+            PlatformDataDto dto = await client.Riot.LolStatus.GetPlatformStatusAsync(Platform.NorthAmerica);
 
             Assert.IsInstanceOfType(dto, typeof(PlatformDataDto));
         }

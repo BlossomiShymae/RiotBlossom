@@ -11,7 +11,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// Get League of Legends status for the current platform.
         /// </summary>
         /// <returns></returns>
-        Task<PlatformDataDto> GetPlatformStatusAsync(PlatformRoute platformRoute);
+        Task<PlatformDataDto> GetPlatformStatusAsync(Platform platformRoute);
     }
 
     internal class LolStatusApi : ILolStatusApi
@@ -24,7 +24,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _platformDataDtoApi = new(riotGamesClient);
         }
 
-        public async Task<PlatformDataDto> GetPlatformStatusAsync(PlatformRoute platformRoute)
-            => await _platformDataDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_statusUri);
+        public async Task<PlatformDataDto> GetPlatformStatusAsync(Platform platformRoute)
+            => await _platformDataDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), s_statusUri);
     }
 }

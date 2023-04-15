@@ -14,27 +14,27 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="teamId"></param>
         /// <returns></returns>
-        Task<TeamDto> GetTeamByIdAsync(PlatformRoute platformRoute, string teamId);
+        Task<TeamDto> GetTeamByIdAsync(Platform platformRoute, string teamId);
         /// <summary>
         /// Get a clash tournament by ID.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="tournamentId"></param>
         /// <returns></returns>
-        Task<TournamentDto> GetTournamentByIdAsync(PlatformRoute platformRoute, string tournamentId);
+        Task<TournamentDto> GetTournamentByIdAsync(Platform platformRoute, string tournamentId);
         /// <summary>
         /// Get a clash tournament by team ID.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="teamId"></param>
         /// <returns></returns>
-        Task<TournamentDto> GetTournamentByTeamIdAsync(PlatformRoute platformRoute, string teamId);
+        Task<TournamentDto> GetTournamentByTeamIdAsync(Platform platformRoute, string teamId);
         /// <summary>
         /// List all active or upcoming clash tournaments.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <returns></returns>
-        Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute);
+        Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(Platform platformRoute);
         /// <summary>
         /// List active Clash players for encrypted summoner ID. If a summoner registers for multiple tournaments
         /// at once, then both registrations will appear.
@@ -42,7 +42,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
-        Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
+        Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(Platform platformRoute, string summonerId);
     }
 
     internal class ClashApi : IClashApi
@@ -66,25 +66,25 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _tournamentDtoApi = new(riotGamesClient);
         }
 
-        public async Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+        public async Task<ImmutableList<PlayerDto>> ListPlayersBySummonerIdAsync(Platform platformRoute, string summonerId)
         {
-            List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_playersBySummonerIdUri, summonerId));
+            List<PlayerDto> dtoCollection = await _playerDtosApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_playersBySummonerIdUri, summonerId));
             return dtoCollection.ToImmutableList();
         }
 
-        public async Task<TeamDto> GetTeamByIdAsync(PlatformRoute platformRoute, string teamId)
-            => await _teamDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_teamByTeamIdUri, teamId));
+        public async Task<TeamDto> GetTeamByIdAsync(Platform platformRoute, string teamId)
+            => await _teamDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_teamByTeamIdUri, teamId));
 
-        public async Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(PlatformRoute platformRoute)
+        public async Task<ImmutableList<TournamentDto>> ListActiveTournamentsAsync(Platform platformRoute)
         {
-            List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_tournamentsUri);
+            List<TournamentDto> dtoCollection = await _tournamentDtosApi.GetValueAsync(PlatformMapper.GetId(platformRoute), s_tournamentsUri);
             return dtoCollection.ToImmutableList();
         }
 
-        public async Task<TournamentDto> GetTournamentByTeamIdAsync(PlatformRoute platformRoute, string teamId)
-            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_tournamentByTeamIdUri, teamId));
+        public async Task<TournamentDto> GetTournamentByTeamIdAsync(Platform platformRoute, string teamId)
+            => await _tournamentDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_tournamentByTeamIdUri, teamId));
 
-        public async Task<TournamentDto> GetTournamentByIdAsync(PlatformRoute platformRoute, string tournamentId)
-            => await _tournamentDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_tournamentById, tournamentId));
+        public async Task<TournamentDto> GetTournamentByIdAsync(Platform platformRoute, string tournamentId)
+            => await _tournamentDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_tournamentById, tournamentId));
     }
 }

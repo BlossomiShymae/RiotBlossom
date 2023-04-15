@@ -16,7 +16,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            leagueList = await client.Riot.League.GetChallengerLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
+            leagueList = await client.Riot.League.GetChallengerLeagueByQueueAsync(Platform.NorthAmerica, LeagueQueue.RankedSolo5x5);
         }
 
         [TestMethod()]
@@ -24,7 +24,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            LeagueListDto dto = await client.Riot.League.GetChallengerLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
+            LeagueListDto dto = await client.Riot.League.GetChallengerLeagueByQueueAsync(Platform.NorthAmerica, LeagueQueue.RankedSolo5x5);
 
             Assert.IsInstanceOfType(dto, typeof(LeagueListDto));
         }
@@ -34,7 +34,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            LeagueListDto dto = await client.Riot.League.GetGrandmasterLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
+            LeagueListDto dto = await client.Riot.League.GetGrandmasterLeagueByQueueAsync(Platform.NorthAmerica, LeagueQueue.RankedSolo5x5);
 
             Assert.IsInstanceOfType(dto, typeof(LeagueListDto));
         }
@@ -44,7 +44,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            LeagueListDto dto = await client.Riot.League.GetMasterLeagueByQueueAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5);
+            LeagueListDto dto = await client.Riot.League.GetMasterLeagueByQueueAsync(Platform.NorthAmerica, LeagueQueue.RankedSolo5x5);
 
             Assert.IsInstanceOfType(dto, typeof(LeagueListDto));
         }
@@ -54,7 +54,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            LeagueListDto dto = await client.Riot.League.GetLeagueByIdAsync(PlatformRoute.NorthAmerica, leagueList.LeagueId);
+            LeagueListDto dto = await client.Riot.League.GetLeagueByIdAsync(Platform.NorthAmerica, leagueList.LeagueId);
 
             Assert.IsInstanceOfType(dto, typeof(LeagueListDto));
         }
@@ -64,7 +64,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableList<LeagueEntryDto> dtoCollection = await client.Riot.League.ListLeagueEntriesAsync(PlatformRoute.NorthAmerica, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.II);
+            ImmutableList<LeagueEntryDto> dtoCollection = await client.Riot.League.ListLeagueEntriesAsync(Platform.NorthAmerica, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.II);
 
             Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<LeagueEntryDto>));
         }
@@ -74,7 +74,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableList<LeagueEntryDto> dtoCollection = await client.Riot.League.ListLeagueEntriesBySummonerIdAsync(PlatformRoute.NorthAmerica, leagueList.Entries.First().SummonerId);
+            ImmutableList<LeagueEntryDto> dtoCollection = await client.Riot.League.ListLeagueEntriesBySummonerIdAsync(Platform.NorthAmerica, leagueList.Entries.First().SummonerId);
 
             Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<LeagueEntryDto>));
         }

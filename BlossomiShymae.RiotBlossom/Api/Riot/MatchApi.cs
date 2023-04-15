@@ -16,7 +16,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="regionalRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id);
+        Task<MatchDto> GetByIdAsync(Region regionalRoute, string id);
         /// <summary>
         /// Get a match by ID.
         /// </summary>
@@ -24,7 +24,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MatchDto> GetByIdAsync(PlatformRoute platformRoute, string id);
+        Task<MatchDto> GetByIdAsync(Platform platformRoute, string id);
         /// <summary>
         /// Get a match timeline by ID.
         /// </summary>
@@ -32,7 +32,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="regionalRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MatchTimelineDto> GetTimelineByIdAsync(RegionalRoute regionalRoute, string id);
+        Task<MatchTimelineDto> GetTimelineByIdAsync(Region regionalRoute, string id);
         /// <summary>
         /// Get a match timeline by ID.
         /// </summary>
@@ -40,21 +40,21 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MatchTimelineDto> GetTimelineByIdAsync(PlatformRoute platformRoute, string id);
+        Task<MatchTimelineDto> GetTimelineByIdAsync(Platform platformRoute, string id);
         /// <summary>
         /// List the last 20 most recent match IDs for encrypted PUUID.
         /// </summary>
         /// <param name="regionalRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid);
+        Task<ImmutableList<string>> ListIdsByPuuidAsync(Region regionalRoute, string puuid);
         /// <summary>
         /// List the last 20 most recent match IDs for encrypted PUUID.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid);
+        Task<ImmutableList<string>> ListIdsByPuuidAsync(Platform platformRoute, string puuid);
         /// <summary>
         /// List the match IDs for encrypted PUUID with given option constraints.
         /// </summary>
@@ -62,7 +62,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="puuid"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
+        Task<ImmutableList<string>> ListIdsByPuuidAsync(Region regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
         /// <summary>
         /// List the match IDs for encrypted PUUID with given option constraints.
         /// </summary>
@@ -70,7 +70,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="puuid"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
+        Task<ImmutableList<string>> ListIdsByPuuidAsync(Platform platformRoute, string puuid, ListIdsByPuuidAsyncOptions parameters);
     }
 
     internal class MatchApi : IMatchApi
@@ -90,29 +90,29 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _matchTimelineApi = new(riotGamesClient);
         }
 
-        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid)
+        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(Region regionalRoute, string puuid)
         {
-            List<string> ids = await _stringsApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_matchIdsByPuuidUri, puuid));
+            List<string> ids = await _stringsApi.GetValueAsync(RegionMapper.GetId(regionalRoute), string.Format(s_matchIdsByPuuidUri, puuid));
             return ids.ToImmutableList();
         }
 
-        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(RegionalRoute regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
+        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(Region regionalRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
         {
-            List<string> ids = await _stringsApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_matchIdsByPuuidUri, puuid) + PropertiesToQueryConverter.ToQuery(parameters));
+            List<string> ids = await _stringsApi.GetValueAsync(RegionMapper.GetId(regionalRoute), string.Format(s_matchIdsByPuuidUri, puuid) + PropertiesToQueryConverter.ToQuery(parameters));
             return ids.ToImmutableList();
         }
 
-        public async Task<MatchDto> GetByIdAsync(RegionalRoute regionalRoute, string id)
+        public async Task<MatchDto> GetByIdAsync(Region regionalRoute, string id)
         {
-            MatchDto match = await _matchApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_matchByMatchIdUri, id));
+            MatchDto match = await _matchApi.GetValueAsync(RegionMapper.GetId(regionalRoute), string.Format(s_matchByMatchIdUri, id));
             if (IsCorrupted(match))
                 throw new CorruptedMatchException(match.Metadata.MatchId);
             return match;
         }
 
-        public async Task<MatchTimelineDto> GetTimelineByIdAsync(RegionalRoute regionalRoute, string id)
+        public async Task<MatchTimelineDto> GetTimelineByIdAsync(Region regionalRoute, string id)
         {
-            MatchTimelineDto matchTimelineDto = await _matchTimelineApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_matchTimelineByMatchIdUri, id));
+            MatchTimelineDto matchTimelineDto = await _matchTimelineApi.GetValueAsync(RegionMapper.GetId(regionalRoute), string.Format(s_matchTimelineByMatchIdUri, id));
             if (IsCorrupted(matchTimelineDto))
                 throw new CorruptedMatchException(matchTimelineDto.Metadata.MatchId);
             return matchTimelineDto;
@@ -127,16 +127,16 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             throw new NotImplementedException();
         }
 
-        public async Task<MatchDto> GetByIdAsync(PlatformRoute platformRoute, string id)
+        public async Task<MatchDto> GetByIdAsync(Platform platformRoute, string id)
             => await GetByIdAsync(PlatformToRegionConverter.ToRegion(platformRoute), id);
 
-        public async Task<MatchTimelineDto> GetTimelineByIdAsync(PlatformRoute platformRoute, string id)
+        public async Task<MatchTimelineDto> GetTimelineByIdAsync(Platform platformRoute, string id)
             => await GetTimelineByIdAsync(PlatformToRegionConverter.ToRegion(platformRoute), id);
 
-        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid)
+        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(Platform platformRoute, string puuid)
             => await ListIdsByPuuidAsync(PlatformToRegionConverter.ToRegion(platformRoute), puuid);
 
-        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(PlatformRoute platformRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
+        public async Task<ImmutableList<string>> ListIdsByPuuidAsync(Platform platformRoute, string puuid, ListIdsByPuuidAsyncOptions parameters)
             => await ListIdsByPuuidAsync(PlatformToRegionConverter.ToRegion(platformRoute), puuid, parameters);
     }
 

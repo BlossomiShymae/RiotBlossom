@@ -14,28 +14,28 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
-        Task<LeagueListDto> GetChallengerLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
+        Task<LeagueListDto> GetChallengerLeagueByQueueAsync(Platform platformRoute, LeagueQueue queue);
         /// <summary>
         /// Get the grandmaster league for given queue type.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
-        Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
+        Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(Platform platformRoute, LeagueQueue queue);
         /// <summary>
         /// Get league with given ID (includes inactive entries).
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<LeagueListDto> GetLeagueByIdAsync(PlatformRoute platformRoute, string id);
+        Task<LeagueListDto> GetLeagueByIdAsync(Platform platformRoute, string id);
         /// <summary>
         /// Get the master league for given queue type.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
-        Task<LeagueListDto> GetMasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue);
+        Task<LeagueListDto> GetMasterLeagueByQueueAsync(Platform platformRoute, LeagueQueue queue);
         /// <summary>
         /// List all league entries for given queue type, rank tier, and rank division.
         /// </summary>
@@ -44,14 +44,14 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="tier"></param>
         /// <param name="division"></param>
         /// <returns></returns>
-        Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesAsync(PlatformRoute platformRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division);
+        Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesAsync(Platform platformRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division);
         /// <summary>
         /// List league entries in all queues for encrypted summoner ID.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
-        Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
+        Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(Platform platformRoute, string summonerId);
     }
 
     internal class LeagueApi : ILeagueApi
@@ -72,28 +72,28 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _leagueEntryDtosApi = new(riotGamesClient);
         }
 
-        public async Task<LeagueListDto> GetChallengerLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue)
-            => await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_challengerLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
+        public async Task<LeagueListDto> GetChallengerLeagueByQueueAsync(Platform platformRoute, LeagueQueue queue)
+            => await _leagueListDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_challengerLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
 
-        public async Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
+        public async Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesBySummonerIdAsync(Platform platformRoute, string summonerId)
         {
-            List<LeagueEntryDto> dtoCollection = await _leagueEntryDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_leagueEntriesBySummonerId, summonerId));
+            List<LeagueEntryDto> dtoCollection = await _leagueEntryDtosApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_leagueEntriesBySummonerId, summonerId));
             return dtoCollection.ToImmutableList();
         }
 
-        public async Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesAsync(PlatformRoute platformRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division)
+        public async Task<ImmutableList<LeagueEntryDto>> ListLeagueEntriesAsync(Platform platformRoute, LeagueQueue queue, LeagueTier tier, LeagueDivision division)
         {
-            List<LeagueEntryDto> dtoCollection = await _leagueEntryDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_leagueEntriesByQueueTierDivision, LeagueQueueMapper.GetValue(queue), LeagueTierMapper.GetValue(tier), LeagueDivisionMapper.GetValue(division)));
+            List<LeagueEntryDto> dtoCollection = await _leagueEntryDtosApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_leagueEntriesByQueueTierDivision, LeagueQueueMapper.GetValue(queue), LeagueTierMapper.GetValue(tier), LeagueDivisionMapper.GetValue(division)));
             return dtoCollection.ToImmutableList();
         }
 
-        public async Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue)
-            => await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_grandmasterLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
+        public async Task<LeagueListDto> GetGrandmasterLeagueByQueueAsync(Platform platformRoute, LeagueQueue queue)
+            => await _leagueListDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_grandmasterLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
 
-        public async Task<LeagueListDto> GetLeagueByIdAsync(PlatformRoute platformRoute, string id)
-            => await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_leagueByLeagueId, id));
+        public async Task<LeagueListDto> GetLeagueByIdAsync(Platform platformRoute, string id)
+            => await _leagueListDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_leagueByLeagueId, id));
 
-        public async Task<LeagueListDto> GetMasterLeagueByQueueAsync(PlatformRoute platformRoute, LeagueQueue queue)
-            => await _leagueListDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_masterLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
+        public async Task<LeagueListDto> GetMasterLeagueByQueueAsync(Platform platformRoute, LeagueQueue queue)
+            => await _leagueListDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_masterLeagueByQueue, LeagueQueueMapper.GetValue(queue)));
     }
 }

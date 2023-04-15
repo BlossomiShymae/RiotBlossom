@@ -13,7 +13,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ChampionInfo info = await client.Riot.Champion.ListAsync(PlatformRoute.NorthAmerica);
+            ChampionInfo info = await client.Riot.Champion.ListAsync(Platform.NorthAmerica);
 
             Assert.IsInstanceOfType(info, typeof(ChampionInfo));
         }

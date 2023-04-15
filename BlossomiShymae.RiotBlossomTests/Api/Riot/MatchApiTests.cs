@@ -13,7 +13,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
     {
         public static SummonerDto summoner = default!;
         public static string matchId = default!;
-        public static RegionalRoute corruptedMatchRegion = RegionalRoute.Americas;
+        public static Region corruptedMatchRegion = Region.Americas;
         public static string corruptedMatchId = "LA1_1364255918";
 
         [ClassInitialize()]

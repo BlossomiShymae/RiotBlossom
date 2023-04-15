@@ -13,13 +13,13 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="summonerId"></param>
         /// <returns></returns>
-        Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(PlatformRoute platformRoute, string summonerId);
+        Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(Platform platformRoute, string summonerId);
         /// <summary>
         /// Get the list of featured games.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <returns></returns>
-        Task<FeaturedGames> GetFeaturedGamesAsync(PlatformRoute platformRoute);
+        Task<FeaturedGames> GetFeaturedGamesAsync(Platform platformRoute);
     }
 
     internal class SpectatorApi : ISpectatorApi
@@ -36,10 +36,10 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _featuredGamesApi = new(riotGamesClient);
         }
 
-        public async Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(PlatformRoute platformRoute, string summonerId)
-            => await _currentGameInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_currentGameInfoBySummonerIdUri, summonerId));
+        public async Task<CurrentGameInfo> GetCurrentGameInfoBySummonerIdAsync(Platform platformRoute, string summonerId)
+            => await _currentGameInfoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_currentGameInfoBySummonerIdUri, summonerId));
 
-        public async Task<FeaturedGames> GetFeaturedGamesAsync(PlatformRoute platformRoute)
-            => await _featuredGamesApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_featuredGamesUri);
+        public async Task<FeaturedGames> GetFeaturedGamesAsync(Platform platformRoute)
+            => await _featuredGamesApi.GetValueAsync(PlatformMapper.GetId(platformRoute), s_featuredGamesUri);
     }
 }

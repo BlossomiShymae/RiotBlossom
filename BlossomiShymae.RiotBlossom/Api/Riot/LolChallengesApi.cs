@@ -14,26 +14,26 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ChallengeConfigInfoDto> GetConfigInfoByIdAsync(PlatformRoute platformRoute, long id);
+        Task<ChallengeConfigInfoDto> GetConfigInfoByIdAsync(Platform platformRoute, long id);
         /// <summary>
         /// Get a dictionary of challenge percentiles for players who have achieved it.
         /// </summary>
         /// <returns></returns>
-        Task<ImmutableDictionary<string, ImmutableDictionary<string, double>>> GetPercentilesAsync(PlatformRoute platformRoute);
+        Task<ImmutableDictionary<string, ImmutableDictionary<string, double>>> GetPercentilesAsync(Platform platformRoute);
         /// <summary>
         /// Get challenge percentiles from ID for players who have achieved it.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ImmutableDictionary<string, double>> GetPercentilesByIdAsync(PlatformRoute platformRoute, long id);
+        Task<ImmutableDictionary<string, double>> GetPercentilesByIdAsync(Platform platformRoute, long id);
         /// <summary>
         /// Get progressed challenge information details for encrypted PUUID.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        Task<PlayerInfoDto> GetPlayerInfoByPuuidAsync(PlatformRoute platformRoute, string puuid);
+        Task<PlayerInfoDto> GetPlayerInfoByPuuidAsync(Platform platformRoute, string puuid);
         /// <summary>
         /// Get the apex players for challenge level.
         /// </summary>
@@ -42,13 +42,13 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="id"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        Task<ImmutableList<ApexPlayerInfoDto>> ListApexPlayerInfosAsync(PlatformRoute platformRoute, ChallengeLevel level, long id, int limit = 0);
+        Task<ImmutableList<ApexPlayerInfoDto>> ListApexPlayerInfosAsync(Platform platformRoute, ChallengeLevel level, long id, int limit = 0);
         /// <summary>
         /// List all basic challenge configuration information.
         /// </summary>
         /// <param name="platformRoute"></param>
         /// <returns></returns>
-        Task<ImmutableList<ChallengeConfigInfoDto>> ListConfigInfosAsync(PlatformRoute platformRoute);
+        Task<ImmutableList<ChallengeConfigInfoDto>> ListConfigInfosAsync(Platform platformRoute);
     }
 
     internal class LolChallengesApi : ILolChallengesApi
@@ -77,34 +77,34 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _playerInfoDtoApi = new(riotGamesClient);
         }
 
-        public async Task<ImmutableList<ChallengeConfigInfoDto>> ListConfigInfosAsync(PlatformRoute platformRoute)
+        public async Task<ImmutableList<ChallengeConfigInfoDto>> ListConfigInfosAsync(Platform platformRoute)
         {
-            List<ChallengeConfigInfoDto> dtoCollection = await _challengeConfigInfoDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_challengesConfigUri);
+            List<ChallengeConfigInfoDto> dtoCollection = await _challengeConfigInfoDtosApi.GetValueAsync(PlatformMapper.GetId(platformRoute), s_challengesConfigUri);
             return dtoCollection.ToImmutableList();
         }
 
-        public async Task<ImmutableDictionary<string, ImmutableDictionary<string, double>>> GetPercentilesAsync(PlatformRoute platformRoute)
+        public async Task<ImmutableDictionary<string, ImmutableDictionary<string, double>>> GetPercentilesAsync(Platform platformRoute)
         {
-            var percentiles = await _challengePercentilesApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_challengesPercentilesUri); ;
+            var percentiles = await _challengePercentilesApi.GetValueAsync(PlatformMapper.GetId(platformRoute), s_challengesPercentilesUri); ;
             return percentiles.ToImmutableDictionary(k => k.Key, v => v.Value.ToImmutableDictionary());
         }
 
-        public async Task<ChallengeConfigInfoDto> GetConfigInfoByIdAsync(PlatformRoute platformRoute, long id)
-            => await _challengeConfigInfoDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_challengesConfigForChallengeIdUri, id));
+        public async Task<ChallengeConfigInfoDto> GetConfigInfoByIdAsync(Platform platformRoute, long id)
+            => await _challengeConfigInfoDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_challengesConfigForChallengeIdUri, id));
 
-        public async Task<ImmutableList<ApexPlayerInfoDto>> ListApexPlayerInfosAsync(PlatformRoute platformRoute, ChallengeLevel level, long id, int limit = 0)
+        public async Task<ImmutableList<ApexPlayerInfoDto>> ListApexPlayerInfosAsync(Platform platformRoute, ChallengeLevel level, long id, int limit = 0)
         {
-            List<ApexPlayerInfoDto> dtoCollection = await _apexPlayerInfoDtosApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_challengesTopPlayersByChallengeIdAndLevelUri, id, level.ToString().ToUpper()) + (limit == 0 ? string.Empty : $"?limit={limit}"));
+            List<ApexPlayerInfoDto> dtoCollection = await _apexPlayerInfoDtosApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_challengesTopPlayersByChallengeIdAndLevelUri, id, level.ToString().ToUpper()) + (limit == 0 ? string.Empty : $"?limit={limit}"));
             return dtoCollection.ToImmutableList();
         }
 
-        public async Task<ImmutableDictionary<string, double>> GetPercentilesByIdAsync(PlatformRoute platformRoute, long id)
+        public async Task<ImmutableDictionary<string, double>> GetPercentilesByIdAsync(Platform platformRoute, long id)
         {
-            Dictionary<string, double> percentiles = await _challengeThresholdsApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_challengesPercentilesForChallengeIdUri, id)); ;
+            Dictionary<string, double> percentiles = await _challengeThresholdsApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_challengesPercentilesForChallengeIdUri, id)); ;
             return percentiles.ToImmutableDictionary();
         }
 
-        public async Task<PlayerInfoDto> GetPlayerInfoByPuuidAsync(PlatformRoute platformRoute, string puuid)
-            => await _playerInfoDtoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), string.Format(s_challengesProgressedUri, puuid));
+        public async Task<PlayerInfoDto> GetPlayerInfoByPuuidAsync(Platform platformRoute, string puuid)
+            => await _playerInfoDtoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), string.Format(s_challengesProgressedUri, puuid));
     }
 }

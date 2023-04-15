@@ -63,7 +63,7 @@ namespace BlossomiShymae.RiotBlossomTests
         public static IRiotBlossomClient ThrowingClient => s_throwingClient;
         public static string SummonerName { get; } = "uwuie time";
         public static string SummonerTagLine { get; } = "NA1";
-        public static PlatformRoute SummonerPlatform { get; } = PlatformRoute.NorthAmerica;
-        public static RegionalRoute SummonerRegion { get; } = RegionalRoute.Americas;
+        public static Platform SummonerPlatform { get; } = Platform.NorthAmerica;
+        public static Region SummonerRegion { get; } = Region.Americas;
     }
 }

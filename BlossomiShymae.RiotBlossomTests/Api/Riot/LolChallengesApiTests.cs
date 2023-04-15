@@ -25,7 +25,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableDictionary<string, ImmutableDictionary<string, double>> percentiles = await client.Riot.LolChallenges.GetPercentilesAsync(PlatformRoute.NorthAmerica);
+            ImmutableDictionary<string, ImmutableDictionary<string, double>> percentiles = await client.Riot.LolChallenges.GetPercentilesAsync(Platform.NorthAmerica);
 
             Assert.IsInstanceOfType(percentiles, typeof(ImmutableDictionary<string, ImmutableDictionary<string, double>>));
         }
@@ -35,7 +35,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableList<ChallengeConfigInfoDto> dtoCollection = await client.Riot.LolChallenges.ListConfigInfosAsync(PlatformRoute.NorthAmerica);
+            ImmutableList<ChallengeConfigInfoDto> dtoCollection = await client.Riot.LolChallenges.ListConfigInfosAsync(Platform.NorthAmerica);
 
             Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<ChallengeConfigInfoDto>));
         }
@@ -45,7 +45,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ChallengeConfigInfoDto dto = await client.Riot.LolChallenges.GetConfigInfoByIdAsync(PlatformRoute.NorthAmerica, 301200);
+            ChallengeConfigInfoDto dto = await client.Riot.LolChallenges.GetConfigInfoByIdAsync(Platform.NorthAmerica, 301200);
 
             Assert.IsInstanceOfType(dto, typeof(ChallengeConfigInfoDto));
         }
@@ -55,7 +55,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableDictionary<string, double> percentiles = await client.Riot.LolChallenges.GetPercentilesByIdAsync(PlatformRoute.NorthAmerica, 301200);
+            ImmutableDictionary<string, double> percentiles = await client.Riot.LolChallenges.GetPercentilesByIdAsync(Platform.NorthAmerica, 301200);
 
             Assert.IsInstanceOfType(percentiles, typeof(ImmutableDictionary<string, double>));
         }
@@ -75,7 +75,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableList<ApexPlayerInfoDto> dtoCollection = await client.Riot.LolChallenges.ListApexPlayerInfosAsync(PlatformRoute.NorthAmerica, ChallengeLevel.Grandmaster, 2022018);
+            ImmutableList<ApexPlayerInfoDto> dtoCollection = await client.Riot.LolChallenges.ListApexPlayerInfosAsync(Platform.NorthAmerica, ChallengeLevel.Grandmaster, 2022018);
 
             Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<ApexPlayerInfoDto>));
         }

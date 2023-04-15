@@ -11,7 +11,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// Get the current champion rotation pools.
         /// </summary>
         /// <returns></returns>
-        Task<ChampionInfo> ListAsync(PlatformRoute platformRoute);
+        Task<ChampionInfo> ListAsync(Platform platformRoute);
     }
 
     internal class ChampionApi : IChampionApi
@@ -24,7 +24,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _championInfoApi = new(riotGamesClient);
         }
 
-        public async Task<ChampionInfo> ListAsync(PlatformRoute platformRoute)
-            => await _championInfoApi.GetValueAsync(PlatformRouteMapper.GetId(platformRoute), s_championRotationsUri);
+        public async Task<ChampionInfo> ListAsync(Platform platformRoute)
+            => await _championInfoApi.GetValueAsync(PlatformMapper.GetId(platformRoute), s_championRotationsUri);
     }
 }

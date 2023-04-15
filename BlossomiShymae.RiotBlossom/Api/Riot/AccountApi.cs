@@ -13,7 +13,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="regionalRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        Task<AccountDto> GetAccountByPuuidAsync(RegionalRoute regionalRoute, string puuid);
+        Task<AccountDto> GetAccountByPuuidAsync(Region regionalRoute, string puuid);
 
         /// <summary>
         /// Get an account by PUUID.
@@ -21,7 +21,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platformRoute"></param>
         /// <param name="puuid"></param>
         /// <returns></returns>
-        Task<AccountDto> GetAccountByPuuidAsync(PlatformRoute platformRoute, string puuid);
+        Task<AccountDto> GetAccountByPuuidAsync(Platform platformRoute, string puuid);
 
         /// <summary>
         /// Get an account by Riot ID (associated game name and tag line).
@@ -30,7 +30,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="gameName"></param>
         /// <param name="tagLine"></param>
         /// <returns></returns>
-        Task<AccountDto> GetAccountByRiotIdAsync(RegionalRoute regionalRoute, string gameName, string tagLine);
+        Task<AccountDto> GetAccountByRiotIdAsync(Region regionalRoute, string gameName, string tagLine);
 
         /// <summary>
         /// Get an account by Riot ID (associated game name and tag line).
@@ -39,7 +39,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="gameName"></param>
         /// <param name="tagLine"></param>
         /// <returns></returns>
-        Task<AccountDto> GetAccountByRiotIdAsync(PlatformRoute platformRoute, string gameName, string tagLine);
+        Task<AccountDto> GetAccountByRiotIdAsync(Platform platformRoute, string gameName, string tagLine);
     }
 
     internal class AccountApi : IAccountApi
@@ -54,16 +54,16 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             _accountDtoApi = new(riotGamesClient);
         }
 
-        public async Task<AccountDto> GetAccountByPuuidAsync(RegionalRoute regionalRoute, string puuid)
-            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_accountByPuuidUri, puuid));
+        public async Task<AccountDto> GetAccountByPuuidAsync(Region regionalRoute, string puuid)
+            => await _accountDtoApi.GetValueAsync(RegionMapper.GetId(regionalRoute), string.Format(s_accountByPuuidUri, puuid));
 
-        public async Task<AccountDto> GetAccountByPuuidAsync(PlatformRoute platformRoute, string puuid)
+        public async Task<AccountDto> GetAccountByPuuidAsync(Platform platformRoute, string puuid)
             => await GetAccountByPuuidAsync(PlatformToRegionConverter.ToRegion(platformRoute), puuid);
 
-        public async Task<AccountDto> GetAccountByRiotIdAsync(RegionalRoute regionalRoute, string gameName, string tagLine)
-            => await _accountDtoApi.GetValueAsync(RegionRouteMapper.GetRegion(regionalRoute), string.Format(s_accountByRiotIdUri, gameName, tagLine));
+        public async Task<AccountDto> GetAccountByRiotIdAsync(Region regionalRoute, string gameName, string tagLine)
+            => await _accountDtoApi.GetValueAsync(RegionMapper.GetId(regionalRoute), string.Format(s_accountByRiotIdUri, gameName, tagLine));
 
-        public async Task<AccountDto> GetAccountByRiotIdAsync(PlatformRoute platformRoute, string gameName, string tagLine)
+        public async Task<AccountDto> GetAccountByRiotIdAsync(Platform platformRoute, string gameName, string tagLine)
             => await GetAccountByRiotIdAsync(PlatformToRegionConverter.ToRegion(platformRoute), gameName, tagLine);
     }
 }

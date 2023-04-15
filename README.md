@@ -169,7 +169,7 @@ using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
 using BlossomiShymae.RiotBlossom.Type;
 
 SummonerDto summoner = await client.Riot.Summoner
-    .GetByNameAsync(PlatformRoute.NorthAmerica, "uwuie time");
+    .GetByNameAsync(Platform.NorthAmerica, "uwuie time");
 Console.WriteLine(summoner);
 ```
 
@@ -192,10 +192,10 @@ using BlossomiShymae.RiotBlossom.Dto.Riot.Match;
 IRiotApi riot = client.Riot;
 
 ImmutableList<string> ids = 
-    await riot.Match.ListIdsByPuuidAsync(PlatformRoute.NorthAmerica, summoner.Puuid);
+    await riot.Match.ListIdsByPuuidAsync(Platform.NorthAmerica, summoner.Puuid);
 List<MatchDto> matches = new();
 foreach (string id in ids)
-    matches.Add(await riot.Match.GetByIdAsync(PlatformRoute.NorthAmerica, id));
+    matches.Add(await riot.Match.GetByIdAsync(Platform.NorthAmerica, id));
 
 matches
     .Select(m => m.Info.Participants
@@ -412,8 +412,8 @@ RiotBlossom uses types to represent named values used for the Riot Games API.
 - `LeagueDivision`
 - `LeagueQueue`
 - `LeagueTier`
-- `PlatformRoute`
-- `RegionalRoute`
+- `Platform`
+- `Region`
 - `RiotHeader`
 
 ## ChallengeLevel
@@ -428,12 +428,12 @@ Represents League ranked queue types for `league-v4`.
 ## LeagueTier
 Represents League ranks for `league-v4`.
 
-## PlatformRoute
+## Platform
 Represents the available platform routing values used for the Riot API.
 
 [Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
 
-## RegionalRoute
+## Region
 Represents the available regional routing values used for the Riot API.
 
 [Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
@@ -447,9 +447,9 @@ These are used internally for projecting values when making requests to the Riot
 - `LeagueDivisionMapper`
 - `LeagueQueueMapper`
 - `LeagueTierMapper`
-- `PlatformRouteMapper`
+- `PlatformMapper`
 - `PlatformToRegionConverter`
-- `RegionRouteMapper`
+- `RegionMapper`
 
 # Data transfer objects (DTO)
 RiotBlossom uses simple objects with no behavior for JSON deserialization. These objects are strongly typed and are 
