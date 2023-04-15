@@ -26,7 +26,7 @@ This library is currently compatible with .NET 6 and higher.
 # Features
 - Asynchronous and immutable API.
 - Extensible HTTP middleware system (express.js inspired).
-- In-memory caching, burst rate limiting, and automatic retrying by default.
+- In-memory caching, spread rate limiting, and automatic retrying by default.
 - League of Legends API support.
 - Magic. (੭ु ›ω‹ )੭ु⁾⁾♡
 

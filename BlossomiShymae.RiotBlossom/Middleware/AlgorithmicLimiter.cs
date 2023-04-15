@@ -15,7 +15,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
             /// <summary>
             /// The type to use for shaping requests.
             /// </summary>
-            public LimiterShaper ShaperType { get; init; } = LimiterShaper.Burst;
+            public LimiterShaper ShaperType { get; init; } = LimiterShaper.Spread;
             /// <summary>
             /// Whether to throw a <see cref="Exception.TooManyRequestsException"/> on receiving a 429.
             /// </summary>
