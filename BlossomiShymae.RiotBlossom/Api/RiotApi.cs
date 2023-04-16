@@ -53,6 +53,10 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// The API for Tft-Match-v1 endpoints.
         /// </summary>
         ITftMatchApi TftMatch { get; }
+        /// <summary>
+        /// The API for Tft-Status-v1 endpoints.
+        /// </summary>
+        ITftStatusApi TftStatus { get; }
     }
 
     internal class RiotApi : IRiotApi
@@ -69,6 +73,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly SummonerApi _summonerApi;
         private readonly TftLeagueApi _tftLeagueApi;
         private readonly TftMatchApi _tftMatchApi;
+        private readonly TftStatusApi _tftStatusApi;
         public IAccountApi Account => _accountApi;
         public IChampionApi Champion => _championApi;
         public IChampionMasteryApi ChampionMastery => _championMasteryApi;
@@ -81,6 +86,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         public ISummonerApi Summoner => _summonerApi;
         public ITftLeagueApi TftLeague => _tftLeagueApi;
         public ITftMatchApi TftMatch => _tftMatchApi;
+        public ITftStatusApi TftStatus => _tftStatusApi;
 
         public RiotApi(RiotHttpClient riotHttpClient)
         {
@@ -96,6 +102,7 @@ namespace BlossomiShymae.RiotBlossom.Api
             _summonerApi = new(riotHttpClient);
             _tftLeagueApi = new(riotHttpClient);
             _tftMatchApi = new(riotHttpClient);
+            _tftStatusApi = new(riotHttpClient);
         }
     }
 }
