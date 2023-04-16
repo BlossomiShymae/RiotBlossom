@@ -15,9 +15,9 @@ namespace BlossomiShymae.RiotBlossom.Middleware
         /// </summary>
         public long Size { get; init; } = 1000;
         /// <summary>
-        /// The expiration of a cache item in hours.
+        /// The expiration of a cache item.
         /// </summary>
-        public int Expiration { get; init; } = 2;
+        public TimeSpan Expiration { get; init; } = TimeSpan.FromHours(2);
         private readonly MemoryCache _cache;
         private readonly ConcurrentDictionary<string, long> _counter = new();
 
@@ -90,7 +90,7 @@ namespace BlossomiShymae.RiotBlossom.Middleware
                     byte[] data = await res.Content.ReadAsByteArrayAsync();
                     _cache.Add(key, data, new CacheItemPolicy
                     {
-                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(Expiration)
+                        AbsoluteExpiration = DateTimeOffset.Now.AddHours(Expiration.TotalHours)
                     });
                 }
             }

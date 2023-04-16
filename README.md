@@ -120,7 +120,7 @@ HttpClient httpClient = new()
 InMemoryCache riotCache = new("rb-riot-cache");
 InMemoryCache dataCache = new("rb-data-cache")
 {
-    Expiration = 24,
+    Expiration = TimeSpan.FromHours(24),
     Size = 10000
 };
 
