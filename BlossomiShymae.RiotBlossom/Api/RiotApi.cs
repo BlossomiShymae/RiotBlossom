@@ -46,6 +46,10 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// </summary>
         ISummonerApi Summoner { get; }
         /// <summary>
+        /// The API for Tft-League-v1 endpoints.
+        /// </summary>
+        ITftLeagueApi TftLeague { get; }
+        /// <summary>
         /// The API for Tft-Match-v1 endpoints.
         /// </summary>
         ITftMatchApi TftMatch { get; }
@@ -63,6 +67,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly MatchApi _matchApi;
         private readonly SpectatorApi _spectatorApi;
         private readonly SummonerApi _summonerApi;
+        private readonly TftLeagueApi _tftLeagueApi;
         private readonly TftMatchApi _tftMatchApi;
         public IAccountApi Account => _accountApi;
         public IChampionApi Champion => _championApi;
@@ -74,6 +79,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         public IMatchApi Match => _matchApi;
         public ISpectatorApi Spectator => _spectatorApi;
         public ISummonerApi Summoner => _summonerApi;
+        public ITftLeagueApi TftLeague => _tftLeagueApi;
         public ITftMatchApi TftMatch => _tftMatchApi;
 
         public RiotApi(RiotHttpClient riotHttpClient)
@@ -88,6 +94,7 @@ namespace BlossomiShymae.RiotBlossom.Api
             _matchApi = new(riotHttpClient);
             _spectatorApi = new(riotHttpClient);
             _summonerApi = new(riotHttpClient);
+            _tftLeagueApi = new(riotHttpClient);
             _tftMatchApi = new(riotHttpClient);
         }
     }
