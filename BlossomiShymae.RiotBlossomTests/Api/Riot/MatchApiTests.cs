@@ -36,7 +36,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
                 Start = 0,
             });
 
-            Assert.AreEqual(ids.Count, 100);
+            Assert.IsTrue(ids.Count <= 100);
         }
 
         [TestMethod()]

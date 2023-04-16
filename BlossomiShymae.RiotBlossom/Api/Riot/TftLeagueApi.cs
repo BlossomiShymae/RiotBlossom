@@ -4,7 +4,7 @@ using BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague;
 using BlossomiShymae.RiotBlossom.Http;
 using BlossomiShymae.RiotBlossom.Type;
 using System.Collections.Immutable;
-using LeagueEntryDto = BlossomiShymae.RiotBlossom.Dto.Riot.League.LeagueEntryDto;
+using LeagueEntryDto = BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague.LeagueEntryDto;
 
 namespace BlossomiShymae.RiotBlossom.Api.Riot
 {

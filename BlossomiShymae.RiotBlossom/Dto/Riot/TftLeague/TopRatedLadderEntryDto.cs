@@ -17,7 +17,7 @@
         /// <summary>
         /// The rated rating.
         /// </summary>
-        public string RatedRating { get; init; } = default!;
+        public int RatedRating { get; init; }
         /// <summary>
         /// The amount of wins.
         /// </summary>

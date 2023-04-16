@@ -9,7 +9,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
         public string SummonerName { get; init; } = default!;
         public string QueueType { get; init; } = default!;
         public string? RatedTier { get; init; } = default!;
-        public string? RatedRating { get; init; } = default!;
+        public int? RatedRating { get; init; } = default!;
         public string? Tier { get; init; } = default!;
         public string? Rank { get; init; } = default!;
         public int? LeaguePoints { get; init; }

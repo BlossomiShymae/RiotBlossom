@@ -24,11 +24,11 @@ This library is currently compatible with .NET 6 and higher.
 14. [Disclaimer](#disclaimer)
 
 # Features
-- Asynchronous and immutable API.
+- Asynchronous, immutable records API.
 - Extensible HTTP middleware system (express.js inspired).
 - In-memory caching, spread rate limiting, and automatic retrying by default.
 - League of Legends API support.
-- Magic. (੭ु ›ω‹ )੭ु⁾⁾♡
+- Love. (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
 Install via NuGet, `BlossomiShymae.RiotBlossom`.
@@ -60,10 +60,10 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ❌ Tournament-v4 (will not support)
 
 ### Teamfight Tactics
-- ➖ Tft-League-v1
-- ➖ Tft-Match-v1
-- ➖ Tft-Status-v1
-- ➖ Tft-Summoner-v1
+- ✅ Tft-League-v1
+- ✅ Tft-Match-v1
+- ✅ Tft-Status-v1
+- ⭕ Tft-Summoner-v1 (no RSO)
 
 ### Legends of Runeterra
 - ➖ Lor-Deck-v1
