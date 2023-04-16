@@ -24,10 +24,16 @@ This library is currently compatible with .NET 6 and higher.
 14. [Disclaimer](#disclaimer)
 
 # Features
-- Asynchronous, immutable records API.
-- Extensible HTTP middleware system (express.js inspired).
+- Asynchronous, immutable record API.
 - In-memory caching, spread rate limiting, and automatic retrying by default.
+- Fluent client builder.
+- Extensible HTTP middleware system (can configure or add your own cache, limiter, retryer, etc).
+- Reuseable data transfer objects, types, and exceptions.
+- Common utilities (mappers and converters).
 - League of Legends API support.
+- Teamfight Tactics API support.
+- DataDragon content support.
+- CommunityDragon content support.
 - Love. (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
@@ -89,8 +95,7 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Perks (`perks.json`)
 
 # Quickstart
-The API client is accessed by using the static constructor in `RiotBlossomCore`. By default, `RiotBlossomCore.Settings` will create 
-a new instance of `HttpClient`, `RiotMiddlewareStack`, and `DataMiddlewareStack`.
+The simplest, easiest, and quickest way to start is by calling `CreateClient` with a Riot API key (or `string.Empty` for only Dragon APIs...)
 ```csharp
 using BlossomiShymae.RiotBlossom.Core;
 
@@ -100,11 +105,7 @@ string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY")
 IRiotBlossomClient client = RiotBlossomCore.CreateClient(riotApiKey);
 ```
 
-`RiotMiddlewareStack` and `DataMiddlewareStack` are dedicated middleware stacks. The default implementation is shown below:
-- Riot API => `RiotMiddlewareStack` => (`InMemoryCache`, `AlgorithmicLimiter`, `Retryer`)
-- DataDragon, CommunityDragon API => `DataMiddlewareStack` => (`InMemoryCache`, `Retryer`)
-
-We can use a dependency injected `HttpClient` or set own middleware implementation if needed:
+How about using our own `HttpClient` instance or other advanced configuration? An example setup is shown below:
 ```csharp
 using BlossomiShymae.RiotBlossom;
 using BlossomiShymae.RiotBlossom.Core;
@@ -140,12 +141,12 @@ string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY")
     ?? throw new NullReferenceException();
 ```
 
-With advanced configuration, a fluent builder API is greatly appreciated! :3
+With that, a fluent client builder is greatly appreciated! :3
 ```csharp
 using BlossomiShymae.RiotBlossom;
 using BlossomiShymae.RiotBlossom.Core;
 
-// Initialization variables shown above...
+// Initialization setup shown above...
 
 IRiotBlossomClient client = RiotBlossomCore.CreateClientBuilder()
     .AddRiotApiKey(riotApiKey)
@@ -283,14 +284,14 @@ As part of the HTTP request-response lifecycle:
 - After response received (response information goes through response middlewares `IResponseMiddleware[]`)
 
 Following this lifecycle, `MiddlewareStack` is the system composition of `IRequestMiddleware[]`, `IRetryMiddleware`, and `IResponseMiddleware[]`. 
-A middleware stack is encapsulated to the APIs it is assigned to. RiotBlossom settings currently accept the following:
-- `RiotMiddlewareStack` - Riot APIs
-- `DataMiddlewareStack` - CommunityDragon and DataDragon APIs
+A middleware stack is encapsulated to the APIs it is assigned to. RiotBlossom client builder currently accept the following:
+- `AddRiotMiddlewareStack` - Riot APIs
+- `AddDataMiddlewareStack` - CommunityDragon and DataDragon APIs
 
-Each request processed under `RiotMiddlewareStack` is asynchronously locked per routing value to maintain data synchronization.
+Each request processed under the Riot `MiddlewareStack` is asynchronously locked per routing value to maintain data synchronization.
 
-Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, `RiotMiddlewareStack` is 
-created with a `AlgorithmicLimiter` where `DataMiddlewareStack` does not.
+Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, Riot `MiddlewareStack` is 
+created with a `AlgorithmicLimiter` where Data `MiddlewareStack` does not.
 
 
 ## Request interface
