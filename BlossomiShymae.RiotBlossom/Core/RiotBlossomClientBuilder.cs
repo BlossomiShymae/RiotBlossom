@@ -21,7 +21,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <summary>
         /// Add the Riot middleware stack via builder. For an empty middleware stack, do this:
         /// <code>
-        /// AddRiotMiddlewareStack(o => o)
+        /// AddRiotMiddlewareStack(b => b)
         /// </code>
         /// </summary>
         /// <param name="builder"></param>
@@ -36,7 +36,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <summary>
         /// Add the Data middleware stack via builder. For an empty middleware stack, do this:
         /// <code>
-        /// AddDataMiddlewareStack(o => o)
+        /// AddDataMiddlewareStack(b => b)
         /// </code>
         /// </summary>
         /// <param name="builder"></param>
