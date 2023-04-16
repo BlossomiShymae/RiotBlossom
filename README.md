@@ -22,6 +22,7 @@ This library is currently compatible with .NET 6 and higher.
 12. [Contributing](#contributing)
 13. [License](#license)
 14. [Disclaimer](#disclaimer)
+15. [Appendix](#appendix)
 
 # Features
 - Asynchronous, immutable record API.
@@ -141,7 +142,9 @@ string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY")
     ?? throw new NullReferenceException();
 ```
 
-With that, a fluent client builder is greatly appreciated! :3
+With that, a fluent client builder is greatly appreciated!
+
+![9335-irys-woah](https://user-images.githubusercontent.com/87099578/232341781-976990f4-40b0-4319-9781-97f18c8fce05.png)
 ```csharp
 using BlossomiShymae.RiotBlossom;
 using BlossomiShymae.RiotBlossom.Core;
@@ -215,6 +218,8 @@ Output:
 
 ![image](https://user-images.githubusercontent.com/87099578/232168413-19747394-a8f2-4af3-b601-d3bf849d08a7.png)
 
+![7631-watame-smug](https://user-images.githubusercontent.com/87099578/232341935-deff581c-c47b-406c-b6fe-537f680d0632.png)
+
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
 ```csharp
@@ -283,15 +288,21 @@ As part of the HTTP request-response lifecycle:
 - On request (request function reference is passed to single retry middleware `IRetryMiddleware`)
 - After response received (response information goes through response middlewares `IResponseMiddleware[]`)
 
-Following this lifecycle, `MiddlewareStack` is the system composition of `IRequestMiddleware[]`, `IRetryMiddleware`, and `IResponseMiddleware[]`. 
-A middleware stack is encapsulated to the APIs it is assigned to. RiotBlossom client builder currently accept the following:
-- `AddRiotMiddlewareStack` - Riot APIs
-- `AddDataMiddlewareStack` - CommunityDragon and DataDragon APIs
+Knowing this lifecycle, `MiddlewareStack` is the system composition of `IRequestMiddleware[]`, `IRetryMiddleware`, and `IResponseMiddleware[]`. 
+A middleware stack is encapsulated to the APIs it is assigned to. 
+
+RiotBlossom client builder currently does the following:
+- `AddRiotMiddlewareStack` - the Riot middleware stack for Riot APIs
+- `AddDataMiddlewareStack` - the Data middleware stack for CommunityDragon and DataDragon APIs
 
 Each request processed under the Riot `MiddlewareStack` is asynchronously locked per routing value to maintain data synchronization.
 
 Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, Riot `MiddlewareStack` is 
 created with a `AlgorithmicLimiter` where Data `MiddlewareStack` does not.
+
+Hopefully the system design was straightforward to understand...
+
+![anime-cirno](https://user-images.githubusercontent.com/87099578/232343424-3aabac5a-5e96-41d6-a1a4-3968952146f3.gif)
 
 
 ## Request interface
@@ -465,7 +476,7 @@ Data objects that have been commented as `UNDOCUMENTED` do not have an official 
 [The complete directory of objects used can be found here under the `Dto` namespace.](https://github.com/BlossomiShymae/RiotBlossom/tree/master/BlossomiShymae.RiotBlossom/Dto)
 
 # Dependent packages
-- AsyncKeyedLock
+- [AsyncKeyedLock](https://github.com/MarkCiliaVincenti/AsyncKeyedLock)
 - System.Runtime.Caching
 
 # Contributing
@@ -480,3 +491,27 @@ This library is under the MIT license.
 
 # Disclaimer
 RiotBlossom isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+
+# Appendix
+## Inspiration
+
+TheDrone7. *shieldbow,* GitHub, [https://github.com/TheDrone7/shieldbow](https://github.com/TheDrone7/shieldbow)
+
+Samuel, Mingwei. *Camille,* GitHub, [https://github.com/MingweiSamuel/Camille](https://github.com/MingweiSamuel/Camille)
+
+Rua, Rob and Maldonis, Jason J. *Orianna,* GitHub, [https://github.com/meraki-analytics/orianna](https://github.com/meraki-analytics/orianna)
+
+## Resources
+
+Ray and Riot Games. *Rate Limiting,* Hextechdocs, [https://hextechdocs.dev/rate-limiting/](https://hextechdocs.dev/rate-limiting/)
+
+[https://developer.riotgames.com/](https://developer.riotgames.com/)
+
+[https://discord.com/invite/riotgamesdevrel](https://discord.com/invite/riotgamesdevrel) (Note: Searching in this Discord contains aggregated information not found elsewhere)
+
+## Conventions
+
+[https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+
+[https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/task-asynchronous-programming-model](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/task-asynchronous-programming-model)
+
