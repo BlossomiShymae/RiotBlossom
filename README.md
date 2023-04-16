@@ -97,10 +97,7 @@ using BlossomiShymae.RiotBlossom.Core;
 // You can hard-code your API key in if you like as an alternative.
 string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") 
     ?? throw new NullReferenceException();
-IRiotBlossomClient client = RiotBlossomCore.CreateClient(new()
-{
-    RiotApiKey = riotApiKey
-});
+IRiotBlossomClient client = RiotBlossomCore.CreateClient(riotApiKey);
 ```
 
 `RiotMiddlewareStack` and `DataMiddlewareStack` are dedicated middleware stacks. The default implementation is shown below:
@@ -139,27 +136,34 @@ Retryer retryer = new()
     RetryDelay = TimeSpan.FromSeconds(10d)
 };
 
-string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY") 
+string riotApiKey = Environment.GetEnvironmentVariable("RIOT_API_KEY")
     ?? throw new NullReferenceException();
-RiotBlossomCore.Settings settings = new()
-{
-    HttpClient = httpClient,
-    RiotApiKey = riotApiKey,
-    RiotMiddlewareStack = new()
-    {
-        RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { riotCache, limiter }),
-        ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { riotCache, limiter }),
-        Retry = retryer
-    },
-    DataMiddlewareStack = new()
-    {
-        RequestSeries = ImmutableArray.Create(new IRequestMiddleware[] { dataCache }),
-        ResponseSeries = ImmutableArray.Create(new IResponseMiddleware[] { dataCache }),
-        Retry = retryer
-    }
-};
+```
 
-IRiotBlossomClient client = RiotBlossomCore.CreateClient(settings);
+With advanced configuration, a fluent builder API is greatly appreciated! :3
+```csharp
+using BlossomiShymae.RiotBlossom;
+using BlossomiShymae.RiotBlossom.Core;
+
+// Initialization variables shown above...
+
+IRiotBlossomClient client = RiotBlossomCore.CreateClientBuilder()
+    .AddRiotApiKey(riotApiKey)
+    .AddHttpClient(httpClient)
+    .AddRiotMiddlewareStack(b =>
+    {
+        b.AddInMemoryCache(riotCache);
+        b.AddAlgorithmicLimiter(limiter);
+        b.AddRetryer(retryer);
+        return b;
+    })
+    .AddDataMiddlewareStack(b =>
+    {
+        b.AddInMemoryCache(dataCache);
+        b.AddRetryer(retryer);
+        return b;
+    })
+    .Build();
 ```
 
 ## Fetching some data with the Riot API

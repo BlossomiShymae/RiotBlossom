@@ -12,10 +12,9 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         [ExpectedException(typeof(MissingApiKeyException))]
         public async Task Api_WithNoRiotKey_ShouldThrowException()
         {
-            IRiotBlossomClient client = RiotBlossomCore.CreateClient(new()
-            {
-                HttpClient = StubConfig.HttpClient
-            });
+            IRiotBlossomClient client = RiotBlossomCore.CreateClientBuilder()
+                .AddHttpClient(StubConfig.HttpClient)
+                .Build();
 
             SummonerDto dto = await client.Riot.Summoner.GetByNameAsync(StubConfig.SummonerPlatform, StubConfig.SummonerName);
         }
