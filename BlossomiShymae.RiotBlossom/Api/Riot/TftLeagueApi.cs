@@ -56,7 +56,7 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
         /// <param name="platform"></param>
         /// <param name="queue"></param>
         /// <returns></returns>
-        Task<ImmutableList<TopRatedLadderEntryDto>> ListTopRatedLadderByQueueAsync(Platform platform, string queue);
+        Task<ImmutableList<TopRatedLadderEntryDto>> ListTopRatedLadderByQueueAsync(Platform platform, TftLeagueQueue queue);
     }
 
     internal class TftLeagueApi : ITftLeagueApi
@@ -116,9 +116,9 @@ namespace BlossomiShymae.RiotBlossom.Api.Riot
             return entries.ToImmutableList();
         }
 
-        public async Task<ImmutableList<TopRatedLadderEntryDto>> ListTopRatedLadderByQueueAsync(Platform platform, string queue)
+        public async Task<ImmutableList<TopRatedLadderEntryDto>> ListTopRatedLadderByQueueAsync(Platform platform, TftLeagueQueue queue)
         {
-            List<TopRatedLadderEntryDto> entries = await _topRatedLadderEntryDtosApi.GetValueAsync(PlatformMapper.GetId(platform), string.Format(s_topRatedLadderByQueueUri, queue));
+            List<TopRatedLadderEntryDto> entries = await _topRatedLadderEntryDtosApi.GetValueAsync(PlatformMapper.GetId(platform), string.Format(s_topRatedLadderByQueueUri, TftLeagueQueueMapper.GetValue(queue)));
             return entries.ToImmutableList();
         }
     }

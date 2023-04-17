@@ -428,6 +428,7 @@ RiotBlossom uses types to represent named values used for the Riot Games API.
 - `LeagueDivision`
 - `LeagueQueue`
 - `LeagueTier`
+- `TftLeagueQueue`
 - `Platform`
 - `Region`
 - `RiotHeader`
@@ -443,6 +444,9 @@ Represents League ranked queue types for `league-v4`.
 
 ## LeagueTier
 Represents League ranks for `league-v4`.
+
+## TftLeagueQueue
+Represents Teamfight Tactics ranked queue types for `tft-league-v1`.
 
 ## Platform
 Represents the available platform routing values used for the Riot API.
@@ -463,6 +467,7 @@ These are used internally for projecting values when making requests to the Riot
 - `LeagueDivisionMapper`
 - `LeagueQueueMapper`
 - `LeagueTierMapper`
+- `TftLeagueQueueMapper`
 - `PlatformMapper`
 - `PlatformToRegionConverter`
 - `RegionMapper`

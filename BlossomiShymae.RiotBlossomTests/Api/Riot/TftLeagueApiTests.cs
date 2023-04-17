@@ -86,7 +86,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api.Riot
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            ImmutableList<TopRatedLadderEntryDto> dtoCollection = await client.Riot.TftLeague.ListTopRatedLadderByQueueAsync(Platform.NorthAmerica, "RANKED_TFT_TURBO");
+            ImmutableList<TopRatedLadderEntryDto> dtoCollection = await client.Riot.TftLeague.ListTopRatedLadderByQueueAsync(Platform.NorthAmerica, TftLeagueQueue.RankedTftTurbo);
 
             Assert.IsInstanceOfType(dtoCollection, typeof(ImmutableList<TopRatedLadderEntryDto>));
         }
