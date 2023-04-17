@@ -25,17 +25,18 @@ This library is currently compatible with .NET 6 and higher.
 15. [Appendix](#appendix)
 
 # Features
-- Asynchronous, immutable record API.
-- In-memory caching, spread rate limiting, and automatic retrying by default.
-- Fluent client builder.
-- Extensible HTTP middleware system (can configure or add your own cache, limiter, retryer, etc).
-- Reuseable data transfer objects, types, and exceptions.
-- Common utilities (mappers and converters).
-- League of Legends API support.
-- Teamfight Tactics API support.
-- DataDragon content support.
-- CommunityDragon content support.
-- Love. (੭ु ›ω‹ )੭ु⁾⁾♡
+- Asynchronous, immutable record, no-conversion API
+    - API data comes as is from the source (Data transfer objects)
+- In-memory caching, spread rate limiting, and automatic retrying out of the box
+- Fluent client builder for advanced configuration
+- A highly configurable HTTP middleware system
+    - Allows implementing your own middleware (choosing database to cache with)
+    - Extensible subsystems (one for Riot API, one for the rest)
+- Reuseable data transfer objects, types, and exceptions
+- Common utilities (mappers and converters)
+- DataDragon support
+- CommunityDragon support
+- Love (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
 Install via NuGet, `BlossomiShymae.RiotBlossom`.
