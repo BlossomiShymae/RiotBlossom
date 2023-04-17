@@ -19,10 +19,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <returns></returns>
         IRiotBlossomClientBuilder AddRiotApiKey(string riotApiKey);
         /// <summary>
-        /// Add the Riot middleware stack via builder. For an empty middleware stack, do this:
-        /// <code>
-        /// AddRiotMiddlewareStack(b => b)
-        /// </code>
+        /// Add the Riot middleware stack via builder.
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
@@ -34,10 +31,7 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <returns></returns>
         IRiotBlossomClientBuilder AddRiotMiddlewareStack(MiddlewareStack middlewareStack);
         /// <summary>
-        /// Add the Data middleware stack via builder. For an empty middleware stack, do this:
-        /// <code>
-        /// AddDataMiddlewareStack(b => b)
-        /// </code>
+        /// Add the Data middleware stack via builder.
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
@@ -153,8 +147,8 @@ namespace BlossomiShymae.RiotBlossom.Core
                 Timeout = TimeSpan.FromSeconds(15)
             };
 
-            MiddlewareStack riotMiddlewareStack = _riotMiddlewareStack ?? new(true, "riotblossom-riot");
-            MiddlewareStack dataMiddlewareStack = _dataMiddlewareStack ?? new(false, "riotblossom-data");
+            MiddlewareStack riotMiddlewareStack = _riotMiddlewareStack ?? new();
+            MiddlewareStack dataMiddlewareStack = _dataMiddlewareStack ?? new();
 
             ComposableHttpClient composableRiotHttpClient = new(httpClient, riotMiddlewareStack);
             ComposableHttpClient composableDataHttpClient = new(httpClient, dataMiddlewareStack);

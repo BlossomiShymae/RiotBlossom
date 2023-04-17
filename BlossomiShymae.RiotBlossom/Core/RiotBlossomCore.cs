@@ -10,6 +10,8 @@
         public static IRiotBlossomClient CreateClient(string riotApiKey)
             => CreateClientBuilder()
                 .AddRiotApiKey(riotApiKey)
+                .AddRiotMiddlewareStack(new Middleware.MiddlewareStack(true, "rb-riot-cache"))
+                .AddDataMiddlewareStack(new Middleware.MiddlewareStack(false, "rb-data-cache"))
                 .Build();
 
         /// <summary>
