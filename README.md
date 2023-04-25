@@ -39,7 +39,7 @@ This library is currently compatible with .NET 6 and higher.
 - Love (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
-Install via NuGet, `BlossomiShymae.RiotBlossom`.
+Install via NuGet, [`BlossomiShymae.RiotBlossom`](https://www.nuget.org/packages/BlossomiShymae.RiotBlossom).
 For package manager console:
 ```
 Install-Package BlossomiShymae.RiotBlossom
