@@ -13,7 +13,7 @@
 	<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	<PackageReleaseNotes></PackageReleaseNotes>
-	<PackageTags>riot;riotgames;lol;riotapi;leagueoflegends;</PackageTags>
+	<PackageTags>riot;riotgames;lol;riotapi;leagueoflegends;tft;teamfighttactics</PackageTags>
 	<PackageIcon>icon.png</PackageIcon>
 	<Version>1.0.0</Version>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
