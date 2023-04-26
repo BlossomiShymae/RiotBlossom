@@ -34,6 +34,10 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// </summary>
         ILolStatusApi LolStatus { get; }
         /// <summary>
+        /// The API for Lor-Status-v1 endpoint.
+        /// </summary>
+        ILorStatusApi LorStatus { get; }
+        /// <summary>
         /// The API for Match-v5 endpoints.
         /// </summary>
         IMatchApi Match { get; }
@@ -72,6 +76,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly LeagueApi _leagueApi;
         private readonly LolChallengesApi _lolChallengesApi;
         private readonly LolStatusApi _lolStatusApi;
+        private readonly LorStatusApi _lorStatusApi;
         private readonly MatchApi _matchApi;
         private readonly SpectatorApi _spectatorApi;
         private readonly SummonerApi _summonerApi;
@@ -86,6 +91,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         public ILeagueApi League => _leagueApi;
         public ILolChallengesApi LolChallenges => _lolChallengesApi;
         public ILolStatusApi LolStatus => _lolStatusApi;
+        public ILorStatusApi LorStatus => _lorStatusApi;
         public IMatchApi Match => _matchApi;
         public ISpectatorApi Spectator => _spectatorApi;
         public ISummonerApi Summoner => _summonerApi;
@@ -103,6 +109,7 @@ namespace BlossomiShymae.RiotBlossom.Api
             _leagueApi = new(riotHttpClient);
             _lolChallengesApi = new(riotHttpClient);
             _lolStatusApi = new(riotHttpClient);
+            _lorStatusApi = new(riotHttpClient);
             _matchApi = new(riotHttpClient);
             _spectatorApi = new(riotHttpClient);
             _summonerApi = new(riotHttpClient);
