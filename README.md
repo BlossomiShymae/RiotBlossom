@@ -1,11 +1,23 @@
 ﻿# RiotBlossom
  
+[![NuGet Stable](https://img.shields.io/nuget/v/BlossomiShymae.RiotBlossom.svg?style=flat-square&logo=nuget&logoColor=black&labelColor=69ffbe&color=77077a)](https://www.nuget.org/packages/BlossomiShymae.RiotBlossom/) ![NuGet Downloads](https://img.shields.io/nuget/dt/BlossomiShymae.RiotBlossom?style=flat-square&logoColor=black&labelColor=69ffbe&color=77077a)
+
 An asynchronous, extensible, and magical Riot Games API wrapper library for C#. ☆*:.｡.o(≧▽≦)o.｡.:*☆
 
 This library helps to make things totes' easier! Goodies include naive cache, rate limiter, and retryer middleware plugins 
 out of the box. Other services such as DataDragon and CommunityDragon are also supported! ＼(＾▽＾)／
 
 This library is currently compatible with .NET 6 and higher.
+
+### Contributor Flowerlets
+<a href="https://github.com/BlossomiShymae/RiotBlossom/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=BlossomiShymae/RiotBlossom" />
+</a>
+
+---
+- [AoshiW](https://github.com/AoshiW)
+
+Made with [contrib.rocks](https://contrib.rocks).
 
 # Table of Contents
 1. [Features](#features)
@@ -500,6 +512,9 @@ This library is under the MIT license.
 RiotBlossom isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 
 # Appendix
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=BlossomiShymae/RiotBlossom&type=Date)](https://star-history.com/#BlossomiShymae/RiotBlossom&Date)
+
 ## Inspiration
 
 TheDrone7. *shieldbow,* GitHub, [https://github.com/TheDrone7/shieldbow](https://github.com/TheDrone7/shieldbow)
