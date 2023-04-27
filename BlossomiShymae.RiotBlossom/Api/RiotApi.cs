@@ -1,10 +1,41 @@
 ﻿using BlossomiShymae.RiotBlossom.Api.Riot;
 using BlossomiShymae.RiotBlossom.Http;
+using System.Text.Json.Nodes;
 
 namespace BlossomiShymae.RiotBlossom.Api
 {
     public interface IRiotApi
     {
+        /// <summary>
+        /// Get the deserialized object, array, or scalar response from endpoint by route and path.
+        /// <para>
+        /// Object
+        /// <code>
+        /// SummonerDto summoner = await client.Riot.GetAsync&lt;SummonerDto&gt;("na1", "/lol/summoner/v4/summoners/by-name/uwuie time");
+        /// </code>
+        /// </para>
+        /// <para>
+        /// Array
+        /// <code>
+        /// List&lt;string&gt; matchIds = await client.Riot.GetAsync&lt;List&lt;string&gt;&gt;("na1", $"/lol/match/v5/matches/by-puuid/{puuid}/ids");
+        /// </code>
+        /// </para>
+        /// <para>
+        /// Scalar
+        /// <code>
+        /// int totalMasteryScore = await client.Riot.GetAsync&lt;int&gt;("na1", $"/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}");
+        /// </code>
+        /// </para>
+        /// <exception>
+        /// <para>Exceptions</para>
+        /// <para><see cref="NullReferenceException"/></para>
+        /// </exception>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="route">The raw routing value for request e.g. "na1", "americas", "esports", "ap", etc.</param>
+        /// <param name="path">The path for endpoint e.g. "/lol/status/v4/platform-data".</param>
+        /// <returns></returns>
+        Task<T> GetAsync<T>(string route, string path);
         /// <summary>
         /// The API for Account-v1 endpoints.
         /// </summary>
@@ -115,6 +146,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly ValMatchApi _valMatchApi;
         private readonly ValRankedApi _valRankedApi;
         private readonly ValStatusApi _valStatusApi;
+        private readonly ComposableApi<JsonNode> _jsonNodeApi;
         public IAccountApi Account => _accountApi;
         public IChampionApi Champion => _championApi;
         public IChampionMasteryApi ChampionMastery => _championMasteryApi;
@@ -160,6 +192,13 @@ namespace BlossomiShymae.RiotBlossom.Api
             _valMatchApi = new(riotHttpClient);
             _valRankedApi = new(riotHttpClient);
             _valStatusApi = new(riotHttpClient);
+            _jsonNodeApi = new(riotHttpClient);
+        }
+
+        public async Task<T> GetAsync<T>(string route, string path)
+        {
+            JsonNode node = await _jsonNodeApi.GetValueAsync(route, path);
+            return _jsonNodeApi.DeserializeNode<T>(node) ?? throw new NullReferenceException($"Failed to deserialize type {typeof(T)}");
         }
     }
 }

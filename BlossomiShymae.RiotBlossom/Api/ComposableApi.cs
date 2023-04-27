@@ -4,6 +4,11 @@ using System.Text.Json.Nodes;
 
 namespace BlossomiShymae.RiotBlossom.Api
 {
+    /// <summary>
+    /// <para>Represents a composable API to fetch data from injected <see cref="IHttpClient"/>.</para>
+    /// <para>I really think this internal class is a fugly mess so it will probably be refactored soon at some point. - BlossomiShymae</para>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class ComposableApi<T>
     {
         private static readonly JsonSerializerOptions s_options = new()
@@ -23,6 +28,17 @@ namespace BlossomiShymae.RiotBlossom.Api
         {
             var value = JsonSerializer.Deserialize<U>(obj, s_options);
             return value == null ? throw new NullReferenceException($"Failed to deserialize object {obj}") : value;
+        }
+
+        internal U? DeserializeNode<U>(JsonNode node)
+        {
+            if (node is JsonObject obj)
+                return JsonSerializer.Deserialize<U>(obj.AsObject(), s_options);
+            if (node is JsonArray array)
+                return JsonSerializer.Deserialize<U>(array.AsArray(), s_options);
+            if (node is JsonValue value)
+                return JsonSerializer.Deserialize<U>(value.AsValue(), s_options);
+            throw new InvalidOperationException("JsonNode is not a JsonObject, JsonArray, nor JsonValue");
         }
 
         internal async Task<byte[]> GetByteArrayAsync(string uri)
