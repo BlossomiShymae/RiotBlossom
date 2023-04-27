@@ -46,6 +46,10 @@ Made with [contrib.rocks](https://contrib.rocks).
     - Extensible subsystems (one for Riot API, one for the rest)
 - Reuseable data transfer objects, types, and exceptions
 - Common utilities (mappers and converters)
+- Riot Games API support (yep!)
+    - League of Legends
+    - Teamfight Tactics
+    - Legends of Runeterra
 - DataDragon support
 - CommunityDragon support
 - Love (੭ु ›ω‹ )੭ु⁾⁾♡
@@ -86,11 +90,11 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ⭕ Tft-Summoner-v1 (no RSO)
 
 ### Legends of Runeterra
-- ➖ Lor-Deck-v1
-- ➖ Lor-Inventory-v1
-- ➖ Lor-Match-v1
-- ➖ Lor-Ranked-v1
-- ➖ Lor-Status-v1
+- ⭕ Lor-Deck-v1 (no RSO, currently not supported)
+- ⭕ Lor-Inventory-v1 (no RSO, currently not supported)
+- ✅ Lor-Match-v1
+- ✅ Lor-Ranked-v1
+- ✅ Lor-Status-v1
 
 ### Valorant
 - ➖ Val-Content-v1
@@ -442,6 +446,7 @@ RiotBlossom uses types to represent named values used for the Riot Games API.
 - `LeagueDivision`
 - `LeagueQueue`
 - `LeagueTier`
+- `LorRegion`
 - `TftLeagueQueue`
 - `Platform`
 - `Region`
@@ -459,16 +464,19 @@ Represents League ranked queue types for `league-v4`.
 ## LeagueTier
 Represents League ranks for `league-v4`.
 
+## LorRegion
+Represents the available regional routing values used for Legends of Runeterra.
+
 ## TftLeagueQueue
 Represents Teamfight Tactics ranked queue types for `tft-league-v1`.
 
 ## Platform
-Represents the available platform routing values used for the Riot API.
+Represents the available platform routing values used for the Riot API (League of Legends).
 
 [Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
 
 ## Region
-Represents the available regional routing values used for the Riot API.
+Represents the available regional routing values used for the Riot API (League of Legends).
 
 [Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
 
@@ -481,6 +489,7 @@ These are used internally for projecting values when making requests to the Riot
 - `LeagueDivisionMapper`
 - `LeagueQueueMapper`
 - `LeagueTierMapper`
+- `LorRegionMapper`
 - `TftLeagueQueueMapper`
 - `PlatformMapper`
 - `PlatformToRegionConverter`
