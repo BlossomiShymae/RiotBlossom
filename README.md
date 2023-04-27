@@ -301,7 +301,7 @@ If you like to make requests to an endpoint not supported by RiotBlossom, this m
 ( つ•̀ω•́)つ
 
 ```csharp
-// With great power comes great responsibilty... OwO
+// With great power comes great responsibility... OwO
 var summoner = await client.Riot
     .GetAsync<SummonerDto>("na1", "/lol/summoner/v4/summoners/by-name/uwuie time");
 ```
