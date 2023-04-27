@@ -78,6 +78,11 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// </summary>
         IValContentApi ValContent { get; }
         /// <summary>
+        /// <para>The API for Val-Match-v1 endpoint.</para>
+        /// <para>Note: This API requires an authorized production API key for access!</para>
+        /// </summary>
+        IValMatchApi ValMatch { get; }
+        /// <summary>
         /// The API for Val-Ranked-v1 endpoint.
         /// </summary>
         IValRankedApi ValRanked { get; }
@@ -107,6 +112,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly TftStatusApi _tftStatusApi;
         private readonly TftSummonerApi _tftSummonerApi;
         private readonly ValContentApi _valContentApi;
+        private readonly ValMatchApi _valMatchApi;
         private readonly ValRankedApi _valRankedApi;
         private readonly ValStatusApi _valStatusApi;
         public IAccountApi Account => _accountApi;
@@ -127,6 +133,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         public ITftStatusApi TftStatus => _tftStatusApi;
         public ITftSummonerApi TftSummoner => _tftSummonerApi;
         public IValContentApi ValContent => _valContentApi;
+        public IValMatchApi ValMatch => _valMatchApi;
         public IValRankedApi ValRanked => _valRankedApi;
         public IValStatusApi ValStatus => _valStatusApi;
 
@@ -150,6 +157,7 @@ namespace BlossomiShymae.RiotBlossom.Api
             _tftStatusApi = new(riotHttpClient);
             _tftSummonerApi = new(riotHttpClient);
             _valContentApi = new(riotHttpClient);
+            _valMatchApi = new(riotHttpClient);
             _valRankedApi = new(riotHttpClient);
             _valStatusApi = new(riotHttpClient);
         }
