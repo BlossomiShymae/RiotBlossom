@@ -26,6 +26,10 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// int totalMasteryScore = await client.Riot.GetAsync&lt;int&gt;("na1", $"/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}");
         /// </code>
         /// </para>
+        /// <exception>
+        /// <para>Exceptions</para>
+        /// <para><see cref="NullReferenceException"/></para>
+        /// </exception>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="route">The raw routing value for request e.g. "na1", "americas", "esports", "ap", etc.</param>
@@ -194,8 +198,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         public async Task<T> GetAsync<T>(string route, string path)
         {
             JsonNode node = await _jsonNodeApi.GetValueAsync(route, path);
-            T data = _jsonNodeApi.Deserialize<T>(node?.AsObject() ?? throw new NullReferenceException("Failed to get object from JSON response"));
-            return data;
+            return _jsonNodeApi.DeserializeNode<T>(node) ?? throw new NullReferenceException($"Failed to deserialize type {typeof(T)}");
         }
     }
 }
