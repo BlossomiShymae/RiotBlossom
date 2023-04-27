@@ -291,6 +291,22 @@ RiotBlossom currently serves three major API interfaces:
 
 All API interfaces are meant for consumption, not for implementation. ⚠️
 
+## `IRiotApi`
+
+```csharp
+Task<T> GetAsync<T>(string route, string path)
+```
+
+If you like to make requests to an endpoint not supported by RiotBlossom, this method is available. This will still take full advantage of the Riot middleware plugin system features (limiting, caching, and retrying if you have them set). Just provide a type for JSON deserialization! 
+( つ•̀ω•́)つ
+
+```csharp
+// With great power comes great responsibilty... OwO
+var summoner = await client.Riot
+    .GetAsync<SummonerDto>("na1", "/lol/summoner/v4/summoners/by-name/uwuie time");
+```
+
+
 # Middleware Plugins
 
 ## Overview
