@@ -74,6 +74,10 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// </summary>
         ITftSummonerApi TftSummoner { get; }
         /// <summary>
+        /// The API for Val-Content-v1 endpoint.
+        /// </summary>
+        IValContentApi ValContent { get; }
+        /// <summary>
         /// The API for Val-Status-v1 endpoint.
         /// </summary>
         IValStatusApi ValStatus { get; }
@@ -98,6 +102,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly TftMatchApi _tftMatchApi;
         private readonly TftStatusApi _tftStatusApi;
         private readonly TftSummonerApi _tftSummonerApi;
+        private readonly ValContentApi _valContentApi;
         private readonly ValStatusApi _valStatusApi;
         public IAccountApi Account => _accountApi;
         public IChampionApi Champion => _championApi;
@@ -116,6 +121,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         public ITftMatchApi TftMatch => _tftMatchApi;
         public ITftStatusApi TftStatus => _tftStatusApi;
         public ITftSummonerApi TftSummoner => _tftSummonerApi;
+        public IValContentApi ValContent => _valContentApi;
         public IValStatusApi ValStatus => _valStatusApi;
 
         public RiotApi(RiotHttpClient riotHttpClient)
@@ -137,6 +143,7 @@ namespace BlossomiShymae.RiotBlossom.Api
             _tftMatchApi = new(riotHttpClient);
             _tftStatusApi = new(riotHttpClient);
             _tftSummonerApi = new(riotHttpClient);
+            _valContentApi = new(riotHttpClient);
             _valStatusApi = new(riotHttpClient);
         }
     }
