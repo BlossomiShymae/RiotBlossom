@@ -50,6 +50,7 @@ Made with [contrib.rocks](https://contrib.rocks).
     - League of Legends
     - Teamfight Tactics
     - Legends of Runeterra
+    - VALORANT
 - DataDragon support
 - CommunityDragon support
 - Love (੭ु ›ω‹ )੭ु⁾⁾♡
@@ -96,11 +97,11 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Lor-Ranked-v1
 - ✅ Lor-Status-v1
 
-### Valorant
-- ➖ Val-Content-v1
-- ➖ Val-Match-v1
-- ➖ Val-Ranked-v1
-- ➖ Val-Status-v1
+### VALORANT
+- ✅ Val-Content-v1
+- ✅ Val-Match-v1 ("Unsure if this works as I do not have access to this endpoint for testing ˚‧º·(˚ ˃̣̣̥⌓˂̣̣̥ )‧º·˚" - BlossomiShymae)
+- ✅ Val-Ranked-v1
+- ✅ Val-Status-v1
 
 ## DataDragon
 - ✅ Champions (`championFull.json`)
@@ -451,6 +452,7 @@ RiotBlossom uses types to represent named values used for the Riot Games API.
 - `Platform`
 - `Region`
 - `RiotHeader`
+- `ValRegion`
 
 ## ChallengeLevel
 Represents the possible challenge levels for `lol-challenges-v1`.
@@ -483,6 +485,9 @@ Represents the available regional routing values used for the Riot API (League o
 ## RiotHeader
 A structure of string constants used for [Riot rate limiting headers](https://hextechdocs.dev/rate-limiting/).
 
+## ValRegion
+Represents the available regional routing values used for VALORANT.
+
 # Utilities
 Mappers and converters are also included to get the raw or converted values of the aformentioned types. 
 These are used internally for projecting values when making requests to the Riot APIs.
@@ -494,6 +499,7 @@ These are used internally for projecting values when making requests to the Riot
 - `PlatformMapper`
 - `PlatformToRegionConverter`
 - `RegionMapper`
+- `ValRegionMapper`
 
 # Data transfer objects (DTO)
 RiotBlossom uses simple objects with no behavior for JSON deserialization. These objects are strongly typed and are 
