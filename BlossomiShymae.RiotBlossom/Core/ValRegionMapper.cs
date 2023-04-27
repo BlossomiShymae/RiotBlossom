@@ -33,7 +33,7 @@ namespace BlossomiShymae.RiotBlossom.Core
                 if (kv.Value == id)
                     return kv.Key;
             }
-            throw new NotImplementedException($"Could not find VALORANT region for id {id}");
+            throw new InvalidOperationException($"Could not find VALORANT region for id {id}");
         }
     }
 }
