@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace BlossomiShymae.RiotBlossom.Core
 {
     /// <summary>
-    /// A helper class used for prettifying strings.
+    /// A helper class used for getting pretty printed strings.
     /// </summary>
     public static class PrettyPrinter
     {
