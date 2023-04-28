@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 
 namespace BlossomiShymae.RiotBlossom.Core
 {
@@ -20,7 +21,27 @@ namespace BlossomiShymae.RiotBlossom.Core
         /// <exception cref="NotSupportedException"></exception>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string GetString(object obj)
-            => JsonSerializer.Serialize(obj, options: s_options);
+        public static string GetString<T>(T obj) where T : notnull
+        {
+            StringBuilder sb = new();
+            System.Type type = typeof(T);
+            sb.Append(type.Name);
+            if (type.IsGenericType)
+            {
+                sb.Append('[');
+                System.Type[] typeArguments = type.GetGenericArguments();
+                for (int i = 0; i < typeArguments.Length; i++)
+                {
+                    sb.Append(typeArguments[i].Name);
+                    if (i != typeArguments.Length - 1)
+                        sb.Append(new char[] { ',', ' ' });
+                }
+                sb.Append(']');
+            }
+            sb.Append(' ');
+            sb.Append(JsonSerializer.Serialize((object)obj, options: s_options));
+
+            return sb.ToString();
+        }
     }
 }
