@@ -189,6 +189,14 @@ IRiotBlossomClient client = RiotBlossomCore.CreateClientBuilder()
 ```
 
 ## Fetching some data with the Riot API
+
+### League of Legends
+
+This section will cover common requests to the League APIs using RiotBlossom. It
+will be very helpful to read the official League documentation before continuing, okie dokie? (⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄
+
+https://developer.riotgames.com/docs/lol
+
 Let us try getting a summoner from the Riot API!
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
@@ -241,6 +249,85 @@ Output:
 ![image](https://user-images.githubusercontent.com/87099578/232168413-19747394-a8f2-4af3-b601-d3bf849d08a7.png)
 
 ![7631-watame-smug](https://user-images.githubusercontent.com/87099578/232341935-deff581c-c47b-406c-b6fe-537f680d0632.png)
+
+> B-but I also want to get the champion masteries of a summoner as well...
+
+Not a problem, reader! We will also be using DataDragon to get associated data for champions.
+
+```csharp
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion;
+using BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery;
+using System.Collections.Immutable;
+
+ImmutableList<ChampionMasteryDto> masteries = await client.Riot.ChampionMastery
+    .ListBySummonerIdAsync(Platform.NorthAmerica, summoner.Id);
+// Get the latest championFull.json from the latest version of DataDragon
+string version = await client.DataDragon.GetLatestVersionAsync();
+ImmutableDictionary<int, Champion> championDictionary = await client.DataDragon
+    .GetChampionDictionaryAsync(version);
+
+// Print champion mastery leaderboard of summoner for champions that have the 'Support' role tag
+foreach (ChampionMasteryDto mastery in masteries)
+{
+    championDictionary.TryGetValue((int)mastery.ChampionId, out Champion? champion);
+    if (champion != null && champion.Tags.Contains("Support"))
+        Console.WriteLine($"{champion.Name,-16} - {mastery.ChampionPoints,7}");
+
+}
+
+```
+
+Output:
+```
+Sona             -  720634
+Soraka           -  508076
+Janna            -  238814
+Nami             -  181987
+Lulu             -  144284
+Yuumi            -  142785
+Orianna          -  134359
+Seraphine        -  131645
+...
+```
+
+### Teamfight Tactics
+
+### Legends of Runeterra
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
