@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk
 {
@@ -17,5 +18,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk
         public string IconPath { get; init; } = default!;
         public ImmutableList<string> EndOfGameStatDescs { get; init; } = ImmutableList<string>.Empty;
         public ImmutableDictionary<string, double> RecommendationDescriptorAttributes { get; init; } = ImmutableDictionary<string, double>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

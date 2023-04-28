@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
 {
     public record ChampionMasteryDto
     {
@@ -39,5 +41,10 @@
         /// The tokens earned for champion at current level. Resets to zero when <see cref="ChampionLevel"/> advances.
         /// </summary>
         public int TokensEarned { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

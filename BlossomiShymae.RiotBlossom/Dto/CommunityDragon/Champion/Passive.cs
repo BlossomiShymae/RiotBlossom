@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -10,5 +12,10 @@
         public string AbilityVideoPath { get; init; } = default!;
         public string AbilityVideoImagePath { get; init; } = default!;
         public string Description { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

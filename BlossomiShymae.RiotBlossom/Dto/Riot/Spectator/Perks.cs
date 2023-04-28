@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
@@ -16,5 +17,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The secondary runes path.
         /// </summary>
         public long PerkSubStyle { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

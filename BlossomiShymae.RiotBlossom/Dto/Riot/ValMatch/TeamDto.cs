@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
     public record TeamDto
     {
@@ -22,5 +24,10 @@
         /// The team points scored. Number of kills in deathmatch.
         /// </summary>
         public int NumPoints { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
@@ -20,5 +21,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
         /// The map of challenge point information by category e.g. "TEAMWORK", "EXPERTISE", "IMAGINATION", "VETERANCY", "COLLECTION".
         /// </summary>
         public ImmutableDictionary<string, ChallengePoints> CategoryPoints { get; init; } = ImmutableDictionary<string, ChallengePoints>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

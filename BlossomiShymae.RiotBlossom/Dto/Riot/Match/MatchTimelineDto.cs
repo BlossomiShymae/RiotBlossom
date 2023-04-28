@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     public record MatchTimelineDto
     {
@@ -10,5 +12,10 @@
         /// The timeline info of match.
         /// </summary>
         public TimelineInfoDto Info { get; init; } = new();
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

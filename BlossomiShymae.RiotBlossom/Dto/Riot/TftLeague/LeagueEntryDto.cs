@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.Riot.League;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Dto.Riot.League;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
 {
@@ -20,5 +21,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
         public bool? FreshBlood { get; init; }
         public bool? Inactive { get; init; }
         public MiniSeriesDto? MiniSeries { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

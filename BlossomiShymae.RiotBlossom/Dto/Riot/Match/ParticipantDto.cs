@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     public record ParticipantDto
     {
@@ -492,5 +494,10 @@
         /// UNDOCUMENTED
         /// </summary>
         public bool EligibleForProgression { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

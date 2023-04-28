@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
@@ -27,5 +28,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
         public string? RarityGemPath { get; init; }
         public ImmutableList<SkinLine>? SkinLines { get; init; }
         public string Description { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

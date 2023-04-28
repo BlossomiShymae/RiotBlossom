@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
@@ -24,5 +25,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
         public ImmutableList<Spell> Spells { get; init; } = ImmutableList<Spell>.Empty;
         public Passive Passive { get; init; } = new();
         public object? Recommended { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

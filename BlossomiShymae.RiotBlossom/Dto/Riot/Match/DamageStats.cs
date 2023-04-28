@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -17,5 +19,10 @@
         public long TrueDamageDone { get; init; }
         public long TrueDamageDoneToChampions { get; init; }
         public long TrueDamageTaken { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

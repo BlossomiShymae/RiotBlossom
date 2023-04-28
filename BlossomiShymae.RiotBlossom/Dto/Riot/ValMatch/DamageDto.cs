@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
     public record DamageDto
     {
@@ -10,5 +12,10 @@
         public int Legshots { get; init; }
         public int Bodyshots { get; init; }
         public int Headshots { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

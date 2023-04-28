@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
     public record ActDto
     {
@@ -9,5 +11,10 @@
         public LocalizedNamesDto? LocalizedNames { get; init; }
         public string Id { get; init; } = default!;
         public bool IsActive { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
     public record ApexPlayerInfoDto
     {
@@ -14,5 +16,10 @@
         /// The leaderboard position of apex player.
         /// </summary>
         public long Position { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

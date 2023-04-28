@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
@@ -65,5 +66,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The tournament code used to generate the match.
         /// </summary>
         public string TournamentCode { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
@@ -19,5 +20,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
         public ImmutableList<ContentItemDto> PlayerCards { get; init; } = ImmutableList<ContentItemDto>.Empty;
         public ImmutableList<ContentItemDto> PlayerTitles { get; init; } = ImmutableList<ContentItemDto>.Empty;
         public ImmutableList<ActDto> Acts { get; init; } = ImmutableList<ActDto>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

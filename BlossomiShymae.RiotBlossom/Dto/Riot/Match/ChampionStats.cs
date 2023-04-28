@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -30,5 +32,10 @@
         public double PowerMax { get; init; }
         public double PowerRegen { get; init; }
         public double SpellVamp { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

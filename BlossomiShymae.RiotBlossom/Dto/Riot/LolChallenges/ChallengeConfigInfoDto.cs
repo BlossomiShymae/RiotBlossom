@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
@@ -37,5 +38,9 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
         /// </summary>
         public ImmutableDictionary<string, double> Thresholds { get; init; } = ImmutableDictionary<string, double>.Empty;
 
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

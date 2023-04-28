@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
 {
@@ -12,5 +13,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
         public string Icon { get; init; } = default!;
         public string Name { get; init; } = default!;
         public ImmutableList<Slot> Slots { get; init; } = ImmutableList<Slot>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

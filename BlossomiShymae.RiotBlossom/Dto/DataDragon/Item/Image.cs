@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -12,5 +14,10 @@
         public int Y { get; init; }
         public int W { get; init; }
         public int H { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

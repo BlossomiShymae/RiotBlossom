@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
     public record PlayerDto
     {
@@ -18,5 +20,10 @@
         /// The assigned role ('CAPTAIN', 'MEMBER').
         /// </summary>
         public string Role { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

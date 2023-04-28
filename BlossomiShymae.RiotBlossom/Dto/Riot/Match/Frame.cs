@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
@@ -10,5 +11,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         public ImmutableList<Event> Events { get; init; } = ImmutableList<Event>.Empty;
         public ImmutableDictionary<string, ParticipantFrame> ParticipantFrames { get; init; } = ImmutableDictionary<string, ParticipantFrame>.Empty;
         public long Timestamp { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// A perk style selection used for Runes Reforged.
@@ -22,5 +24,10 @@
         /// The third variable used for the end of game stat descriptions.
         /// </summary>
         public int Var3 { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

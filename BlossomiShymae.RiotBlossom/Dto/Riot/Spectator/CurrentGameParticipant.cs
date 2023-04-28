@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
@@ -44,5 +45,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The list of Game Customization objects.
         /// </summary>
         public ImmutableList<GameCustomizationObject> GameCustomizationObjects { get; init; } = ImmutableList<GameCustomizationObject>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }
