@@ -418,6 +418,69 @@ UnitDto {
 
 ### Legends of Runeterra
 
+This section covers basic requests to the Legends of Runeterra APIs. As always, it is best to read the official documentation 
+before continuing! It will make me totes happy. 💜
+
+Unlike League of Legends and Teamfight Tactics, we need to get an account instead of a summoner for looking up. Let us try that!
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.Account;
+using BlossomiShymae.RiotBlossom.Type;
+
+AccountDto account = await client.Riot.Account.GetAccountByRiotIdAsync(Region.Americas, "ToxicMacaroni", "na1");
+Console.WriteLine(account);
+```
+
+Output:
+```json
+AccountDto {
+  "Puuid": "hYAy0wsvDJ6XLoAjpk5-pHp2AEpW1AXFbvRhenm2DlZ_j7K58vcWr7CmZeQ5anN_pWgEISrHxcCBaw",
+  "GameName": "ToxicMacaroni",
+  "TagLine": "NA1"
+}
+```
+
+Now that we have an account, we can go ahead and look up their most recent match!
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch;
+using System.Collections.Immutable;
+
+ImmutableList<string> matchIds = await client.Riot.LorMatch.ListIdsByPuuidAsync(LorRegion.Americas, account.Puuid);
+MatchDto match = await client.Riot.LorMatch.GetByIdAsync(LorRegion.Americas, matchIds.First());
+Console.WriteLine(match);
+```
+
+Output:
+```json
+MatchDto {
+  "Metadata": {
+    "data_version": "2",
+    "match_id": "9293ad4d-1bf1-4252-baab-e484ee988c93",
+    "Participants": [
+      "hYAy0wsvDJ6XLoAjpk5-pHp2AEpW1AXFbvRhenm2DlZ_j7K58vcWr7CmZeQ5anN_pWgEISrHxcCBaw"
+    ]
+  },
+  "Info": {
+    "game_mode": "ThePathOfChampions",
+    "game_type": "",
+    "game_start_time_utc": "2022-06-11T00:08:50.1895727+00:00",
+    "game_version": "live-green-3-08-27",
+    "Players": [
+      {
+        "Puuid": "hYAy0wsvDJ6XLoAjpk5-pHp2AEpW1AXFbvRhenm2DlZ_j7K58vcWr7CmZeQ5anN_pWgEISrHxcCBaw",
+        "deck_id": "",
+        "deck_code": "",
+        "Factions": [
+          "faction_Piltover_Name"
+        ],
+        "game_outcome": "win",
+        "order_of_play": 1
+      }
+    ],
+    "total_turn_count": 10
+  }
+}
+```
+
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
 ```csharp
