@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -10,5 +12,10 @@
         public string Level { get; init; } = default!;
         public double Value { get; init; }
         public long AchievedTime { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

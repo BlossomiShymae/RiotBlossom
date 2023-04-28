@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
 {
     public record TopRatedLadderEntryDto
     {
@@ -23,5 +25,10 @@
         /// </summary>
         public int Wins { get; init; }
         public int PreviousUpdateLadderPosition { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

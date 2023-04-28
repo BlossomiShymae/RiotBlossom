@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
     public record ContentDto
     {
@@ -10,5 +12,10 @@
         /// The text content for incident.
         /// </summary>
         public string Content { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

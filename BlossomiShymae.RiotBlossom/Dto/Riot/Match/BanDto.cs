@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     public record BanDto
     {
@@ -10,5 +12,10 @@
         /// The pick turn that the ban occured in.
         /// </summary>
         public int PickTurn { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

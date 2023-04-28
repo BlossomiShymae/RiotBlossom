@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
 {
     public record PlayerDto
     {
@@ -17,5 +19,10 @@
         public long LeaderboardRank { get; init; }
         public long RankedRating { get; init; }
         public long NumberOfWins { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

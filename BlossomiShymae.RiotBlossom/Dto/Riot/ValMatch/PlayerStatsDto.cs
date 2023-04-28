@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
     public record PlayerStatsDto
     {
@@ -9,5 +11,10 @@
         public int Assists { get; init; }
         public int PlaytimeMillis { get; init; }
         public AbilityCastsDto AbilityCasts { get; init; } = new();
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

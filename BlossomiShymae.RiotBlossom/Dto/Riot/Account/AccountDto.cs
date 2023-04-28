@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
 {
     public record AccountDto
     {
@@ -14,5 +16,10 @@
         /// The Riot tag line associated with account. May be excluded from response if account does not have it.
         /// </summary>
         public string TagLine { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

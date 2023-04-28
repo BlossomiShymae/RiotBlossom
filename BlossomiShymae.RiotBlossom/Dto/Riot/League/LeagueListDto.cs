@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
@@ -24,5 +25,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// The queue type the league is for e.g. "RANKED_SOLO_5x5".
         /// </summary>
         public string Queue { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

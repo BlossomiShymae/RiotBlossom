@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
     public record PlayerDto
     {
@@ -12,5 +14,10 @@
         public int CompetitiveTier { get; init; }
         public string PlayerCard { get; init; } = default!;
         public string PlayerTitle { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

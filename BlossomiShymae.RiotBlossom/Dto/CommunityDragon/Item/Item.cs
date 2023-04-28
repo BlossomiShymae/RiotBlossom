@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Item
 {
@@ -25,5 +26,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Item
         public int Price { get; init; }
         public int PriceTotal { get; init; }
         public string IconPath { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

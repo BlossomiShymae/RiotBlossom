@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
     public record BannedChampion
     {
@@ -14,5 +16,10 @@
         /// The banning team ID.
         /// </summary>
         public long TeamId { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

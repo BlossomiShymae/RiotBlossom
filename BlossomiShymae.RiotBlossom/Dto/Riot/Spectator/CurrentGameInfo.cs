@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
@@ -49,5 +50,9 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// </summary>
         public ImmutableList<CurrentGameParticipant> Participants { get; init; } = ImmutableList<CurrentGameParticipant>.Empty;
 
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

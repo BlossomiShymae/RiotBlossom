@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -10,5 +12,10 @@
         public int CrowdControl { get; init; }
         public int Mobility { get; init; }
         public int Utility { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

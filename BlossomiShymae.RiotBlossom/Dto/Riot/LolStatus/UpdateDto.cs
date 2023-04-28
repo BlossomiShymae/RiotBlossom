@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
@@ -34,5 +35,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
         /// <example>2023-01-19T02:14:00+00:00</example>
         /// </summary>
         public string UpdatedAt { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

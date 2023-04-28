@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
     public record MatchDto
     {
@@ -10,5 +12,10 @@
         /// The match info.
         /// </summary>
         public InfoDto Info { get; init; } = new();
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
@@ -20,5 +21,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// Whether a team has winned a match e.g. destroyed the enemy nexus.
         /// </summary>
         public bool Win { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

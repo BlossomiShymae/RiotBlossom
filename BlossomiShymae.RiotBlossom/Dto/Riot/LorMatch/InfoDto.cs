@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
@@ -34,5 +35,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
         /// </summary>
         [JsonPropertyName("total_turn_count")]
         public int TotalTurnCount { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

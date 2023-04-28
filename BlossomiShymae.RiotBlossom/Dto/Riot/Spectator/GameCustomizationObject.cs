@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
     public record GameCustomizationObject
     {
@@ -10,5 +12,10 @@
         /// The content for Game Customization.
         /// </summary>
         public string Content { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

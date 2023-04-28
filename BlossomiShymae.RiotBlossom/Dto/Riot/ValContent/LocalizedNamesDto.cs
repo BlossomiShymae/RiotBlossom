@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
@@ -45,5 +46,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
         public string ChineseSimplified { get; init; } = default!;
         [JsonPropertyName("zh-TW")]
         public string ChineseTaiwan { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

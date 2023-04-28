@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
@@ -27,5 +28,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
         /// </summary>
         [JsonPropertyName("order_of_play")]
         public int OrderOfPlayer { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

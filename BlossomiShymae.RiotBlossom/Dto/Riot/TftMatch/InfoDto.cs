@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
@@ -39,5 +40,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         /// </summary>
         [JsonPropertyName("tft_set_number")]
         public int TftSetNumber { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

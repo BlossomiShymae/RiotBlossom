@@ -20,5 +20,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorRanked
         /// </summary>
         [JsonConverter(typeof(IntJsonConverter))]
         public int Lp { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

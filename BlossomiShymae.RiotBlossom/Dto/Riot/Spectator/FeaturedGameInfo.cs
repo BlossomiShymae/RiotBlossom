@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
@@ -48,5 +49,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The platform ID the game is being played on.
         /// </summary>
         public string PlatformId { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

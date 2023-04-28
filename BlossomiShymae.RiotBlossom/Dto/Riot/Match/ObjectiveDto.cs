@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     public record ObjectiveDto
     {
@@ -10,5 +12,10 @@
         /// The amount of times this objective was killed.
         /// </summary>
         public int Kills { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

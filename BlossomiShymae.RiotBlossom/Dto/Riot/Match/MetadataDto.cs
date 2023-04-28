@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
@@ -16,5 +17,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The list of encrypted PUUIDs for summoners that participated in the match.
         /// </summary>
         public ImmutableList<string> Participants { get; init; } = ImmutableList<string>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

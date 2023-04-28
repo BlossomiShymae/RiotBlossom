@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
@@ -30,5 +31,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         /// The unit tier.
         /// </summary>
         public int Tier { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

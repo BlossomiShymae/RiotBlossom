@@ -199,13 +199,17 @@ SummonerDto summoner = await client.Riot.Summoner
 Console.WriteLine(summoner);
 ```
 
-Output:
+Output via `ToString`, which internally uses `PrettyPrinter.GetString`:
 ```
-SummonerDto { AccountId = 0WvZHECxpBFNlntYzcCNyDkGeaqA6vthcLsklngrPVYofWE, ProfileIconId = 5367,
-RevisionDate = 1675651090000, Name = uwuie time,
-Id = Ao5ffQ2dOV-99YKs_iB0g2EGzGD159jXIk2Z5MjvMafLwbQ,
-Puuid = Bd1zj7cFt3MlCZl2GI-5N94D2PHRsfpsjl-6ZM9LjXIm90Bz4JAdwR6Kw4fzbSPFfLoQI5p9hGIhfA,
-SummonerLevel = 936 }
+SummonerDto {
+  "AccountId": "0WvZHECxpBFNlntYzcCNyDkGeaqA6vthcLsklngrPVYofWE",
+  "ProfileIconId": 5367,
+  "RevisionDate": 1675651090000,
+  "Name": "uwuie time",
+  "Id": "Ao5ffQ2dOV-99YKs_iB0g2EGzGD159jXIk2Z5MjvMafLwbQ",
+  "Puuid": "Bd1zj7cFt3MlCZl2GI-5N94D2PHRsfpsjl-6ZM9LjXIm90Bz4JAdwR6Kw4fzbSPFfLoQI5p9hGIhfA",
+  "SummonerLevel": 936
+}
 ```
 
 If we're commonly making requests to the same API, we can store an API reference to make requests with instead!
@@ -250,6 +254,9 @@ ImmutableDictionary<int, Item> itemDictionary =
 itemDictionary
     .ToList()
     .ForEach(kvp => Console.WriteLine($"{kvp.Key}: {kvp.Value.Name}"));
+
+// Moonstone Renewer
+Console.WriteLine(itemDictionary[6617]);
 ```
 
 Output:
@@ -260,6 +267,23 @@ Output:
 1011: Giant's Belt
 1018: Cloak of Agility
 ...
+```
+```
+Item {
+  "Name": "Moonstone Renewer",
+  "Rune": {
+    "IsRune": false,
+    "Tier": 0,
+    "Type": null
+  },
+  "Gold": {
+    "Base": 750,
+    "Total": 2500,
+    "Sell": 1750,
+    "Purchasable": true
+  },
+...
+}
 ```
 
 ## CommunityDragon!?
@@ -273,13 +297,36 @@ Champion champion = await client.CommunityDragon.GetChampionByIdAsync(887);
 Console.WriteLine(champion);
 ```
 
+Output:
 ```
-Champion { Id = 887, Name = Gwen, Alias = Gwen, Title = The Hallowed Seamstress,
-ShortBio = A former doll transformed and brought to life by magic, Gwen wields the very tools that
-once created her. She carries the weight of her maker's love with every step, taking nothing for
-granted. At her command is the Hallowed Mist, an ancient and protective magic that has blessed
-Gwen's scissors, needles, and sewing thread. So much is new to her, but Gwen remains joyfully
-determined to fight for the good that survives in a broken world.,  ...}
+Champion {
+  "Id": 887,
+  "Name": "Gwen",
+  "Alias": "Gwen",
+  "Title": "The Hallowed Seamstress",
+  "ShortBio": "A former doll transformed and brought to life by magic...",
+  "TacticalInfo": {
+    "Style": 5,
+    "Difficulty": 2,
+    "DamageType": "kMagic"
+  },
+  "PlaystyleInfo": {
+    "Damage": 3,
+    "Durability": 2,
+    "CrowdControl": 1,
+    "Mobility": 3,
+    "Utility": 1
+  },
+  "SquarePortraitPath": "/lol-game-data/assets/v1/champion-icons/887.png",
+  "StingerSfxPath": "/lol-game-data/assets/v1/champion-sfx-audios/887.ogg",
+  "ChooseVoPath": "/lol-game-data/assets/v1/champion-choose-vo/887.ogg",
+  "BanVoPath": "/lol-game-data/assets/v1/champion-ban-vo/887.ogg",
+  "Roles": [
+    "fighter",
+    "assassin"
+  ],
+  ...
+ }
 ```
 
 # API Interfaces
@@ -514,6 +561,7 @@ These are used internally for projecting values when making requests to the Riot
 - `TftLeagueQueueMapper`
 - `PlatformMapper`
 - `PlatformToRegionConverter`
+- `PrettyPrinter`
 - `RegionMapper`
 - `ValRegionMapper`
 

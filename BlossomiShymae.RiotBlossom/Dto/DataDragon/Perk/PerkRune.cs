@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -11,5 +13,10 @@
         public string Name { get; init; } = default!;
         public string ShortDesc { get; init; } = default!;
         public string LongDesc { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

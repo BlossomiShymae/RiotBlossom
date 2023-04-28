@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
@@ -12,5 +13,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The suggested interval to wait before making another request for refreshing.
         /// </summary>
         public long ClientRefreshInterval { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

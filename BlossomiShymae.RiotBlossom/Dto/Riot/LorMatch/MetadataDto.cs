@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
@@ -19,5 +20,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
         /// The list of participant PUUIDs.
         /// </summary>
         public ImmutableList<string> Participants { get; init; } = ImmutableList<string>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

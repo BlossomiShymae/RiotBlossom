@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
 {
     public record SummonerDto
     {
@@ -30,5 +32,10 @@
         /// The summoner level associated with summoner.
         /// </summary>
         public long SummonerLevel { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

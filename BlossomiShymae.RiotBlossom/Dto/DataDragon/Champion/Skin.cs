@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -9,5 +11,10 @@
         public int Num { get; init; }
         public string Name { get; init; } = default!;
         public bool Chromas { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

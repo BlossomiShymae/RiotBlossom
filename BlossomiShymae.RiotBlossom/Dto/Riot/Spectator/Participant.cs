@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
     public record Participant
     {
@@ -30,5 +32,10 @@
         /// The first equipped summoner spell ID.
         /// </summary>
         public long Spell1Id { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

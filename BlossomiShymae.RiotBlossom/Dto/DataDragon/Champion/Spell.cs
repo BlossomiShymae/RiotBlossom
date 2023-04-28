@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
@@ -27,5 +28,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
         public string RangeBurn { get; init; } = default!;
         public Image Image { get; init; } = new();
         public string Resource { get; init; } = default!;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

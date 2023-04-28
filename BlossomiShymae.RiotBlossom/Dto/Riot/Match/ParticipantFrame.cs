@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -17,5 +19,10 @@
         public long TimeEnemySpentControlled { get; init; }
         public long TotalGold { get; init; }
         public long Xp { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

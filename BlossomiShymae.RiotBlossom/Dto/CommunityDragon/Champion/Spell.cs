@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
@@ -22,5 +23,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
         public object EffectAmounts { get; init; } = default!;
         public object Ammo { get; init; } = default!;
         public int MaxLevel { get; init; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
 {
@@ -17,5 +18,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
         /// The current free champion rotation pool.
         /// </summary>
         public ImmutableList<int> FreeChampionIds { get; init; } = ImmutableList<int>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }
