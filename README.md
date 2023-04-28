@@ -24,17 +24,18 @@ Made with [contrib.rocks](https://contrib.rocks).
 2. [Installation](#installation)
 3. [Endpoints](#endpoints)
 4. [Quickstart](#quickstart)
-5. [API Interfaces](#api-interfaces)
-6. [Middleware Plugins](#middleware-plugins)
-7. [Exceptions](#exceptions-oh-noes)
-8. [Types](#types)
-9. [Utilities](#utilities)
-10. [Data transfer objects](#data-transfer-objects-dto)
-11. [Dependent packages](#dependent-packages)
-12. [Contributing](#contributing)
-13. [License](#license)
-14. [Disclaimer](#disclaimer)
-15. [Appendix](#appendix)
+5. [Using with ASP.NET Core](#using-with-asp.net-core)
+6. [API Interfaces](#api-interfaces)
+7. [Middleware Plugins](#middleware-plugins)
+8. [Exceptions](#exceptions-oh-noes)
+9. [Types](#types)
+10. [Utilities](#utilities)
+11. [Data transfer objects](#data-transfer-objects-dto)
+12. [Dependent packages](#dependent-packages)
+13. [Contributing](#contributing)
+14. [License](#license)
+15. [Disclaimer](#disclaimer)
+16. [Appendix](#appendix)
 
 # Features
 - Asynchronous, immutable record, no-conversion API
@@ -567,6 +568,84 @@ Champion {
   ...
  }
 ```
+
+# Using with ASP.NET Core
+RiotBlossom can be used with [ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0), a cross-platform and open-source web framework.
+
+One way of setting up is to create a service container class for dependency injection.
+
+We can first add a `IHttpClientFactory` to the services collection.
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// ASP.NET Core setup may differ based on your project selection e.g. Web App, MVC, Blazor
+// This example is shortened for brevity
+
+builder.Services.AddHttpClient();
+```
+
+Now we can create a service class in the `Services` namespace that will contain an instance of RiotBlossom. Note the use 
+of the injected `IHttpClientFactory`. o.o
+```csharp
+public interface IRiotBlossomService
+{
+    IRiotBlossomClient Client { get; init; }
+}
+
+public class RiotBlossomService : IRiotBlossomService
+{
+    public IRiotBlossomClient Client { get; init; }
+
+    public RiotBlossomService(IHttpClientFactory httpClientFactory)
+    {
+        HttpClient httpClient = httpClientFactory.CreateClient();
+        httpClient.Timeout = TimeSpan.FromSeconds(15);
+
+        Client = RiotBlossomCore.CreateClientBuilder()
+            .AddRiotApiKey(Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? throw new NullReferenceException())
+            .AddHttpClient(httpClient)
+            .AddRiotMiddlewareStack(b =>
+            {
+                b.AddAlgorithmicLimiter(new(new()
+                {
+                    CanThrowOn429 = true,
+                    CanThrowOnLimit = true,
+                    ShaperType = LimiterShaper.Spread
+                }));
+                b.AddInMemoryCache(new("rb-riot-cache")
+                {
+                    Expiration = TimeSpan.FromHours(2),
+                    Size = 10000
+                });
+                return b;
+            })
+            .AddDataMiddlewareStack(b =>
+            {
+                b.AddInMemoryCache(new("rb-data-cache")
+                {
+                    Expiration = TimeSpan.FromHours(6),
+                    Size = 20000
+                });
+                b.AddRetryer(new()
+                {
+                    CanThrowOn429 = true,
+                    RetryCount = 10,
+                    RetryDelay = TimeSpan.FromSeconds(5)
+                });
+                return b;
+            })
+            .Build();
+    }
+}
+```
+
+Now we can add our created a singleton service, ready for use! Yay!
+```csharp
+// Add as singleton to share a single instance!
+builder.Services.AddSingleton<IRiotBlossomService>();
+```
+
+[Learn more on using dependency injection in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0).
 
 # API Interfaces
 
