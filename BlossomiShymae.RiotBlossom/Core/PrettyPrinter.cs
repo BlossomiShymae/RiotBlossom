@@ -17,6 +17,7 @@ namespace BlossomiShymae.RiotBlossom.Core
 
         /// <summary>
         /// <para>Get the pretty string of object, hehe!</para>
+        /// <para>Note: Field names will be printed into camel case or into JsonPropertyName attribute.</para>
         /// </summary>
         /// <exception cref="NotSupportedException"></exception>
         /// <param name="obj"></param>
