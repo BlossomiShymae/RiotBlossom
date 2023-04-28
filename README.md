@@ -208,7 +208,7 @@ Console.WriteLine(summoner);
 ```
 
 Output via `ToString`, which internally uses `PrettyPrinter.GetString`:
-```
+```json
 SummonerDto {
   "AccountId": "0WvZHECxpBFNlntYzcCNyDkGeaqA6vthcLsklngrPVYofWE",
   "ProfileIconId": 5367,
@@ -273,9 +273,7 @@ foreach (ChampionMasteryDto mastery in masteries)
     championDictionary.TryGetValue((int)mastery.ChampionId, out Champion? champion);
     if (champion != null && champion.Tags.Contains("Support"))
         Console.WriteLine($"{champion.Name,-16} - {mastery.ChampionPoints,7}");
-
 }
-
 ```
 
 Output:
@@ -293,41 +291,132 @@ Seraphine        -  131645
 
 ### Teamfight Tactics
 
+This section covers basic requests to the Teamfight Tactics APIs. Reading the official documentiation will be helpful before 
+continuing! 💚
+
+https://developer.riotgames.com/docs/tft
+
+Let us try to get a <sub><sup>totally cool</sup></sub> summoner using the Riot API. owo
+
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
+using BlossomiShymae.RiotBlossom.Type;
+
+SummonerDto summoner = await client.Riot.TftSummoner
+    .GetByNameAsync(Platform.EuropeWest, "GGoE DarkIntaqt");
+Console.WriteLine(summoner);
+```
+
+Output:
+```json
+SummonerDto {
+  "AccountId": "pZAUf9KfQ1pSy_SPv6M9p311BBRqvme2XhpI45hDVQCXiF1vZxl__i80",
+  "ProfileIconId": 5579,
+  "RevisionDate": 1682540120000,
+  "Name": "GGoE DarkIntaqt",
+  "Id": "XBS4Jdc-iqkoIEvRemXbICjtT3eUK5EQVG9TVTHqr8pFpgFP",
+  "Puuid": "5J_4rCSpXpqE1p04HotKp3xXpSp9hnQga-2nkReJLjJuG3QWlxQbQdd9Gk19BKMNTaMl7DNu5rKePQ",
+  "SummonerLevel": 313
+}
+```
+
+We should see what units this summoner had in their most recent match!
+
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch;
+using System.Collections.Immutable;
+
+ImmutableList<string> matchIds = await client.Riot.TftMatch
+    .ListIdsByPuuidAsync(Platform.EuropeWest, summoner.Puuid);
+MatchDto match = await client.Riot.TftMatch
+    .GetByIdAsync(Platform.EuropeWest, matchIds.First());
+
+match.Info.Participants
+    .Find(p => p.Puuid == summoner.Puuid)?.Units
+        .ForEach(unit => Console.WriteLine(unit));
+```
+
+Output:
+```json
+UnitDto {
+  "Items": [
+    3,
+    2037,
+    2200
+  ],
+  "character_id": "TFT6_Brand",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 0,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    25
+  ],
+  "character_id": "TFT6_Talon",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 1,
+  "Tier": 3
+}
+UnitDto {
+  "Items": [
+    47,
+    2037
+  ],
+  "character_id": "TFT6_Syndra",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 1,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    77,
+    56,
+    55
+  ],
+  "character_id": "TFT6_Leona",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 2,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    29,
+    9,
+    35
+  ],
+  "character_id": "TFT6_Jhin",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 3,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [],
+  "character_id": "TFT6_Orianna",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 3,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    16,
+    9
+  ],
+  "character_id": "TFT6_Draven",
+  "Chosen": null,
+  "Name": "Draven",
+  "Rarity": 3,
+  "Tier": 2
+}
+```
+
 ### Legends of Runeterra
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
