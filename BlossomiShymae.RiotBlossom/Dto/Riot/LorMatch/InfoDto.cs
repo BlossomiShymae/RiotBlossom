@@ -7,12 +7,12 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
     public record InfoDto
     {
         /// <summary>
-        /// The current game mode. (Legal values: Constructed, Expeditions, Tutorial)
+        /// The current game mode. (Legal values: Constructed, Expeditions, Tutorial, and a lot more not documented)
         /// </summary>
         [JsonPropertyName("game_mode")]
         public string GameMode { get; init; } = default!;
         /// <summary>
-        /// The current game type. (Legal values: Ranked, Normal, AI, Tutorial, VanillaTrial, Singleton, StandardGauntlet)
+        /// The current game type. (Legal values: Ranked, Normal, AI, Tutorial, VanillaTrial, Singleton, StandardGauntlet, or an empty string for Lab games)
         /// </summary>
         [JsonPropertyName("game_type")]
         public string GameType { get; init; } = default!;
