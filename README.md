@@ -24,7 +24,7 @@ Made with [contrib.rocks](https://contrib.rocks).
 2. [Installation](#installation)
 3. [Endpoints](#endpoints)
 4. [Quickstart](#quickstart)
-5. [Using with ASP.NET Core](#using-with-asp.net-core)
+5. [Using with ASP.NET Core](#using-with-aspnet-core)
 6. [API Interfaces](#api-interfaces)
 7. [Middleware Plugins](#middleware-plugins)
 8. [Exceptions](#exceptions-oh-noes)
