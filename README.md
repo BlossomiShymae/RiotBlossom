@@ -427,7 +427,8 @@ Unlike League of Legends and Teamfight Tactics, we need to get an account instea
 using BlossomiShymae.RiotBlossom.Dto.Riot.Account;
 using BlossomiShymae.RiotBlossom.Type;
 
-AccountDto account = await client.Riot.Account.GetAccountByRiotIdAsync(Region.Americas, "ToxicMacaroni", "na1");
+AccountDto account = await client.Riot.Account
+    .GetAccountByRiotIdAsync(Region.Americas, "ToxicMacaroni", "na1");
 Console.WriteLine(account);
 ```
 
@@ -445,7 +446,8 @@ Now that we have an account, we can go ahead and look up their most recent match
 using BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch;
 using System.Collections.Immutable;
 
-ImmutableList<string> matchIds = await client.Riot.LorMatch.ListIdsByPuuidAsync(LorRegion.Americas, account.Puuid);
+ImmutableList<string> matchIds = await client.Riot.
+    LorMatch.ListIdsByPuuidAsync(LorRegion.Americas, account.Puuid);
 MatchDto match = await client.Riot.LorMatch.GetByIdAsync(LorRegion.Americas, matchIds.First());
 Console.WriteLine(match);
 ```
@@ -602,7 +604,8 @@ public class RiotBlossomService : IRiotBlossomService
         httpClient.Timeout = TimeSpan.FromSeconds(15);
 
         Client = RiotBlossomCore.CreateClientBuilder()
-            .AddRiotApiKey(Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? throw new NullReferenceException())
+            .AddRiotApiKey(Environment.GetEnvironmentVariable("RIOT_API_KEY") 
+                ?? throw new NullReferenceException())
             .AddHttpClient(httpClient)
             // Middleware stack builders left out for brevity!
             .Build();
