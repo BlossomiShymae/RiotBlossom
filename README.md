@@ -572,7 +572,7 @@ Champion {
 # Using with ASP.NET Core
 RiotBlossom can be used with [ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0), a cross-platform and open-source web framework.
 
-One way of setting up is to create a service container class for dependency injection.
+One way of setting up for your totes awesome needs is to create a service container class for dependency injection.
 
 We can first add a `IHttpClientFactory` to the services collection.
 ```csharp
@@ -585,7 +585,7 @@ builder.Services.AddHttpClient();
 ```
 
 Now we can create a service class in the `Services` namespace that will contain an instance of RiotBlossom. Note the use 
-of the injected `IHttpClientFactory`. o.o
+of the injected `IHttpClientFactory`. ovo
 ```csharp
 public interface IRiotBlossomService
 {
@@ -604,36 +604,7 @@ public class RiotBlossomService : IRiotBlossomService
         Client = RiotBlossomCore.CreateClientBuilder()
             .AddRiotApiKey(Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? throw new NullReferenceException())
             .AddHttpClient(httpClient)
-            .AddRiotMiddlewareStack(b =>
-            {
-                b.AddAlgorithmicLimiter(new(new()
-                {
-                    CanThrowOn429 = true,
-                    CanThrowOnLimit = true,
-                    ShaperType = LimiterShaper.Spread
-                }));
-                b.AddInMemoryCache(new("rb-riot-cache")
-                {
-                    Expiration = TimeSpan.FromHours(2),
-                    Size = 10000
-                });
-                return b;
-            })
-            .AddDataMiddlewareStack(b =>
-            {
-                b.AddInMemoryCache(new("rb-data-cache")
-                {
-                    Expiration = TimeSpan.FromHours(6),
-                    Size = 20000
-                });
-                b.AddRetryer(new()
-                {
-                    CanThrowOn429 = true,
-                    RetryCount = 10,
-                    RetryDelay = TimeSpan.FromSeconds(5)
-                });
-                return b;
-            })
+            // Middleware stack builders left out for brevity!
             .Build();
     }
 }
