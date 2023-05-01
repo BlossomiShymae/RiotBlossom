@@ -27,7 +27,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
         /// The order in which the players took turns.
         /// </summary>
         [JsonPropertyName("order_of_play")]
-        public int OrderOfPlayer { get; init; }
+        public int OrderOfPlay { get; init; }
 
         public override string ToString()
         {
