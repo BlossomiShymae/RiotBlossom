@@ -24,17 +24,18 @@ Made with [contrib.rocks](https://contrib.rocks).
 2. [Installation](#installation)
 3. [Endpoints](#endpoints)
 4. [Quickstart](#quickstart)
-5. [API Interfaces](#api-interfaces)
-6. [Middleware Plugins](#middleware-plugins)
-7. [Exceptions](#exceptions-oh-noes)
-8. [Types](#types)
-9. [Utilities](#utilities)
-10. [Data transfer objects](#data-transfer-objects-dto)
-11. [Dependent packages](#dependent-packages)
-12. [Contributing](#contributing)
-13. [License](#license)
-14. [Disclaimer](#disclaimer)
-15. [Appendix](#appendix)
+5. [Using with ASP.NET Core](#using-with-asp.net-core)
+6. [API Interfaces](#api-interfaces)
+7. [Middleware Plugins](#middleware-plugins)
+8. [Exceptions](#exceptions-oh-noes)
+9. [Types](#types)
+10. [Utilities](#utilities)
+11. [Data transfer objects](#data-transfer-objects-dto)
+12. [Dependent packages](#dependent-packages)
+13. [Contributing](#contributing)
+14. [License](#license)
+15. [Disclaimer](#disclaimer)
+16. [Appendix](#appendix)
 
 # Features
 - Asynchronous, immutable record, no-conversion API
@@ -189,6 +190,14 @@ IRiotBlossomClient client = RiotBlossomCore.CreateClientBuilder()
 ```
 
 ## Fetching some data with the Riot API
+
+### League of Legends
+
+This section will cover common requests to the League APIs using RiotBlossom. It
+will be very helpful to read the official League documentation before continuing, okie dokie? (⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄
+
+https://developer.riotgames.com/docs/lol
+
 Let us try getting a summoner from the Riot API!
 ```csharp
 using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
@@ -200,7 +209,7 @@ Console.WriteLine(summoner);
 ```
 
 Output via `ToString`, which internally uses `PrettyPrinter.GetString`:
-```
+```json
 SummonerDto {
   "AccountId": "0WvZHECxpBFNlntYzcCNyDkGeaqA6vthcLsklngrPVYofWE",
   "ProfileIconId": 5367,
@@ -241,6 +250,237 @@ Output:
 ![image](https://user-images.githubusercontent.com/87099578/232168413-19747394-a8f2-4af3-b601-d3bf849d08a7.png)
 
 ![7631-watame-smug](https://user-images.githubusercontent.com/87099578/232341935-deff581c-c47b-406c-b6fe-537f680d0632.png)
+
+> B-but I also want to get the champion masteries of a summoner as well...
+
+Not a problem, reader! We will also be using DataDragon to get associated data for champions.
+
+```csharp
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion;
+using BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery;
+using System.Collections.Immutable;
+
+ImmutableList<ChampionMasteryDto> masteries = await client.Riot.ChampionMastery
+    .ListBySummonerIdAsync(Platform.NorthAmerica, summoner.Id);
+// Get the latest championFull.json from the latest version of DataDragon
+string version = await client.DataDragon.GetLatestVersionAsync();
+ImmutableDictionary<int, Champion> championDictionary = await client.DataDragon
+    .GetChampionDictionaryAsync(version);
+
+// Print champion mastery leaderboard of summoner for champions that have the 'Support' role tag
+foreach (ChampionMasteryDto mastery in masteries)
+{
+    championDictionary.TryGetValue((int)mastery.ChampionId, out Champion? champion);
+    if (champion != null && champion.Tags.Contains("Support"))
+        Console.WriteLine($"{champion.Name,-16} - {mastery.ChampionPoints,7}");
+}
+```
+
+Output:
+```
+Sona             -  720634
+Soraka           -  508076
+Janna            -  238814
+Nami             -  181987
+Lulu             -  144284
+Yuumi            -  142785
+Orianna          -  134359
+Seraphine        -  131645
+...
+```
+
+### Teamfight Tactics
+
+This section covers basic requests to the Teamfight Tactics APIs. Reading the official documentiation will be helpful before 
+continuing! 💚
+
+https://developer.riotgames.com/docs/tft
+
+Let us try to get a <sub><sup>totally cool</sup></sub> summoner using the Riot API. owo
+
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.Summoner;
+using BlossomiShymae.RiotBlossom.Type;
+
+SummonerDto summoner = await client.Riot.TftSummoner
+    .GetByNameAsync(Platform.EuropeWest, "GGoE DarkIntaqt");
+Console.WriteLine(summoner);
+```
+
+Output:
+```json
+SummonerDto {
+  "AccountId": "pZAUf9KfQ1pSy_SPv6M9p311BBRqvme2XhpI45hDVQCXiF1vZxl__i80",
+  "ProfileIconId": 5579,
+  "RevisionDate": 1682540120000,
+  "Name": "GGoE DarkIntaqt",
+  "Id": "XBS4Jdc-iqkoIEvRemXbICjtT3eUK5EQVG9TVTHqr8pFpgFP",
+  "Puuid": "5J_4rCSpXpqE1p04HotKp3xXpSp9hnQga-2nkReJLjJuG3QWlxQbQdd9Gk19BKMNTaMl7DNu5rKePQ",
+  "SummonerLevel": 313
+}
+```
+
+We should see what units this summoner had in their most recent match!
+
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch;
+using System.Collections.Immutable;
+
+ImmutableList<string> matchIds = await client.Riot.TftMatch
+    .ListIdsByPuuidAsync(Platform.EuropeWest, summoner.Puuid);
+MatchDto match = await client.Riot.TftMatch
+    .GetByIdAsync(Platform.EuropeWest, matchIds.First());
+
+match.Info.Participants
+    .Find(p => p.Puuid == summoner.Puuid)?.Units
+        .ForEach(unit => Console.WriteLine(unit));
+```
+
+Output:
+```json
+UnitDto {
+  "Items": [
+    3,
+    2037,
+    2200
+  ],
+  "character_id": "TFT6_Brand",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 0,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    25
+  ],
+  "character_id": "TFT6_Talon",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 1,
+  "Tier": 3
+}
+UnitDto {
+  "Items": [
+    47,
+    2037
+  ],
+  "character_id": "TFT6_Syndra",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 1,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    77,
+    56,
+    55
+  ],
+  "character_id": "TFT6_Leona",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 2,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    29,
+    9,
+    35
+  ],
+  "character_id": "TFT6_Jhin",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 3,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [],
+  "character_id": "TFT6_Orianna",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 3,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    16,
+    9
+  ],
+  "character_id": "TFT6_Draven",
+  "Chosen": null,
+  "Name": "Draven",
+  "Rarity": 3,
+  "Tier": 2
+}
+```
+
+### Legends of Runeterra
+
+This section covers basic requests to the Legends of Runeterra APIs. As always, it is best to read the official documentation 
+before continuing! It will make me totes happy. 💜
+
+Unlike League of Legends and Teamfight Tactics, we need to get an account instead of a summoner for looking up. Let us try that!
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.Account;
+using BlossomiShymae.RiotBlossom.Type;
+
+AccountDto account = await client.Riot.Account.GetAccountByRiotIdAsync(Region.Americas, "ToxicMacaroni", "na1");
+Console.WriteLine(account);
+```
+
+Output:
+```json
+AccountDto {
+  "Puuid": "hYAy0wsvDJ6XLoAjpk5-pHp2AEpW1AXFbvRhenm2DlZ_j7K58vcWr7CmZeQ5anN_pWgEISrHxcCBaw",
+  "GameName": "ToxicMacaroni",
+  "TagLine": "NA1"
+}
+```
+
+Now that we have an account, we can go ahead and look up their most recent match!
+```csharp
+using BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch;
+using System.Collections.Immutable;
+
+ImmutableList<string> matchIds = await client.Riot.LorMatch.ListIdsByPuuidAsync(LorRegion.Americas, account.Puuid);
+MatchDto match = await client.Riot.LorMatch.GetByIdAsync(LorRegion.Americas, matchIds.First());
+Console.WriteLine(match);
+```
+
+Output:
+```json
+MatchDto {
+  "Metadata": {
+    "data_version": "2",
+    "match_id": "9293ad4d-1bf1-4252-baab-e484ee988c93",
+    "Participants": [
+      "hYAy0wsvDJ6XLoAjpk5-pHp2AEpW1AXFbvRhenm2DlZ_j7K58vcWr7CmZeQ5anN_pWgEISrHxcCBaw"
+    ]
+  },
+  "Info": {
+    "game_mode": "ThePathOfChampions",
+    "game_type": "",
+    "game_start_time_utc": "2022-06-11T00:08:50.1895727+00:00",
+    "game_version": "live-green-3-08-27",
+    "Players": [
+      {
+        "Puuid": "hYAy0wsvDJ6XLoAjpk5-pHp2AEpW1AXFbvRhenm2DlZ_j7K58vcWr7CmZeQ5anN_pWgEISrHxcCBaw",
+        "deck_id": "",
+        "deck_code": "",
+        "Factions": [
+          "faction_Piltover_Name"
+        ],
+        "game_outcome": "win",
+        "order_of_play": 1
+      }
+    ],
+    "total_turn_count": 10
+  }
+}
+```
 
 ## What about DataDragon?
 RiotBlossom supports DataDragon. How about we totes get all of the League of Legends items!?! <sub><sup>least cringe Shymae moment</sup></sub>
@@ -329,10 +569,80 @@ Champion {
  }
 ```
 
+# Using with ASP.NET Core
+RiotBlossom can be used with [ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0), a cross-platform and open-source web framework.
+
+One way of setting up for your totes awesome needs is to create a service container class for dependency injection.
+
+We can first add a `IHttpClientFactory` to the services collection.
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// ASP.NET Core setup may differ based on your project selection e.g. Web App, MVC, Blazor
+// This example is shortened for brevity
+
+builder.Services.AddHttpClient();
+```
+
+Now we can create a service class in the `Services` namespace that will contain an instance of RiotBlossom. Note the use 
+of the injected `IHttpClientFactory`. ovo
+```csharp
+public interface IRiotBlossomService
+{
+    IRiotBlossomClient Client { get; init; }
+}
+
+public class RiotBlossomService : IRiotBlossomService
+{
+    public IRiotBlossomClient Client { get; init; }
+
+    public RiotBlossomService(IHttpClientFactory httpClientFactory)
+    {
+        HttpClient httpClient = httpClientFactory.CreateClient();
+        httpClient.Timeout = TimeSpan.FromSeconds(15);
+
+        Client = RiotBlossomCore.CreateClientBuilder()
+            .AddRiotApiKey(Environment.GetEnvironmentVariable("RIOT_API_KEY") ?? throw new NullReferenceException())
+            .AddHttpClient(httpClient)
+            // Middleware stack builders left out for brevity!
+            .Build();
+    }
+}
+```
+
+Now we can add our created a singleton service, ready for use! Yay!
+```csharp
+// Add as singleton to share a single instance!
+builder.Services.AddSingleton<IRiotBlossomService>();
+```
+
+[Learn more on using dependency injection in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0).
+
 # API Interfaces
 
 RiotBlossom currently serves three major API interfaces:
 - Riot Games, [`IRiotApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/RiotApi.cs) --> `Riot`
+    - Account-v1, [`IAccountApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/AccountApi.cs) --> `Account`
+    - Champion-Mastery-v4, [`IChampionMasteryApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ChampionMasteryApi.cs) --> `ChampionMastery`
+    - Champion-v3, [`IChampionApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ChampionApi.cs) --> `Champion`
+    - Clash-v1, [`IClashApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ClashApi.cs) --> `Clash`
+    - League-v4, [`ILeagueApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/LeagueApi.cs) --> `League`
+    - Lol-Challenges-v1, [`ILolChallengesApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/LolChallengesApi.cs) --> `LolChallenges`
+    - Lol-Status-v4, [`ILolStatusApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/LolStatusApi.cs) --> `LolStatus`
+    - Lor-Match-v1, [`ILorMatchApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/LorMatchApi.cs) --> `LorMatch`
+    - Lor-Ranked-v1, [`ILorRankedApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/LorRankedApi.cs) --> `LorRanked`
+    - Lor-Status-v1, [`ILorStatusApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/LorStatusApi.cs) --> `LorStatus`
+    - Match-v5, [`IMatchApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/MatchApi.cs) --> `Match`
+    - Spectator-v4, [`ISpectatorApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/SpectatorApi.cs) --> `Spectator`
+    - Summoner-v4, [`ISummonerApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/SummonerApi.cs) --> `Summoner`
+    - Tft-League-v1, [`ITftLeagueApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/TftLeagueApi.cs) --> `TftLeague`
+    - Tft-Match-v1, [`ITftMatchApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/TftMatchApi.cs) --> `TftMatch`
+    - Tft-Status-v1, [`ITftStatusApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/TftStatusApi.cs) --> `TftStatus`
+    - Tft-Summoner-v1, [`ITftSummonerApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/TftSummonerApi.cs) --> `TftSummoner`
+    - Val-Content-v1, [`IValContentApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ValContentApi.cs) --> `ValContent`
+    - Val-Match-v1, [`IValMatchApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ValMatchApi.cs) --> `ValMatch`
+    - Val-Ranked-v1, [`IValRankedApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ValRankedApi.cs) --> `ValRanked`
+    - Val-Status-v1, [`IValStatusApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/Riot/ValStatusApi.cs) --> `ValStatus`
 - CommunityDragon, [`ICommunityDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/CommunityDragonApi.cs) --> `CommunityDragon`
 - DataDragon, [`IDataDragonApi`](https://github.com/BlossomiShymae/RiotBlossom/blob/master/BlossomiShymae.RiotBlossom/Api/DataDragonApi.cs) --> `DataDragon`
 
@@ -352,7 +662,6 @@ If you like to make requests to an endpoint not supported by RiotBlossom, this m
 var summoner = await client.Riot
     .GetAsync<SummonerDto>("na1", "/lol/summoner/v4/summoners/by-name/uwuie time");
 ```
-
 
 # Middleware Plugins
 
