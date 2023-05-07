@@ -12,14 +12,23 @@
       <aside class="col-12 col-lg-2">
         <div class="p-2 h-100">
           <div v-for="(value, key) in vm">
-            <h5 class="fw-bold">{{ value.title }}</h5>
-            <ul>
-              <li v-for="(v2, k2) in value.items">
-                  <NuxtLink :to="`/${key}/${k2}`" class="text-muted">
-                    {{ v2.title }}
-                  </NuxtLink>
-              </li>
-            </ul>
+            <div v-if="value.items === undefined">
+              <h5 class="fw-bold">
+                <NuxtLink :to="`/${key}`">
+                  {{ value.title }}
+                </NuxtLink>
+              </h5>
+            </div>
+            <div v-else>
+              <h5 class="fw-bold">{{ value.title }}</h5>
+              <ul>
+                <li v-for="(v2, k2) in value.items">
+                    <NuxtLink :to="`/${key}/${k2}`" class="text-muted">
+                      {{ v2.title }}
+                    </NuxtLink>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </aside>
