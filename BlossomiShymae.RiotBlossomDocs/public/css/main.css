@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/Oxygen-Regular.ttf') format('truetype');
+}
+
+* {
+  font-family: 'Oxygen' !important;
+}
+
+pre {
+  padding: 16px;
+  background-color: #012;
+  border-radius: 0.2rem;
+  border-color: #444;
+  border-width: 1px;
+  border-style: solid;
+}
+
+:not(pre) > code {
+  padding: 4px;
+  border-radius: 0.2rem;
+  background-color: #012;
+}
