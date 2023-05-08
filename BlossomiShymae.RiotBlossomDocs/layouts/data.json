@@ -9,5 +9,13 @@
   },
   "get-started": {
     "title": "Get Started"
+  },
+  "tutorials": {
+    "title": "Tutorials",
+    "items": {
+      "overview": {
+        "title": "Overview"
+      }
+    }
   }
 }
