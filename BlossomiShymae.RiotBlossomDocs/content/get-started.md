@@ -66,4 +66,6 @@ It should result in something similar to this:
 
 ![Run](/img/get-started-run.png)
 
-You did it! :3
+Yay! You just learned how to get started with RiotBlossom!
+
+![Lux](/img/get-started-lux.png)
