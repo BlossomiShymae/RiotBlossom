@@ -1,7 +1,7 @@
 <template>
   <div class="img-container">
     <img
-      class="img-fluid rounded img-thumbnail"
+      class="img-fluid rounded"
       :src="refinedSrc"
       :alt="alt"
       :width="width"
