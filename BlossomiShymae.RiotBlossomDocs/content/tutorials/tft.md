@@ -1,0 +1,136 @@
+# Tutorial: Making requests to the Teamfight Tactics APIs in RiotBlossom
+
+This funky tutorial will cover common requests to the Teamfight Tactics APIs with 
+RiotBlossom!
+
+You will learn how to:
+- Fetch a summoner
+- Fetch match identifiers and matches
+
+## Prerequisites
+- [Teamfight Tactics Official Documentation](https://developer.riotgames.com/docs/tft)
+- Tutorials Overview
+
+## Fetch a summoner
+
+Let us try to get a *totally cool* summoner from the Riot API! Type and save the 
+following code below:
+
+```csharp
+using BlossomiShymae.RiotBlossom.Type;
+
+var summoner = await client.Riot.TftSummoner
+    .GetByNameAsync(Platform.EuropeWest, "GGoE DarkIntaqt");
+Console.WriteLine(summoner);
+```
+
+The following output should be displayed within your console:
+
+```json
+SummonerDto {
+  "AccountId": "pZAUf9KfQ1pSy_SPv6M9p311BBRqvme2XhpI45hDVQCXiF1vZxl__i80",
+  "ProfileIconId": 5579,
+  "RevisionDate": 1682540120000,
+  "Name": "GGoE DarkIntaqt",
+  "Id": "XBS4Jdc-iqkoIEvRemXbICjtT3eUK5EQVG9TVTHqr8pFpgFP",
+  "Puuid": "5J_4rCSpXpqE1p04HotKp3xXpSp9hnQga-2nkReJLjJuG3QWlxQbQdd9Gk19BKMNTaMl7DNu5rKePQ",
+  "SummonerLevel": 313
+}
+```
+
+The preceding string is generated with the `PrettyPrinter` class provided by `RiotBlossom.Core`. This makes it totes friendly and easier for reading data objects from the console! 
+
+We should see what units this summoner had in their most recent match:
+
+```csharp
+var matchIds = await client.Riot.TftMatch
+    .ListIdsByPuuidAsync(Platform.EuropeWest, summoner.Puuid);
+var match = await client.Riot.TftMatch
+    .GetByIdAsync(Platform.EuropeWest, matchIds.First());
+
+match.Info.Participants
+    .Find(p => p.Puuid == summoner.Puuid)?.Units
+        .ForEach(unit => Console.WriteLine(unit));
+```
+
+This should generate the following output:
+
+```json
+UnitDto {
+  "Items": [
+    3,
+    2037,
+    2200
+  ],
+  "character_id": "TFT6_Brand",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 0,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    25
+  ],
+  "character_id": "TFT6_Talon",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 1,
+  "Tier": 3
+}
+UnitDto {
+  "Items": [
+    47,
+    2037
+  ],
+  "character_id": "TFT6_Syndra",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 1,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    77,
+    56,
+    55
+  ],
+  "character_id": "TFT6_Leona",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 2,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    29,
+    9,
+    35
+  ],
+  "character_id": "TFT6_Jhin",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 3,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [],
+  "character_id": "TFT6_Orianna",
+  "Chosen": null,
+  "Name": "",
+  "Rarity": 3,
+  "Tier": 2
+}
+UnitDto {
+  "Items": [
+    16,
+    9
+  ],
+  "character_id": "TFT6_Draven",
+  "Chosen": null,
+  "Name": "Draven",
+  "Rarity": 3,
+  "Tier": 2
+}
+```
+
