@@ -49,6 +49,9 @@
       },
       "types": {
         "title": "Types"
+      },
+      "utilities": {
+        "title": "Utilities"
       }
     }
   }
