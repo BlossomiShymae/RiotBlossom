@@ -1,5 +1,5 @@
 
-# Exceptions, oh noes
+# Exceptions in RiotBlossom
 RiotBlossom does have custom exceptions it uses, so keep these in mind when using the client! 💚
 - `CorruptedMatchException`
 - `ExhaustedRetryerException`
@@ -27,9 +27,9 @@ When attempting to make a call to the Riot APIs without having a Riot API key se
 DataDragon APIs can be used without requiring an API key.
 
 ## TooManyRequestsException
-When a `429 - Too Many Requests` was received in the HTTP request-response cycle for `AlgorithmicLimiter` or `Retryer` 
+When an HTTP **429** response was received in the HTTP request-response cycle for `AlgorithmicLimiter` or `Retryer` 
 and `CanThrowOn429` is true.
 
 ## WarningLimiterException
 When a rate limit was reached for `AlgorithmicLimiter` and `CanThrowOnLimit` is true. Not to be confused with 
-the above exception where an actual `429` occurs.
+the above exception where an actual HTTP **429** response occurs.
