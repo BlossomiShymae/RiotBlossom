@@ -1,5 +1,5 @@
+# Types in RiotBlossom
 
-# Types
 RiotBlossom uses types to represent named values used for the Riot Games API.
 - `ChallengeLevel`
 - `LeagueDivision`
@@ -41,7 +41,7 @@ Represents the available regional routing values used for the Riot API (League o
 [Refer to Developer docs to better understand how routing values work.](https://developer.riotgames.com/docs/lol#routing-values) <3
 
 ## RiotHeader
-A structure of string constants used for [Riot rate limiting headers](https://hextechdocs.dev/rate-limiting/).
+A structure of string constants is used for [Riot rate limiting headers](https://hextechdocs.dev/rate-limiting/).
 
 ## ValRegion
 Represents the available regional routing values used for VALORANT.
