@@ -1,7 +1,7 @@
 # Tutorial: Setting up application configuration in RiotBlossom
 
 This coolsies tutorial will show you the basics of creating a client with RiotBlossom 
-using basic and advanced configuration!
+using basic and advanced configurations!
 
 ## Prerequisites
 - Get Started
@@ -31,16 +31,15 @@ Wowie, that was easy!
 ![Wow](/img/tutorials-lol-wow.png)
 
 By default, RiotBlossom will create a client instance with spread rate limiting, in-memory 
-caching, and retrying enabled. An `HttpClient` will also be initialized interally 
-for making web requests with.
+caching, and retrying enabled. An `HttpClient` will also be initialized internally for making web requests.
 
 ## Create a client with advanced configuration
 
 Creating a client with advanced configuration requires accessing the client builder 
-interface. This interface allows to inject a `HttpClient` instance and configure 
+interface. This interface allows you to inject a `HttpClient` instance and configure 
 the middleware plugin systems directly! :D
 
-The following code showcases an example advanced configuration:
+The following code showcases an example of advanced configuration:
 
 ```csharp
 using BlossomiShymae.RiotBlossom;

@@ -1,14 +1,14 @@
 # Middleware Plugins in RiotBlossom
 
-RiotBlossom uses pluggable middlewares as part of the HTTP request-response cycle. Creating a middleware plugin requires implementing from any of the following interfaces:
+RiotBlossom uses pluggable middleware as part of the HTTP request-response cycle. Creating a middleware plugin requires implementing from any of the following interfaces:
 - `IRequestMiddleware`
 - `IResponseMiddleware`
 - `IRetryMiddleware`
 
-As part of the HTTP request-response lifecycle:
-- Before request sent (request information goes through request middlewares `IRequestMiddleware[]`)
+As part of the HTTP request-response lifecycle: 
+- Before the request is sent (request information goes through request middleware `IRequestMiddleware[]`)
 - On request (request function reference is passed to single retry middleware `IRetryMiddleware`)
-- After response received (response information goes through response middlewares `IResponseMiddleware[]`)
+- After the response is received (response information goes through response middleware `IResponseMiddleware[]`)
 
 Knowing this lifecycle, `MiddlewareStack` is the system composition of `IRequestMiddleware[]`, `IRetryMiddleware`, and `IResponseMiddleware[]`. 
 A middleware stack is encapsulated to the APIs it is assigned to. 
@@ -19,14 +19,13 @@ RiotBlossom client builder currently does the following:
 
 Each request processed under the Riot `MiddlewareStack` is asynchronously locked per routing value to maintain data synchronization.
 
-Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, Riot `MiddlewareStack` is 
-created with a `AlgorithmicLimiter` where Data `MiddlewareStack` does not.
+Having separate middleware systems offers more user configuration and flexibility in doing thingies. As an example, Riot `MiddlewareStack` is created with an `AlgorithmicLimiter` whereas Data `MiddlewareStack`` does not.
 
-Hopefully the system design was straightforward to understand...
+Hopefully, the system design was straightforward to understand...
 
 ![anime-cirno](https://user-images.githubusercontent.com/87099578/232343424-3aabac5a-5e96-41d6-a1a4-3968952146f3.gif)
 
-<sub><sup>if I had lost you, I am very sorry....</sup></sub>
+<sub><sup>if I had lost you, I am very sorry...</sup></sub>
 
 ## Request interface
 ```csharp
@@ -69,12 +68,11 @@ public interface IRetryMiddleware
 }
 ```
 
-- `resFunc`, function to invoke for receiving a HTTP response
+- `resFunc`, function to invoke for receiving an HTTP response
 
 Example plugins:
 - Retryer
-
-## Out of the box middleware plugins <3
+Out-of-the-box middleware plugins <3
 
 ### AlgorithmicLimiter
 ```csharp

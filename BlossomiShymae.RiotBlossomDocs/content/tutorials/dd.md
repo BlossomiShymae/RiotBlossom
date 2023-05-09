@@ -6,9 +6,9 @@ League of Legends champions, runes, items, and more!
 
 You will learn how to:
 - Fetch game versions
-- Fetch a champion metainfo
-- Fetch a perk metainfo
-- Fetch a item metainfo dictionary
+- Fetch a champion meta info
+- Fetch a perk meta info
+- Fetch an item meta info dictionary
 
 ## Prerequisites
 
@@ -30,8 +30,8 @@ To fetch the list of game versions, type and save the following code below:
 var versions = await client.DataDragon.ListVersionsAsync();
 ```
 
-The latest game version is the first of the list. Since this version is usually what 
-developers need, RiotBlossom offers a convenience method that allows you do this:
+The latest game version is the first on the list. Since this version is usually what 
+developers need, RiotBlossom offers a convenience method that allows you to do this:
 
 ```csharp
 var version = await client.DataDragon.GetLatestVersionAsync();
@@ -41,7 +41,7 @@ var versions = await client.DataDragon.ListVersionsAsync();
 var version = versions.First();
 ```
 
-## Fetch a champion metainfo
+## Fetch a champion meta info
 
 Now that we have our latest game version, we can now get champion information!
 
@@ -81,7 +81,7 @@ var championDictionary = await client.DataDragon.GetChampionDictionaryAsync(vers
 var champion = championDictionary[887];
 ```
 
-## Fetch a perk metainfo
+## Fetch a perk meta info
 
 League of Legends runes are also called perks.
 
@@ -107,11 +107,11 @@ var perkStyleDictionary = await client.DataDragon.GetPerkStyleDictionaryAsync(ve
 var perk = perkStyleDictionary[8214];
 ```
 
-## Fetch a item metainfo
+## Fetch an item meta info
 
 League of Legends shop items are simply called items.
 
-Moonstone Renewer has a item ID of `6617`. Let us try to do the following:
+Moonstone Renewer has an item ID of `6617`. Let us try to do the following:
 
 ```csharp
 var version = await client.DataDragon.GetLatestVersionAsync();

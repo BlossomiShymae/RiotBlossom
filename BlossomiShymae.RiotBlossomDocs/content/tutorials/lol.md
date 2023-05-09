@@ -106,7 +106,7 @@ foreach (ChampionMasteryDto mastery in masteries)
 }
 ```
 
-The precreding code should output a mastery high score light filtered by the 
+The preceding code should output a mastery high score light filtered by the 
 support role:
 
 ```

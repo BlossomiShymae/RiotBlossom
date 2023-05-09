@@ -1,5 +1,5 @@
-
 # Exceptions in RiotBlossom
+
 RiotBlossom does have custom exceptions it uses, so keep these in mind when using the client! 💚
 - `CorruptedMatchException`
 - `ExhaustedRetryerException`
@@ -14,7 +14,7 @@ The `Retryer` when used will also throw standard exceptions that it cannot handl
 - `Exception`
 
 ## CorruptedMatchException
-When crawling a large number of matches, it can happen on occassion to get a *bugged* match. RiotBlossom checks this 
+When crawling a large number of matches, it can happen on occasion to get a *bugged* match. RiotBlossom checks this 
 for you upon fetching a match or match timeline. 
 
 For more information, please see Riot Developer Relations [#642](https://github.com/RiotGames/developer-relations/issues/642).

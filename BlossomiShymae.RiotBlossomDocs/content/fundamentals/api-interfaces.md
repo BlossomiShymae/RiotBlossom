@@ -1,12 +1,11 @@
 # API Interfaces in RiotBlossom
 
-RiotBlossom serves three major API interfaces. Each of the major interfaces correspond 
-to an API supported by RiotBlossom:
+RiotBlossom serves three major API interfaces. Each of the major interfaces corresponds to an API supported by RiotBlossom:
 - Riot Games --> `Riot`
 - DataDragon --> `DataDragon`
 - CommunityDragon --> `CommunityDragon`
 
-This is how it corresponds to for the codesies:
+This is how it corresponds to the codesies:
 
 ```csharp
 using BlossomiShymae.RiotBlossom.Api;

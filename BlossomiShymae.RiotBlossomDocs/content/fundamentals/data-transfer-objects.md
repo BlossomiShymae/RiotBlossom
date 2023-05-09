@@ -1,4 +1,5 @@
 # Data transfer objects (DTO)
+
 RiotBlossom uses simple objects with no behavior for JSON deserialization. These objects are strongly typed and are 
 close to 1-to-1 as possible for property names of the original data transfer objects received.
 

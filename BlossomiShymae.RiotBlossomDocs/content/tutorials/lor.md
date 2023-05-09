@@ -35,7 +35,7 @@ AccountDto {
 > Do note that `GameName` and `TagLine` are nullable! Not every player has them 
 > set for the game.
 
-The precreding string in the console is generated with the `PrettyPrinter` class 
+The preceding string in the console is generated with the `PrettyPrinter` class 
 provided by `RiotBlossom.Core`. This makes it totes friendly and easier for reading 
 data objects from the console!
 

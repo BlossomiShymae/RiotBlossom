@@ -1,10 +1,9 @@
 # Tutorial: Get started with RiotBlossom using ASP.NET Core and Visual Studio
-
-This razor sharp tutorial will show you how to install RiotBlossom and make a request 
+This razor-sharp tutorial will show you how to install RiotBlossom and make a request 
 to the Riot Games API using ASP.NET Core and Visual Studio!
 
 You will learn how to:
-- Create a ASP.NET Core Web API project
+- Create an ASP.NET Core Web API project
 - Setup RiotBlossom
 - Configuring services with dependency injection
 - Edit a Razor page
@@ -19,7 +18,7 @@ You will learn how to:
 - Reading the official Riot Games Developer Documentation and Policies
 - Visual Studio 2022 with ASP.NET and web development workloads
 
-## Create a ASP.NET Core Web API project
+## Create an ASP.NET Core Web API project
 
 Open Visual Studio 2022 and select **Create a new project**:
 
@@ -45,7 +44,7 @@ for a web application! :D
 
 We will first need to add RiotBlossom to the project **Dependencies**.
 
-Under **Solution Explorer** in the right-hand side, right click on the the **Dependencies** 
+Under **Solution Explorer** on the right-hand side, right-click on the **Dependencies** 
 folder icon and select **Manage NuGet Packages**.
 
 In the **NuGet Package Manager** window, search for `BlossomiShymae.RiotBlossom` and install 
@@ -120,8 +119,7 @@ particularly `IConverter<T, U>` and `AcronymPlatformConverter`:
 builder.Services.AddSingleton<IConverter<string, Platform>, AcronymPlatformConverter>();
 ```
 
-We will need a converter class for getting nicely formatted acronyms 
-from platform identifers used for League of Legends!
+We will need a converter class for getting nicely formatted acronyms from platform identifiers used for League of Legends!
 
 Create a folder named `Converters` with a file named `AcronymPlatformConverter.cs`. 
 
@@ -238,14 +236,14 @@ namespace my_riotblossom_app.Pages
 }
 ```
 
-Now we need to setup a Summoner page that receives our form `GET` submission for 
+Now we need to set up a Summoner page that receives our form `GET` submission for 
 `/summoner`!
 
 ## Fetching data from `summoner-v4`
 
-To setup a summoner page for receiving form data, we will need a new Razor page.
+To set up a summoner page for receiving form data, we will need a new Razor page.
 
-To create a new one, right click on **Pages** and **Add > Razor Page**.
+To create a new one, right-click on **Pages**** and **Add > Razor Page**.
 
 For the **Select Scaffolded Item** window, select **Add Razor Page - Empty** and continue.
 
@@ -357,14 +355,13 @@ Whew. Now that we are able to fetch a summoner, let us run the app we made! <3
 
 ## Run the app
 
-Go ahead and press the the **Start Debugging** button or press **F5** to run the server app.
+Go ahead and press the **Start Debugging** button or press **F5** to run the server app.
 
 The following web page should be displayed:
 
 ![index](/img/get-started-index.png)
 
-Test the summoner search form by typing in **uwuie time** with the region set to **NA** 
-and press enter or click on search.
+Test the summoner search form by typing in **uwuie time** with the region set to **NA** and pressing enter or clicking on search.
 
 We should be able to get a minimal functioning summoner page!
 
