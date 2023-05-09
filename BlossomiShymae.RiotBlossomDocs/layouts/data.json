@@ -43,6 +43,9 @@
       },
       "middleware-plugins": {
         "title": "Middleware Plugins"
+      },
+      "exceptions": {
+        "title": "Exceptions"
       }
     }
   }
