@@ -1,4 +1,4 @@
-# Tutorial: Get started with RiotBlossom
+# Tutorial: Get started with RiotBlossom using .NET Core CLI
 
 This totes awesome tutorial will show you how to install RiotBlossom and make 
 a request to the Riot Games API using .NET Core CLI!

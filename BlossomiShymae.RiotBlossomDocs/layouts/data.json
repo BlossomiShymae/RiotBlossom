@@ -8,7 +8,15 @@
     }
   },
   "get-started": {
-    "title": "Get Started"
+    "title": "Get Started",
+    "items": {
+      "get-started": {
+        "title": "Console"
+      },
+      "asp-net-core": {
+        "title": "ASP.NET Core"
+      }
+    }
   },
   "tutorials": {
     "title": "Tutorials",

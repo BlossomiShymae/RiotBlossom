@@ -1,0 +1,379 @@
+# Tutorial: Get started with RiotBlossom using ASP.NET Core and Visual Studio
+
+This razor sharp tutorial will show you how to install RiotBlossom and make a request 
+to the Riot Games API using ASP.NET Core and Visual Studio!
+
+You will learn how to:
+- Create a ASP.NET Core Web API project
+- Setup RiotBlossom
+- Configuring services with dependency injection
+- Edit a Razor page
+- Fetching data from `summoner-v4`
+- Run the app
+
+
+## Prerequisites
+
+- .NET 6.0 SDK
+- Riot Games API Key
+- Reading the official Riot Games Developer Documentation and Policies
+- Visual Studio 2022 with ASP.NET and web development workloads
+
+## Create a ASP.NET Core Web API project
+
+Open Visual Studio 2022 and select **Create a new project**:
+
+![create-new](/img/get-started-create-new.png)
+
+You will be given project templates to start from. Select the **ASP.NET Core Web App**
+project template:
+
+![web-app](/img/get-started-web-app.png)
+
+Select .NET 6 or higher for the **Framework** option:
+
+![additional](/img/get-started-additional.png)
+
+Name the project **my-riotblossom-app** and press **Next**!
+
+![configure](/img/get-started-configure.png)
+
+The ASP.NET Core project template will be created with the necessary files needed 
+for a web application! :D
+
+## Setup RiotBlossom
+
+We will first need to add RiotBlossom to the project **Dependencies**.
+
+Under **Solution Explorer** in the right-hand side, right click on the the **Dependencies** 
+folder icon and select **Manage NuGet Packages**.
+
+In the **NuGet Package Manager** window, search for `BlossomiShymae.RiotBlossom` and install 
+the latest version:
+
+![install](/img/get-started-install.png)
+
+With the package installed as a dependency, we should now be able to proceed with 
+configuring the services needed!
+
+## Configuring services with dependency injection
+
+Modify and save the following code below to `Program.cs`:
+
+```csharp
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Middleware;
+using BlossomiShymae.RiotBlossom.Type;
+using my_riotblossom_app.Converters;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddRazorPages();
+
+// ADD the following lines below
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<IConverter<string, Platform>, AcronymPlatformConverter>();
+builder.Services.AddSingleton<IRiotBlossomClient>(p =>
+{
+	IHttpClientFactory factory = p.GetRequiredService<IHttpClientFactory>();
+	HttpClient client = factory.CreateClient();
+	client.Timeout = TimeSpan.FromSeconds(5);
+	string key = Environment.GetEnvironmentVariable("RIOT_API_KEY")
+		?? throw new NullReferenceException("RIOT_API_KEY is not set!");
+	return RiotBlossomCore.CreateClientBuilder()
+		.AddHttpClient(client)
+		.AddRiotApiKey(key)
+		.AddRiotMiddlewareStack(new MiddlewareStack(true, "rb-riot-cache"))
+		.AddDataMiddlewareStack(new MiddlewareStack(false, "rb-data-cache"))
+		.Build();
+});
+// END
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+	app.UseExceptionHandler("/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapRazorPages();
+
+app.Run();
+
+```
+
+Notice that we have added an interface and class that we have not yet created, 
+particularly `IConverter<T, U>` and `AcronymPlatformConverter`:
+
+```csharp
+builder.Services.AddSingleton<IConverter<string, Platform>, AcronymPlatformConverter>();
+```
+
+We will need a converter class for getting nicely formatted acronyms 
+from platform identifers used for League of Legends!
+
+Create a folder named `Converters` with a file named `AcronymPlatformConverter.cs`. 
+
+Go ahead and add the following to `AcronymPlatformConverter.cs`:
+
+```csharp
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Type;
+using System.Text.RegularExpressions;
+
+namespace my_riotblossom_app.Converters
+{
+	public interface IConverter<T, U>
+	{
+		public T Convert(U value);
+		public U Convert(T value);
+	}
+
+	public class AcronymPlatformConverter : IConverter<string, Platform>
+	{
+		public string Convert(Platform value)
+		{
+			var regex = new Regex("[\\d]");
+			var id = PlatformMapper.GetId(value);
+			var acronym = id switch
+			{
+				"la1" => "lan",
+				"la2" => "las",
+				_ => id
+			};
+			return regex.Replace(acronym, string.Empty).ToUpper();
+		}
+
+		public Platform Convert(string value)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}
+```
+
+That should be it with configuring services with dependency injection!
+
+## Edit a Razor page
+
+For `Page/Index.cshtml` and `Page/Index.cshtml.cs`, modify and save the following 
+below:
+
+```html
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<form action="/summoner"  method="get" class="row g-3 align-items-center justify-content-center">
+    <div class="col-auto">
+        <input type="search" name="summonerName" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-content-around">
+        @foreach (PlatformViewModel platform in Model.Platforms)
+        {
+            <input type="radio" class="btn-check" name="platformId" id="@platform.Id" value="@platform.Id" autocomplete="off" @(platform.Id.Equals("na1") ? "checked" : string.Empty) />
+            <label class="btn btn-outline-secondary mb-1" for="@platform.Id"> @platform.Acronym </label>
+        }
+    </div>
+</form>
+```
+
+```csharp
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Type;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using my_riotblossom_app.Converters;
+
+namespace my_riotblossom_app.Pages
+{
+	public record PlatformViewModel
+	{
+		public string Acronym { get; set; } = default!;
+		public string Id { get; set; } = default!;
+	}
+
+	public class IndexModel : PageModel
+	{
+		private readonly ILogger<IndexModel> _logger;
+		public List<PlatformViewModel> Platforms { get; }
+
+		public IndexModel(ILogger<IndexModel> logger, IConverter<string, Platform> platformConverter)
+		{
+			_logger = logger;
+			Platforms = Enum.GetValues(typeof(Platform))
+				.Cast<Platform>()
+				.Select(p => new PlatformViewModel
+				{
+					Acronym = platformConverter.Convert(p),
+					Id = PlatformMapper.GetId(p)
+				})
+				.ToList();
+		}
+
+		public void OnGet()
+		{
+		}
+	}
+}
+```
+
+Now we need to setup a Summoner page that receives our form `GET` submission for 
+`/summoner`!
+
+## Fetching data from `summoner-v4`
+
+To setup a summoner page for receiving form data, we will need a new Razor page.
+
+To create a new one, right click on **Pages** and **Add > Razor Page**.
+
+For the **Select Scaffolded Item** window, select **Add Razor Page - Empty** and continue.
+
+Name the page `Summoner.cshtml` and click **Add**:
+
+![add-razor](/img/get-started-add-razor.png)
+
+Now modify and save the following code for `Summoner.cshtml` and `Summoner.cshtml.cs`:
+
+```html
+@page
+@model my_riotblossom_app.Pages.SummonerModel
+@{
+	ViewData["Title"] = Model.ViewModel.Name;
+}
+
+<div class="card mb-3" style="max-width: 320px;">
+	<div class="row g-0">
+		<div class="col-auto">
+			<div class="card border-0">
+				<img src="@Model.ViewModel.ProfileIconUrl" class="img-fluid" style="max-width: 100px;" />
+				<div class="card-img-overlay p-1 d-flex align-items-end justify-content-center">
+					<span class="card-text badge rounded-pill bg-dark text-light">@Model.ViewModel.Level</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-auto">
+			<div class="card-body">
+				<h5 class="card-title">@Model.ViewModel.Name</h5>
+				<span class="badge rounded-pill bg-secondary text-light">@Model.ViewModel.Platform</span> 
+			</div>
+		</div>
+	</div>
+</div>
+```
+
+```csharp
+using BlossomiShymae.RiotBlossom.Api;
+using BlossomiShymae.RiotBlossom.Api.Riot;
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Type;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using my_riotblossom_app.Converters;
+
+namespace my_riotblossom_app.Pages
+{
+	public record SummonerViewModel
+	{
+		public string Name { get; set; } = default!;
+		public string ProfileIconUrl { get; set; } = default!;
+		public long Level { get; set; }
+		public string Platform { get; set; } = default!;
+	}
+
+	public class SummonerModel : PageModel
+	{
+		private readonly ILogger<SummonerModel> _logger;
+		private readonly IConverter<string, Platform> _platformConverter;
+		private readonly ISummonerApi _summonerApi;
+		private readonly IDataDragonApi _dataDragonApi;
+		public SummonerViewModel ViewModel { get; set; } = new();
+
+		public SummonerModel(ILogger<SummonerModel> logger, IConverter<string, Platform> platformConverter, IRiotBlossomClient client)
+		{
+			_logger = logger;
+			_platformConverter = platformConverter;
+			_summonerApi = client.Riot.Summoner;
+			_dataDragonApi = client.DataDragon;
+		}
+
+		[BindProperty(SupportsGet = true)]
+		public string SummonerName { get; set; } = default!;
+		[BindProperty(SupportsGet = true)]
+		public string PlatformId { get; set; } = default!;
+
+		public async Task<IActionResult> OnGetAsync()
+		{
+			if (!ModelState.IsValid)
+				return Redirect("/");
+
+			try
+			{
+				var platform = PlatformMapper.FromId(PlatformId);
+				var summoner = await _summonerApi.GetByNameAsync(PlatformMapper.FromId(PlatformId), SummonerName);
+				var version = await _dataDragonApi.GetLatestVersionAsync();
+				_logger.LogInformation("Received summoner, {summoner}", summoner);
+				ViewModel = new()
+				{
+					Name = summoner.Name,
+					Level = summoner.SummonerLevel,
+					ProfileIconUrl = $"https://ddragon.leagueoflegends.com/cdn/{version}/img/profileicon/{summoner.ProfileIconId}.png",
+					Platform = _platformConverter.Convert(platform)
+				};
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "Request failed for summoner, {tuple}", (SummonerName, PlatformId));
+				return StatusCode(500);
+			}
+
+			return Page();
+		}
+	}
+}
+```
+
+Whew. Now that we are able to fetch a summoner, let us run the app we made! <3
+
+## Run the app
+
+Go ahead and press the the **Start Debugging** button or press **F5** to run the server app.
+
+The following web page should be displayed:
+
+![index](/img/get-started-index.png)
+
+Test the summoner search form by typing in **uwuie time** with the region set to **NA** 
+and press enter or click on search.
+
+We should be able to get a minimal functioning summoner page!
+
+![summoner](/img/get-started-summoner.png)
+
+Yay! If you made it this far, thank you very much for completing this tutorial!
+
+You just learned how to get started with RiotBlossom in an ASP.NET Core web 
+application!
+
+![lux](/img/get-started-lux-diamond.png)
+
