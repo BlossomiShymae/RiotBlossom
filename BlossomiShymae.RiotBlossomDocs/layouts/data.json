@@ -34,5 +34,13 @@
         "title": "Legends of Runeterra"
       }
     }
+  },
+  "fundamentals": {
+    "title": "Fundamentals",
+    "items": {
+      "api-interfaces": {
+        "title": "API Interfaces"
+      }
+    }
   }
 }
