@@ -46,6 +46,9 @@
       },
       "exceptions": {
         "title": "Exceptions"
+      },
+      "types": {
+        "title": "Types"
       }
     }
   }
