@@ -52,6 +52,9 @@
       },
       "utilities": {
         "title": "Utilities"
+      },
+      "data-transfer-objects": {
+        "title": "Data Transfer Objects"
       }
     }
   }
