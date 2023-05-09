@@ -1,9 +1,6 @@
-# Middleware Plugins
+# Middleware Plugins in RiotBlossom
 
-## Overview
-
-RiotBlossom uses pluggable middlewares as part of the HTTP request-response cycle. Creating a middleware plugin requires 
-implementing from any of the following interfaces:
+RiotBlossom uses pluggable middlewares as part of the HTTP request-response cycle. Creating a middleware plugin requires implementing from any of the following interfaces:
 - `IRequestMiddleware`
 - `IResponseMiddleware`
 - `IRetryMiddleware`
@@ -77,7 +74,7 @@ public interface IRetryMiddleware
 Example plugins:
 - Retryer
 
-## Out of the box middleware goodies <3
+## Out of the box middleware plugins <3
 
 ### AlgorithmicLimiter
 ```csharp
