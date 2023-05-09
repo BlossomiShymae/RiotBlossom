@@ -40,6 +40,9 @@
     "items": {
       "api-interfaces": {
         "title": "API Interfaces"
+      },
+      "middleware-plugins": {
+        "title": "Middleware Plugins"
       }
     }
   }
