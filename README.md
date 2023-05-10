@@ -45,8 +45,7 @@ Made with [contrib.rocks](https://contrib.rocks).
   - [Conventions](#conventions)
 
 # Documentation, tutorials, and more!
-
-[A dedicated GitHub pages for RiotBlossom documentation can be found here!](https://blossomishymae.github.io/riotblossom) :3
+[A dedicated GitHub pages for RiotBlossom documentation can be found here!](https://blossomishymae.github.io/RiotBlossom/) :3
 
 # Features
 - Asynchronous, immutable record, no-conversion API
