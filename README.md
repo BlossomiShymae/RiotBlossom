@@ -4,7 +4,7 @@
 
 An asynchronous, extensible, and magical Riot Games API wrapper library for C#. ☆*:.｡.o(≧▽≦)o.｡.:*☆
 
-This library helps to make things totes' easier! Goodies include naive cache, rate limiter, and retryer middleware plugins 
+This library helps to make things totes' easier! Goodies include naive cache, rate limiter, and retry middleware plugins 
 out of the box. Other services such as DataDragon and CommunityDragon are also supported! ＼(＾▽＾)／
 
 This library is currently compatible with .NET 6 and higher.
@@ -45,7 +45,7 @@ Made with [contrib.rocks](https://contrib.rocks).
   - [Conventions](#conventions)
 
 # Documentation, tutorials, and more!
-[A dedicated GitHub pages for RiotBlossom documentation can be found here!](https://blossomishymae.github.io/RiotBlossom/) :3
+[Dedicated GitHub pages for RiotBlossom documentation can be found here!](https://blossomishymae.github.io/RiotBlossom/) :3
 
 # Features
 - Asynchronous, immutable record, no-conversion API
@@ -53,7 +53,7 @@ Made with [contrib.rocks](https://contrib.rocks).
 - In-memory caching, spread rate limiting, and automatic retrying out of the box
 - Fluent client builder for advanced configuration
 - A highly configurable HTTP middleware system
-    - Allows implementing your own middleware (choosing database to cache with)
+    - Allows implementing your middleware (choosing a database to cache with)
     - Extensible subsystems (one for Riot API, one for the rest)
 - Reuseable data transfer objects, types, and exceptions
 - Common utilities (mappers and converters)
@@ -92,7 +92,7 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Match-v5
 - ✅ Spectator-v4
 - ⭕ Summoner-v4 (no RSO)
-- ❌ Tournament-Stub-v4 (will not support, endpoint that is associated with being unreliable)
+- ❌ Tournament-Stub-v4 (will not support, an endpoint that is associated with being unreliable)
 - ❌ Tournament-v4 (will not support)
 
 ### Teamfight Tactics
