@@ -30,7 +30,7 @@ export default defineTheme({
     white: "#ffffff",
   },
   font: {
-    sans: 'Oxygen, sans-serif',
-    mono: '"Fira Code", monospace',
+    sans: 'Roboto, sans-serif',
+    mono: '"Cascadia Code", monospace',
   },
 })

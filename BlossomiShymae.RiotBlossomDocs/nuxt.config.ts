@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
   extends: '@nuxt-themes/docus',
   css: [
-    '@fontsource/oxygen',
-    '@fontsource/comic-mono',
+    '@fontsource/roboto',
+    '@fontsource/cascadia-code',
     `@/assets/main.css`
   ],
   app: {
