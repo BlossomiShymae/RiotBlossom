@@ -5,3 +5,7 @@ code {
 section.block-hero span.content {
   font-family: 'Cascadia Code', monospace !important;
 }
+
+section.card-grid h2.title {
+  display: none;
+}
