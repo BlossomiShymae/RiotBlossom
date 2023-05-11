@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -35,5 +36,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? CastTime { get; set; }
         public string? EffectRadius { get; set; }
         public string? TargetRange { get; set; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

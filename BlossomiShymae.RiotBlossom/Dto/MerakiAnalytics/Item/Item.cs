@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
 {
@@ -26,5 +27,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         public Stats Stats { get; set; } = new();
         public Shop Shop { get; set; } = new();
         public string? IconOverlay { get; set; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -35,5 +36,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public Stat UrfDamageDealt { get; set; } = new();
         public Stat UrfHealing { get; set; } = new();
         public Stat UrfShielding { get; set; } = new();
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

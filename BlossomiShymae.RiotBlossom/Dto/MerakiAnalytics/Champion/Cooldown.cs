@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -9,5 +10,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     {
         public ImmutableList<Modifier> Modifiers { get; set; } = ImmutableList<Modifier>.Empty;
         public bool AffectedByCdr { get; set; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

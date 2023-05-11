@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -11,5 +13,10 @@
         public double PercentPerLevel { get; set; }
         public double PercentBase { get; set; }
         public double PercentBonus { get; set; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

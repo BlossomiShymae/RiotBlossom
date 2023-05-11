@@ -1,4 +1,6 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
+﻿using BlossomiShymae.RiotBlossom.Core;
+
+namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -10,5 +12,10 @@
         public string? Effects { get; set; }
         public int Range { get; set; }
         public float Cooldown { get; set; }
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
 {
@@ -28,5 +29,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         public Stat AbilityHaste { get; set; } = new();
         public Stat Omnivamp { get; set; } = new();
         public Stat Tenacity { get; set; } = new();
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

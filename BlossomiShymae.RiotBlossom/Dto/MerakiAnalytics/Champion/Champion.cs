@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -27,5 +28,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? Lore { get; set; }
         public string? Faction { get; set; }
         public ImmutableList<Skin> Skins { get; set; } = ImmutableList<Skin>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }

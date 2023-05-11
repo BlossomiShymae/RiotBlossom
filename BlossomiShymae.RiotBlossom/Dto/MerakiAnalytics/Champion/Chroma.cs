@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -13,5 +14,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public ImmutableList<string> Colors { get; set; } = ImmutableList<string>.Empty;
         public ImmutableList<DescriptionDto> Descriptions { get; set; } = ImmutableList<DescriptionDto>.Empty;
         public ImmutableList<Rarities> Rarities { get; set; } = ImmutableList<Rarities>.Empty;
+
+        public override string ToString()
+        {
+            return PrettyPrinter.GetString(this);
+        }
     }
 }
