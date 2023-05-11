@@ -53,4 +53,8 @@
     <InternalsVisibleTo Include="BlossomiShymae.RiotBlossomTests" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dto\MerakiAnalytics\Champion\" />
+  </ItemGroup>
+
 </Project>
