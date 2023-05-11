@@ -11,28 +11,28 @@ namespace BlossomiShymae.RiotBlossomTests.Api
     public class MerakiAnalyticsApiTests
     {
         [TestMethod()]
-        public async Task Api_WithChampionId_ShouldReturnChampion()
+        public async Task Api_WithChampionKey_ShouldReturnChampion()
         {
             IRiotBlossomClient client = StubConfig.Client;
 
-            string id = "MonkeyKing";
-            Champion champion = await client.MerakiAnalytics.GetChampionByIdAsync(id);
+            string key = "MonkeyKing";
+            Champion champion = await client.MerakiAnalytics.GetChampionByKeyAsync(key);
             Trace.WriteLine(champion);
 
-            Assert.IsTrue(champion.Key == id);
+            Assert.IsTrue(champion.Key == key);
         }
 
         [TestMethod()]
-        public async Task Api_WithChampionId_ShouldReturnChampionDictionary()
+        public async Task Api_WithChampionKey_ShouldReturnChampionDictionary()
         {
             IRiotBlossomClient client = StubConfig.Client;
 
             ImmutableDictionary<string, Champion> champions = await client.MerakiAnalytics.GetChampionDictionaryAsync();
-            string id = "Lux";
-            Champion champion = champions[id];
+            string key = "Lux";
+            Champion champion = champions[key];
             Trace.WriteLine(champion);
 
-            Assert.IsTrue(champion.Key == id);
+            Assert.IsTrue(champion.Key == key);
         }
 
         [TestMethod()]

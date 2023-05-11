@@ -8,13 +8,13 @@ namespace BlossomiShymae.RiotBlossom.Api
     public interface IMerakiAnalyticsApi
     {
         /// <summary>
-        /// Get a League champion by their string ID e.g. "MonkeyKing", "Kogmaw", "AurelionSol".
+        /// Get a League champion by their string key e.g. "MonkeyKing", "Kogmaw", "AurelionSol".
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        Task<Champion> GetChampionByIdAsync(string id);
+        Task<Champion> GetChampionByKeyAsync(string key);
         /// <summary>
-        /// Get a dictionary of League champions by string ID pairs e.g. "MonkeyKing", "Kogmaw", "AurelionSol".
+        /// Get a dictionary of League champions by string key pairs e.g. "MonkeyKing", "Kogmaw", "AurelionSol".
         /// </summary>
         /// <returns></returns>
         Task<ImmutableDictionary<string, Champion>> GetChampionDictionaryAsync();
@@ -34,7 +34,7 @@ namespace BlossomiShymae.RiotBlossom.Api
     internal class MerakiAnalyticsApi : IMerakiAnalyticsApi
     {
         private static readonly string s_itemByIdUri = "/items/{0}.json";
-        private static readonly string s_championByIdUri = "/champions/{0}.json";
+        private static readonly string s_championByKeyUri = "/champions/{0}.json";
         private static readonly string s_itemsDictionaryUri = "/items.json";
         private static readonly string s_championsDictionaryUri = "/champions.json";
         private readonly ComposableApi<Dictionary<int, Item>> _itemDictionaryApi;
@@ -50,8 +50,8 @@ namespace BlossomiShymae.RiotBlossom.Api
             _championApi = new(merakiAnalyticsHttpClient);
         }
 
-        public async Task<Champion> GetChampionByIdAsync(string id)
-            => await _championApi.GetValueAsync(string.Format(s_championByIdUri, id));
+        public async Task<Champion> GetChampionByKeyAsync(string key)
+            => await _championApi.GetValueAsync(string.Format(s_championByKeyUri, key));
 
         public async Task<ImmutableDictionary<string, Champion>> GetChampionDictionaryAsync()
         {
