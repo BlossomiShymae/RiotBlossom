@@ -37,6 +37,37 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// <returns></returns>
         Task<T> GetAsync<T>(string route, string path);
         /// <summary>
+        /// Get the deserialized object, array, or scalar response from endpoint by route and path with applied headers.
+        /// <para>
+        /// Object
+        /// <code>
+        /// SummonerDto summoner = await client.Riot.GetAsync&lt;SummonerDto&gt;("na1", "/lol/summoner/v4/summoners/by-name/uwuie time");
+        /// </code>
+        /// </para>
+        /// <para>
+        /// Array
+        /// <code>
+        /// List&lt;string&gt; matchIds = await client.Riot.GetAsync&lt;List&lt;string&gt;&gt;("na1", $"/lol/match/v5/matches/by-puuid/{puuid}/ids");
+        /// </code>
+        /// </para>
+        /// <para>
+        /// Scalar
+        /// <code>
+        /// int totalMasteryScore = await client.Riot.GetAsync&lt;int&gt;("na1", $"/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}");
+        /// </code>
+        /// </para>
+        /// <exception>
+        /// <para>Exceptions</para>
+        /// <para><see cref="NullReferenceException"/></para>
+        /// </exception>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="route">The raw routing value for request e.g. "na1", "americas", "esports", "ap", etc.</param>
+        /// <param name="path">The path for endpoint e.g. "/lol/status/v4/platform-data".</param>
+        /// <param name="headers">The HTTP headers to send with request.</param>
+        /// <returns></returns>
+        Task<T> GetAsync<T>(string route, string path, IDictionary<string, string> headers);
+        /// <summary>
         /// The API for Account-v1 endpoints.
         /// </summary>
         IAccountApi Account { get; }
@@ -198,6 +229,12 @@ namespace BlossomiShymae.RiotBlossom.Api
         public async Task<T> GetAsync<T>(string route, string path)
         {
             JsonNode node = await _jsonNodeApi.GetValueAsync(route, path);
+            return _jsonNodeApi.DeserializeNode<T>(node) ?? throw new NullReferenceException($"Failed to deserialize type {typeof(T)}");
+        }
+
+        public async Task<T> GetAsync<T>(string route, string path, IDictionary<string, string> headers)
+        {
+            JsonNode node = await _jsonNodeApi.GetValueAsync(route, path, headers);
             return _jsonNodeApi.DeserializeNode<T>(node) ?? throw new NullReferenceException($"Failed to deserialize type {typeof(T)}");
         }
     }

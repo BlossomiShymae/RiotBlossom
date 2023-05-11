@@ -1,4 +1,5 @@
 ﻿using BlossomiShymae.RiotBlossom.Http;
+using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -54,10 +55,13 @@ namespace BlossomiShymae.RiotBlossom.Api
         }
 
         internal async Task<T> GetValueAsync(string routingValue, string uri)
+            => await GetValueAsync(routingValue, uri, ImmutableDictionary<string, string>.Empty);
+
+        internal async Task<T> GetValueAsync(string routingValue, string uri, IDictionary<string, string> headers)
         {
             if (_httpClient is RiotHttpClient client)
             {
-                string data = await client.GetStringAsync(uri, routingValue);
+                string data = await client.GetStringAsync(uri, routingValue, headers);
                 var options = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
