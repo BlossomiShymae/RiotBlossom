@@ -31,6 +31,18 @@ namespace BlossomiShymae.RiotBlossomTests.Api
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(HttpRequestException))]
+        public async Task Api_WithBadHeaders_ShouldThrowException()
+        {
+            IRiotBlossomClient client = StubConfig.Client;
+
+            await client.Riot.GetAsync<SummonerDto>("na1", "/lol/summoner/v4/summoners/by-name/uwuie time", new Dictionary<string, string>
+            {
+                { "X-Riot-Token", "Pwease give me 403, hehe!" }
+            });
+        }
+
+        [TestMethod()]
         public async Task Api_WithObjectType_ShouldReturnTypedObject()
         {
             IRiotBlossomClient client = StubConfig.Client;
