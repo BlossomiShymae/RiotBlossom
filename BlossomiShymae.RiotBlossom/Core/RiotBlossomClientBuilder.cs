@@ -156,8 +156,9 @@ namespace BlossomiShymae.RiotBlossom.Core
             RiotHttpClient riotHttpClient = new(composableRiotHttpClient, riotApiKey);
             CommunityDragonHttpClient communityDragonHttpClient = new(composableDataHttpClient);
             DataDragonHttpClient dataDragonHttpClient = new(composableDataHttpClient);
+            MerakiAnalyticsHttpClient merakiAnalyticsHttpClient = new(composableDataHttpClient);
 
-            return new RiotBlossomClient(riotHttpClient, communityDragonHttpClient, dataDragonHttpClient);
+            return new RiotBlossomClient(riotHttpClient, communityDragonHttpClient, dataDragonHttpClient, merakiAnalyticsHttpClient);
         }
     }
 
