@@ -1,5 +1,4 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -17,7 +16,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? Affects { get; set; }
         public string? Spellshieldable { get; set; }
         public string? Resource { get; set; }
-        public Stat DamageType { get; set; } = new();
+        public string? DamageType { get; set; }
         public string? SpellEffects { get; set; }
         public string? Projectile { get; set; }
         public string? OnHitEffects { get; set; }
