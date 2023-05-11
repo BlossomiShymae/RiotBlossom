@@ -4,7 +4,7 @@ using BlossomiShymae.RiotBlossom.Http;
 namespace BlossomiShymae.RiotBlossom.Core
 {
     /// <summary>
-    /// A client use to access Riot Games, DataDragon, and CommunityDragon APIs.
+    /// A client use to access Riot Games, DataDragon, CommunityDragon, and Meraki Analytics APIs.
     /// </summary>
     public interface IRiotBlossomClient
     {
