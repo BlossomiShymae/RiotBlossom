@@ -25,7 +25,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? Notes { get; set; }
         public string? Blurb { get; set; }
         public string? MissileSpeed { get; set; }
-        public string? RechargeRate { get; set; }
+        public ImmutableList<double> RechargeRate { get; set; } = ImmutableList<double>.Empty;
         public string? CollisionRadius { get; set; }
         public string? TetherRadius { get; set; }
         public string? OnTargetCdStatic { get; set; }

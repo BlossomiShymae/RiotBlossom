@@ -26,7 +26,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         public ImmutableList<Active> Actives { get; set; } = ImmutableList<Active>.Empty;
         public Stats Stats { get; set; } = new();
         public Shop Shop { get; set; } = new();
-        public string? IconOverlay { get; set; }
+        public bool IconOverlay { get; set; }
 
         public override string ToString()
         {

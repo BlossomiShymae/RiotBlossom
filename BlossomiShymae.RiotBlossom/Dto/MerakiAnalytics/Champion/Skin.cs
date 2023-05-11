@@ -1,5 +1,6 @@
 ﻿using BlossomiShymae.RiotBlossom.Core;
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
@@ -14,13 +15,14 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? Availability { get; set; }
         public string? FormatName { get; set; }
         public bool LootEligible { get; set; }
+        [JsonConverter(typeof(StringJsonConverter))]
         public string? Cost { get; set; }
         public int Sale { get; set; }
         public string? Distribution { get; set; }
         public string? Rarity { get; set; }
         public ImmutableList<Chroma> Chromas { get; set; } = ImmutableList<Chroma>.Empty;
         public string? Lore { get; set; }
-        public float Release { get; set; }
+        public string? Release { get; set; }
         public ImmutableList<string> Set { get; set; } = ImmutableList<string>.Empty;
         public string? SplashPath { get; set; }
         public string? UncenteredSplashPath { get; set; }

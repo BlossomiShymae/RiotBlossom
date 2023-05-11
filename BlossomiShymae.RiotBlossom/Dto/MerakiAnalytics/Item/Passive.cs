@@ -1,4 +1,5 @@
 ﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
 {
@@ -11,7 +12,8 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         public bool Mythic { get; set; }
         public string? Name { get; set; }
         public string? Effects { get; set; }
-        public int Range { get; set; }
+        public int? Range { get; set; }
+        [JsonConverter(typeof(StringJsonConverter))]
         public string? Cooldown { get; set; }
         public Stats Stats { get; set; } = new();
 

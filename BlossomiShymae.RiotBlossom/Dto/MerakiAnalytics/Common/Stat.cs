@@ -1,4 +1,5 @@
 ﻿using BlossomiShymae.RiotBlossom.Core;
+using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
 {
@@ -7,6 +8,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
     /// </summary>
     public record Stat
     {
+        [JsonConverter(typeof(DoubleJsonConverter))]
         public double Flat { get; set; }
         public double Percent { get; set; }
         public double PerLevel { get; set; }
