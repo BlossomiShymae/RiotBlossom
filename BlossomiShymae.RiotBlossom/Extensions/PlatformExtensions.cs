@@ -1,10 +1,13 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
+﻿using BlossomiShymae.RiotBlossom.Converter;
+using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Type;
 
 namespace BlossomiShymae.RiotBlossom.Extensions
 {
     public static class PlatformExtensions
     {
+        private static readonly PlatformAbbreviationConverter s_abbreviationConverter = new();
+
         /// <summary>
         /// Get an abbreviation of platform e.g. "NA", "LAS", "EUNE", "JP".
         /// </summary>
@@ -12,28 +15,7 @@ namespace BlossomiShymae.RiotBlossom.Extensions
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public static string GetAbbreviation(this Platform platform)
-        {
-            return platform switch
-            {
-                Platform.Brazil => "BR",
-                Platform.EuropeNordicEast => "EUNE",
-                Platform.EuropeWest => "EUW",
-                Platform.LatinAmericaNorth => "LAN",
-                Platform.LatinAmericaSouth => "LAS",
-                Platform.NorthAmerica => "NA",
-                Platform.Oceania => "OCE",
-                Platform.Russia => "RU",
-                Platform.Turkey => "TR",
-                Platform.Japan => "JP",
-                Platform.Korea => "KR",
-                Platform.Philippines => "PH",
-                Platform.Singapore => "SG",
-                Platform.Taiwan => "TW",
-                Platform.Thailand => "TH",
-                Platform.Vietnam => "VN",
-                _ => throw new NotImplementedException("Abbreviation is not yet added for this platform!")
-            };
-        }
+            => s_abbreviationConverter.Convert(platform);
 
         /// <summary>
         /// Get the pretty name of platform e.g. "Europe Nordic and East".
