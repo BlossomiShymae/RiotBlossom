@@ -6,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Extensions
     public static class ValRegionExtensions
     {
         /// <summary>
-        /// Get an abbreviation of a platform e.g. "NA",  "AP", "LATAM".
+        /// Get an abbreviation of a VALORANT region e.g. "NA",  "AP", "LATAM".
         /// </summary>
         /// <param name="valRegion"></param>
         /// <returns></returns>

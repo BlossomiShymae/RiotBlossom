@@ -6,12 +6,12 @@ namespace BlossomiShymae.RiotBlossom.Extensions
     public static class PlatformExtensions
     {
         /// <summary>
-        /// Get an abbreviation of a platform e.g. "NA", "LAS", "EUNE", "JP".
+        /// Get an abbreviation of platform e.g. "NA", "LAS", "EUNE", "JP".
         /// </summary>
         /// <param name="platform"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public static string GetAcronym(this Platform platform)
+        public static string GetAbbreviation(this Platform platform)
         {
             return platform switch
             {
@@ -31,7 +31,10 @@ namespace BlossomiShymae.RiotBlossom.Extensions
                 Platform.Taiwan => "TW",
                 Platform.Thailand => "TH",
                 Platform.Vietnam => "VN",
-                _ => throw new NotImplementedException("Acronym is not yet added for this platform!")
+                _ => throw new NotImplementedException("Abbreviation is not yet added for this platform!")
+            };
+        }
+
         /// <summary>
         /// Get the pretty name of platform e.g. "Europe Nordic and East".
         /// </summary>
@@ -82,13 +85,13 @@ namespace BlossomiShymae.RiotBlossom.Extensions
         }
 
         /// <summary>
-        /// Get the associated region identifier value e.g. "americas", "europe".
+        /// Get the associated <see cref="Region"/> identifier value e.g. "americas", "europe".
         /// </summary>
         /// <param name="platform"></param>
         /// <returns></returns>
         public static string GetRegionId(this Platform platform)
         {
-            return RegionMapper.GetId(platform.GetRegion());
+            return platform.GetRegion().GetId();
         }
 
         /// <summary>
