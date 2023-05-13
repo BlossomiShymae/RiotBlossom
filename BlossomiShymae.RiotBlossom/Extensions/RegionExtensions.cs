@@ -1,10 +1,13 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
+﻿using BlossomiShymae.RiotBlossom.Converter;
+using BlossomiShymae.RiotBlossom.Core;
 using BlossomiShymae.RiotBlossom.Type;
 
 namespace BlossomiShymae.RiotBlossom.Extensions
 {
     public static class RegionExtensions
     {
+        private static readonly RegionPrettyNameConverter s_prettyNameConverter = new();
+
         /// <summary>
         /// Get the raw identifier value e.g. "americas", "europe".
         /// </summary>
@@ -22,15 +25,6 @@ namespace BlossomiShymae.RiotBlossom.Extensions
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public static string GetPrettyName(this Region region)
-        {
-            return region switch
-            {
-                Region.Americas => "Americas",
-                Region.Asia => "Asia",
-                Region.SouthEastAsia => "Southeast Asia",
-                Region.Europe => "Europe",
-                _ => throw new NotImplementedException("Pretty name is not implemented for region!")
-            };
-        }
+            => s_prettyNameConverter.Convert(region);
     }
 }
