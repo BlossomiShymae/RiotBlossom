@@ -9,33 +9,33 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Skin
     {
-        public string? Name { get; set; }
-        public int Id { get; set; }
-        public bool IsBase { get; set; }
-        public string? Availability { get; set; }
-        public string? FormatName { get; set; }
-        public bool LootEligible { get; set; }
+        public string? Name { get; init; }
+        public int Id { get; init; }
+        public bool IsBase { get; init; }
+        public string? Availability { get; init; }
+        public string? FormatName { get; init; }
+        public bool LootEligible { get; init; }
         [JsonConverter(typeof(StringJsonConverter))]
-        public string? Cost { get; set; }
-        public int Sale { get; set; }
-        public string? Distribution { get; set; }
-        public string? Rarity { get; set; }
-        public ImmutableList<Chroma> Chromas { get; set; } = ImmutableList<Chroma>.Empty;
-        public string? Lore { get; set; }
-        public string? Release { get; set; }
-        public ImmutableList<string> Set { get; set; } = ImmutableList<string>.Empty;
-        public string? SplashPath { get; set; }
-        public string? UncenteredSplashPath { get; set; }
-        public string? TilePath { get; set; }
-        public string? LoadScreenPath { get; set; }
-        public string? LoadScreenVintagePath { get; set; }
-        public bool NewEffects { get; set; }
-        public bool NewAnimations { get; set; }
-        public bool NewRecall { get; set; }
-        public bool NewVoice { get; set; }
-        public bool NewQuotes { get; set; }
-        public ImmutableList<string> VoiceActor { get; set; } = ImmutableList<string>.Empty;
-        public ImmutableList<string> SplashArtist { get; set; } = ImmutableList<string>.Empty;
+        public string? Cost { get; init; }
+        public int Sale { get; init; }
+        public string? Distribution { get; init; }
+        public string? Rarity { get; init; }
+        public ImmutableList<Chroma> Chromas { get; init; } = ImmutableList<Chroma>.Empty;
+        public string? Lore { get; init; }
+        public string? Release { get; init; }
+        public ImmutableList<string> Set { get; init; } = ImmutableList<string>.Empty;
+        public string? SplashPath { get; init; }
+        public string? UncenteredSplashPath { get; init; }
+        public string? TilePath { get; init; }
+        public string? LoadScreenPath { get; init; }
+        public string? LoadScreenVintagePath { get; init; }
+        public bool NewEffects { get; init; }
+        public bool NewAnimations { get; init; }
+        public bool NewRecall { get; init; }
+        public bool NewVoice { get; init; }
+        public bool NewQuotes { get; init; }
+        public ImmutableList<string> VoiceActor { get; init; } = ImmutableList<string>.Empty;
+        public ImmutableList<string> SplashArtist { get; init; } = ImmutableList<string>.Empty;
 
         public override string ToString()
         {

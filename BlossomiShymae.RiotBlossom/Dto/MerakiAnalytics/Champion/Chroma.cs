@@ -8,12 +8,12 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Chroma
     {
-        public string? Name { get; set; }
-        public long Id { get; set; }
-        public string? ChromaPath { get; set; }
-        public ImmutableList<string> Colors { get; set; } = ImmutableList<string>.Empty;
-        public ImmutableList<DescriptionDto> Descriptions { get; set; } = ImmutableList<DescriptionDto>.Empty;
-        public ImmutableList<Rarities> Rarities { get; set; } = ImmutableList<Rarities>.Empty;
+        public string? Name { get; init; }
+        public long Id { get; init; }
+        public string? ChromaPath { get; init; }
+        public ImmutableList<string> Colors { get; init; } = ImmutableList<string>.Empty;
+        public ImmutableList<DescriptionDto> Descriptions { get; init; } = ImmutableList<DescriptionDto>.Empty;
+        public ImmutableList<Rarities> Rarities { get; init; } = ImmutableList<Rarities>.Empty;
 
         public override string ToString()
         {

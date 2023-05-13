@@ -8,8 +8,8 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Cooldown
     {
-        public ImmutableList<Modifier> Modifiers { get; set; } = ImmutableList<Modifier>.Empty;
-        public bool AffectedByCdr { get; set; }
+        public ImmutableList<Modifier> Modifiers { get; init; } = ImmutableList<Modifier>.Empty;
+        public bool AffectedByCdr { get; init; }
 
         public override string ToString()
         {

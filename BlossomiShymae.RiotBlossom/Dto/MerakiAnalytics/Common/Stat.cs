@@ -9,12 +9,12 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
     public record Stat
     {
         [JsonConverter(typeof(DoubleJsonConverter))]
-        public double Flat { get; set; }
-        public double Percent { get; set; }
-        public double PerLevel { get; set; }
-        public double PercentPerLevel { get; set; }
-        public double PercentBase { get; set; }
-        public double PercentBonus { get; set; }
+        public double Flat { get; init; }
+        public double Percent { get; init; }
+        public double PerLevel { get; init; }
+        public double PercentPerLevel { get; init; }
+        public double PercentBase { get; init; }
+        public double PercentBonus { get; init; }
 
         public override string ToString()
         {

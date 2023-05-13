@@ -8,14 +8,14 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// </summary>
     public record Passive
     {
-        public bool Unique { get; set; }
-        public bool Mythic { get; set; }
-        public string? Name { get; set; }
-        public string? Effects { get; set; }
-        public int? Range { get; set; }
+        public bool Unique { get; init; }
+        public bool Mythic { get; init; }
+        public string? Name { get; init; }
+        public string? Effects { get; init; }
+        public int? Range { get; init; }
         [JsonConverter(typeof(StringJsonConverter))]
-        public string? Cooldown { get; set; }
-        public Stats Stats { get; set; } = new();
+        public string? Cooldown { get; init; }
+        public Stats Stats { get; init; } = new();
 
         public override string ToString()
         {

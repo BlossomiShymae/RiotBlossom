@@ -8,9 +8,9 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// </summary>
     public record Shop
     {
-        public Prices Prices { get; set; } = new();
-        public bool Purchasable { get; set; }
-        public ImmutableList<string> Tags { get; set; } = ImmutableList<string>.Empty;
+        public Prices Prices { get; init; } = new();
+        public bool Purchasable { get; init; }
+        public ImmutableList<string> Tags { get; init; } = ImmutableList<string>.Empty;
 
         public override string ToString()
         {

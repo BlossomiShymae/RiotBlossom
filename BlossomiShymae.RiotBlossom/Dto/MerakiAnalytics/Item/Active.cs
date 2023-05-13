@@ -7,11 +7,11 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// </summary>
     public record Active
     {
-        public bool Unique { get; set; }
-        public string? Name { get; set; }
-        public string? Effects { get; set; }
-        public int Range { get; set; }
-        public float Cooldown { get; set; }
+        public bool Unique { get; init; }
+        public string? Name { get; init; }
+        public string? Effects { get; init; }
+        public int Range { get; init; }
+        public float Cooldown { get; init; }
 
         public override string ToString()
         {

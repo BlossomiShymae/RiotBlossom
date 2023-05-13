@@ -7,8 +7,8 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record DescriptionDto
     {
-        public string? Description { get; set; }
-        public string? Region { get; set; }
+        public string? Description { get; init; }
+        public string? Region { get; init; }
 
         public override string ToString()
         {

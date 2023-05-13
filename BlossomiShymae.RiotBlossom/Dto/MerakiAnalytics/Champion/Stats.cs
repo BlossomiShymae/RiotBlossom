@@ -8,34 +8,34 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Stats
     {
-        public Stat Health { get; set; } = new();
-        public Stat HealthRegen { get; set; } = new();
-        public Stat Mana { get; set; } = new();
-        public Stat ManaRegen { get; set; } = new();
-        public Stat Armor { get; set; } = new();
-        public Stat MagicResistance { get; set; } = new();
-        public Stat AttackDamage { get; set; } = new();
-        public Stat Movespeed { get; set; } = new();
-        public Stat AcquisitionRadius { get; set; } = new();
-        public Stat SelectionRadius { get; set; } = new();
-        public Stat PathingRadius { get; set; } = new();
-        public Stat GameplayRadius { get; set; } = new();
-        public Stat CriticalStrikeDamage { get; set; } = new();
-        public Stat CriticalStrikeDamageModifier { get; set; } = new();
-        public Stat AttackSpeed { get; set; } = new();
-        public Stat AttackSpeedRatio { get; set; } = new();
-        public Stat AttackCastTime { get; set; } = new();
-        public Stat AttackTotalTime { get; set; } = new();
-        public Stat AttackDelayOffset { get; set; } = new();
-        public Stat AttackRange { get; set; } = new();
-        public Stat AramDamageTaken { get; set; } = new();
-        public Stat AramDamageDealt { get; set; } = new();
-        public Stat AramHealing { get; set; } = new();
-        public Stat AramShielding { get; set; } = new();
-        public Stat UrfDamageTaken { get; set; } = new();
-        public Stat UrfDamageDealt { get; set; } = new();
-        public Stat UrfHealing { get; set; } = new();
-        public Stat UrfShielding { get; set; } = new();
+        public Stat Health { get; init; } = new();
+        public Stat HealthRegen { get; init; } = new();
+        public Stat Mana { get; init; } = new();
+        public Stat ManaRegen { get; init; } = new();
+        public Stat Armor { get; init; } = new();
+        public Stat MagicResistance { get; init; } = new();
+        public Stat AttackDamage { get; init; } = new();
+        public Stat Movespeed { get; init; } = new();
+        public Stat AcquisitionRadius { get; init; } = new();
+        public Stat SelectionRadius { get; init; } = new();
+        public Stat PathingRadius { get; init; } = new();
+        public Stat GameplayRadius { get; init; } = new();
+        public Stat CriticalStrikeDamage { get; init; } = new();
+        public Stat CriticalStrikeDamageModifier { get; init; } = new();
+        public Stat AttackSpeed { get; init; } = new();
+        public Stat AttackSpeedRatio { get; init; } = new();
+        public Stat AttackCastTime { get; init; } = new();
+        public Stat AttackTotalTime { get; init; } = new();
+        public Stat AttackDelayOffset { get; init; } = new();
+        public Stat AttackRange { get; init; } = new();
+        public Stat AramDamageTaken { get; init; } = new();
+        public Stat AramDamageDealt { get; init; } = new();
+        public Stat AramHealing { get; init; } = new();
+        public Stat AramShielding { get; init; } = new();
+        public Stat UrfDamageTaken { get; init; } = new();
+        public Stat UrfDamageDealt { get; init; } = new();
+        public Stat UrfHealing { get; init; } = new();
+        public Stat UrfShielding { get; init; } = new();
 
         public override string ToString()
         {

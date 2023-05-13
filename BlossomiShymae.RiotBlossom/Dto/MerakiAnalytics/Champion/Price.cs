@@ -7,9 +7,9 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Price
     {
-        public int BlueEssence { get; set; }
-        public int Rp { get; set; }
-        public int SaleRp { get; set; }
+        public int BlueEssence { get; init; }
+        public int Rp { get; init; }
+        public int SaleRp { get; init; }
 
         public override string ToString()
         {

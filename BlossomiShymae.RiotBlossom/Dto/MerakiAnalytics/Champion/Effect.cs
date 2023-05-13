@@ -8,8 +8,8 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Effect
     {
-        public string? Description { get; set; }
-        public ImmutableList<Leveling> Leveling { get; set; } = ImmutableList<Leveling>.Empty;
+        public string? Description { get; init; }
+        public ImmutableList<Leveling> Leveling { get; init; } = ImmutableList<Leveling>.Empty;
 
         public override string ToString()
         {

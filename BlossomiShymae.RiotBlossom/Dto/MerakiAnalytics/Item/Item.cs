@@ -8,25 +8,25 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// </summary>
     public record Item
     {
-        public string? Name { get; set; }
-        public int Id { get; set; }
-        public int Tier { get; set; }
-        public ImmutableList<string> Rank { get; set; } = ImmutableList<string>.Empty;
-        public ImmutableList<int> BuildsFrom { get; set; } = ImmutableList<int>.Empty;
-        public ImmutableList<int> BuildsInto { get; set; } = ImmutableList<int>.Empty;
-        public int SpecialRecipe { get; set; }
-        public bool NoEffects { get; set; }
-        public bool Removed { get; set; }
-        public string? RequiredChampion { get; set; }
-        public string? RequiredAlly { get; set; }
-        public string? Icon { get; set; }
-        public string? SimpleDescription { get; set; }
-        public ImmutableList<string> Nicknames { get; set; } = ImmutableList<string>.Empty;
-        public ImmutableList<Passive> Passives { get; set; } = ImmutableList<Passive>.Empty;
-        public ImmutableList<Active> Actives { get; set; } = ImmutableList<Active>.Empty;
-        public Stats Stats { get; set; } = new();
-        public Shop Shop { get; set; } = new();
-        public bool IconOverlay { get; set; }
+        public string? Name { get; init; }
+        public int Id { get; init; }
+        public int Tier { get; init; }
+        public ImmutableList<string> Rank { get; init; } = ImmutableList<string>.Empty;
+        public ImmutableList<int> BuildsFrom { get; init; } = ImmutableList<int>.Empty;
+        public ImmutableList<int> BuildsInto { get; init; } = ImmutableList<int>.Empty;
+        public int SpecialRecipe { get; init; }
+        public bool NoEffects { get; init; }
+        public bool Removed { get; init; }
+        public string? RequiredChampion { get; init; }
+        public string? RequiredAlly { get; init; }
+        public string? Icon { get; init; }
+        public string? SimpleDescription { get; init; }
+        public ImmutableList<string> Nicknames { get; init; } = ImmutableList<string>.Empty;
+        public ImmutableList<Passive> Passives { get; init; } = ImmutableList<Passive>.Empty;
+        public ImmutableList<Active> Actives { get; init; } = ImmutableList<Active>.Empty;
+        public Stats Stats { get; init; } = new();
+        public Shop Shop { get; init; } = new();
+        public bool IconOverlay { get; init; }
 
         public override string ToString()
         {

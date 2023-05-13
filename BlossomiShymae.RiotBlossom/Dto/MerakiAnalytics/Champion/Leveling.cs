@@ -8,8 +8,8 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Leveling
     {
-        public string? Attribute { get; set; }
-        public ImmutableList<Modifier> Modifiers { get; set; } = ImmutableList<Modifier>.Empty;
+        public string? Attribute { get; init; }
+        public ImmutableList<Modifier> Modifiers { get; init; } = ImmutableList<Modifier>.Empty;
 
         public override string ToString()
         {

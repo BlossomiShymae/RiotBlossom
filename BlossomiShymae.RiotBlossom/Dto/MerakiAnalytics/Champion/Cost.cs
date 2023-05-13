@@ -8,7 +8,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// </summary>
     public record Cost
     {
-        public ImmutableList<Modifier> Modifiers { get; set; } = ImmutableList<Modifier>.Empty;
+        public ImmutableList<Modifier> Modifiers { get; init; } = ImmutableList<Modifier>.Empty;
 
         public override string ToString()
         {
