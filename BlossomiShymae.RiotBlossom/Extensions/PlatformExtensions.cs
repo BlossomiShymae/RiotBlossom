@@ -7,6 +7,7 @@ namespace BlossomiShymae.RiotBlossom.Extensions
     public static class PlatformExtensions
     {
         private static readonly PlatformAbbreviationConverter s_abbreviationConverter = new();
+        private static readonly PlatformPrettyNameConverter s_prettyNameConverter = new();
 
         /// <summary>
         /// Get an abbreviation of platform e.g. "NA", "LAS", "EUNE", "JP".
@@ -24,27 +25,7 @@ namespace BlossomiShymae.RiotBlossom.Extensions
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public static string GetPrettyName(this Platform platform)
-        {
-            return platform switch
-            {
-                Platform.Brazil => "Brazil",
-                Platform.EuropeNordicEast => "Europe Nordic and East",
-                Platform.EuropeWest => "Europe West",
-                Platform.LatinAmericaNorth => "Latin America North",
-                Platform.LatinAmericaSouth => "Latin America South",
-                Platform.NorthAmerica => "North America",
-                Platform.Oceania => "Oceania",
-                Platform.Russia => "Russia",
-                Platform.Turkey => "Turkey",
-                Platform.Korea => "Republic of Korea",
-                Platform.Philippines => "The Philippines",
-                Platform.Singapore => "Singapore, Malaysia, and Indonesia",
-                Platform.Taiwan => "Taiwan, Hong Kong, and Macao",
-                Platform.Thailand => "Thailand",
-                Platform.Vietnam => "Vietnam",
-                _ => throw new NotImplementedException("Pretty name is not yet added for this platform!")
-            };
-        }
+            => s_prettyNameConverter.Convert(platform);
 
         /// <summary>
         /// Get the associated <see cref="Region"/>.
