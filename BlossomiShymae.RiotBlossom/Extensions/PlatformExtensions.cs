@@ -8,6 +8,7 @@ namespace BlossomiShymae.RiotBlossom.Extensions
     {
         private static readonly PlatformAbbreviationConverter s_abbreviationConverter = new();
         private static readonly PlatformPrettyNameConverter s_prettyNameConverter = new();
+        private static readonly PlatformDefaultLocaleConverter s_defaultLocaleConverter = new();
 
         /// <summary>
         /// Get an abbreviation of platform e.g. "NA", "LAS", "EUNE", "JP".
@@ -64,27 +65,6 @@ namespace BlossomiShymae.RiotBlossom.Extensions
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public static string GetDefaultLocale(this Platform platform)
-        {
-            return platform switch
-            {
-                Platform.Brazil => "pt_BR",
-                Platform.EuropeNordicEast => "en_GB",
-                Platform.EuropeWest => "en_GB",
-                Platform.Japan => "ja_JP",
-                Platform.Korea => "ko_KR",
-                Platform.LatinAmericaNorth => "es_MX",
-                Platform.LatinAmericaSouth => "es_AR",
-                Platform.NorthAmerica => "en_US",
-                Platform.Oceania => "en_AU",
-                Platform.Russia => "ru_RU",
-                Platform.Turkey => "tr_TR",
-                Platform.Philippines => "en_PH",
-                Platform.Singapore => "en_SG",
-                Platform.Thailand => "th_TH",
-                Platform.Taiwan => "zn_TW",
-                Platform.Vietnam => "vn_VN",
-                _ => throw new NotImplementedException("Default locale is not yet added for this platform!")
-            };
-        }
+            => s_defaultLocaleConverter.Convert(platform);
     }
 }
