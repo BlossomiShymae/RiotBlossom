@@ -4,7 +4,7 @@ namespace BlossomiShymae.RiotBlossom.Dto
 {
     public abstract record DataObject<T>
     {
-        internal static class Helper<U>
+        private static class Helper<U>
         {
             private static readonly string s_typeName = typeof(U).Name;
             public static string Name => s_typeName;
