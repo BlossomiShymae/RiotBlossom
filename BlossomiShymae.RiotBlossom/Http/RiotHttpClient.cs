@@ -8,7 +8,11 @@ namespace BlossomiShymae.RiotBlossom.Http
     {
         private readonly ComposableHttpClient _composableHttpClient;
         private readonly string _riotApiKey;
-        private readonly AsyncKeyedLocker<string> _locker = new();
+        private readonly AsyncKeyedLocker<string> _locker = new(o =>
+        {
+            o.PoolSize = 20;
+            o.PoolInitialFill = 1;
+        });
 
         public RiotHttpClient(ComposableHttpClient composableHttpClient, string riotApiKey)
         {
@@ -47,7 +51,7 @@ namespace BlossomiShymae.RiotBlossom.Http
                 }
             }
 
-            using (await _locker.LockAsync(routingValue))
+            using (await _locker.LockAsync(routingValue).ConfigureAwait(false))
             {
                 return await _composableHttpClient.GetStringAsync(requestMessage, routingValue, uri);
             }
