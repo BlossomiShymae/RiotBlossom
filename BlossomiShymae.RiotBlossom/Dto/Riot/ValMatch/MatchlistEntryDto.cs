@@ -6,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
     {
         public string MatchId { get; init; } = default!;
         public long GameStartTimeMillis { get; init; }
-        public string TeamId { get; init; } = default!;
+        public string QueueId { get; init; } = default!;
 
         public override string ToString()
         {
