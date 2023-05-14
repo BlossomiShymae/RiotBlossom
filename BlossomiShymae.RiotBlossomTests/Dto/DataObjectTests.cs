@@ -22,11 +22,6 @@ namespace BlossomiShymae.RiotBlossomTests.Dto
         {
             public string? Id { get; init; }
             public string? Name { get; init; }
-
-            public ExampleDto()
-            {
-                Data = this;
-            }
         }
     }
 }
