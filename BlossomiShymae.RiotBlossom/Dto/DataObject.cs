@@ -2,20 +2,17 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto
 {
-    public abstract record DataObject<T> where T : notnull
+    public abstract record DataObject<T>
     {
-        private T? _data;
-        protected T Data
+        internal static class Helper<U>
         {
-            get => _data ?? throw new InvalidOperationException($"{nameof(Data)} property must be initialized for {typeof(T)}!");
-            set => _data = value;
+            private static readonly string s_typeName = typeof(U).Name;
+            public static string Name => s_typeName;
         }
 
-        public DataObject() { }
-
-        public override string ToString()
+        public sealed override string ToString()
         {
-            return PrettyPrinter.GetString(Data);
+            return PrettyPrinter.GetString(this, Helper<T>.Name);
         }
     }
 }
