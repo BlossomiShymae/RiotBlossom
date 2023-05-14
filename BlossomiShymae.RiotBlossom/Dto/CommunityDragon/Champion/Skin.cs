@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Skin
+    public record Skin : DataObject<Skin>
     {
         public int Id { get; init; }
         public bool IsBase { get; init; }
@@ -28,10 +27,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
         public string? RarityGemPath { get; init; }
         public ImmutableList<SkinLine>? SkinLines { get; init; }
         public string Description { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

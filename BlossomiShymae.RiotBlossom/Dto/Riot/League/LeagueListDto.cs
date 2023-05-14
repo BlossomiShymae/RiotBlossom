@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record LeagueListDto
+    public record LeagueListDto : DataObject<LeagueListDto>
     {
         /// <summary>
         /// The associated league ID.
@@ -25,10 +24,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// The queue type the league is for e.g. "RANKED_SOLO_5x5".
         /// </summary>
         public string Queue { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

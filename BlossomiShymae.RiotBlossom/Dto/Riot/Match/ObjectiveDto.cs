@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record ObjectiveDto
+    public record ObjectiveDto : DataObject<ObjectiveDto>
     {
         /// <summary>
         /// Whether team got the first kill for the objective.
@@ -12,10 +10,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The amount of times this objective was killed.
         /// </summary>
         public int Kills { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

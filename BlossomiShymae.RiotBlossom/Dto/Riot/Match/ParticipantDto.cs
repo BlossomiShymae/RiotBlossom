@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record ParticipantDto
+    public record ParticipantDto : DataObject<ParticipantDto>
     {
         /// <summary>
         /// The player assists.
@@ -494,10 +492,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// UNDOCUMENTED
         /// </summary>
         public bool EligibleForProgression { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

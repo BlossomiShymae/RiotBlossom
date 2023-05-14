@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record TeamDto
+    public record TeamDto : DataObject<TeamDto>
     {
         /// <summary>
         /// The arbitrary string, being Red and Blue in bomb modes, the PUUID of the player in deathmatch.
@@ -24,10 +22,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         /// The team points scored. Number of kills in deathmatch.
         /// </summary>
         public int NumPoints { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

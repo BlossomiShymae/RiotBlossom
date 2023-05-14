@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
 {
-    public record ChampionInfo
+    public record ChampionInfo : DataObject<ChampionInfo>
     {
         /// <summary>
         /// The maximum level the new player champion rotation is available before unlocking the 
@@ -18,10 +17,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
         /// The current free champion rotation pool.
         /// </summary>
         public ImmutableList<int> FreeChampionIds { get; init; } = ImmutableList<int>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

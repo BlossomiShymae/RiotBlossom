@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record GameCustomizationObject
+    public record GameCustomizationObject : DataObject<GameCustomizationObject>
     {
         /// <summary>
         /// The category ID for Game Customization.
@@ -12,10 +10,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The content for Game Customization.
         /// </summary>
         public string Content { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

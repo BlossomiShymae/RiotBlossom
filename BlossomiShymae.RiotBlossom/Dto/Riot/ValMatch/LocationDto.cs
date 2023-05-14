@@ -1,15 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record LocationDto
+    public record LocationDto : DataObject<LocationDto>
     {
         public int X { get; init; }
         public int Y { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

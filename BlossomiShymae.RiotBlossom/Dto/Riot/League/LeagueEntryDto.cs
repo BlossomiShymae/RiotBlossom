@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record LeagueEntryDto
+    public record LeagueEntryDto : DataObject<LeagueEntryDto>
     {
         /// <summary>
         /// The league entry ID.
@@ -60,10 +58,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// The current miniseries (rank promotions) the player is involved in.
         /// </summary>
         public MiniSeriesDto? MiniSeries { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

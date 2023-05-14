@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record BanDto
+    public record BanDto : DataObject<BanDto>
     {
         /// <summary>
         /// The banned champion ID.
@@ -12,10 +10,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The pick turn that the ban occured in.
         /// </summary>
         public int PickTurn { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

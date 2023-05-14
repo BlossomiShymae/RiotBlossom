@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Image
+    public record Image : DataObject<Image>
     {
         public string Full { get; init; } = default!;
         public string Sprite { get; init; } = default!;
@@ -14,10 +12,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
         public int Y { get; init; }
         public int W { get; init; }
         public int H { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record PlayerRoundStatsDto
+    public record PlayerRoundStatsDto : DataObject<PlayerRoundStatsDto>
     {
         public string Puuid { get; init; } = default!;
         public ImmutableList<KillDto> Kills { get; init; } = ImmutableList<KillDto>.Empty;
@@ -11,10 +10,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         public int Score { get; init; }
         public EconomyDto Economy { get; init; } = new();
         public AbilityDto Ability { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

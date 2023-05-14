@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record FeaturedGames
+    public record FeaturedGames : DataObject<FeaturedGames>
     {
         /// <summary>
         /// The list of featured games.
@@ -13,10 +12,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The suggested interval to wait before making another request for refreshing.
         /// </summary>
         public long ClientRefreshInterval { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

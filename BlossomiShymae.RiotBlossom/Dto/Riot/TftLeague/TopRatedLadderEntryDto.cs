@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
 {
-    public record TopRatedLadderEntryDto
+    public record TopRatedLadderEntryDto : DataObject<TopRatedLadderEntryDto>
     {
         /// <summary>
         /// The encrypted summoner ID.
@@ -25,10 +23,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
         /// </summary>
         public int Wins { get; init; }
         public int PreviousUpdateLadderPosition { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

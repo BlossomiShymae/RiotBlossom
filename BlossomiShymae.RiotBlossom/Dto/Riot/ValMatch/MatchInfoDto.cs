@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record MatchInfoDto
+    public record MatchInfoDto : DataObject<MatchInfoDto>
     {
         public string MatchId { get; init; } = default!;
         public string MapId { get; init; } = default!;
@@ -15,10 +13,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         public string GameMode { get; init; } = default!;
         public bool IsRanked { get; init; }
         public string SeasonId { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

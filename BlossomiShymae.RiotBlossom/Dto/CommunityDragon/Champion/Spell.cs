@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Spell
+    public record Spell : DataObject<Spell>
     {
         public string SpellKey { get; init; } = default!;
         public string Name { get; init; } = default!;
@@ -23,10 +22,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
         public object EffectAmounts { get; init; } = default!;
         public object Ammo { get; init; } = default!;
         public int MaxLevel { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

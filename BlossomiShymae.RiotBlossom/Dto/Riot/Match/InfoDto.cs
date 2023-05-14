@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record InfoDto
+    public record InfoDto : DataObject<InfoDto>
     {
         /// <summary>
         /// The Unix timestamp for when the game is created on the game server.
@@ -66,10 +65,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The tournament code used to generate the match.
         /// </summary>
         public string TournamentCode { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

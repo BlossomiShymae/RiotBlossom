@@ -1,10 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record ParticipantDto
+    public record ParticipantDto : DataObject<ParticipantDto>
     {
         /// <summary>
         /// The participant's companion.
@@ -55,10 +54,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         /// The list of active units.
         /// </summary>
         public ImmutableList<UnitDto> Units { get; init; } = ImmutableList<UnitDto>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

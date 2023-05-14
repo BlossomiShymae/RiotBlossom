@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Ability
+    public record Ability : DataObject<Ability>
     {
         public string? Name { get; init; }
         public string? Icon { get; init; }
@@ -36,10 +35,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? CastTime { get; init; }
         public string? EffectRadius { get; init; }
         public string? TargetRange { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

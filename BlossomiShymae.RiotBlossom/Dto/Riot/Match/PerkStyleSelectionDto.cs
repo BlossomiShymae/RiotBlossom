@@ -1,12 +1,10 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// A perk style selection used for Runes Reforged.
     /// For more details on how these are used, see CommunityDragon <see href="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json">perks.json</see>.
     /// </summary>
-    public record PerkStyleSelectionDto
+    public record PerkStyleSelectionDto : DataObject<PerkStyleSelectionDto>
     {
         /// <summary>
         /// The perk ID.
@@ -24,10 +22,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The third variable used for the end of game stat descriptions.
         /// </summary>
         public int Var3 { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

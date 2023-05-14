@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Item
+    public record Item : DataObject<Item>
     {
         public string? Name { get; init; }
         public int Id { get; init; }
@@ -27,10 +26,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         public Stats Stats { get; init; } = new();
         public Shop Shop { get; init; } = new();
         public bool IconOverlay { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record LeagueItemDto
+    public record LeagueItemDto : DataObject<LeagueItemDto>
     {
         /// <summary>
         /// The player is new to the division (<see cref="Rank"/>).
@@ -48,10 +46,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// The player encrypted summoner ID.
         /// </summary>
         public string SummonerId { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

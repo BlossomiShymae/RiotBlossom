@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
 {
-    public record LeaderboardDto
+    public record LeaderboardDto : DataObject<LeaderboardDto>
     {
         /// <summary>
         /// The shard for the given leaderboard.
@@ -21,10 +20,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
         /// The list of participating players.
         /// </summary>
         public ImmutableList<PlayerDto> Players { get; init; } = ImmutableList<PlayerDto>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

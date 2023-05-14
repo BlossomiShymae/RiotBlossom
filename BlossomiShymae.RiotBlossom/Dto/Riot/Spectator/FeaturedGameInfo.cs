@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record FeaturedGameInfo
+    public record FeaturedGameInfo : DataObject<FeaturedGameInfo>
     {
         /// <summary>
         /// The selected game mode. See Riot Static Developer <see href="https://static.developer.riotgames.com/docs/lol/gameModes.json">gameModes.json</see>.
@@ -49,10 +48,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The platform ID the game is being played on.
         /// </summary>
         public string PlatformId { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

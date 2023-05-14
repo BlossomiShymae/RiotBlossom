@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record AttributeRatings
+    public record AttributeRatings : DataObject<AttributeRatings>
     {
         public int Damage { get; init; }
         public int Toughness { get; init; }
@@ -17,10 +15,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public int Defense { get; init; }
         public int Magic { get; init; }
         public int Difficulty { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record ParticipantFrame
+    public record ParticipantFrame : DataObject<ParticipantFrame>
     {
         public ChampionStats ChampionStats { get; init; } = new();
         public long CurrentGold { get; init; }
@@ -19,10 +17,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         public long TimeEnemySpentControlled { get; init; }
         public long TotalGold { get; init; }
         public long Xp { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -6,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stat
+    public record Stat : DataObject<Stat>
     {
         [JsonConverter(typeof(DoubleJsonConverter))]
         public double Flat { get; init; }
@@ -15,10 +15,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
         public double PercentPerLevel { get; init; }
         public double PercentBase { get; init; }
         public double PercentBonus { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

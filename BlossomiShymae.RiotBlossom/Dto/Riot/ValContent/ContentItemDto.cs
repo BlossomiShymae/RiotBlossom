@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
-    public record ContentItemDto
+    public record ContentItemDto : DataObject<ContentItemDto>
     {
         public string Name { get; init; } = default!;
         /// <summary>
@@ -15,10 +13,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
         /// This is only included for maps and game modes.
         /// </summary>
         public string AssetPath { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
-    public record TournamentPhaseDto
+    public record TournamentPhaseDto : DataObject<TournamentPhaseDto>
     {
         /// <summary>
         /// The tournament phase ID.
@@ -20,10 +18,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
         /// Whether the tournament phase will occur for totes' whatever reason. :3
         /// </summary>
         public bool Cancelled { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

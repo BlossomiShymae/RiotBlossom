@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record KillDto
+    public record KillDto : DataObject<KillDto>
     {
         public int TimeSinceGameStartMillis { get; init; }
         public int TimeSinceRoundStartMillis { get; init; }
@@ -22,10 +21,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         public ImmutableList<string> Assistants { get; init; } = ImmutableList<string>.Empty;
         public ImmutableList<PlayerLocationsDto> PlayerLocations { get; init; } = ImmutableList<PlayerLocationsDto>.Empty;
         public FinishingDamageDto FinishingDamage { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

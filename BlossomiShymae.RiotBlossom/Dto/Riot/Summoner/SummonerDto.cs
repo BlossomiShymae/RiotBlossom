@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
 {
-    public record SummonerDto
+    public record SummonerDto : DataObject<SummonerDto>
     {
         /// <summary>
         /// The encrypted account ID.
@@ -32,10 +30,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
         /// The summoner level associated with summoner.
         /// </summary>
         public long SummonerLevel { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

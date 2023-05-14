@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
-    public record ApexPlayerInfoDto
+    public record ApexPlayerInfoDto : DataObject<ApexPlayerInfoDto>
     {
         /// <summary>
         /// The encrypted PUUID of apex player.
@@ -16,10 +14,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
         /// The leaderboard position of apex player.
         /// </summary>
         public long Position { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

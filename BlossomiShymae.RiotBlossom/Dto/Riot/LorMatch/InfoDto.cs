@@ -1,10 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
 {
-    public record InfoDto
+    public record InfoDto : DataObject<InfoDto>
     {
         /// <summary>
         /// The current game mode. (Legal values: Constructed, Expeditions, Tutorial, and a lot more not documented)
@@ -35,10 +34,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
         /// </summary>
         [JsonPropertyName("total_turn_count")]
         public int TotalTurnCount { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

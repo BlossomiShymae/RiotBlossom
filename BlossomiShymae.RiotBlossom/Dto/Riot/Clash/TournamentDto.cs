@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
-    public record TournamentDto
+    public record TournamentDto : DataObject<TournamentDto>
     {
         /// <summary>
         /// The tournament ID.
@@ -25,10 +24,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
         /// The spanning date the tournament will take place on.
         /// </summary>
         public ImmutableList<TournamentPhaseDto> Schedule { get; init; } = ImmutableList<TournamentPhaseDto>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

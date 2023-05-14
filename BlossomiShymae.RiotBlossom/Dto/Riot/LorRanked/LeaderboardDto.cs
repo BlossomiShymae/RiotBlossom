@@ -1,18 +1,12 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorRanked
 {
-    public record LeaderboardDto
+    public record LeaderboardDto : DataObject<LeaderboardDto>
     {
         /// <summary>
         /// The list of players in Master tier.
         /// </summary>
         public ImmutableList<PlayerDto> Players { get; init; } = ImmutableList<PlayerDto>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }
