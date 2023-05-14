@@ -3,11 +3,20 @@ using BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Item;
 using BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk;
 using BlossomiShymae.RiotBlossom.Http;
 using System.Collections.Immutable;
+using System.Text.Json.Nodes;
 
 namespace BlossomiShymae.RiotBlossom.Api
 {
     public interface ICommunityDragonApi
     {
+        /// <summary>
+        /// Get the deserialized object, array, or scalar response from CommunityDragon RAW path.
+        /// </summary>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        Task<T> GetAsync<T>(string path);
         /// <summary>
         /// Get a League champion by ID from the latest game data.
         /// </summary>
@@ -54,6 +63,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         private readonly ComposableApi<Champion> _championApi;
         private readonly ComposableApi<List<PerkRune>> _perkRunesApi;
         private readonly ComposableApi<byte[]> _byteArrayApi;
+        private readonly ComposableApi<JsonNode> _jsonNodeApi;
 
         public CommunityDragonApi(CommunityDragonHttpClient cDragonHttpClient)
         {
@@ -61,6 +71,7 @@ namespace BlossomiShymae.RiotBlossom.Api
             _championApi = new(cDragonHttpClient);
             _perkRunesApi = new(cDragonHttpClient);
             _byteArrayApi = new(cDragonHttpClient);
+            _jsonNodeApi = new(cDragonHttpClient);
         }
 
         public async Task<Item?> GetItemByIdAsync(int id)
@@ -88,5 +99,11 @@ namespace BlossomiShymae.RiotBlossom.Api
 
         public async Task<byte[]> GetProfileIconByteArrayByIdAsync(int id)
             => await _byteArrayApi.GetByteArrayAsync(string.Format(s_profileIconUri, id));
+
+        public async Task<T> GetAsync<T>(string path)
+        {
+            JsonNode node = await _jsonNodeApi.GetValueAsync(path);
+            return _jsonNodeApi.DeserializeNode<T>(node) ?? throw new NullReferenceException($"Failed to deserialize type {typeof(T)}");
+        }
     }
 }

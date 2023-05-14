@@ -74,5 +74,25 @@ namespace BlossomiShymae.RiotBlossomTests.Api
 
             Assert.IsTrue(profileIcon.Length > 0);
         }
+
+        [TestMethod()]
+        public async Task Api_WithObjectType_ShouldReturnTypeObject()
+        {
+            IRiotBlossomClient client = StubConfig.Client;
+
+            Champion champion = await client.CommunityDragon.GetAsync<Champion>("/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/887.json");
+
+            Assert.IsInstanceOfType(champion, typeof(Champion));
+        }
+
+        [TestMethod()]
+        public async Task Api_WithArrayType_ShouldReturnArrayObject()
+        {
+            IRiotBlossomClient client = StubConfig.Client;
+
+            List<Item> items = await client.CommunityDragon.GetAsync<List<Item>>("/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json");
+
+            Assert.IsTrue(items.Count > 0);
+        }
     }
 }
