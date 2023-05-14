@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record Participant
+    public record Participant : DataObject<Participant>
     {
         /// <summary>
         /// Whether this participant is a bot.
@@ -32,10 +30,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The first equipped summoner spell ID.
         /// </summary>
         public long Spell1Id { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

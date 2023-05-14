@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Spell
+    public record Spell : DataObject<Spell>
     {
         public string Id { get; init; } = default!;
         public string Name { get; init; } = default!;
@@ -28,10 +27,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
         public string RangeBurn { get; init; } = default!;
         public Image Image { get; init; } = new();
         public string Resource { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

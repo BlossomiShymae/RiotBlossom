@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
+﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record PerkRune
+    public record PerkRune : DataObject<PerkRune>
     {
         public int Id { get; init; }
         public string Key { get; init; } = default!;
@@ -13,10 +11,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
         public string Name { get; init; } = default!;
         public string ShortDesc { get; init; } = default!;
         public string LongDesc { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Champion
+    public record Champion : DataObject<Champion>
     {
         public int Id { get; init; }
         public string Name { get; init; } = default!;
@@ -24,10 +23,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
         public ImmutableList<Skin> Skins { get; init; } = ImmutableList<Skin>.Empty;
         public Passive Passive { get; init; } = new();
         public ImmutableList<Spell> Spells { get; init; } = ImmutableList<Spell>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

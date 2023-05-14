@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record ObjectivesDto
+    public record ObjectivesDto : DataObject<ObjectivesDto>
     {
 
         /// <summary>
@@ -29,10 +27,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The lane, base, and nexus towers for a team.
         /// </summary>
         public ObjectiveDto Tower { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

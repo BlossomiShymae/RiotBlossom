@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
-    public record PlatformDataDto
+    public record PlatformDataDto : DataObject<PlatformDataDto>
     {
         /// <summary>
         /// The platform data ID e.g. "SG2".
@@ -25,10 +24,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
         /// The current incidents for platform.
         /// </summary>
         public ImmutableList<StatusDto> Incidents { get; init; } = ImmutableList<StatusDto>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
 {
-    public record PlayerDto
+    public record PlayerDto : DataObject<PlayerDto>
     {
         /// <summary>
         /// The player UUID. May be omitted if player is anonymized.
@@ -19,10 +17,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
         public long LeaderboardRank { get; init; }
         public long RankedRating { get; init; }
         public long NumberOfWins { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

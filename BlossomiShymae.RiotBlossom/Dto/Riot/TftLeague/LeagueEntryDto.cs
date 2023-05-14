@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using BlossomiShymae.RiotBlossom.Dto.Riot.League;
+﻿using BlossomiShymae.RiotBlossom.Dto.Riot.League;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
 {
-    public record LeagueEntryDto
+    public record LeagueEntryDto : DataObject<LeagueEntryDto>
     {
         public string? LeagueId { get; init; } = default!;
         public string SummonerId { get; init; } = default!;
@@ -21,10 +20,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
         public bool? FreshBlood { get; init; }
         public bool? Inactive { get; init; }
         public MiniSeriesDto? MiniSeries { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

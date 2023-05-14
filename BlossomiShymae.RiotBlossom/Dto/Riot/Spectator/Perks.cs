@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record Perks
+    public record Perks : DataObject<Perks>
     {
         /// <summary>
         /// The list of equipped perk/runes IDs.
@@ -17,10 +16,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The secondary runes path.
         /// </summary>
         public long PerkSubStyle { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

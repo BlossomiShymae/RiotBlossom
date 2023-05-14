@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record PerkStyleDto
+    public record PerkStyleDto : DataObject<PerkStyleDto>
     {
         /// <summary>
         /// The description of perk style.
@@ -17,10 +16,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The style ID.
         /// </summary>
         public int Style { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

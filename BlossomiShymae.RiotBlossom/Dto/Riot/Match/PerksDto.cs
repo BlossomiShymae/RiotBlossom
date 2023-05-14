@@ -1,5 +1,4 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
@@ -7,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
     /// A game data object that represents selected options in Runes Reforged.
     /// See CommunityDragon <see href="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json">perks.json</see>.
     /// </summary>
-    public record PerksDto
+    public record PerksDto : DataObject<PerksDto>
     {
         /// <summary>
         /// The selected stat perks for a player.
@@ -17,10 +16,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// The selected perk styles for a player.
         /// </summary>
         public ImmutableList<PerkStyleDto> Styles { get; init; } = ImmutableList<PerkStyleDto>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

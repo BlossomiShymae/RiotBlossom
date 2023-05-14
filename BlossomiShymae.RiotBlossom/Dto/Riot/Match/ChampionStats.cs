@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record ChampionStats
+    public record ChampionStats : DataObject<ChampionStats>
     {
         public double AbilityHaste { get; init; }
         public double AbilityPower { get; init; }
@@ -32,10 +30,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         public double PowerMax { get; init; }
         public double PowerRegen { get; init; }
         public double SpellVamp { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

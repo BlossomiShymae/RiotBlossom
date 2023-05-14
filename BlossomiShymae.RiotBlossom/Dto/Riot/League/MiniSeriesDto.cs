@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record MiniSeriesDto
+    public record MiniSeriesDto : DataObject<MiniSeriesDto>
     {
         /// <summary>
         /// The game losses for miniseries.
@@ -35,10 +33,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
         /// The game wins for miniseries.
         /// </summary>
         public int Wins { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

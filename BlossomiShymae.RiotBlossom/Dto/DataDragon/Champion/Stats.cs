@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stats
+    public record Stats : DataObject<Stats>
     {
         public double Hp { get; init; }
         public double Hpperlevel { get; init; }
@@ -27,10 +25,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
         public double Attackdamageperlevel { get; init; }
         public double Attackspeedperlevel { get; init; }
         public double Attackspeed { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

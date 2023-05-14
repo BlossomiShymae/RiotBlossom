@@ -1,10 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
 {
-    public record PlayerDto
+    public record PlayerDto : DataObject<PlayerDto>
     {
         /// <summary>
         /// The player UUID.
@@ -28,10 +27,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
         /// </summary>
         [JsonPropertyName("order_of_play")]
         public int OrderOfPlay { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

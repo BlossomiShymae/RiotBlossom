@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
 {
-    public record AccountDto
+    public record AccountDto : DataObject<AccountDto>
     {
         /// <summary>
         /// The player UUID associated with account.
@@ -16,10 +14,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
         /// The Riot tag line associated with account. May be excluded from response if account does not have it.
         /// </summary>
         public string? TagLine { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

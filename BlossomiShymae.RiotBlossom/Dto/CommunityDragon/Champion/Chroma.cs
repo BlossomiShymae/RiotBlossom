@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Chroma
+    public record Chroma : DataObject<Chroma>
     {
         public int Id { get; init; }
         public string Name { get; init; } = default!;
@@ -14,10 +13,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
         public ImmutableList<string> Colors { get; init; } = ImmutableList<string>.Empty;
         public ImmutableList<ChromaDescription> Descriptions { get; init; } = ImmutableList<ChromaDescription>.Empty;
         public ImmutableList<ChromaRarity> Rarities { get; init; } = ImmutableList<ChromaRarity>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
+﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stats
+    public record Stats : DataObject<Stats>
     {
         public Stat AbilityPower { get; init; } = new();
         public Stat Armor { get; init; } = new();
@@ -29,10 +28,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         public Stat AbilityHaste { get; init; } = new();
         public Stat Omnivamp { get; init; } = new();
         public Stat Tenacity { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

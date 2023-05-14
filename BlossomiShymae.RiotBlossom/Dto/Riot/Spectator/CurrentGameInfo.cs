@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record CurrentGameInfo
+    public record CurrentGameInfo : DataObject<CurrentGameInfo>
     {
         /// <summary>
         /// The game ID.
@@ -49,10 +48,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The information pertaining to participants.
         /// </summary>
         public ImmutableList<CurrentGameParticipant> Participants { get; init; } = ImmutableList<CurrentGameParticipant>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

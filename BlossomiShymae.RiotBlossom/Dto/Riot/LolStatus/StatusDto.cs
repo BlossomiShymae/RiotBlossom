@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
-    public record StatusDto
+    public record StatusDto : DataObject<StatusDto>
     {
         /// <summary>
         /// The status ID.
@@ -43,10 +42,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
         /// The platform list affected by this incident e.g. "windows", "macos".
         /// </summary>
         public ImmutableList<string> Platforms { get; init; } = ImmutableList<string>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

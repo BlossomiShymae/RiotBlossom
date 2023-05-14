@@ -1,11 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record DamageStats
+    public record DamageStats : DataObject<DamageStats>
     {
         public long MagicDamageDone { get; init; }
         public long MagicDamageDoneToChampions { get; init; }
@@ -19,10 +17,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         public long TrueDamageDone { get; init; }
         public long TrueDamageDoneToChampions { get; init; }
         public long TrueDamageTaken { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

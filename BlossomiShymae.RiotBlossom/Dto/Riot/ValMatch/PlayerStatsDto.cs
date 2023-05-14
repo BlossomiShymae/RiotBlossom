@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record PlayerStatsDto
+    public record PlayerStatsDto : DataObject<PlayerStatsDto>
     {
         public int Score { get; init; }
         public int RoundsPlayed { get; init; }
@@ -11,10 +9,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         public int Assists { get; init; }
         public int PlaytimeMillis { get; init; }
         public AbilityCastsDto AbilityCasts { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

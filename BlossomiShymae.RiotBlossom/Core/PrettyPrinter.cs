@@ -16,19 +16,24 @@ namespace BlossomiShymae.RiotBlossom.Core
         };
 
         /// <summary>
-        /// <para>Get the pretty string of object, hehe!</para>
+        /// <para>Get the pretty string of object with manual class name, hehe!</para>
         /// <para>Note: Field names will be printed into camel case or into JsonPropertyName attribute.</para>
         /// </summary>
         /// <exception cref="NotSupportedException"></exception>
         /// <param name="obj"></param>
+        /// <param name="className"></param>
         /// <returns></returns>
-        public static string GetString<T>(T obj) where T : notnull
+        public static string GetString<T>(T obj, string? className) where T : notnull
         {
             StringBuilder sb = new();
             System.Type type = typeof(T);
-            sb.Append(type.Name);
-            if (type.IsGenericType)
+            if (className != null)
             {
+                sb.Append(className);
+            }
+            else if (type.IsGenericType)
+            {
+                sb.Append(type.Name);
                 sb.Append('[');
                 System.Type[] typeArguments = type.GetGenericArguments();
                 for (int i = 0; i < typeArguments.Length; i++)
@@ -44,5 +49,15 @@ namespace BlossomiShymae.RiotBlossom.Core
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// <para>Get the pretty string of object, hehe!</para>
+        /// <para>Note: Field names will be printed into camel case or into JsonPropertyName attribute.</para>
+        /// </summary>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string GetString<T>(T obj) where T : notnull
+            => GetString(obj, null);
     }
 }

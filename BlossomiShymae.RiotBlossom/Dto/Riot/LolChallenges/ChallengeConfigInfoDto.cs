@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
-    public record ChallengeConfigInfoDto
+    public record ChallengeConfigInfoDto : DataObject<ChallengeConfigInfoDto>
     {
         /// <summary>
         /// The challenge ID.
@@ -37,10 +36,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
         /// The map of threshold values for challenge.
         /// </summary>
         public ImmutableDictionary<string, double> Thresholds { get; init; } = ImmutableDictionary<string, double>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

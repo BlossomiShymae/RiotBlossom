@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
+﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
 
 namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stats
+    public record Stats : DataObject<Stats>
     {
         public Stat Health { get; init; } = new();
         public Stat HealthRegen { get; init; } = new();
@@ -36,10 +35,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public Stat UrfDamageDealt { get; init; } = new();
         public Stat UrfHealing { get; init; } = new();
         public Stat UrfShielding { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

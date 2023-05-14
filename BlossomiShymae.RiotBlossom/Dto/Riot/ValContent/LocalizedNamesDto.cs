@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
-    public record LocalizedNamesDto
+    public record LocalizedNamesDto : DataObject<LocalizedNamesDto>
     {
         [JsonPropertyName("ar-AE")]
         public string ArabicUAE { get; init; } = default!;
@@ -46,10 +45,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
         public string ChineseSimplified { get; init; } = default!;
         [JsonPropertyName("zh-TW")]
         public string ChineseTaiwan { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

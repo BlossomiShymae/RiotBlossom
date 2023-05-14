@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
-    public record ContentDto
+    public record ContentDto : DataObject<ContentDto>
     {
         /// <summary>
         /// The locale identifier for content e.g. ("en_US", "de_DE").
@@ -12,10 +10,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
         /// The text content for incident.
         /// </summary>
         public string Content { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

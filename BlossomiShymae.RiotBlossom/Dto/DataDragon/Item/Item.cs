@@ -1,12 +1,11 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Item
+    public record Item : DataObject<Item>
     {
         public string Name { get; init; } = default!;
         public Rune Rune { get; init; } = new();
@@ -29,10 +28,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
         public ImmutableDictionary<string, double> Stats { get; init; } = ImmutableDictionary<string, double>.Empty;
         public ImmutableList<string> Tags { get; init; } = ImmutableList<string>.Empty;
         public ImmutableDictionary<int, bool> Maps { get; init; } = ImmutableDictionary<int, bool>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

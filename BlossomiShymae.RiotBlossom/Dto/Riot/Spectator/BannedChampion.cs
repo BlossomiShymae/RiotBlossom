@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record BannedChampion
+    public record BannedChampion : DataObject<BannedChampion>
     {
         /// <summary>
         /// The Draft Pick turn for when the champion was banned.
@@ -16,10 +14,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// The banning team ID.
         /// </summary>
         public long TeamId { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

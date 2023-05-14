@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
-    public record PlayerDto
+    public record PlayerDto : DataObject<PlayerDto>
     {
         /// <summary>
         /// The encrypted summoner ID of player.
@@ -20,10 +18,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
         /// The assigned role ('CAPTAIN', 'MEMBER').
         /// </summary>
         public string Role { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

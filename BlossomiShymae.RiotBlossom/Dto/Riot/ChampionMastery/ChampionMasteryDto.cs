@@ -1,8 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
+﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
 {
-    public record ChampionMasteryDto
+    public record ChampionMasteryDto : DataObject<ChampionMasteryDto>
     {
         /// <summary>
         /// The number of points needed to achieve next mastery level. Zero when player has reached
@@ -41,10 +39,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
         /// The tokens earned for champion at current level. Resets to zero when <see cref="ChampionLevel"/> advances.
         /// </summary>
         public int TokensEarned { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

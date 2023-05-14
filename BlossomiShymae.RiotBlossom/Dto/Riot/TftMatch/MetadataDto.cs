@@ -1,10 +1,9 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record MetadataDto
+    public record MetadataDto : DataObject<MetadataDto>
     {
         /// <summary>
         /// The match data version.
@@ -20,10 +19,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         /// The list of active participant PUUIDs.
         /// </summary>
         public ImmutableList<string> Participants { get; init; } = ImmutableList<string>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

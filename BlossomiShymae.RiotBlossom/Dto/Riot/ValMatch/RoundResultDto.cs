@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record RoundResultDto
+    public record RoundResultDto : DataObject<RoundResultDto>
     {
         public int RoundNum { get; init; }
         public string RoundResult { get; init; } = default!;
@@ -20,10 +19,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         public LocationDto DefuseLocation { get; init; } = new();
         public ImmutableList<PlayerRoundStatsDto> PlayerStats { get; init; } = ImmutableList<PlayerRoundStatsDto>.Empty;
         public string RoundResultCode { get; init; } = default!;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

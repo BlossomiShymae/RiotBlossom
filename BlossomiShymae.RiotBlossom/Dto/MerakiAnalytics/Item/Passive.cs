@@ -6,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Passive
+    public record Passive : DataObject<Passive>
     {
         public bool Unique { get; init; }
         public bool Mythic { get; init; }
@@ -16,10 +16,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
         [JsonConverter(typeof(StringJsonConverter))]
         public string? Cooldown { get; init; }
         public Stats Stats { get; init; } = new();
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

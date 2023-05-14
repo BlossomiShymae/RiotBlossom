@@ -7,7 +7,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Skin
+    public record Skin : DataObject<Skin>
     {
         public string? Name { get; init; }
         public int Id { get; init; }
@@ -36,10 +36,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public bool NewQuotes { get; init; }
         public ImmutableList<string> VoiceActor { get; init; } = ImmutableList<string>.Empty;
         public ImmutableList<string> SplashArtist { get; init; } = ImmutableList<string>.Empty;
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

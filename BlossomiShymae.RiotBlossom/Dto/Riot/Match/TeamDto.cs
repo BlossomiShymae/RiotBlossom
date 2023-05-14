@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record TeamDto
+    public record TeamDto : DataObject<TeamDto>
     {
         /// <summary>
         /// The champions that a team has banned in Draft Pick.
@@ -21,10 +20,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// Whether a team has winned a match e.g. destroyed the enemy nexus.
         /// </summary>
         public bool Win { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }

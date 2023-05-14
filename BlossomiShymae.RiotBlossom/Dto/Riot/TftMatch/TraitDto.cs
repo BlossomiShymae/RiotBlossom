@@ -1,9 +1,8 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record TraitDto
+    public record TraitDto : DataObject<TraitDto>
     {
         /// <summary>
         /// The trait name.
@@ -28,10 +27,5 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         /// </summary>
         [JsonPropertyName("tier_total")]
         public int TierTotal { get; init; }
-
-        public override string ToString()
-        {
-            return PrettyPrinter.GetString(this);
-        }
     }
 }
