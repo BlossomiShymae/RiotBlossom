@@ -3,6 +3,7 @@ export default defineAppConfig({
     title: "RiotBlossom",
     description: "An asynchronous, extensible, magical Riot API library for C#!",
     url: "https://github.com/BlossomiShymae/RiotBlossom",
+    image: "/img/riotblossom.png",
     socials: {
       "nuget" : {
         label: "NuGet",
