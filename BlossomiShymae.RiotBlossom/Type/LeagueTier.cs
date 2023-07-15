@@ -11,6 +11,7 @@
         Silver,
         Gold,
         Platinum,
+        Emerald,
         Diamond
     }
 }
