@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
 {
-    public record PlayerDto : DataObject<PlayerDto>
+    public record PlayerDto : DataObject
     {
         /// <summary>
         /// The player UUID. May be omitted if player is anonymized.

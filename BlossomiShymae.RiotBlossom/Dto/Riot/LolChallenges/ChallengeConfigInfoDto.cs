@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
-    public record ChallengeConfigInfoDto : DataObject<ChallengeConfigInfoDto>
+    public record ChallengeConfigInfoDto : DataObject
     {
         /// <summary>
         /// The challenge ID.

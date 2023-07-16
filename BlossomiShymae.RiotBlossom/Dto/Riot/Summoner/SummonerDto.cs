@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
 {
-    public record SummonerDto : DataObject<SummonerDto>
+    public record SummonerDto : DataObject
     {
         /// <summary>
         /// The encrypted account ID.

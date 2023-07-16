@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record ParticipantFrame : DataObject<ParticipantFrame>
+    public record ParticipantFrame : DataObject
     {
         public ChampionStats ChampionStats { get; init; } = new();
         public long CurrentGold { get; init; }

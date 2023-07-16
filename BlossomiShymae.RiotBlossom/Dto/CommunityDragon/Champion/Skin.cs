@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Skin : DataObject<Skin>
+    public record Skin : DataObject
     {
         public int Id { get; init; }
         public bool IsBase { get; init; }

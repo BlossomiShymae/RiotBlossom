@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record AbilityCastsDto : DataObject<AbilityCastsDto>
+    public record AbilityCastsDto : DataObject
     {
         public int GrenadeCasts { get; init; }
         public int Ability1Casts { get; init; }

@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Spell : DataObject<Spell>
+    public record Spell : DataObject
     {
         public string SpellKey { get; init; } = default!;
         public string Name { get; init; } = default!;

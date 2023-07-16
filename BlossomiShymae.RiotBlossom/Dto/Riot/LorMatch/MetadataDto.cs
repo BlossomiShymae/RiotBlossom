@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
 {
-    public record MetadataDto : DataObject<MetadataDto>
+    public record MetadataDto : DataObject
     {
         /// <summary>
         /// The match data version.

@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorRanked
 {
-    public record LeaderboardDto : DataObject<LeaderboardDto>
+    public record LeaderboardDto : DataObject
     {
         /// <summary>
         /// The list of players in Master tier.

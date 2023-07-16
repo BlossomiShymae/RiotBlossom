@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Item : DataObject<Item>
+    public record Item : DataObject
     {
         public string Name { get; init; } = default!;
         public Rune Rune { get; init; } = new();

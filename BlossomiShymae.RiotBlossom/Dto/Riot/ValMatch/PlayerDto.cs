@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record PlayerDto : DataObject<PlayerDto>
+    public record PlayerDto : DataObject
     {
         public string Puuid { get; init; } = default!;
         public string GameName { get; init; } = default!;

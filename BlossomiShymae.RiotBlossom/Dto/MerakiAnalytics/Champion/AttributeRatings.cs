@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record AttributeRatings : DataObject<AttributeRatings>
+    public record AttributeRatings : DataObject
     {
         public int Damage { get; init; }
         public int Toughness { get; init; }

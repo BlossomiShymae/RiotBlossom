@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
 {
-    public record ChampionInfo : DataObject<ChampionInfo>
+    public record ChampionInfo : DataObject
     {
         /// <summary>
         /// The maximum level the new player champion rotation is available before unlocking the 

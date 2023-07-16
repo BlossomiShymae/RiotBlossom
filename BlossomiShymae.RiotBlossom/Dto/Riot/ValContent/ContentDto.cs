@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
-    public record ContentDto : DataObject<ContentDto>
+    public record ContentDto : DataObject
     {
         public string Version { get; init; } = default!;
         public ImmutableList<ContentItemDto> Characters { get; init; } = ImmutableList<ContentItemDto>.Empty;

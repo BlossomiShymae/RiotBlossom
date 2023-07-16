@@ -6,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stat : DataObject<Stat>
+    public record Stat : DataObject
     {
         [JsonConverter(typeof(DoubleJsonConverter))]
         public double Flat { get; init; }

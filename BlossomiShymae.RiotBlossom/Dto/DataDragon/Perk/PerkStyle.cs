@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record PerkStyle : DataObject<PerkStyle>
+    public record PerkStyle : DataObject
     {
         public int Id { get; init; }
         public string Key { get; init; } = default!;

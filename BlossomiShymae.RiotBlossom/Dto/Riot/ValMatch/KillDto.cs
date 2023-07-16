@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record KillDto : DataObject<KillDto>
+    public record KillDto : DataObject
     {
         public int TimeSinceGameStartMillis { get; init; }
         public int TimeSinceRoundStartMillis { get; init; }

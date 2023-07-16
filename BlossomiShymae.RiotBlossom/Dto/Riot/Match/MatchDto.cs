@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record MatchDto : DataObject<MatchDto>
+    public record MatchDto : DataObject
     {
         /// <summary>
         /// The metadata of match.

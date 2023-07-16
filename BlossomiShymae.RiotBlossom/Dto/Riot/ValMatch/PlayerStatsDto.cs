@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record PlayerStatsDto : DataObject<PlayerStatsDto>
+    public record PlayerStatsDto : DataObject
     {
         public int Score { get; init; }
         public int RoundsPlayed { get; init; }

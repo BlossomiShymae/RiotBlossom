@@ -6,7 +6,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Passive : DataObject<Passive>
+    public record Passive : DataObject
     {
         public bool Unique { get; init; }
         public bool Mythic { get; init; }

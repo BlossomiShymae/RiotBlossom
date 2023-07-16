@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record EconomyDto : DataObject<EconomyDto>
+    public record EconomyDto : DataObject
     {
         public int LoadoutValue { get; init; }
         public string Weapon { get; init; } = default!;

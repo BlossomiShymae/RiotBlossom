@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record SkinLine : DataObject<SkinLine>
+    public record SkinLine : DataObject
     {
         public int Id { get; init; }
     }

@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
-    public record LocalizedNamesDto : DataObject<LocalizedNamesDto>
+    public record LocalizedNamesDto : DataObject
     {
         [JsonPropertyName("ar-AE")]
         public string ArabicUAE { get; init; } = default!;

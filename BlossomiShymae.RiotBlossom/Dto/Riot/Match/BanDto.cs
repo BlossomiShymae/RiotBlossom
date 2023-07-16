@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record BanDto : DataObject<BanDto>
+    public record BanDto : DataObject
     {
         /// <summary>
         /// The banned champion ID.

@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Ability : DataObject<Ability>
+    public record Ability : DataObject
     {
         public string? Name { get; init; }
         public string? Icon { get; init; }

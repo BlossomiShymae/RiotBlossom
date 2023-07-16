@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Info : DataObject<Info>
+    public record Info : DataObject
     {
         public int Attack { get; init; }
         public int Defense { get; init; }

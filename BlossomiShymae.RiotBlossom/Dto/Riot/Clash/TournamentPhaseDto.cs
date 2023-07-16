@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
-    public record TournamentPhaseDto : DataObject<TournamentPhaseDto>
+    public record TournamentPhaseDto : DataObject
     {
         /// <summary>
         /// The tournament phase ID.

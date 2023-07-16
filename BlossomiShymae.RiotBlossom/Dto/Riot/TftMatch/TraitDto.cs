@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record TraitDto : DataObject<TraitDto>
+    public record TraitDto : DataObject
     {
         /// <summary>
         /// The trait name.

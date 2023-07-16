@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorRanked
 {
-    public record PlayerDto : DataObject<PlayerDto>
+    public record PlayerDto : DataObject
     {
         /// <summary>
         /// The player name.

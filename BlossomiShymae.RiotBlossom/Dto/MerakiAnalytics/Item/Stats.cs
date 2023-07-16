@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stats : DataObject<Stats>
+    public record Stats : DataObject
     {
         public Stat AbilityPower { get; init; } = new();
         public Stat Armor { get; init; } = new();

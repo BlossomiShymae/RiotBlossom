@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Price : DataObject<Price>
+    public record Price : DataObject
     {
         public int BlueEssence { get; init; }
         public int Rp { get; init; }

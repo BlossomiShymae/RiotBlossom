@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record ParticipantDto : DataObject<ParticipantDto>
+    public record ParticipantDto : DataObject
     {
         /// <summary>
         /// The participant's companion.

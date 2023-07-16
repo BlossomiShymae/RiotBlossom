@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record MatchlistDto : DataObject<MatchlistDto>
+    public record MatchlistDto : DataObject
     {
         public string Puuid { get; init; } = default!;
         public ImmutableList<MatchlistEntryDto> History { get; init; } = ImmutableList<MatchlistEntryDto>.Empty;

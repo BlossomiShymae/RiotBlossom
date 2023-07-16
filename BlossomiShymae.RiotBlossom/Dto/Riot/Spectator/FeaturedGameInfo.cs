@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record FeaturedGameInfo : DataObject<FeaturedGameInfo>
+    public record FeaturedGameInfo : DataObject
     {
         /// <summary>
         /// The selected game mode. See Riot Static Developer <see href="https://static.developer.riotgames.com/docs/lol/gameModes.json">gameModes.json</see>.

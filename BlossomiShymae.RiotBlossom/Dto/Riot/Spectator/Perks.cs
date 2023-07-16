@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record Perks : DataObject<Perks>
+    public record Perks : DataObject
     {
         /// <summary>
         /// The list of equipped perk/runes IDs.

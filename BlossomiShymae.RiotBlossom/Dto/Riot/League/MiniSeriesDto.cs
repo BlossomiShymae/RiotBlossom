@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record MiniSeriesDto : DataObject<MiniSeriesDto>
+    public record MiniSeriesDto : DataObject
     {
         /// <summary>
         /// The game losses for miniseries.

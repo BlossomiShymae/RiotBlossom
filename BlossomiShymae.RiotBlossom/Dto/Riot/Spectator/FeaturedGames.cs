@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record FeaturedGames : DataObject<FeaturedGames>
+    public record FeaturedGames : DataObject
     {
         /// <summary>
         /// The list of featured games.

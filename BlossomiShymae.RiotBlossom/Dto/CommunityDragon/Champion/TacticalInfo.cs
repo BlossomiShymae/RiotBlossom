@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record TacticalInfo : DataObject<TacticalInfo>
+    public record TacticalInfo : DataObject
     {
         public int Style { get; init; }
         public int Difficulty { get; init; }

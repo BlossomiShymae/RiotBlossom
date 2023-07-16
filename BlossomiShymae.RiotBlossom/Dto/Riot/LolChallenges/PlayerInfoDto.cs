@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
-    public record PlayerInfoDto : DataObject<PlayerInfoDto>
+    public record PlayerInfoDto : DataObject
     {
         /// <summary>
         /// The list of challenges for player.

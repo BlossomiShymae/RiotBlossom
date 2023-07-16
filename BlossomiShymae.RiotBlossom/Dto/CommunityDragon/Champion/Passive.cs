@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Passive : DataObject<Passive>
+    public record Passive : DataObject
     {
         public string Name { get; init; } = default!;
         public string AbilityIconPath { get; init; } = default!;

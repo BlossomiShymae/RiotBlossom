@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record LeagueListDto : DataObject<LeagueListDto>
+    public record LeagueListDto : DataObject
     {
         /// <summary>
         /// The associated league ID.

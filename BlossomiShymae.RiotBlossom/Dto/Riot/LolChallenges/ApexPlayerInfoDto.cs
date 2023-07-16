@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
-    public record ApexPlayerInfoDto : DataObject<ApexPlayerInfoDto>
+    public record ApexPlayerInfoDto : DataObject
     {
         /// <summary>
         /// The encrypted PUUID of apex player.

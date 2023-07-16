@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Chroma : DataObject<Chroma>
+    public record Chroma : DataObject
     {
         public string? Name { get; init; }
         public long Id { get; init; }

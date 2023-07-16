@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record ObjectiveDto : DataObject<ObjectiveDto>
+    public record ObjectiveDto : DataObject
     {
         /// <summary>
         /// Whether team got the first kill for the objective.

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record InfoDto : DataObject<InfoDto>
+    public record InfoDto : DataObject
     {
         /// <summary>
         /// The Unix timestamp.

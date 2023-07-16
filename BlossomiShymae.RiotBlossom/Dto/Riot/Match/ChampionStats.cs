@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record ChampionStats : DataObject<ChampionStats>
+    public record ChampionStats : DataObject
     {
         public double AbilityHaste { get; init; }
         public double AbilityPower { get; init; }
