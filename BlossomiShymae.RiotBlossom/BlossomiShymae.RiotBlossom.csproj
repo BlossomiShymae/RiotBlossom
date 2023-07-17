@@ -15,7 +15,7 @@
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PackageTags>riot;riotgames;lol;riotapi;leagueoflegends;tft;teamfighttactics;lor;legendsofruneterra;val;valorant</PackageTags>
 	<PackageIcon>icon.png</PackageIcon>
-	<Version>1.1.0</Version>
+	<Version>1.2.0</Version>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<Title>RiotBlossom</Title>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
