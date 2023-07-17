@@ -34,6 +34,7 @@ Made with [contrib.rocks](https://contrib.rocks).
     - [VALORANT](#valorant)
   - [DataDragon](#datadragon)
   - [CommunityDragon](#communitydragon)
+  - [MerakiAnalytics](#merakianalytics)
 - [Dependent packages](#dependent-packages)
 - [Contributing](#contributing)
 - [License](#license)
@@ -64,6 +65,7 @@ Made with [contrib.rocks](https://contrib.rocks).
     - VALORANT
 - DataDragon support
 - CommunityDragon support
+- MerakiAnalytics support
 - Love (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
@@ -123,6 +125,10 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Champions ([rcp-be-lol-game-data/global/default/v1/champions](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/))
 - ✅ Items (`items.json`)
 - ✅ Perks (`perks.json`)
+
+## MerakiAnalytics
+- ✅ Champions (`champions.json` and individual files)
+- ✅ Items (`items.json` and individual files)
 
 # Dependent packages
 - [AsyncKeyedLock](https://github.com/MarkCiliaVincenti/AsyncKeyedLock)
