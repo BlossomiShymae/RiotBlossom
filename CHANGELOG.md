@@ -1,4 +1,80 @@
-﻿# RiotBlossom 1.1.0 - Bee Happy 🐝
+﻿# RiotBlossom 1.2.0 - WOW
+
+A quality-of-life release with added support for Meraki Analytics! 💜
+
+## Meraki Analytics support (17e889f)
+- **Api.MerakiAnalytics**: Add API interface
+- **Dto.MerakiAnalytics**: **NEW**
+    - `Champion`
+        - `Ability`
+        - `AttributeRatings`
+        - `Champion`
+        - `Chroma`
+        - `Cooldown`
+        - `Cost`
+        - `DescriptionDto`
+        - `Effect`
+        - `Leveling`
+        - `Modifier`
+        - `Price`
+        - `Rarities`
+        - `Skin`
+        - `Stats`
+    - `Common`
+        - `Stat`
+    - `Item`
+        - `Active`
+        - `Item`
+        - `Passive`
+        - `Prices`
+        - `Shop`
+        - `Stats`
+
+## Extensions support (a4daa4f)
+Available enums have been turbo-charged with extensions! No need to deal with converters/mappers anymore.
+
+Example excerpt from the documentation:
+```csharp
+// => "na1"
+Platform.NorthAmerica.GetId();
+```
+
+```csharp
+// => "americas"
+Platform.Brazil.GetRegionId();
+```
+
+```csharp
+// => "ja_JP"
+Platform.Japan.GetDefaultLocale();
+```
+
+Affected enums:
+- `LeagueDivision`
+- `LeagueQueue`
+- `LeagueTier`
+- `LorRegion`
+- `Platform`
+- `Region`
+- `TftLeague`
+- `ValRegion`
+
+More information and examples can be found in the documentation under **Fundamentals > Extensions**! :3
+
+## Features
+- **Api.Riot**: Add `GetAsync` overload that allows passing HTTP headers (f11c14c36f094eb5e63c063029ab8061b1f5741e)
+  - This should make it possible to use the RSO endpoints manually~*
+- **Api.CommunityDragon**: Add `GetAsync` method for low-level requests (4262f72a249bd29d7037bbb0d7c9f63b3db03724)
+- **Core.PrettyPrinter**: Add overload method `GetPrettyString` for manually setting the class name
+- **Dto**: Add abstract `DataObject` superclass for namespace (b8d1286)
+  - All objects under the namespace now inherit from the above record class
+- **Type.LeagueTier**: Add `Emerald` tier (ee41d9b)
+
+# Minor breaking changes
+- **MatchlistEntryDto**: Replace `TeamId` with `QueueId` (823ce8a0be08e2d623f3a14cc3fa12a1f6175bc6)
+  - Another bug fix cause yeah :3
+
+# RiotBlossom 1.1.0 - Bee Happy 🐝
 
 This is a quite chubby release. The most notable features include **Legends of Runeterra** and **VALORANT** support! 💚
 
