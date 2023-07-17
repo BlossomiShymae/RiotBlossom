@@ -16,6 +16,7 @@ namespace BlossomiShymae.RiotBlossom.Core
                 { LeagueTier.Silver, "SILVER" },
                 { LeagueTier.Gold, "GOLD" },
                 { LeagueTier.Platinum, "PLATINUM" },
+                { LeagueTier.Emerald, "EMERALD" },
                 { LeagueTier.Diamond, "DIAMOND" }
             }.ToImmutableDictionary();
 
