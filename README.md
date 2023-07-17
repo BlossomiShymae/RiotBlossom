@@ -57,7 +57,7 @@ Made with [contrib.rocks](https://contrib.rocks).
     - Allows implementing your middleware (choosing a database to cache with)
     - Extensible subsystems (one for Riot API, one for the rest)
 - Reuseable data transfer objects, types, and exceptions
-- Common utilities (mappers and converters)
+- Common utilities (extensions, mappers, and converters)
 - Riot Games API support (yep!)
     - League of Legends
     - Teamfight Tactics
