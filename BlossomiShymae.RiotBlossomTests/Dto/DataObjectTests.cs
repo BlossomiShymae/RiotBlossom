@@ -18,7 +18,7 @@ namespace BlossomiShymae.RiotBlossomTests.Dto
             Assert.IsTrue(prettyString.Length > 0);
         }
 
-        public record ExampleDto : DataObject<ExampleDto>
+        public record ExampleDto : DataObject
         {
             public string? Id { get; init; }
             public string? Name { get; init; }

@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record TeamDto : DataObject<TeamDto>
+    public record TeamDto : DataObject
     {
         /// <summary>
         /// The champions that a team has banned in Draft Pick.

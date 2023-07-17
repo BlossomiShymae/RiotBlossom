@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record ChallengeInfo : DataObject<ChallengeInfo>
+    public record ChallengeInfo : DataObject
     {
         public long ChallengeId { get; init; }
         public double Percentile { get; init; }

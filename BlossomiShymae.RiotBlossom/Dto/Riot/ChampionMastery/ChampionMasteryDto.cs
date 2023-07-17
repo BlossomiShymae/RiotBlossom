@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
 {
-    public record ChampionMasteryDto : DataObject<ChampionMasteryDto>
+    public record ChampionMasteryDto : DataObject
     {
         /// <summary>
         /// The number of points needed to achieve next mastery level. Zero when player has reached

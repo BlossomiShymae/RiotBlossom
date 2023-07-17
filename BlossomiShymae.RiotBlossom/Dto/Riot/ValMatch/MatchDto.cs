@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record MatchDto : DataObject<MatchDto>
+    public record MatchDto : DataObject
     {
         public MatchInfoDto MatchInfo { get; init; } = new();
         public ImmutableList<PlayerDto> Players { get; init; } = ImmutableList<PlayerDto>.Empty;

@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Chroma : DataObject<Chroma>
+    public record Chroma : DataObject
     {
         public int Id { get; init; }
         public string Name { get; init; } = default!;

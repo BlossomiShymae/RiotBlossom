@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record PlayerClientPreferences : DataObject<PlayerClientPreferences>
+    public record PlayerClientPreferences : DataObject
     {
         public string BannerAccent { get; init; } = default!;
         public string Title { get; init; } = default!;

@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
 {
-    public record LeagueItemDto : DataObject<LeagueItemDto>
+    public record LeagueItemDto : DataObject
     {
         /// <summary>
         /// The player is new to the division (<see cref="Rank"/>).

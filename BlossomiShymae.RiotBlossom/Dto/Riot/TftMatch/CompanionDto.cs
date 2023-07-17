@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record CompanionDto : DataObject<CompanionDto>
+    public record CompanionDto : DataObject
     {
         [JsonPropertyName("skin_id")]
         public int SkinId { get; init; }

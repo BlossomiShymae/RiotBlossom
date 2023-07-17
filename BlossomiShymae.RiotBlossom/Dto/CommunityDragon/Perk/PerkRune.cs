@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record PerkRune : DataObject<PerkRune>
+    public record PerkRune : DataObject
     {
         public int Id { get; init; }
         public string Name { get; init; } = default!;

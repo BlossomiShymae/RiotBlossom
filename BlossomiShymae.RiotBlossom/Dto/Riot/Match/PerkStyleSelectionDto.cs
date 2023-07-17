@@ -4,7 +4,7 @@
     /// A perk style selection used for Runes Reforged.
     /// For more details on how these are used, see CommunityDragon <see href="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json">perks.json</see>.
     /// </summary>
-    public record PerkStyleSelectionDto : DataObject<PerkStyleSelectionDto>
+    public record PerkStyleSelectionDto : DataObject
     {
         /// <summary>
         /// The perk ID.

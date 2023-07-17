@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Gold : DataObject<Gold>
+    public record Gold : DataObject
     {
         public int Base { get; init; }
         public int Total { get; init; }

@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record PerkStatsDto : DataObject<PerkStatsDto>
+    public record PerkStatsDto : DataObject
     {
         /// <summary>
         /// The selected defense perk ID.

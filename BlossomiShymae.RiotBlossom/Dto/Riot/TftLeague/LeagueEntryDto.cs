@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
 {
-    public record LeagueEntryDto : DataObject<LeagueEntryDto>
+    public record LeagueEntryDto : DataObject
     {
         public string? LeagueId { get; init; } = default!;
         public string SummonerId { get; init; } = default!;

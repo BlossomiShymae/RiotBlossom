@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
-    public record PlatformDataDto : DataObject<PlatformDataDto>
+    public record PlatformDataDto : DataObject
     {
         /// <summary>
         /// The platform data ID e.g. "SG2".

@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
-    public record StatusDto : DataObject<StatusDto>
+    public record StatusDto : DataObject
     {
         /// <summary>
         /// The status ID.

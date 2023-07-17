@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record InfoDto : DataObject<InfoDto>
+    public record InfoDto : DataObject
     {
         /// <summary>
         /// The Unix timestamp for when the game is created on the game server.

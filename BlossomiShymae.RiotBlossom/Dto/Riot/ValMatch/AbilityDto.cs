@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record AbilityDto : DataObject<AbilityDto>
+    public record AbilityDto : DataObject
     {
         public string GrenadeEffects { get; init; } = default!;
         public string Ability1Effects { get; init; } = default!;

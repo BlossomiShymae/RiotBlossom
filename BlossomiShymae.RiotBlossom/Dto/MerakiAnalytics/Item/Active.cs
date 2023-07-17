@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Active : DataObject<Active>
+    public record Active : DataObject
     {
         public bool Unique { get; init; }
         public string? Name { get; init; }

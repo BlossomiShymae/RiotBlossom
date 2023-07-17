@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record TeamDto : DataObject<TeamDto>
+    public record TeamDto : DataObject
     {
         /// <summary>
         /// The arbitrary string, being Red and Blue in bomb modes, the PUUID of the player in deathmatch.

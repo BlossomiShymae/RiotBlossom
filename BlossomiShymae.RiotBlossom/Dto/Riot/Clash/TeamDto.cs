@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
-    public record TeamDto : DataObject<TeamDto>
+    public record TeamDto : DataObject
     {
         /// <summary>
         /// The team ID.

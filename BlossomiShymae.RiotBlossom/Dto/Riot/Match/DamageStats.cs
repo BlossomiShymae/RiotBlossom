@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record DamageStats : DataObject<DamageStats>
+    public record DamageStats : DataObject
     {
         public long MagicDamageDone { get; init; }
         public long MagicDamageDoneToChampions { get; init; }

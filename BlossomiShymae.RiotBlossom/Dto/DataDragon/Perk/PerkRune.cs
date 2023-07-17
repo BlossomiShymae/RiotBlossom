@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record PerkRune : DataObject<PerkRune>
+    public record PerkRune : DataObject
     {
         public int Id { get; init; }
         public string Key { get; init; } = default!;

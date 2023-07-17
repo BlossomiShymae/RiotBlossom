@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record ChallengePoints : DataObject<ChallengePoints>
+    public record ChallengePoints : DataObject
     {
         public string Level { get; init; } = default!;
         public double Current { get; init; }

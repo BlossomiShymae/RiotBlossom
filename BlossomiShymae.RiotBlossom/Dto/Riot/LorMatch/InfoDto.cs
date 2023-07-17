@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
 {
-    public record InfoDto : DataObject<InfoDto>
+    public record InfoDto : DataObject
     {
         /// <summary>
         /// The current game mode. (Legal values: Constructed, Expeditions, Tutorial, and a lot more not documented)

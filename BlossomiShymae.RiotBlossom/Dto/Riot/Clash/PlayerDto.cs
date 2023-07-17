@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
 {
-    public record PlayerDto : DataObject<PlayerDto>
+    public record PlayerDto : DataObject
     {
         /// <summary>
         /// The encrypted summoner ID of player.

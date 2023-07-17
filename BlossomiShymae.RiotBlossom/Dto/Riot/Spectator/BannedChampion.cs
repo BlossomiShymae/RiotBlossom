@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record BannedChampion : DataObject<BannedChampion>
+    public record BannedChampion : DataObject
     {
         /// <summary>
         /// The Draft Pick turn for when the champion was banned.

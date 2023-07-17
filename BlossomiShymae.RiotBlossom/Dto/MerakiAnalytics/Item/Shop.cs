@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Shop : DataObject<Shop>
+    public record Shop : DataObject
     {
         public Prices Prices { get; init; } = new();
         public bool Purchasable { get; init; }

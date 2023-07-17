@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record TimelineParticipant : DataObject<TimelineParticipant>
+    public record TimelineParticipant : DataObject
     {
         public int ParticipantId { get; init; }
         public string Puuid { get; init; } = default!;

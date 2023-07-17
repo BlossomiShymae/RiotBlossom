@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record TimelineInfoDto : DataObject<TimelineInfoDto>
+    public record TimelineInfoDto : DataObject
     {
         public long FrameInterval { get; init; }
         public ImmutableList<Frame> Frames { get; init; } = ImmutableList<Frame>.Empty;

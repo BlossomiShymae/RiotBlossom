@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record DamageDto : DataObject<DamageDto>
+    public record DamageDto : DataObject
     {
         /// <summary>
         /// The PUUID of affected player.

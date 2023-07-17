@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record CurrentGameInfo : DataObject<CurrentGameInfo>
+    public record CurrentGameInfo : DataObject
     {
         /// <summary>
         /// The game ID.

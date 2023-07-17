@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record FinishingDamageDto : DataObject<FinishingDamageDto>
+    public record FinishingDamageDto : DataObject
     {
         public string DamageType { get; init; } = default!;
         public string DamageItem { get; init; } = default!;

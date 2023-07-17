@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
 {
-    public record ContentItemDto : DataObject<ContentItemDto>
+    public record ContentItemDto : DataObject
     {
         public string Name { get; init; } = default!;
         /// <summary>

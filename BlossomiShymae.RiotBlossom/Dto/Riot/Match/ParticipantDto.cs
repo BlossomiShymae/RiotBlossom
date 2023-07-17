@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record ParticipantDto : DataObject<ParticipantDto>
+    public record ParticipantDto : DataObject
     {
         /// <summary>
         /// The player assists.

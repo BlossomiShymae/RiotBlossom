@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
 {
-    public record LocalizedName : DataObject<LocalizedName>
+    public record LocalizedName : DataObject
     {
         /// <summary>
         /// The localized description of challenge.

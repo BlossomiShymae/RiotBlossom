@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record RecentMatchesDto : DataObject<RecentMatchesDto>
+    public record RecentMatchesDto : DataObject
     {
         public long CurrentTime { get; init; }
         public ImmutableList<string> MatchIds { get; init; } = ImmutableList<string>.Empty;

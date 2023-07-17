@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Champion : DataObject<Champion>
+    public record Champion : DataObject
     {
         public string Id { get; init; } = default!;
         public string Key { get; init; } = default!;

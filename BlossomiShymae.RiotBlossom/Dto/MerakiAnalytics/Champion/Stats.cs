@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stats : DataObject<Stats>
+    public record Stats : DataObject
     {
         public Stat Health { get; init; } = new();
         public Stat HealthRegen { get; init; } = new();

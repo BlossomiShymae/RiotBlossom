@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record RoundResultDto : DataObject<RoundResultDto>
+    public record RoundResultDto : DataObject
     {
         public int RoundNum { get; init; }
         public string RoundResult { get; init; } = default!;

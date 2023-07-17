@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
 {
-    public record ContentDto : DataObject<ContentDto>
+    public record ContentDto : DataObject
     {
         /// <summary>
         /// The locale identifier for content e.g. ("en_US", "de_DE").

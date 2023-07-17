@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record ObjectivesDto : DataObject<ObjectivesDto>
+    public record ObjectivesDto : DataObject
     {
 
         /// <summary>

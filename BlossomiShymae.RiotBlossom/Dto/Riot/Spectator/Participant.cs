@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record Participant : DataObject<Participant>
+    public record Participant : DataObject
     {
         /// <summary>
         /// Whether this participant is a bot.

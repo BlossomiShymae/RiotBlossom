@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
 {
-    public record PlayerLocationsDto : DataObject<PlayerLocationsDto>
+    public record PlayerLocationsDto : DataObject
     {
         public string Puuid { get; init; } = default!;
         public float ViewRadians { get; init; }

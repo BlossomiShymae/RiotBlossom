@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record PlaystyleInfo : DataObject<PlaystyleInfo>
+    public record PlaystyleInfo : DataObject
     {
         public int Damage { get; init; }
         public int Durability { get; init; }

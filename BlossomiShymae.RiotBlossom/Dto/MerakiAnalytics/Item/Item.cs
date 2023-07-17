@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Item : DataObject<Item>
+    public record Item : DataObject
     {
         public string? Name { get; init; }
         public int Id { get; init; }

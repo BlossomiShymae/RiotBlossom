@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record GameCustomizationObject : DataObject<GameCustomizationObject>
+    public record GameCustomizationObject : DataObject
     {
         /// <summary>
         /// The category ID for Game Customization.

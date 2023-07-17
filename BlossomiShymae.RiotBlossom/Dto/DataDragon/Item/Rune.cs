@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Rune : DataObject<Rune>
+    public record Rune : DataObject
     {
         public bool IsRune { get; init; }
         public int Tier { get; init; }

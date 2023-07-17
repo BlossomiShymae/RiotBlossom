@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
 {
-    public record PerkStyleDto : DataObject<PerkStyleDto>
+    public record PerkStyleDto : DataObject
     {
         /// <summary>
         /// The description of perk style.

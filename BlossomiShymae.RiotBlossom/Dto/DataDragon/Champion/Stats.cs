@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Stats : DataObject<Stats>
+    public record Stats : DataObject
     {
         public double Hp { get; init; }
         public double Hpperlevel { get; init; }

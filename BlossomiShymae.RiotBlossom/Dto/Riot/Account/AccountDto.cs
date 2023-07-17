@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
 {
-    public record AccountDto : DataObject<AccountDto>
+    public record AccountDto : DataObject
     {
         /// <summary>
         /// The player UUID associated with account.

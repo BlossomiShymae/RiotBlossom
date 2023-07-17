@@ -1,6 +1,6 @@
 ﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
 {
-    public record TopRatedLadderEntryDto : DataObject<TopRatedLadderEntryDto>
+    public record TopRatedLadderEntryDto : DataObject
     {
         /// <summary>
         /// The encrypted summoner ID.

@@ -5,7 +5,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Slot : DataObject<Slot>
+    public record Slot : DataObject
     {
         public ImmutableList<PerkRune> Runes { get; init; } = ImmutableList<PerkRune>.Empty;
     }

@@ -7,7 +7,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Skin : DataObject<Skin>
+    public record Skin : DataObject
     {
         public string? Name { get; init; }
         public int Id { get; init; }

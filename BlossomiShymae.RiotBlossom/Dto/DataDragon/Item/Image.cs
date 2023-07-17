@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Image : DataObject<Image>
+    public record Image : DataObject
     {
         public string Full { get; init; } = default!;
         public string Sprite { get; init; } = default!;

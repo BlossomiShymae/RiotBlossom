@@ -3,7 +3,7 @@
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
-    public record Skin : DataObject<Skin>
+    public record Skin : DataObject
     {
         public string Id { get; init; } = default!;
         public int Num { get; init; }

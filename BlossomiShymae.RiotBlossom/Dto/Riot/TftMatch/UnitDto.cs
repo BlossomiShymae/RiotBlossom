@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
 {
-    public record UnitDto : DataObject<UnitDto>
+    public record UnitDto : DataObject
     {
         /// <summary>
         /// The list of the unit's items.

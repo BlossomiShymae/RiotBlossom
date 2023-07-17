@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
 {
-    public record CurrentGameParticipant : DataObject<CurrentGameParticipant>
+    public record CurrentGameParticipant : DataObject
     {
         /// <summary>
         /// The played champion ID.

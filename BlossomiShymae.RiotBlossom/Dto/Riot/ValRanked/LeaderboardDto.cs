@@ -2,7 +2,7 @@
 
 namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
 {
-    public record LeaderboardDto : DataObject<LeaderboardDto>
+    public record LeaderboardDto : DataObject
     {
         /// <summary>
         /// The shard for the given leaderboard.
