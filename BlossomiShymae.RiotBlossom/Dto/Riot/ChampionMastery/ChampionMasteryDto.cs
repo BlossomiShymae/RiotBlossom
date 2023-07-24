@@ -7,7 +7,7 @@
         /// This field was added to the API in July 2023.
         /// <para><see href="https://github.com/RiotGames/developer-relations/issues/767"/></para>
         /// </summary>
-        public string? Puuid { get; set; }
+        public string? Puuid { get; init; }
         /// <summary>
         /// The number of points needed to achieve next mastery level. Zero when player has reached
         /// the maximum level.
