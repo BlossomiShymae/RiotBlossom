@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<Authors>BlossomiShymae</Authors>
-	<Description>An asynchronous, extensible, and magical Riot Games API wrapper library!</Description>
+	<Description>The asynchronous, extensible, and simple Riot Games API wrapper library.</Description>
 	<PackageProjectUrl>https://github.com/BlossomiShymae/RiotBlossom</PackageProjectUrl>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryUrl>https://github.com/BlossomiShymae/RiotBlossom</RepositoryUrl>
@@ -15,7 +15,7 @@
 	<PackageReleaseNotes></PackageReleaseNotes>
 	<PackageTags>riot;riotgames;lol;riotapi;leagueoflegends;tft;teamfighttactics;lor;legendsofruneterra;val;valorant</PackageTags>
 	<PackageIcon>icon.png</PackageIcon>
-	<Version>1.2.0</Version>
+	<Version>2.0.0-alpha</Version>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<Title>RiotBlossom</Title>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AsyncKeyedLock" Version="6.2.1" />
     <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
   </ItemGroup>
 
