@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Item
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -7,6 +7,6 @@
     {
         public bool IsRune { get; init; }
         public int Tier { get; init; }
-        public string Type { get; init; } = default!;
+        public required string Type { get; init; }
     }
 }

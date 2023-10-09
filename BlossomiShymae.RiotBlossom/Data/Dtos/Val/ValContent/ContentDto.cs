@@ -1,23 +1,23 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValContent
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValContent
 {
     public record ContentDto : DataObject
     {
         public string Version { get; init; } = default!;
-        public ImmutableList<ContentItemDto> Characters { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> Maps { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> Chromas { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> Skins { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> SkinLevels { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> Equips { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> GameModes { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> Sprays { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> SprayLevels { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> Charms { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> CharmLevels { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> PlayerCards { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ContentItemDto> PlayerTitles { get; init; } = ImmutableList<ContentItemDto>.Empty;
-        public ImmutableList<ActDto> Acts { get; init; } = ImmutableList<ActDto>.Empty;
+        public List<ContentItemDto> Characters { get; init; } = [];
+        public List<ContentItemDto> Maps { get; init; } = [];
+        public List<ContentItemDto> Chromas { get; init; } = [];
+        public List<ContentItemDto> Skins { get; init; } = [];
+        public List<ContentItemDto> SkinLevels { get; init; } = [];
+        public List<ContentItemDto> Equips { get; init; } = [];
+        public List<ContentItemDto> GameModes { get; init; } = [];
+        public List<ContentItemDto> Sprays { get; init; } = [];
+        public List<ContentItemDto> SprayLevels { get; init; } = [];
+        public List<ContentItemDto> Charms { get; init; } = [];
+        public List<ContentItemDto> CharmLevels { get; init; } = [];
+        public List<ContentItemDto> PlayerCards { get; init; } = [];
+        public List<ContentItemDto> PlayerTitles { get; init; } = [];
+        public List<ActDto> Acts { get; init; } = [];
     }
 }

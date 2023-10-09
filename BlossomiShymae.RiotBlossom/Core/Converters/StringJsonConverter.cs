@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Core
+namespace BlossomiShymae.RiotBlossom.Core.Converters
 {
     internal class StringJsonConverter : JsonConverter<string>
     {

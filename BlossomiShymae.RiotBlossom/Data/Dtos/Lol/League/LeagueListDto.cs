@@ -1,28 +1,28 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.League
 {
     public record LeagueListDto : DataObject
     {
         /// <summary>
         /// The associated league ID.
         /// </summary>
-        public string LeagueId { get; init; } = default!;
+        public required string LeagueId { get; init; }
         /// <summary>
         /// The league player entries.
         /// </summary>
-        public ImmutableList<LeagueItemDto> Entries { get; init; } = ImmutableList<LeagueItemDto>.Empty;
+        public List<LeagueItemDto> Entries { get; init; } = [];
         /// <summary>
         /// The rank tier for league e.g. "SILVER", "GOLD".
         /// </summary>
-        public string Tier { get; init; } = default!;
+        public required string Tier { get; init; }
         /// <summary>
         /// The name for league e.g. "Nunu's Battlemasters".
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; }
         /// <summary>
         /// The queue type the league is for e.g. "RANKED_SOLO_5x5".
         /// </summary>
-        public string Queue { get; init; } = default!;
+        public required string Queue { get; init; }
     }
 }

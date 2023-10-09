@@ -1,20 +1,20 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     public record MetadataDto : DataObject
     {
         /// <summary>
         /// The data version of match.
         /// </summary>
-        public string DataVersion { get; init; } = default!;
+        public required string DataVersion { get; init; }
         /// <summary>
         /// The match ID.
         /// </summary>
-        public string MatchId { get; init; } = default!;
+        public required string MatchId { get; init; }
         /// <summary>
         /// The list of encrypted PUUIDs for summoners that participated in the match.
         /// </summary>
-        public ImmutableList<string> Participants { get; init; } = ImmutableList<string>.Empty;
+        public List<string> Participants { get; init; } = [];
     }
 }

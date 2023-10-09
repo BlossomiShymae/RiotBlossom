@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Perk
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -6,10 +6,10 @@
     public record PerkRune : DataObject
     {
         public int Id { get; init; }
-        public string Key { get; init; } = default!;
-        public string Icon { get; init; } = default!;
-        public string Name { get; init; } = default!;
-        public string ShortDesc { get; init; } = default!;
-        public string LongDesc { get; init; } = default!;
+        public required string Key { get; init; } 
+        public required string Icon { get; init; } 
+        public required string Name { get; init; } 
+        public required string ShortDesc { get; init; }
+        public required string LongDesc { get; init; } 
     }
 }

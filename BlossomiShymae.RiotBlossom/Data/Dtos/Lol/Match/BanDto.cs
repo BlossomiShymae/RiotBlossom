@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     public record BanDto : DataObject
     {

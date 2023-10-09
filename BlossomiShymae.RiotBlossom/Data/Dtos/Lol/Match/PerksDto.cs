@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     /// <summary>
     /// A game data object that represents selected options in Runes Reforged.
@@ -15,6 +15,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
         /// <summary>
         /// The selected perk styles for a player.
         /// </summary>
-        public ImmutableList<PerkStyleDto> Styles { get; init; } = ImmutableList<PerkStyleDto>.Empty;
+        public List<PerkStyleDto> Styles { get; init; } = [];
     }
 }

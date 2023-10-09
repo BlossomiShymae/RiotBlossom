@@ -1,13 +1,13 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record FeaturedGames : DataObject
     {
         /// <summary>
         /// The list of featured games.
         /// </summary>
-        public ImmutableList<FeaturedGameInfo> GameList { get; init; } = ImmutableList<FeaturedGameInfo>.Empty;
+        public List<FeaturedGameInfo> GameList { get; init; } = [];
         /// <summary>
         /// The suggested interval to wait before making another request for refreshing.
         /// </summary>

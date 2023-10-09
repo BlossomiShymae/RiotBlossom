@@ -1,12 +1,12 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorRanked
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lor.LorRanked
 {
     public record LeaderboardDto : DataObject
     {
         /// <summary>
         /// The list of players in Master tier.
         /// </summary>
-        public ImmutableList<PlayerDto> Players { get; init; } = ImmutableList<PlayerDto>.Empty;
+        public List<PlayerDto> Players { get; init; } = [];
     }
 }

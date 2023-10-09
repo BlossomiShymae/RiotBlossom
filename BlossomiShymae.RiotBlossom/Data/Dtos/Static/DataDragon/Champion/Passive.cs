@@ -1,12 +1,12 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Passive : DataObject
     {
-        public string Name { get; init; } = default!;
-        public string Description { get; init; } = default!;
-        public Image Image { get; init; } = new();
+        public required string Name { get; init; } 
+        public required string Description { get; init; }
+        public required Image Image { get; init; }
     }
 }

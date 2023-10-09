@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -8,6 +8,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     public record Effect : DataObject
     {
         public string? Description { get; init; }
-        public ImmutableList<Leveling> Leveling { get; init; } = ImmutableList<Leveling>.Empty;
+        public List<Leveling> Leveling { get; init; } = [];
     }
 }

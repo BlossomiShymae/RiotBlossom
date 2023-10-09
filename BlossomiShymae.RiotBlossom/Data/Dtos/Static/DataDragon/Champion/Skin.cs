@@ -1,13 +1,13 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Skin : DataObject
     {
-        public string Id { get; init; } = default!;
+        public required string Id { get; init; } 
         public int Num { get; init; }
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; } 
         public bool Chromas { get; init; }
     }
 }

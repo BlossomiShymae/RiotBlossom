@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -17,15 +17,15 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? AttackType { get; init; }
         public string? DamageType { get; init; }
         public Stats Stats { get; init; } = new();
-        public ImmutableList<string> Roles { get; init; } = ImmutableList<string>.Empty;
+        public List<string> Roles { get; init; } = [];
         public AttributeRatings AttributeRatings { get; init; } = new();
-        public ImmutableDictionary<string, ImmutableList<Ability>> Abilities { get; init; } = ImmutableDictionary<string, ImmutableList<Ability>>.Empty;
+        public Dictionary<string, ImmutableList<Ability>> Abilities { get; init; } = [];
         public string? ReleaseDate { get; init; }
         public string? ReleasePatch { get; init; }
         public string? PatchLastChanged { get; init; }
         public Price Price { get; init; } = new();
         public string? Lore { get; init; }
         public string? Faction { get; init; }
-        public ImmutableList<Skin> Skins { get; init; } = ImmutableList<Skin>.Empty;
+        public List<Skin> Skins { get; init; } = [];
     }
 }

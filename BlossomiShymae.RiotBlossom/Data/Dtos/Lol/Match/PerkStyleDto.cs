@@ -1,17 +1,17 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     public record PerkStyleDto : DataObject
     {
         /// <summary>
         /// The description of perk style.
         /// </summary>
-        public string Description { get; init; } = default!;
+        public required string Description { get; init; } 
         /// <summary>
         /// The selected perk styles.
         /// </summary>
-        public ImmutableList<PerkStyleSelectionDto> Selections { get; init; } = ImmutableList<PerkStyleSelectionDto>.Empty;
+        public List<PerkStyleSelectionDto> Selections { get; init; } = [];
         /// <summary>
         /// The style ID.
         /// </summary>

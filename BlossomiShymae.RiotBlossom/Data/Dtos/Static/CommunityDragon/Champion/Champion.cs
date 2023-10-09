@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -8,20 +8,19 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
     public record Champion : DataObject
     {
         public int Id { get; init; }
-        public string Name { get; init; } = default!;
-        public string Alias { get; init; } = default!;
-        public string Title { get; init; } = default!;
-        public string ShortBio { get; init; } = default!;
-        public TacticalInfo TacticalInfo { get; init; } = new();
+        public required string Name { get; init; }
+        public required string Alias { get; init; } 
+        public required string Title { get; init; }
+        public required string ShortBio { get; init; } 
+        public required TacticalInfo TacticalInfo { get; init; }
         public PlaystyleInfo PlaystyleInfo { get; init; } = new();
-        public string SquarePortraitPath { get; init; } = default!;
-        public string StingerSfxPath { get; init; } = default!;
-        public string ChooseVoPath { get; init; } = default!;
-        public string BanVoPath { get; init; } = default!;
-        public ImmutableList<string> Roles { get; init; } = ImmutableList<string>.Empty;
-        public object? RecommendedItemDefaults { get; init; }
-        public ImmutableList<Skin> Skins { get; init; } = ImmutableList<Skin>.Empty;
-        public Passive Passive { get; init; } = new();
-        public ImmutableList<Spell> Spells { get; init; } = ImmutableList<Spell>.Empty;
+        public required string SquarePortraitPath { get; init; }
+        public required string StingerSfxPath { get; init; }
+        public required string ChooseVoPath { get; init; }
+        public required string BanVoPath { get; init; }
+        public List<string> Roles { get; init; } = [];
+        public List<Skin> Skins { get; init; } = [];
+        public required Passive Passive { get; init; }
+        public List<Spell> Spells { get; init; } = [];
     }
 }

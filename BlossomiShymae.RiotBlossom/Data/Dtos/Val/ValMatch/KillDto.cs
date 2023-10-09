@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record KillDto : DataObject
     {
@@ -9,17 +9,17 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
         /// <summary>
         /// The PUUID of killer.
         /// </summary>
-        public string Killer { get; init; } = default!;
+        public required string Killer { get; init; }
         /// <summary>
         /// The PUUID of victim.
         /// </summary>
-        public string Victim { get; init; } = default!;
+        public required string Victim { get; init; }
         public LocationDto VictimLocation { get; init; } = new();
         /// <summary>
         /// The list of PUUIDs.
         /// </summary>
-        public ImmutableList<string> Assistants { get; init; } = ImmutableList<string>.Empty;
-        public ImmutableList<PlayerLocationsDto> PlayerLocations { get; init; } = ImmutableList<PlayerLocationsDto>.Empty;
-        public FinishingDamageDto FinishingDamage { get; init; } = new();
+        public List<string> Assistants { get; init; } = [];
+        public List<PlayerLocationsDto> PlayerLocations { get; init; } = [];
+        public required FinishingDamageDto FinishingDamage { get; init; }
     }
 }

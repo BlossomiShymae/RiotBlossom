@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Exception
+﻿namespace BlossomiShymae.RiotBlossom.Core.Exceptions
 {
     /// <summary>
     /// <para>An exception class for a corrupted Riot API game match. :c</para>

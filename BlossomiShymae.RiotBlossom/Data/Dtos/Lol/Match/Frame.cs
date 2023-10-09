@@ -1,14 +1,14 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Frame : DataObject
     {
-        public ImmutableList<Event> Events { get; init; } = ImmutableList<Event>.Empty;
-        public ImmutableDictionary<string, ParticipantFrame> ParticipantFrames { get; init; } = ImmutableDictionary<string, ParticipantFrame>.Empty;
+        public List<Event> Events { get; init; } = [];
+        public Dictionary<string, ParticipantFrame> ParticipantFrames { get; init; } = [];
         public long Timestamp { get; init; }
     }
 }

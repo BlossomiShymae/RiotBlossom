@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.League
 {
     public record MiniSeriesDto : DataObject
     {
@@ -24,7 +24,7 @@
         /// </list>
         /// <example>'WLWLN' is an example progress.</example>
         /// </summary>
-        public string Progress { get; init; } = default!;
+        public required string Progress { get; init; }
         /// <summary>
         /// The wins required for miniseries to be accomplished.
         /// </summary>

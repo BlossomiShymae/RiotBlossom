@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Item
 {
     /// <summary>
     /// UNDOCUMENTED

@@ -1,11 +1,11 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record ChromaDescription : DataObject
     {
-        public string Region { get; init; } = default!;
-        public string Description { get; init; } = default!;
+        public required string Region { get; init; } 
+        public required string Description { get; init; }
     }
 }

@@ -1,22 +1,22 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Clash
 {
     public record PlayerDto : DataObject
     {
         /// <summary>
         /// The encrypted summoner ID of player.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; }
         /// <summary>
         /// The associated team ID of player.
         /// </summary>
-        public string TeamId { get; init; } = default!;
+        public required string TeamId { get; init; }
         /// <summary>
         /// The assigned position ('UNSELECTED', 'FILL', 'TOP', 'JUNGLE', 'MIDDLE', 'BOTTOM', 'UTILITY').
         /// </summary>
-        public string Position { get; init; } = default!;
+        public required string Position { get; init; }
         /// <summary>
         /// The assigned role ('CAPTAIN', 'MEMBER').
         /// </summary>
-        public string Role { get; init; } = default!;
+        public required string Role { get; init; }
     }
 }

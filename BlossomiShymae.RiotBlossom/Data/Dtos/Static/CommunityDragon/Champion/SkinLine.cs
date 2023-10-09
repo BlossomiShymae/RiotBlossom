@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -9,7 +9,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
     {
         public string? Name { get; init; }
         public string? Icon { get; init; }
-        public ImmutableList<Effect> Effects { get; init; } = ImmutableList<Effect>.Empty;
+        public List<Effect> Effects { get; init; } = [];
         public Cost Cost { get; init; } = new();
         public Cooldown Cooldown { get; init; } = new();
         public string? Targeting { get; init; }
@@ -24,7 +24,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? Notes { get; init; }
         public string? Blurb { get; init; }
         public string? MissileSpeed { get; init; }
-        public ImmutableList<double> RechargeRate { get; init; } = ImmutableList<double>.Empty;
+        public List<double> RechargeRate { get; init; } = [];
         public string? CollisionRadius { get; init; }
         public string? TetherRadius { get; init; }
         public string? OnTargetCdStatic { get; init; }

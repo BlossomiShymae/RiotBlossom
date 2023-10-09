@@ -1,14 +1,14 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record GameCustomizationObject : DataObject
     {
         /// <summary>
         /// The category ID for Game Customization.
         /// </summary>
-        public string Category { get; init; } = default!;
+        public required string Category { get; init; }
         /// <summary>
         /// The content for Game Customization.
         /// </summary>
-        public string Content { get; init; } = default!;
+        public required string Content { get; init; }
     }
 }

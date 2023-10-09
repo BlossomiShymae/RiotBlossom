@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Clash
 {
     public record TournamentPhaseDto : DataObject
     {

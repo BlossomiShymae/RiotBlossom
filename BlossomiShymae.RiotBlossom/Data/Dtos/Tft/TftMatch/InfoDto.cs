@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Tft.TftMatch
 {
     public record InfoDto : DataObject
     {
@@ -19,16 +19,16 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         /// The game variation key.
         /// </summary>
         [JsonPropertyName("game_variation")]
-        public string GameVariation { get; init; } = default!;
+        public required string GameVariation { get; init; }
         /// <summary>
         /// The game client version.
         /// </summary>
         [JsonPropertyName("game_version")]
-        public string GameVersion { get; init; } = default!;
+        public required string GameVersion { get; init; } 
         /// <summary>
         /// The list of active participants.
         /// </summary>
-        public ImmutableList<ParticipantDto> Participants { get; init; } = ImmutableList<ParticipantDto>.Empty;
+        public List<ParticipantDto> Participants { get; init; } = [];
         /// <summary>
         /// The queue ID of game.
         /// </summary>

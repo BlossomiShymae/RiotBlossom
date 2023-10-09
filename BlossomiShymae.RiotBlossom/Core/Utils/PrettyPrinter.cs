@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace BlossomiShymae.RiotBlossom.Core
+namespace BlossomiShymae.RiotBlossom.Core.Utils
 {
     /// <summary>
     /// A helper class used for getting pretty printed strings.

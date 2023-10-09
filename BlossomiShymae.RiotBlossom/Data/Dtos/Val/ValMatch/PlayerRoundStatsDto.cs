@@ -1,14 +1,14 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record PlayerRoundStatsDto : DataObject
     {
-        public string Puuid { get; init; } = default!;
-        public ImmutableList<KillDto> Kills { get; init; } = ImmutableList<KillDto>.Empty;
-        public ImmutableList<DamageDto> Damage { get; init; } = ImmutableList<DamageDto>.Empty;
+        public required string Puuid { get; init; } 
+        public List<KillDto> Kills { get; init; } = [];
+        public List<DamageDto> Damage { get; init; } = [];
         public int Score { get; init; }
-        public EconomyDto Economy { get; init; } = new();
-        public AbilityDto Ability { get; init; } = new();
+        public required EconomyDto Economy { get; init; }
+        public required AbilityDto Ability { get; init; } 
     }
 }

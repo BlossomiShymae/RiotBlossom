@@ -1,18 +1,18 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolChallenges
 {
     public record LocalizedName : DataObject
     {
         /// <summary>
         /// The localized description of challenge.
         /// </summary>
-        public string Description { get; init; } = default!;
+        public required string Description { get; init; } 
         /// <summary>
         /// The localized challenge name.
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; }
         /// <summary>
         /// The localized brief description of challenge.
         /// </summary>
-        public string ShortDescription { get; init; } = default!;
+        public required string ShortDescription { get; init; } 
     }
 }

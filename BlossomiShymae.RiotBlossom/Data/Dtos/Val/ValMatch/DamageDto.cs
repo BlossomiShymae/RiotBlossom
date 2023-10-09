@@ -1,11 +1,11 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record DamageDto : DataObject
     {
         /// <summary>
         /// The PUUID of affected player.
         /// </summary>
-        public string Receiver { get; init; } = default!;
+        public required string Receiver { get; init; }
         public int Damage { get; init; }
         public int Legshots { get; init; }
         public int Bodyshots { get; init; }

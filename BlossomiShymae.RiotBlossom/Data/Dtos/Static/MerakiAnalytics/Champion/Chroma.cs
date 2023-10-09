@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -10,8 +10,8 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public string? Name { get; init; }
         public long Id { get; init; }
         public string? ChromaPath { get; init; }
-        public ImmutableList<string> Colors { get; init; } = ImmutableList<string>.Empty;
-        public ImmutableList<DescriptionDto> Descriptions { get; init; } = ImmutableList<DescriptionDto>.Empty;
-        public ImmutableList<Rarities> Rarities { get; init; } = ImmutableList<Rarities>.Empty;
+        public List<string> Colors { get; init; } = [];
+        public List<DescriptionDto> Descriptions { get; init; } = [];
+        public List<Rarities> Rarities { get; init; } = [];
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -9,23 +9,22 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
     {
         public int Id { get; init; }
         public bool IsBase { get; init; }
-        public string Name { get; init; } = default!;
-        public string SplashPath { get; init; } = default!;
-        public string UncenteredSplashPath { get; init; } = default!;
-        public string TilePath { get; init; } = default!;
-        public string LoadScreenPath { get; init; } = default!;
-        public string SkinType { get; init; } = default!;
-        public string Rarity { get; init; } = default!;
+        public required string Name { get; init; }
+        public required string SplashPath { get; init; }
+        public required string UncenteredSplashPath { get; init; } 
+        public required string TilePath { get; init; } 
+        public required string LoadScreenPath { get; init; } 
+        public required string SkinType { get; init; } 
+        public required string Rarity { get; init; } 
         public bool IsLegacy { get; init; }
         public string? SplashVideoPath { get; init; }
         public string? CollectionSplashVideoPath { get; init; }
         public string? FeaturesText { get; init; }
         public string? ChromaPath { get; init; }
-        public ImmutableList<Chroma>? Chromas { get; init; }
-        public object? Emblems { get; init; }
+        public List<Chroma>? Chromas { get; init; }
         public int RegionRarityId { get; init; }
         public string? RarityGemPath { get; init; }
-        public ImmutableList<SkinLine>? SkinLines { get; init; }
-        public string Description { get; init; } = default!;
+        public List<SkinLine>? SkinLines { get; init; }
+        public required string Description { get; init; }
     }
 }

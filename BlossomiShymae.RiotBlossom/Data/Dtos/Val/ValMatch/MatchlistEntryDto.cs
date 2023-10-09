@@ -1,9 +1,9 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record MatchlistEntryDto : DataObject
     {
-        public string MatchId { get; init; } = default!;
+        public required string MatchId { get; init; } 
         public long GameStartTimeMillis { get; init; }
-        public string QueueId { get; init; } = default!;
+        public required string QueueId { get; init; }
     }
 }

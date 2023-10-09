@@ -1,9 +1,9 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record FinishingDamageDto : DataObject
     {
-        public string DamageType { get; init; } = default!;
-        public string DamageItem { get; init; } = default!;
+        public required string DamageType { get; init; }
+        public required string DamageItem { get; init; }
         public bool IsSecondaryFireMode { get; init; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     public record TeamDto : DataObject
     {
         /// <summary>
         /// The champions that a team has banned in Draft Pick.
         /// </summary>
-        public ImmutableList<BanDto> Bans { get; init; } = ImmutableList<BanDto>.Empty;
+        public List<BanDto> Bans { get; init; } = [];
         /// <summary>
         /// The objectives that a team has killed/taken in a match.
         /// </summary>

@@ -1,109 +1,144 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion;
-using BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Item;
-using BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk;
-using BlossomiShymae.RiotBlossom.Http;
-using System.Collections.Immutable;
-using System.Text.Json.Nodes;
+﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Core.Utils;
+using BlossomiShymae.RiotBlossom.Data;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Item;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Perk;
 
-namespace BlossomiShymae.RiotBlossom.Api
+namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
 {
     public interface ICommunityDragonApi
     {
         /// <summary>
-        /// Get the deserialized object, array, or scalar response from CommunityDragon RAW path.
-        /// </summary>
-        /// <exception cref="NullReferenceException"></exception>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        Task<T> GetAsync<T>(string path);
-        /// <summary>
         /// Get a League champion by ID from the latest game data.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="locale"></param>
+        /// <param name="version"></param>
         /// <returns></returns>
-        Task<Champion> GetChampionByIdAsync(int id);
+        Task<Champion> GetChampionByIdAsync(int id, string version = "latest", string locale = "default");
         /// <summary>
         /// Get a League shop item by ID from the latest game data.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <returns></returns>
-        Task<Item?> GetItemByIdAsync(int id);
+        Task<Item> GetItemByIdAsync(int id, string version = "latest", string locale = "default");
         /// <summary>
         /// Get a dictionary of League shop item by ID pairs from the latest game data.
         /// </summary>
         /// <returns></returns>
-        Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync();
+        Task<Dictionary<int, Item>> GetItemsAsync(string version = "latest", string locale = "default");
         /// <summary>
         /// Get a League perk by ID from the latest game data;
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <returns></returns>
-        Task<PerkRune> GetPerkRuneByIdAsync(int id);
+        Task<PerkRune> GetPerkRuneByIdAsync(int id, string version = "latest", string locale = "default");
         /// <summary>
         /// Get a dictionary of League perks by ID pairs from the latest game data.
         /// </summary>
         /// <returns></returns>
-        Task<ImmutableDictionary<int, PerkRune>> GetPerkRuneDictionaryAsync();
+        Task<Dictionary<int, PerkRune>> GetPerkRunesAsync(string version = "latest", string locale = "default");
         /// <summary>
-        /// Get the byte array of a League profile icon by ID from the latest game data.
+        /// Get a profile icon URL by profile icon ID.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <returns></returns>
-        Task<byte[]> GetProfileIconByteArrayByIdAsync(int id);
+        string GetProfileIconById(int id, string version = "latest", string locale = "default");
     }
 
-    internal class CommunityDragonApi : ICommunityDragonApi
+    internal class CommunityDragonApi : DataApi, ICommunityDragonApi
     {
-        private static readonly string s_itemsJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json";
-        private static readonly string s_championByIdJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/{0}.json";
-        private static readonly string s_perksJsonUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json";
-        private static readonly string s_profileIconUri = "/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/{0}.jpg";
-        private readonly ComposableApi<List<Item>> _itemsApi;
-        private readonly ComposableApi<Champion> _championApi;
-        private readonly ComposableApi<List<PerkRune>> _perkRunesApi;
-        private readonly ComposableApi<byte[]> _byteArrayApi;
-        private readonly ComposableApi<JsonNode> _jsonNodeApi;
-
-        public CommunityDragonApi(CommunityDragonHttpClient cDragonHttpClient)
+        public CommunityDragonApi(ApiConfiguration configuration) : base(configuration)
         {
-            _itemsApi = new(cDragonHttpClient);
-            _championApi = new(cDragonHttpClient);
-            _perkRunesApi = new(cDragonHttpClient);
-            _byteArrayApi = new(cDragonHttpClient);
-            _jsonNodeApi = new(cDragonHttpClient);
         }
 
-        public async Task<Item?> GetItemByIdAsync(int id)
-            => (await GetItemDictionaryAsync())[id];
-
-        public async Task<Champion> GetChampionByIdAsync(int id)
-            => await _championApi.GetValueAsync(string.Format(s_championByIdJsonUri, id));
-
-        public async Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync()
+        public async Task<Champion> GetChampionByIdAsync(int id, string version = "latest", string locale = "default")
         {
-            List<Item> items = await _itemsApi.GetValueAsync(s_itemsJsonUri);
-            return items
-                .ToImmutableDictionary(k => k.Id, v => v);
+            var data = await CallStaticAsync<Champion>(new()
+            {
+                Endpoint = nameof(CommunityDragonApi),
+                Url = UrlMethod.CommunityDragon,
+                Method = UrlMethod.CommunityDragonChampionById,
+                Params = new Dictionary<string, string>()
+                {
+                    { UrlMethod.ChampionId, id.ToString() },
+                    { UrlMethod.Version, version },
+                    { UrlMethod.Locale, locale }
+                }
+            }).ConfigureAwait(false);
+
+            return data;
         }
 
-        public async Task<PerkRune> GetPerkRuneByIdAsync(int id)
-            => (await GetPerkRuneDictionaryAsync())[id];
-
-        public async Task<ImmutableDictionary<int, PerkRune>> GetPerkRuneDictionaryAsync()
+        public async Task<Item> GetItemByIdAsync(int id, string version = "latest", string locale = "default")
         {
-            List<PerkRune> perkRunes = await _perkRunesApi.GetValueAsync(s_perksJsonUri);
-            return perkRunes
-                .ToImmutableDictionary(k => k.Id, v => v);
+            var dict = await GetItemsAsync()
+                .ConfigureAwait(false);
+
+            return dict[id];
         }
 
-        public async Task<byte[]> GetProfileIconByteArrayByIdAsync(int id)
-            => await _byteArrayApi.GetByteArrayAsync(string.Format(s_profileIconUri, id));
-
-        public async Task<T> GetAsync<T>(string path)
+        public async Task<Dictionary<int, Item>> GetItemsAsync(string version = "latest", string locale = "default")
         {
-            JsonNode node = await _jsonNodeApi.GetValueAsync(path);
-            return _jsonNodeApi.DeserializeNode<T>(node) ?? throw new NullReferenceException($"Failed to deserialize type {typeof(T)}");
+            var data = await CallStaticAsync<List<Item>>(new()
+            {
+                Endpoint = nameof(CommunityDragonApi),
+                Url = UrlMethod.CommunityDragon,
+                Method = UrlMethod.CommunityDragonItems,
+                Params = new Dictionary<string, string>()
+                {
+                    { UrlMethod.Version, version },
+                    { UrlMethod.Locale, locale }
+                }
+            }).ConfigureAwait(false);
+
+            return data.ToDictionary(k => k.Id, v => v);
+        }
+
+        public async Task<PerkRune> GetPerkRuneByIdAsync(int id, string version = "latest", string locale = "default")
+        {
+            var dict = await GetPerkRunesAsync()
+                .ConfigureAwait(false);
+
+            return dict[id];
+        }
+
+        public async Task<Dictionary<int, PerkRune>> GetPerkRunesAsync(string version = "latest", string locale = "default")
+        {
+            var data = await CallStaticAsync<List<PerkRune>>(new()
+            {
+                Endpoint = nameof(CommunityDragonApi),
+                Url = UrlMethod.CommunityDragon,
+                Method = UrlMethod.CommunityDragonPerks,
+                Params = new Dictionary<string, string>()
+                {
+                    { UrlMethod.Version, version },
+                    { UrlMethod.Locale, locale }
+                }
+            }).ConfigureAwait(false);
+
+            return data.ToDictionary(k => k.Id, v => v);
+        }
+
+        public string GetProfileIconById(int id, string version = "latest", string locale = "default")
+        {
+            var uri = new NamedFormatter(UrlMethod.CommunityDragonProfileIcon);
+
+            var data = uri.Format(new Dictionary<string, string>()
+            {
+                { UrlMethod.ProfileIconId, id.ToString() },
+                { UrlMethod.Version, version },
+                { UrlMethod.Locale, locale }
+            });
+
+            return data;
         }
     }
 }

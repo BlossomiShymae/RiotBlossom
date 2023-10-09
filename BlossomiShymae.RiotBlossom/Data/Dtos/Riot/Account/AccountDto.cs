@@ -1,11 +1,11 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Account
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Riot.Account
 {
     public record AccountDto : DataObject
     {
         /// <summary>
         /// The player UUID associated with account.
         /// </summary>
-        public string Puuid { get; init; } = default!;
+        public required string Puuid { get; init; }
         /// <summary>
         /// The Riot game name associated with account. May be excluded from response if account does not have it.
         /// </summary>

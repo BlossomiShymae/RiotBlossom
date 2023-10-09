@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.League
 {
     public record LeagueItemDto : DataObject
     {
@@ -13,7 +13,7 @@
         /// <summary>
         /// The player summoner name.
         /// </summary>
-        public string SummonerName { get; init; } = default!;
+        public required string SummonerName { get; init; } 
         /// <summary>
         /// The current miniseries (rank promotions) the player is involved in.
         /// </summary>
@@ -45,6 +45,6 @@
         /// <summary>
         /// The player encrypted summoner ID.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; }
     }
 }

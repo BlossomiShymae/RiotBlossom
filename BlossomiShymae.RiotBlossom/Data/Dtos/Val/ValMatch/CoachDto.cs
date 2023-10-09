@@ -1,8 +1,8 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record CoachDto : DataObject
     {
-        public string Puuid { get; init; } = default!;
-        public string TeamId { get; init; } = default!;
+        public required string Puuid { get; init; }
+        public required string TeamId { get; init; }
     }
 }

@@ -1,31 +1,31 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.League
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.League
 {
     public record LeagueEntryDto : DataObject
     {
         /// <summary>
         /// The league entry ID.
         /// </summary>
-        public string LeagueId { get; init; } = default!;
+        public required string LeagueId { get; init; }
         /// <summary>
         /// The player encrypted summoner ID.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; }
         /// <summary>
         /// The player summoner name.
         /// </summary>
-        public string SummonerName { get; init; } = default!;
+        public required string SummonerName { get; init; }
         /// <summary>
         /// The queue type for league entry.
         /// </summary>
-        public string QueueType { get; init; } = default!;
+        public required string QueueType { get; init; }
         /// <summary>
         /// The rank tier e.g. "SILVER", "GOLD".
         /// </summary>
-        public string Tier { get; init; } = default!;
+        public required string Tier { get; init; }
         /// <summary>
         /// The rank division ("I", "II", "III", "IV").
         /// </summary>
-        public string Rank { get; init; } = default!;
+        public required string Rank { get; init; }
         /// <summary>
         /// The player's current league points needed to progress to the next rank tier.
         /// </summary>

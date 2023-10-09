@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolChallenges
 {
     public record ChallengeConfigInfoDto : DataObject
     {
@@ -11,15 +11,15 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
         /// <summary>
         /// The locale translations of text for challenge.
         /// </summary>
-        public ImmutableDictionary<string, LocalizedName> LocalizedNames { get; init; } = ImmutableDictionary<string, LocalizedName>.Empty;
+        public Dictionary<string, LocalizedName> LocalizedNames { get; init; } = [];
         /// <summary>
         /// The state of challenge e.g. "DISABLED", "HIDDEN", "ARCHIVED".
         /// </summary>
-        public string? State { get; init; } = default!;
+        public string? State { get; init; }
         /// <summary>
         /// The tracking type of challenge e.g. "LIFETIME", "SEASON".
         /// </summary>
-        public string? Tracking { get; init; } = default!;
+        public string? Tracking { get; init; }
         /// <summary>
         /// The Unix timestamp for when the challenge has started.
         /// </summary>
@@ -35,6 +35,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
         /// <summary>
         /// The map of threshold values for challenge.
         /// </summary>
-        public ImmutableDictionary<string, double> Thresholds { get; init; } = ImmutableDictionary<string, double>.Empty;
+        public Dictionary<string, double> Thresholds { get; init; } = [];
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record Participant : DataObject
     {
@@ -17,7 +17,7 @@
         /// <summary>
         /// The summoner name of participant.
         /// </summary>
-        public string SummonerName { get; init; } = default!;
+        public required string SummonerName { get; init; } 
         /// <summary>
         /// The played champion ID.
         /// </summary>

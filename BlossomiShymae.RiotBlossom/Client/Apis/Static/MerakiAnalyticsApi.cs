@@ -1,9 +1,10 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion;
-using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item;
-using BlossomiShymae.RiotBlossom.Http;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
+using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Data;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Item;
 
-namespace BlossomiShymae.RiotBlossom.Api
+namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
 {
     public interface IMerakiAnalyticsApi
     {
@@ -17,7 +18,7 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// Get a dictionary of League champions by string key pairs e.g. "MonkeyKing", "Kogmaw", "AurelionSol".
         /// </summary>
         /// <returns></returns>
-        Task<ImmutableDictionary<string, Champion>> GetChampionDictionaryAsync();
+        Task<Dictionary<string, Champion>> GetChampionsAsync();
         /// <summary>
         /// Get a League shop item by ID.
         /// </summary>
@@ -28,44 +29,69 @@ namespace BlossomiShymae.RiotBlossom.Api
         /// Get a dictionary of League shop items by ID pairs.
         /// </summary>
         /// <returns></returns>
-        Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync();
+        Task<Dictionary<int, Item>> GetItemsAsync();
     }
 
-    internal class MerakiAnalyticsApi : IMerakiAnalyticsApi
+    internal class MerakiAnalyticsApi : DataApi, IMerakiAnalyticsApi
     {
-        private static readonly string s_itemByIdUri = "/items/{0}.json";
-        private static readonly string s_championByKeyUri = "/champions/{0}.json";
-        private static readonly string s_itemsDictionaryUri = "/items.json";
-        private static readonly string s_championsDictionaryUri = "/champions.json";
-        private readonly ComposableApi<Dictionary<int, Item>> _itemDictionaryApi;
-        private readonly ComposableApi<Dictionary<string, Champion>> _championDictionaryApi;
-        private readonly ComposableApi<Item> _itemApi;
-        private readonly ComposableApi<Champion> _championApi;
-
-        public MerakiAnalyticsApi(MerakiAnalyticsHttpClient merakiAnalyticsHttpClient)
+        public MerakiAnalyticsApi(ApiConfiguration configuration) : base(configuration)
         {
-            _itemDictionaryApi = new(merakiAnalyticsHttpClient);
-            _championDictionaryApi = new(merakiAnalyticsHttpClient);
-            _itemApi = new(merakiAnalyticsHttpClient);
-            _championApi = new(merakiAnalyticsHttpClient);
         }
 
         public async Task<Champion> GetChampionByKeyAsync(string key)
-            => await _championApi.GetValueAsync(string.Format(s_championByKeyUri, key));
-
-        public async Task<ImmutableDictionary<string, Champion>> GetChampionDictionaryAsync()
         {
-            Dictionary<string, Champion> champions = await _championDictionaryApi.GetValueAsync(s_championsDictionaryUri);
-            return champions.ToImmutableDictionary();
+            var data = await CallStaticAsync<Champion>(new()
+            {
+                Endpoint = nameof(MerakiAnalyticsApi),
+                Url = UrlMethod.MerakiAnalytics,
+                Method = UrlMethod.MerakiAnalyticsChampionByKey,
+                Params = new Dictionary<string, string>()
+                {
+                    { UrlMethod.ChampionKey, key }
+                }
+            }).ConfigureAwait(false);
+
+            return data;
+        }
+
+        public async Task<Dictionary<string, Champion>> GetChampionsAsync()
+        {
+            var data = await CallStaticAsync<Dictionary<string, Champion>>(new()
+            {
+                Endpoint = nameof(MerakiAnalyticsApi),
+                Url = UrlMethod.MerakiAnalytics,
+                Method = UrlMethod.MerakiAnalyticsChampions
+            }).ConfigureAwait(false);
+
+            return data;
         }
 
         public async Task<Item> GetItemByIdAsync(int id)
-            => await _itemApi.GetValueAsync(string.Format(s_itemByIdUri, id));
-
-        public async Task<ImmutableDictionary<int, Item>> GetItemDictionaryAsync()
         {
-            Dictionary<int, Item> items = await _itemDictionaryApi.GetValueAsync(s_itemsDictionaryUri);
-            return items.ToImmutableDictionary();
+            var data = await CallStaticAsync<Item>(new()
+            {
+                Endpoint = nameof(MerakiAnalyticsApi),
+                Url = UrlMethod.MerakiAnalytics,
+                Method = UrlMethod.MerakiAnalyticsItemById,
+                Params = new Dictionary<string, string>()
+                {
+                    { UrlMethod.ItemId, id.ToString() }
+                }
+            }).ConfigureAwait(false);
+
+            return data;
+        }
+
+        public async Task<Dictionary<int, Item>> GetItemsAsync()
+        {
+            var data = await CallStaticAsync<Dictionary<int, Item>>(new()
+            {
+                Endpoint = nameof(MerakiAnalyticsApi),
+                Url = UrlMethod.MerakiAnalytics,
+                Method = UrlMethod.MerakiAnalyticsItems
+            }).ConfigureAwait(false);
+
+            return data;
         }
     }
 }

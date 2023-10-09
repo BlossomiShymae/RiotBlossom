@@ -1,13 +1,13 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Clash
 {
     public record TeamDto : DataObject
     {
         /// <summary>
         /// The team ID.
         /// </summary>
-        public string Id { get; init; } = default!;
+        public required string Id { get; init; }
         /// <summary>
         /// The associated tournament ID the team is participating in.
         /// </summary>
@@ -15,7 +15,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
         /// <summary>
         /// The team name.
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; }
         /// <summary>
         /// The icon ID of team.
         /// </summary>
@@ -27,14 +27,14 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
         /// <summary>
         /// The encrypted summoner ID of team captain.
         /// </summary>
-        public string Captain { get; init; } = default!;
+        public required string Captain { get; init; }
         /// <summary>
         /// The abbreviation of team name.
         /// </summary>
-        public string Abbreviation { get; init; } = default!;
+        public required string Abbreviation { get; init; }
         /// <summary>
         /// The current team roster.
         /// </summary>
-        public ImmutableList<PlayerDto> Players { get; init; } = ImmutableList<PlayerDto>.Empty;
+        public List<PlayerDto> Players { get; init; } = [];
     }
 }

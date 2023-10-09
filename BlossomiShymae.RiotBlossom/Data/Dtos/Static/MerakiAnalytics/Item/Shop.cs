@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Item
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -9,6 +9,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
     {
         public Prices Prices { get; init; } = new();
         public bool Purchasable { get; init; }
-        public ImmutableList<string> Tags { get; init; } = ImmutableList<string>.Empty;
+        public List<string> Tags { get; init; } = [];
     }
 }

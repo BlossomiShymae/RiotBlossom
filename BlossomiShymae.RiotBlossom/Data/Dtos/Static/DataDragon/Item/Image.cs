@@ -1,13 +1,13 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Item
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Image : DataObject
     {
-        public string Full { get; init; } = default!;
-        public string Sprite { get; init; } = default!;
-        public string Group { get; init; } = default!;
+        public required string Full { get; init; }
+        public required string Sprite { get; init; } 
+        public required string Group { get; init; } 
         public int X { get; init; }
         public int Y { get; init; }
         public int W { get; init; }

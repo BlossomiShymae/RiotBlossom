@@ -1,6 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common;
+﻿using BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Common;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Item
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Item
 {
     /// <summary>
     /// UNDOCUMENTED

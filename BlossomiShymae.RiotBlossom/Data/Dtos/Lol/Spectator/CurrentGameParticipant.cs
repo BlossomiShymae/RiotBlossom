@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record CurrentGameParticipant : DataObject
     {
@@ -27,11 +27,11 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// <summary>
         /// The summoner name of participant.
         /// </summary>
-        public string SummonerName { get; init; } = default!;
+        public required string SummonerName { get; init; }
         /// <summary>
         /// The encrypted summoner ID of participant.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; } 
         /// <summary>
         /// The first equipped summoner spell ID.
         /// </summary>
@@ -43,6 +43,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// <summary>
         /// The list of Game Customization objects.
         /// </summary>
-        public ImmutableList<GameCustomizationObject> GameCustomizationObjects { get; init; } = ImmutableList<GameCustomizationObject>.Empty;
+        public List<GameCustomizationObject> GameCustomizationObjects { get; init; } = [];
     }
 }

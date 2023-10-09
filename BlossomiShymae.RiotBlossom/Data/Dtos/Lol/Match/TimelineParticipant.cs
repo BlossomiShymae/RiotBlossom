@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -6,6 +6,6 @@
     public record TimelineParticipant : DataObject
     {
         public int ParticipantId { get; init; }
-        public string Puuid { get; init; } = default!;
+        public required string Puuid { get; init; }
     }
 }

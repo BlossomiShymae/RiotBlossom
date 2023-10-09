@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Champion
 {
     public record ChampionInfo : DataObject
     {
@@ -12,10 +12,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Champion
         /// <summary>
         /// The current free champion rotation pool for new players. See <see cref="MaxNewPlayerLevel"/>.
         /// </summary>
-        public ImmutableList<int> FreeChampionIdsForNewPlayers { get; init; } = ImmutableList<int>.Empty;
+        public List<int> FreeChampionIdsForNewPlayers { get; init; } = [];
         /// <summary>
         /// The current free champion rotation pool.
         /// </summary>
-        public ImmutableList<int> FreeChampionIds { get; init; } = ImmutableList<int>.Empty;
+        public List<int> FreeChampionIds { get; init; } = [];
     }
 }

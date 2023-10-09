@@ -1,10 +1,10 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record MatchlistDto : DataObject
     {
-        public string Puuid { get; init; } = default!;
-        public ImmutableList<MatchlistEntryDto> History { get; init; } = ImmutableList<MatchlistEntryDto>.Empty;
+        public required string Puuid { get; init; }
+        public List<MatchlistEntryDto> History { get; init; } = [];
     }
 }

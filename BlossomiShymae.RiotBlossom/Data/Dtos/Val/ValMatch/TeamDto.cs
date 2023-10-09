@@ -1,11 +1,11 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record TeamDto : DataObject
     {
         /// <summary>
         /// The arbitrary string, being Red and Blue in bomb modes, the PUUID of the player in deathmatch.
         /// </summary>
-        public string TeamId { get; init; } = default!;
+        public required string TeamId { get; init; }
         /// <summary>
         /// Whether the team has won the game.
         /// </summary>

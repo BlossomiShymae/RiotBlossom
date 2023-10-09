@@ -1,11 +1,11 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Summoner
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Summoner
 {
     public record SummonerDto : DataObject
     {
         /// <summary>
         /// The encrypted account ID.
         /// </summary>
-        public string AccountId { get; init; } = default!;
+        public required string AccountId { get; init; }
         /// <summary>
         /// The ID of the summoner icon associated with the summoner.
         /// </summary>
@@ -17,15 +17,15 @@
         /// <summary>
         /// The name of summoner.
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; }
         /// <summary>
         /// The encrypted summoner ID.
         /// </summary>
-        public string Id { get; init; } = default!;
+        public required string Id { get; init; }
         /// <summary>
         /// The encrypted PUUID.
         /// </summary>
-        public string Puuid { get; init; } = default!;
+        public required string Puuid { get; init; }
         /// <summary>
         /// The summoner level associated with summoner.
         /// </summary>

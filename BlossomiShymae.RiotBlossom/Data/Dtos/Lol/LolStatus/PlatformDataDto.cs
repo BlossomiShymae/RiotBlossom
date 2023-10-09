@@ -1,28 +1,28 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolStatus
 {
     public record PlatformDataDto : DataObject
     {
         /// <summary>
         /// The platform data ID e.g. "SG2".
         /// </summary>
-        public string Id { get; init; } = default!;
+        public required string Id { get; init; } 
         /// <summary>
         /// The platform name e.g. "Singapore".
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; }
         /// <summary>
         /// The locale identifiers that platform is associated with.
         /// </summary>
-        public ImmutableList<string> Locales { get; init; } = ImmutableList<string>.Empty;
+        public List<string> Locales { get; init; } = [];
         /// <summary>
         /// The current maintenances for platform.
         /// </summary>
-        public ImmutableList<StatusDto> Maintenances { get; init; } = ImmutableList<StatusDto>.Empty;
+        public List<StatusDto> Maintenances { get; init; } = [];
         /// <summary>
         /// The current incidents for platform.
         /// </summary>
-        public ImmutableList<StatusDto> Incidents { get; init; } = ImmutableList<StatusDto>.Empty;
+        public List<StatusDto> Incidents { get; init; } = [];
     }
 }

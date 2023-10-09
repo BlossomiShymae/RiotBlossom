@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record CurrentGameInfo : DataObject
     {
@@ -11,7 +11,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// <summary>
         /// The selected game type. See Riot Static Developer <see href="https://static.developer.riotgames.com/docs/lol/gameTypes.json">gameTypes.json</see>.
         /// </summary>
-        public string GameType { get; init; } = default!;
+        public required string GameType { get; init; }
         /// <summary>
         /// The Unix timestamp in milliseconds for when the game started.
         /// </summary>
@@ -27,15 +27,15 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// <summary>
         /// The platform ID of game being played.
         /// </summary>
-        public string PlatformId { get; init; } = default!;
+        public required string PlatformId { get; init; } 
         /// <summary>
         /// The selected game mode. See Riot Static Developer <see href="https://static.developer.riotgames.com/docs/lol/gameModes.json">gameModes.json</see>.
         /// </summary>
-        public string GameMode { get; init; } = default!;
+        public required string GameMode { get; init; }
         /// <summary>
         /// The list of champions banned in Draft Pick.
         /// </summary>
-        public ImmutableList<BannedChampion> BannedChampions { get; init; } = ImmutableList<BannedChampion>.Empty;
+        public List<BannedChampion> BannedChampions { get; init; } = [];
         /// <summary>
         /// The queue type. See Riot Static Developer <see href="https://static.developer.riotgames.com/docs/lol/queues.json">queues.json</see>.
         /// </summary>
@@ -43,10 +43,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
         /// <summary>
         /// The information pertaining to observers.
         /// </summary>
-        public Observer Observers { get; init; } = new();
+        public required Observer Observers { get; init; }
         /// <summary>
         /// The information pertaining to participants.
         /// </summary>
-        public ImmutableList<CurrentGameParticipant> Participants { get; init; } = ImmutableList<CurrentGameParticipant>.Empty;
+        public List<CurrentGameParticipant> Participants { get; init; } = [];
     }
 }

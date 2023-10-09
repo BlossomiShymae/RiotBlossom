@@ -1,12 +1,12 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Perk
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Slot : DataObject
     {
-        public ImmutableList<PerkRune> Runes { get; init; } = ImmutableList<PerkRune>.Empty;
+        public List<PerkRune> Runes { get; init; } = [];
     }
 }

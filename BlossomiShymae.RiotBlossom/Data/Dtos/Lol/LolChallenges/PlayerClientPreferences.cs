@@ -1,14 +1,14 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolChallenges
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record PlayerClientPreferences : DataObject
     {
-        public string BannerAccent { get; init; } = default!;
-        public string Title { get; init; } = default!;
-        public ImmutableList<int> ChallengeIds { get; init; } = ImmutableList<int>.Empty;
+        public required string BannerAccent { get; init; } 
+        public required string Title { get; init; }
+        public List<int> ChallengeIds { get; init; } = [];
     }
 }

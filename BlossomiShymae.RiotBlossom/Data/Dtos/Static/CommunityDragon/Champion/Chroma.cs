@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -8,10 +8,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
     public record Chroma : DataObject
     {
         public int Id { get; init; }
-        public string Name { get; init; } = default!;
-        public string ChromaPath { get; init; } = default!;
-        public ImmutableList<string> Colors { get; init; } = ImmutableList<string>.Empty;
-        public ImmutableList<ChromaDescription> Descriptions { get; init; } = ImmutableList<ChromaDescription>.Empty;
-        public ImmutableList<ChromaRarity> Rarities { get; init; } = ImmutableList<ChromaRarity>.Empty;
+        public required string Name { get; init; }
+        public required string ChromaPath { get; init; } 
+        public List<string> Colors { get; init; } = [];
+        public List<ChromaDescription> Descriptions { get; init; } = [];
+        public List<ChromaRarity> Rarities { get; init; } = [];
     }
 }

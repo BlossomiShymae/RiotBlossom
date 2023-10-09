@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Champion
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -7,6 +7,6 @@
     {
         public int Style { get; init; }
         public int Difficulty { get; init; }
-        public string DamageType { get; init; } = default!;
+        public required string DamageType { get; init; }
     }
 }

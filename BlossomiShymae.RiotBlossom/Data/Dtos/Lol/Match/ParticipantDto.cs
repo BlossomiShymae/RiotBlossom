@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     public record ParticipantDto : DataObject
     {
@@ -29,7 +29,7 @@
         /// <summary>
         /// The played champion name.
         /// </summary>
-        public string ChampionName { get; init; } = default!;
+        public required string ChampionName { get; init; }
         /// <summary>
         /// The transformation value of a champion currently used for Kayn.
         /// <list type="bullet">
@@ -117,7 +117,7 @@
         /// The player's individual position that is computed by the game server. Recommended to use
         /// <see cref="TeamPosition"/> in general.
         /// </summary>
-        public string IndividualPosition { get; init; } = default!;
+        public required string IndividualPosition { get; init; }
         /// <summary>
         /// The amount of inhibitors destroyed.
         /// </summary>
@@ -173,7 +173,7 @@
         /// <summary>
         /// The lane position a player has played in. Made obsolete by <see cref="IndividualPosition"/> and <see cref="TeamPosition"/>.
         /// </summary>
-        public string Lane { get; init; } = default!;
+        public required string Lane { get; init; }
         /// <summary>
         /// The largest critical strike damage dealt.
         /// </summary>
@@ -257,7 +257,7 @@
         /// <summary>
         /// The encrypted PUUID of player.
         /// </summary>
-        public string Puuid { get; init; } = default!;
+        public required string Puuid { get; init; } 
         /// <summary>
         /// The amount of quadrakills.
         /// </summary>
@@ -265,15 +265,15 @@
         /// <summary>
         /// The Riot ID name of player. May not be set.
         /// </summary>
-        public string RiotIdName { get; init; } = default!;
+        public required string RiotIdName { get; init; } 
         /// <summary>
         /// The Riot ID tag line of player. May not be set.
         /// </summary>
-        public string RiotIdTagline { get; init; } = default!;
+        public required string RiotIdTagline { get; init; } 
         /// <summary>
         /// The role position of player. Made obsolote by <see cref="TeamPosition"/> and <see cref="IndividualPosition"/>.
         /// </summary>
-        public string Role { get; init; } = default!;
+        public required string Role { get; init; }
         /// <summary>
         /// The total amount of wards purchased in a match.
         /// </summary>
@@ -313,7 +313,7 @@
         /// <summary>
         /// The encrypted summoner ID of player.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; }
         /// <summary>
         /// The summoner level of player at the time of the match.
         /// </summary>
@@ -321,7 +321,7 @@
         /// <summary>
         /// The summoner name of player at the time of the match.
         /// </summary>
-        public string SummonerName { get; init; } = default!;
+        public required string SummonerName { get; init; }
         /// <summary>
         /// Whether the team of player has early surrendered.
         /// </summary>
@@ -333,7 +333,7 @@
         /// <summary>
         /// The computed position the player has actually played knowing there is one top, one middle, etc.
         /// </summary>
-        public string TeamPosition { get; init; } = default!;
+        public required string TeamPosition { get; init; }
         /// <summary>
         /// The amount of time the player has used crowd control on others.
         /// </summary>

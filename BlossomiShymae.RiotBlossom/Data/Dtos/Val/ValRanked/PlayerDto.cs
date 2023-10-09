@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValRanked
 {
     public record PlayerDto : DataObject
     {

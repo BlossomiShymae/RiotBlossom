@@ -1,27 +1,27 @@
 ﻿using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lor.LorMatch
 {
     public record PlayerDto : DataObject
     {
         /// <summary>
         /// The player UUID.
         /// </summary>
-        public string Puuid { get; init; } = default!;
+        public required string Puuid { get; init; }
         /// <summary>
         /// The ID for the deck played.
         /// </summary>
         [JsonPropertyName("deck_id")]
-        public string DeckId { get; init; } = default!;
+        public required string DeckId { get; init; } 
         /// <summary>
         /// The code for the deck played.
         /// </summary>
         [JsonPropertyName("deck_code")]
-        public string DeckCode { get; init; } = default!;
-        public ImmutableList<string> Factions { get; init; } = ImmutableList<string>.Empty;
+        public required string DeckCode { get; init; }
+        public List<string> Factions { get; init; } = [];
         [JsonPropertyName("game_outcome")]
-        public string GameOutcome { get; init; } = default!;
+        public required string GameOutcome { get; init; }
         /// <summary>
         /// The order in which the players took turns.
         /// </summary>

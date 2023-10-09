@@ -1,10 +1,16 @@
-﻿namespace BlossomiShymae.RiotBlossom.Type
+﻿using BlossomiShymae.RiotBlossom.Core.Utils;
+
+namespace BlossomiShymae.RiotBlossom.Data.Constants.Types.Tft
 {
     /// <summary>
     /// An enum that represents the TFT League ranked queue types for top rated ladder.
     /// </summary>
-    public enum TftLeagueQueue
+    public sealed record TftLeagueQueue : ValueEnum<string>
     {
-        RankedTftTurbo
+        public static readonly TftLeagueQueue RankedTftTurbo = new("RANKED_TFT_TURBO");
+
+        private TftLeagueQueue(string value) : base(value)
+        {
+        }
     }
 }

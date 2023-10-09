@@ -1,24 +1,24 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolChallenges
 {
     public record PlayerInfoDto : DataObject
     {
         /// <summary>
         /// The list of challenges for player.
         /// </summary>
-        public ImmutableList<ChallengeInfo> Challenges { get; init; } = ImmutableList<ChallengeInfo>.Empty;
+        public List<ChallengeInfo> Challenges { get; init; } = [];
         /// <summary>
         /// The player client preferences.
         /// </summary>
-        public PlayerClientPreferences Preferences { get; init; } = new();
+        public required PlayerClientPreferences Preferences { get; init; }
         /// <summary>
         /// The challenge points information for player.
         /// </summary>
-        public ChallengePoints TotalPoints { get; init; } = new();
+        public required ChallengePoints TotalPoints { get; init; }
         /// <summary>
         /// The map of challenge point information by category e.g. "TEAMWORK", "EXPERTISE", "IMAGINATION", "VETERANCY", "COLLECTION".
         /// </summary>
-        public ImmutableDictionary<string, ChallengePoints> CategoryPoints { get; init; } = ImmutableDictionary<string, ChallengePoints>.Empty;
+        public Dictionary<string, ChallengePoints> CategoryPoints { get; init; } = [];
     }
 }

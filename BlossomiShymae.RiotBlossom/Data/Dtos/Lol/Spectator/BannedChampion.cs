@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record BannedChampion : DataObject
     {

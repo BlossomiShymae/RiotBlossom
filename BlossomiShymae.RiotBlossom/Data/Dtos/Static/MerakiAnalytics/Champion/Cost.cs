@@ -1,12 +1,12 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Cost : DataObject
     {
-        public ImmutableList<Modifier> Modifiers { get; init; } = ImmutableList<Modifier>.Empty;
+        public List<Modifier> Modifiers { get; init; } = [];
     }
 }

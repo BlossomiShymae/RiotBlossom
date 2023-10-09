@@ -1,8 +1,9 @@
 ﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Core.Converters;
 using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -20,10 +21,10 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public int Sale { get; init; }
         public string? Distribution { get; init; }
         public string? Rarity { get; init; }
-        public ImmutableList<Chroma> Chromas { get; init; } = ImmutableList<Chroma>.Empty;
+        public List<Chroma> Chromas { get; init; } = [];
         public string? Lore { get; init; }
         public string? Release { get; init; }
-        public ImmutableList<string> Set { get; init; } = ImmutableList<string>.Empty;
+        public List<string> Set { get; init; } = [];
         public string? SplashPath { get; init; }
         public string? UncenteredSplashPath { get; init; }
         public string? TilePath { get; init; }
@@ -34,7 +35,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Champion
         public bool NewRecall { get; init; }
         public bool NewVoice { get; init; }
         public bool NewQuotes { get; init; }
-        public ImmutableList<string> VoiceActor { get; init; } = ImmutableList<string>.Empty;
-        public ImmutableList<string> SplashArtist { get; init; } = ImmutableList<string>.Empty;
+        public List<string> VoiceActor { get; init; } = [];
+        public List<string> SplashArtist { get; init; } = [];
     }
 }

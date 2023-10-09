@@ -1,6 +1,6 @@
-﻿using BlossomiShymae.RiotBlossom.Core;
+﻿using BlossomiShymae.RiotBlossom.Core.Utils;
 
-namespace BlossomiShymae.RiotBlossom.Dto
+namespace BlossomiShymae.RiotBlossom.Data.Dtos
 {
     public abstract record DataObject
     {

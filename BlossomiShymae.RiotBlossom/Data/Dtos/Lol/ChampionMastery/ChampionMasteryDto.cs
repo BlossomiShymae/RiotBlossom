@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ChampionMastery
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.ChampionMastery
 {
     public record ChampionMasteryDto : DataObject
     {
@@ -6,7 +6,7 @@
         /// The number of points needed to achieve next mastery level. Zero when player has reached
         /// the maximum level.
         /// </summary>
-        public long ChampionPointsUntilNextLevel { get; init; } = default!;
+        public long ChampionPointsUntilNextLevel { get; init; }
         /// <summary>
         /// If hextech chest was earned in the current patch season.
         /// </summary>
@@ -26,7 +26,7 @@
         /// <summary>
         ///  The associated summoner ID.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; }
         /// <summary>
         /// The total number of champion points for player and champion combination.
         /// </summary>

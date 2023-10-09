@@ -1,17 +1,17 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValRanked
 {
     public record LeaderboardDto : DataObject
     {
         /// <summary>
         /// The shard for the given leaderboard.
         /// </summary>
-        public string Shard { get; init; } = default!;
+        public required string Shard { get; init; }
         /// <summary>
         /// The act ID for the given leaderboard.
         /// </summary>
-        public string ActId { get; init; } = default!;
+        public required string ActId { get; init; } 
         /// <summary>
         /// The total number of players in the given leaderboard.
         /// </summary>
@@ -19,6 +19,6 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValRanked
         /// <summary>
         /// The list of participating players.
         /// </summary>
-        public ImmutableList<PlayerDto> Players { get; init; } = ImmutableList<PlayerDto>.Empty;
+        public List<PlayerDto> Players { get; init; } = [];
     }
 }

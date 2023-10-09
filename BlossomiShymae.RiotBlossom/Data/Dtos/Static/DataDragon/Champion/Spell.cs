@@ -1,31 +1,27 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Spell : DataObject
     {
-        public string Id { get; init; } = default!;
-        public string Name { get; init; } = default!;
-        public string Description { get; init; } = default!;
-        public string Tooltip { get; init; } = default!;
+        public required string Id { get; init; } 
+        public required string Name { get; init; } 
+        public required string Description { get; init; } 
+        public required string Tooltip { get; init; } 
         public Leveltip Leveltip { get; init; } = new();
         public int Maxrank { get; init; }
-        public ImmutableList<double> Cooldown { get; init; } = ImmutableList<double>.Empty;
-        public string CooldownBurn { get; init; } = default!;
-        public ImmutableList<int> Cost { get; init; } = ImmutableList<int>.Empty;
-        public string CostBurn { get; init; } = default!;
-        public object? DataValues { get; init; }
-        public object? Effect { get; init; }
-        public object? EffectBurn { get; init; }
-        public object? Vars { get; init; }
-        public string CostType { get; init; } = default!;
-        public string Maxammo { get; init; } = default!;
-        public ImmutableList<int> Range { get; init; } = ImmutableList<int>.Empty;
-        public string RangeBurn { get; init; } = default!;
-        public Image Image { get; init; } = new();
-        public string Resource { get; init; } = default!;
+        public List<double> Cooldown { get; init; } = [];
+        public required string CooldownBurn { get; init; } 
+        public List<int> Cost { get; init; } = [];
+        public required string CostBurn { get; init; }
+        public required string CostType { get; init; }
+        public required string Maxammo { get; init; } 
+        public List<int> Range { get; init; } = [];
+        public required string RangeBurn { get; init; }
+        public required Image Image { get; init; }
+        public required string Resource { get; init; } 
     }
 }

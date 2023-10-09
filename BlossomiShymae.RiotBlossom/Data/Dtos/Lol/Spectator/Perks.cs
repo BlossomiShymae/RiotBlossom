@@ -1,13 +1,13 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Spectator
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Spectator
 {
     public record Perks : DataObject
     {
         /// <summary>
         /// The list of equipped perk/runes IDs.
         /// </summary>
-        public ImmutableList<long> PerkIds { get; init; } = ImmutableList<long>.Empty;
+        public List<long> PerkIds { get; init; } = [];
         /// <summary>
         /// The primary runes path.
         /// </summary>

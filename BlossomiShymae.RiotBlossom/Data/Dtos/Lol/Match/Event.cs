@@ -1,9 +1,9 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     public record Event : DataObject
     {
         public long RealTimestamp { get; init; }
         public long Timestamp { get; init; }
-        public string Type { get; init; } = default!;
+        public required string Type { get; init; } 
     }
 }

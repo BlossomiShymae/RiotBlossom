@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.Match
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match
 {
     /// <summary>
     /// A perk style selection used for Runes Reforged.

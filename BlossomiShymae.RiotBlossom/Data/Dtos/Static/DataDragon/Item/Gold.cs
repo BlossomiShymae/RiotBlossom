@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Item
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Item
 {
     /// <summary>
     /// UNDOCUMENTED

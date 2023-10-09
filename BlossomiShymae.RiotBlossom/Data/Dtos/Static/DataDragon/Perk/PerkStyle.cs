@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Perk
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -8,9 +8,9 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Perk
     public record PerkStyle : DataObject
     {
         public int Id { get; init; }
-        public string Key { get; init; } = default!;
-        public string Icon { get; init; } = default!;
-        public string Name { get; init; } = default!;
-        public ImmutableList<Slot> Slots { get; init; } = ImmutableList<Slot>.Empty;
+        public required string Key { get; init; } 
+        public required string Icon { get; init; } 
+        public required string Name { get; init; } 
+        public List<Slot> Slots { get; init; } = [];
     }
 }

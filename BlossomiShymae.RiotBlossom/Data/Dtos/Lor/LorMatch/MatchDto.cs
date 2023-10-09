@@ -1,14 +1,14 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lor.LorMatch
 {
     public record MatchDto : DataObject
     {
         /// <summary>
         /// The match metadata.
         /// </summary>
-        public MetadataDto Metadata { get; init; } = new();
+        public required MetadataDto Metadata { get; init; }
         /// <summary>
         /// The match info.
         /// </summary>
-        public InfoDto Info { get; init; } = new();
+        public required InfoDto Info { get; init; } 
     }
 }

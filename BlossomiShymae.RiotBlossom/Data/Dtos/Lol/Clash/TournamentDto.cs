@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Clash
 {
     public record TournamentDto : DataObject
     {
@@ -15,14 +15,14 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.Clash
         /// <summary>
         /// The name of tournament e.g. "bilgewater".
         /// </summary>
-        public string NameKey { get; init; } = default!;
+        public required string NameKey { get; init; }
         /// <summary>
         /// The secondary name of tournament e.g. "day_2".
         /// </summary>
-        public string NameKeySecondary { get; init; } = default!;
+        public required string NameKeySecondary { get; init; }
         /// <summary>
         /// The spanning date the tournament will take place on.
         /// </summary>
-        public ImmutableList<TournamentPhaseDto> Schedule { get; init; } = ImmutableList<TournamentPhaseDto>.Empty;
+        public List<TournamentPhaseDto> Schedule { get; init; } = [];
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Tft.TftMatch
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -10,7 +10,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
         [JsonPropertyName("skin_id")]
         public int SkinId { get; init; }
         [JsonPropertyName("content_id")]
-        public string ContentId { get; init; } = default!;
-        public string Species { get; init; } = default!;
+        public required string ContentId { get; init; }
+        public required string Species { get; init; }
     }
 }

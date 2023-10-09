@@ -1,11 +1,11 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolChallenges
 {
     public record ApexPlayerInfoDto : DataObject
     {
         /// <summary>
         /// The encrypted PUUID of apex player.
         /// </summary>
-        public string Puuid { get; init; } = default!;
+        public required string Puuid { get; init; }
         /// <summary>
         /// The value the apex player has for challenge.
         /// </summary>

@@ -1,14 +1,15 @@
 ﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Core.Converters;
 using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LorRanked
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lor.LorRanked
 {
     public record PlayerDto : DataObject
     {
         /// <summary>
         /// The player name.
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; }
         /// <summary>
         /// The rank of player.
         /// </summary>

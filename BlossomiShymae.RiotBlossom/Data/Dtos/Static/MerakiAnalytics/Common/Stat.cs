@@ -1,7 +1,8 @@
 ﻿using BlossomiShymae.RiotBlossom.Core;
+using BlossomiShymae.RiotBlossom.Core.Converters;
 using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.MerakiAnalytics.Common
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.MerakiAnalytics.Common
 {
     /// <summary>
     /// UNDOCUMENTED

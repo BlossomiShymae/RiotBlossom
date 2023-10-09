@@ -1,13 +1,13 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Champion
 {
     /// <summary>
     /// UNDOCUMENTED
     /// </summary>
     public record Leveltip : DataObject
     {
-        public ImmutableList<string> Label { get; init; } = ImmutableList<string>.Empty;
-        public ImmutableList<string> Effect { get; init; } = ImmutableList<string>.Empty;
+        public List<string> Label { get; init; } = [];
+        public List<string> Effect { get; init; } = [];
     }
 }

@@ -1,19 +1,19 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftLeague
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Tft.TftLeague
 {
     public record TopRatedLadderEntryDto : DataObject
     {
         /// <summary>
         /// The encrypted summoner ID.
         /// </summary>
-        public string SummonerId { get; init; } = default!;
+        public required string SummonerId { get; init; } 
         /// <summary>
         /// The summoner name.
         /// </summary>
-        public string SummonerName { get; init; } = default!;
+        public required string SummonerName { get; init; } 
         /// <summary>
         /// (Legal values: ORANGE, PURPLE, BLUE, GREEN, GRAY)
         /// </summary>
-        public string RatedTier { get; init; } = default!;
+        public required string RatedTier { get; init; }
         /// <summary>
         /// The rated rating.
         /// </summary>

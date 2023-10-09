@@ -1,4 +1,4 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolChallenges
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolChallenges
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -7,7 +7,7 @@
     {
         public long ChallengeId { get; init; }
         public double Percentile { get; init; }
-        public string Level { get; init; } = default!;
+        public required string Level { get; init; }
         public double Value { get; init; }
         public long AchievedTime { get; init; }
     }

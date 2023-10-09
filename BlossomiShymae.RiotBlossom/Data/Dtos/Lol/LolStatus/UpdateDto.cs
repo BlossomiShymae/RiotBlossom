@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolStatus
 {
     public record UpdateDto : DataObject
     {
@@ -11,7 +11,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
         /// <summary>
         /// The author of update e.g. "Riot Games".
         /// </summary>
-        public string Author { get; init; } = default!;
+        public required string Author { get; init; } 
         /// <summary>
         /// Whether the update is published to specified locations.
         /// </summary>
@@ -19,20 +19,20 @@ namespace BlossomiShymae.RiotBlossom.Dto.Riot.LolStatus
         /// <summary>
         /// Locations where the update can be published to e.g. ("game", "riotclient", "riotstatus").
         /// </summary>
-        public ImmutableList<string> PublishLocations { get; init; } = ImmutableList<string>.Empty;
+        public List<string> PublishLocations { get; init; } = [];
         /// <summary>
         /// The text translations for update content.
         /// </summary>
-        public ImmutableList<ContentDto> Translations { get; init; } = ImmutableList<ContentDto>.Empty;
+        public List<ContentDto> Translations { get; init; } = [];
         /// <summary>
         /// <para>Oofie I don't know what the format is...have an example! :3</para>
         /// <example>2023-01-19T02:14:10.226109+00:00</example>
         /// </summary>
-        public string CreatedAt { get; init; } = default!;
+        public required string CreatedAt { get; init; }
         /// <summary>
         /// <para>Oofie I don't know what the format is...have an example! :3</para>
         /// <example>2023-01-19T02:14:00+00:00</example>
         /// </summary>
-        public string UpdatedAt { get; init; } = default!;
+        public required string UpdatedAt { get; init; }
     }
 }

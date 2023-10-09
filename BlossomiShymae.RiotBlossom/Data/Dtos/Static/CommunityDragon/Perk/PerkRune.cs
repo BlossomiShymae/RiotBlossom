@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Perk
 {
     /// <summary>
     /// UNDOCUMENTED
@@ -8,14 +8,14 @@ namespace BlossomiShymae.RiotBlossom.Dto.CommunityDragon.Perk
     public record PerkRune : DataObject
     {
         public int Id { get; init; }
-        public string Name { get; init; } = default!;
-        public string MajorChangePatchVersion { get; init; } = default!;
-        public string Tooltip { get; init; } = default!;
-        public string ShortDesc { get; init; } = default!;
-        public string LongDesc { get; init; } = default!;
-        public string RecommendationDescriptor { get; init; } = default!;
-        public string IconPath { get; init; } = default!;
-        public ImmutableList<string> EndOfGameStatDescs { get; init; } = ImmutableList<string>.Empty;
-        public ImmutableDictionary<string, double> RecommendationDescriptorAttributes { get; init; } = ImmutableDictionary<string, double>.Empty;
+        public required string Name { get; init; }
+        public required string MajorChangePatchVersion { get; init; } 
+        public required string Tooltip { get; init; }
+        public required string ShortDesc { get; init; } 
+        public required string LongDesc { get; init; } 
+        public required string RecommendationDescriptor { get; init; } 
+        public required string IconPath { get; init; } 
+        public List<string> EndOfGameStatDescs { get; init; } = [];
+        public Dictionary<string, double> RecommendationDescriptorAttributes { get; init; } = [];
     }
 }

@@ -1,17 +1,17 @@
-﻿namespace BlossomiShymae.RiotBlossom.Dto.Riot.ValMatch
+﻿namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValMatch
 {
     public record MatchInfoDto : DataObject
     {
-        public string MatchId { get; init; } = default!;
-        public string MapId { get; init; } = default!;
+        public required string MatchId { get; init; } 
+        public required string MapId { get; init; } 
         public int GameLengthMillis { get; init; }
         public long GameStartMillis { get; init; }
-        public string ProvisioningFlowId { get; init; } = default!;
+        public required string ProvisioningFlowId { get; init; } 
         public bool IsCompleted { get; init; }
-        public string CustomGameName { get; init; } = default!;
-        public string QueueId { get; init; } = default!;
-        public string GameMode { get; init; } = default!;
+        public required string CustomGameName { get; init; } 
+        public required string QueueId { get; init; } 
+        public required string GameMode { get; init; }
         public bool IsRanked { get; init; }
-        public string SeasonId { get; init; } = default!;
+        public required string SeasonId { get; init; } 
     }
 }

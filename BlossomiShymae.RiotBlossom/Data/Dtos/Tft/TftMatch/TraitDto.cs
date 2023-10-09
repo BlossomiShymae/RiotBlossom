@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BlossomiShymae.RiotBlossom.Dto.Riot.TftMatch
+namespace BlossomiShymae.RiotBlossom.Data.Dtos.Tft.TftMatch
 {
     public record TraitDto : DataObject
     {
         /// <summary>
         /// The trait name.
         /// </summary>
-        public string Name { get; init; } = default!;
+        public required string Name { get; init; } 
         /// <summary>
         /// The number of units with this trait.
         /// </summary>
