@@ -118,18 +118,21 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
 
         private async Task<T> SendRequestAsync<T>(DataCall call, string methodUri, HttpRequestMessage message, bool isStatic = false)
         {
-            var _lock = Locks[call.Shard!.Value];
+            SemaphoreSlim? _lock = null;
+            if (!isStatic)
+            {
+                _lock = Locks[call.Shard!.Value];
+            }
 
             // Send HTTP request
             try
             {
-                ApiConfiguration.Logger.LogDebug("Locking on shard: {shard}", call.Shard!.Value);
-                await _lock.WaitAsync()
-                    .ConfigureAwait(false);
-
-                // Process request limit
-                if (!isStatic)
+                if (!isStatic && _lock != null)
                 {
+                    ApiConfiguration.Logger.LogDebug("Locking on shard: {shard}", call.Shard!.Value);
+                    await _lock.WaitAsync()
+                        .ConfigureAwait(false);
+
                     await Limiter.ProcessRequestAsync(call, message)
                         .ConfigureAwait(false);
                 }
@@ -178,8 +181,11 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             }
             finally
             {
-                ApiConfiguration.Logger.LogDebug("Releasing lock on shard: {shard}", call.Shard!.Value);
-                _lock.Release();
+                if (!isStatic && _lock != null)
+                {
+                    ApiConfiguration.Logger.LogDebug("Releasing lock on shard: {shard}", call.Shard!.Value);
+                    _lock.Release();
+                }
             }
         }
 
