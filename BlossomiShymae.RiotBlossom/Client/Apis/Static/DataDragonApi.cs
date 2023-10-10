@@ -16,28 +16,32 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
         /// Get a League champion by champion key from version.
         /// </summary>
         /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<Champion> GetChampionByKeyAsync(string key, string version);
+        Task<Champion> GetChampionByKeyAsync(string key, string version, string locale = "en_US");
         /// <summary>
         /// Get a dictionary of League champion by champion key pairs from version.
         /// </summary>
         /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <returns></returns>
-        Task<Dictionary<string, Champion>> GetChampionsAsync(string version);
+        Task<Dictionary<string, Champion>> GetChampionsAsync(string version, string locale = "en_US");
         /// <summary>
         /// Get a League shop item by ID from version.
         /// </summary>
         /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Item> GetItemByIdAsync(int id, string version);
+        Task<Item> GetItemByIdAsync(int id, string version, string locale = "en_US");
         /// <summary>
         /// Get a dictionary of League shop item by ID pairs from version.
         /// </summary>
         /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <returns></returns>
-        Task<Dictionary<int, Item>> GetItemsAsync(string version);
+        Task<Dictionary<int, Item>> GetItemsAsync(string version, string locale = "en_US");
         /// <summary>
         /// Get the latest League game version.
         /// </summary>
@@ -47,15 +51,17 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
         /// Get a League perk style by ID from version.
         /// </summary>
         /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<PerkStyle> GetPerkStyleByIdAsync(int id, string version);
+        Task<PerkStyle> GetPerkStyleByIdAsync(int id, string version, string locale = "en_US");
         /// <summary>
         /// Get a dictionary of League perk style by ID from version.
         /// </summary>
         /// <param name="version"></param>
+        /// <param name="locale"></param>
         /// <returns></returns>
-        Task<Dictionary<int, PerkStyle>> GetPerkStylesAsync(string version);
+        Task<Dictionary<int, PerkStyle>> GetPerkStylesAsync(string version, string locale = "en_US");
         /// <summary>
         /// List all League game versions.
         /// </summary>
@@ -65,7 +71,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
         /// Get a profile icon URL by profile icon ID.
         /// </summary>
         /// <returns></returns>
-        string GetProfileIconById(string version, int id);
+        string GetProfileIconById(int id, string version);
     }
 
     internal class DataDragonApi : DataApi, IDataDragonApi
@@ -74,7 +80,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
         {
         }
 
-        public async Task<Dictionary<string, Champion>> GetChampionsAsync(string version)
+        public async Task<Dictionary<string, Champion>> GetChampionsAsync(string version, string locale = "en_US")
         {
             var data = await CallStaticAsync<ChampionJson>(new()
             {
@@ -83,30 +89,31 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
                 Method = UrlMethod.DataDragonChampionFull,
                 Params = new Dictionary<string, string>()
                 {
-                    { UrlMethod.Version, version }
+                    { UrlMethod.Version, version },
+                    { UrlMethod.Locale, locale }
                 }
             }).ConfigureAwait(false);
 
             return data.Data;
         }
 
-        public async Task<Champion> GetChampionByKeyAsync(string key, string version)
+        public async Task<Champion> GetChampionByKeyAsync(string key, string version, string locale = "en_US")
         {
-            var dict = await GetChampionsAsync(version)
+            var dict = await GetChampionsAsync(version, locale)
                 .ConfigureAwait(false);
 
             return dict[key];
         }
 
-        public async Task<Item> GetItemByIdAsync(int id, string version)
+        public async Task<Item> GetItemByIdAsync(int id, string version, string locale = "en_US")
         {
-            var dict = await GetItemsAsync(version)
+            var dict = await GetItemsAsync(version, locale)
                 .ConfigureAwait(false);
 
             return dict[id];            
         }
 
-        public async Task<Dictionary<int, Item>> GetItemsAsync(string version)
+        public async Task<Dictionary<int, Item>> GetItemsAsync(string version, string locale = "en_US")
         {
             var data = await CallStaticAsync<Dictionary<int, Item>>(new()
             {
@@ -115,7 +122,8 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
                 Method = UrlMethod.DataDragonItem,
                 Params = new Dictionary<string, string>()
                 {
-                    { UrlMethod.Version, version }
+                    { UrlMethod.Version, version },
+                    { UrlMethod.Locale, locale }
                 }
             }).ConfigureAwait(false);
 
@@ -130,15 +138,15 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
             return list.First();
         }
 
-        public async Task<PerkStyle> GetPerkStyleByIdAsync(int id, string version)
+        public async Task<PerkStyle> GetPerkStyleByIdAsync(int id, string version, string locale = "en_US")
         {
-            var dict = await GetPerkStylesAsync(version)
+            var dict = await GetPerkStylesAsync(version, locale)
                 .ConfigureAwait(false);
 
             return dict[id];
         }
 
-        public async Task<Dictionary<int, PerkStyle>> GetPerkStylesAsync(string version)
+        public async Task<Dictionary<int, PerkStyle>> GetPerkStylesAsync(string version, string locale = "en_US")
         {
             var data = await CallStaticAsync<Dictionary<int, PerkStyle>>(new()
             {
@@ -147,14 +155,15 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
                 Method = UrlMethod.DataDragonRunesReforged,
                 Params = new Dictionary<string, string>()
                 {
-                    { UrlMethod.Version, version }
+                    { UrlMethod.Version, version },
+                    { UrlMethod.Locale, locale }
                 }
             }).ConfigureAwait(false);
 
             return data;
         }
 
-        public string GetProfileIconById(string version, int id)
+        public string GetProfileIconById(int id, string version)
         {
             var uri = new NamedFormatter(UrlMethod.DataDragonProfileIcon);
 
