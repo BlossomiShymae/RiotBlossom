@@ -11,7 +11,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Utils
 
         public string Format(IDictionary<string, string> dict)
         {
-            var fmt = new string(_placeholder);
+            var fmt = _placeholder;
             var query = "";
 
             foreach (var kv in dict)
