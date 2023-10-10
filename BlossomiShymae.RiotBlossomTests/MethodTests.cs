@@ -63,5 +63,19 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(entries.Count > 0);
             Assert.IsTrue(entriesBySummonerId.Count > 0);
         }
+
+        [TestMethod()]
+        public async Task LolChallengesV1_WithSummoner_FetchChallenges()
+        {
+            var client = Shared.Client;
+
+            var percentiles = await client.LolChallengesV1.GetPercentilesAsync(Shared.LeagueShard);
+            var info = await client.LolChallengesV1.GetPlayerInfoByPuuidAsync(Shared.LeagueShard, Shared.Summoner.Puuid);
+            var config = await client.LolChallengesV1.GetConfigInfosAsync(Shared.LeagueShard);
+
+            Assert.IsTrue(percentiles.Count > 0);
+            Assert.IsTrue(info.Challenges.Count > 0);
+            Assert.IsTrue(config.Count > 0);
+        }
     }
 }
