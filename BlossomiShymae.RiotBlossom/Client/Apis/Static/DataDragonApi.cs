@@ -7,6 +7,7 @@ using BlossomiShymae.RiotBlossom.Data;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Champion;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Item;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Perk;
+using Microsoft.Extensions.Logging;
 
 namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
 {
@@ -115,7 +116,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
 
         public async Task<Dictionary<int, Item>> GetItemsAsync(string version, string locale = "en_US")
         {
-            var data = await CallStaticAsync<Dictionary<int, Item>>(new()
+            var data = await CallStaticAsync<ItemJson>(new()
             {
                 Endpoint = nameof(DataDragonApi),
                 Url = UrlMethod.DataDragon,
@@ -127,7 +128,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
                 }
             }).ConfigureAwait(false);
 
-            return data;
+            return data.Data;
         }
 
         public async Task<string> GetLatestVersionAsync()
@@ -148,7 +149,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
 
         public async Task<Dictionary<int, PerkStyle>> GetPerkStylesAsync(string version, string locale = "en_US")
         {
-            var data = await CallStaticAsync<Dictionary<int, PerkStyle>>(new()
+            var data = await CallStaticAsync<List<PerkStyle>>(new()
             {
                 Endpoint = nameof(DataDragonApi),
                 Url = UrlMethod.DataDragon,
@@ -160,18 +161,20 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
                 }
             }).ConfigureAwait(false);
 
-            return data;
+            return data.ToDictionary(k => k.Id, v => v);
         }
 
         public string GetProfileIconById(int id, string version)
         {
             var uri = new NamedFormatter(UrlMethod.DataDragonProfileIcon);
 
-            var data = uri.Format(new Dictionary<string, string>()
+            var data = UrlMethod.DataDragon + uri.Format(new Dictionary<string, string>()
             {
                 { UrlMethod.Version, version },
                 { UrlMethod.ProfileIconId, id.ToString() }
             });
+
+            ApiConfiguration.Logger.LogDebug("Created URI: {uri}", data);
 
             return data;
         }
