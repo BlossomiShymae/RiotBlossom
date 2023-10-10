@@ -140,5 +140,13 @@ namespace BlossomiShymae.RiotBlossomTests
 
             Assert.IsTrue(entries.Players.Count > 0);
         }
+
+        [TestMethod()]
+        public async Task LorStatusV1_ByDefault_GetStatus()
+        {
+            var status = await Shared.Client.LorStatusV1.GetPlatformStatusAsync(Shared.RuneterraShard);
+
+            Assert.IsTrue(status != null);
+        }
     }
 }
