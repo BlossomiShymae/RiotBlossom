@@ -96,7 +96,7 @@ namespace BlossomiShymae.RiotBlossom.Data
         public static readonly string TftLeagueV1LadderByQueue = $"/tft/league/v1/rated-ladders/{Queue}/top";
 
         // TFT-MATCH-V1
-        public static readonly string TftMatchV1MatchesByPuudi = $"/tft/match/v1/matches/by-puuid/{Puuid}/ids";
+        public static readonly string TftMatchV1MatchesByPuuid = $"/tft/match/v1/matches/by-puuid/{Puuid}/ids";
         public static readonly string TftMatchV1ById = $"/tft/match/v1/matches/{MatchId}";
 
         // TFT-STATUS-V1

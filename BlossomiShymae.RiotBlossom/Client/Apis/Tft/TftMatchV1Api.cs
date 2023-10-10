@@ -77,7 +77,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Tft
             {
                 Shard = options.Shard,
                 Endpoint = nameof(TftMatchV1Api),
-                Method = UrlMethod.TftMatchV1MatchesByPuudi,
+                Method = UrlMethod.TftMatchV1MatchesByPuuid,
                 Params = parameters
             }).ConfigureAwait(false);
 

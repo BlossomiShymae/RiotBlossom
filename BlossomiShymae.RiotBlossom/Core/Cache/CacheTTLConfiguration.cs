@@ -95,7 +95,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
 
             // TFT-MATCH-V1
             _ttl[UrlMethod.TftMatchV1ById] = TimeSpan.MaxValue;
-            _ttl[UrlMethod.TftMatchV1MatchesByPuudi] = TimeSpan.FromMinutes(10);
+            _ttl[UrlMethod.TftMatchV1MatchesByPuuid] = TimeSpan.FromMinutes(10);
 
             // TFT-STATUS-V1
             _ttl[UrlMethod.TftStatusV1PlatformData] = TimeSpan.FromDays(1);
