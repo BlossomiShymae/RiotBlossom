@@ -7,6 +7,7 @@ using BlossomiShymae.RiotBlossom.Data.Constants.Shards;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types.Lol;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types.Tft;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Item;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NuGet.Frameworks;
 
@@ -257,7 +258,7 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue($"https://ddragon.leagueoflegends.com/cdn/{version}/img/profileicon/0.png".Equals(icon));
         }
 
-        [TestMethod]
+        [TestMethod()]
         public async Task CommunityDragon_ByDefault_GetsData()
         {
             var client = Shared.Client;
@@ -272,6 +273,22 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(items.Count > 0);
             Assert.IsTrue(perks.Count > 0);
             Assert.IsTrue($"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/0.jpg".Equals(icon));
+        }
+
+        [TestMethod()]
+        public async Task MerakiAnalytics_ByDefault_GetsData()
+        {
+            var client = Shared.Client;
+
+            var champions = await client.MerakiAnalytics.GetChampionsAsync();
+            var champion = await client.MerakiAnalytics.GetChampionByKeyAsync("Gwen");
+            var items = await client.MerakiAnalytics.GetItemsAsync();
+            var item = await client.MerakiAnalytics.GetItemByIdAsync(1001);
+
+            Assert.IsTrue(champions.Count > 0);
+            Assert.IsTrue(champion.Name.Equals("Gwen"));
+            Assert.IsTrue(items.Count > 0);
+            Assert.IsTrue(item.Name.Equals("Boots"));
         }
     }
 }
