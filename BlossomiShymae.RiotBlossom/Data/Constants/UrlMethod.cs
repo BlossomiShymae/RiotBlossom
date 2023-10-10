@@ -184,7 +184,7 @@ namespace BlossomiShymae.RiotBlossom.Data
         public static readonly string DataDragonItem = $"/cdn/{Version}/data/{Locale}/item.json";
         public static readonly string DataDragonVersions = $"/api/versions.json";
         public static readonly string DataDragonRunesReforged = $"/cdn/{Version}/data/{Locale}/runesReforged.json";
-        public static readonly string DataDragonProfileIcon = $"/cdn/{Version}/img/profileIcon/{ProfileIconId}.png";
+        public static readonly string DataDragonProfileIcon = $"/cdn/{Version}/img/profileicon/{ProfileIconId}.png";
 
         // COMMUNITYDRAGON
         public static readonly string CommunityDragon = "https://raw.communitydragon.org";
