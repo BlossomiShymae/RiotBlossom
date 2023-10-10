@@ -86,6 +86,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<ChampionMasteryDto>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ByEncryptedPuuidChampionId,
                 Params = new Dictionary<string, string>()
@@ -102,6 +103,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<ChampionMasteryDto>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ByEncryptedSummonerIdChampionId,
                 Params = new Dictionary<string, string>()
@@ -118,6 +120,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<List<ChampionMasteryDto>>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ByEncryptedPuuid,
                 Params = new Dictionary<string, string>()
@@ -133,6 +136,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<List<ChampionMasteryDto>>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ByEncryptedSummonerId,
                 Params = new Dictionary<string, string>()
@@ -148,6 +152,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<List<ChampionMasteryDto>>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ByEncryptedPuuidTop,
                 Params = new Dictionary<string, string>()
@@ -164,6 +169,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<List<ChampionMasteryDto>>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ByEncryptedSummonerIdTop,
                 Params = new Dictionary<string, string>()
@@ -180,6 +186,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<int>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ScoresByEncryptedPuuid,
                 Params = new Dictionary<string, string>()
@@ -195,6 +202,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
         {
             var data = await CallAsync<int>(new()
             {
+                Shard = shard,
                 Endpoint = nameof(ChampionMasteryV4Api),
                 Method = UrlMethod.LolChampionMasteryV4ScoresByEncryptedSummonerId,
                 Params = new Dictionary<string, string>()
