@@ -4,6 +4,7 @@ using BlossomiShymae.RiotBlossom.Data;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Champion;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Item;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Static.CommunityDragon.Perk;
+using Microsoft.Extensions.Logging;
 
 namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
 {
@@ -131,12 +132,14 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Static
         {
             var uri = new NamedFormatter(UrlMethod.CommunityDragonProfileIcon);
 
-            var data = uri.Format(new Dictionary<string, string>()
+            var data = UrlMethod.CommunityDragon + uri.Format(new Dictionary<string, string>()
             {
                 { UrlMethod.ProfileIconId, id.ToString() },
                 { UrlMethod.Version, version },
                 { UrlMethod.Locale, locale }
             });
+
+            ApiConfiguration.Logger.LogDebug("Created URI: {uri}", data);
 
             return data;
         }
