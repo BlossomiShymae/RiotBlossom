@@ -7,6 +7,7 @@ using BlossomiShymae.RiotBlossom.Data.Constants.Shards;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types.Lol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NuGet.Frameworks;
 
 namespace BlossomiShymae.RiotBlossomTests
 {
@@ -84,6 +85,38 @@ namespace BlossomiShymae.RiotBlossomTests
             var status = await Shared.Client.LolStatusV4.GetPlatformStatusAsync(Shared.LeagueShard);
 
             Assert.IsTrue(status != null);
+        }
+
+        [TestMethod()]
+        public async Task MatchV5_WithSummoner_GetMatches()
+        {
+            var client = Shared.Client;
+
+            var matchlist = await client.MatchV5.GetMatchlistByPuuidAsync(new()
+            {
+                Puuid = Shared.Summoner.Puuid,
+                Shard = Shared.LeagueShard.GetRegionShard()
+            });
+            var match = await client.MatchV5.GetByIdAsync(Shared.LeagueShard.GetRegionShard(), matchlist.First());
+            var timeline = await client.MatchV5.GetTimelineByIdAsync(Shared.LeagueShard.GetRegionShard(), matchlist.First());
+
+            Assert.IsTrue(matchlist.Count > 0);
+            Assert.IsTrue(match.Metadata.MatchId == timeline.Metadata.MatchId);
+        }
+
+        [TestMethod()]
+        public async Task SummonerV4_WithSummoner_GetSummoners()
+        {
+            var client = Shared.Client;
+
+            var summonerByPuuid = await client.SummonerV4.GetByPuuidAsync(Shared.LeagueShard, Shared.Summoner.Puuid);
+            var summonerByAccountId = await client.SummonerV4.GetByAccountIdAsync(Shared.LeagueShard, Shared.Summoner.AccountId);
+            var summonerById = await client.SummonerV4.GetByIdAsync(Shared.LeagueShard, Shared.Summoner.Id);
+            var summonerByName = await client.SummonerV4.GetByNameAsync(Shared.LeagueShard, Shared.Summoner.Name);
+
+            Assert.IsTrue(summonerByPuuid == summonerByAccountId);
+            Assert.IsTrue(summonerByAccountId == summonerById);
+            Assert.IsTrue(summonerById == summonerByName);
         }
     }
 }
