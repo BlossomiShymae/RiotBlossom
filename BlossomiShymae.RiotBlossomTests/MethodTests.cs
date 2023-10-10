@@ -130,5 +130,15 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(matchlist.Count > 0);
             Assert.IsTrue(match.Metadata.MatchId == matchlist.First());
         }
+
+        [TestMethod()]
+        public async Task LorRankedV1_ByDefault_GetsLeaderboard()
+        {
+            var client = Shared.Client;
+
+            var entries = await client.LorRankedV1.GetMasterLeaderboardAsync(Shared.RuneterraShard);
+
+            Assert.IsTrue(entries.Players.Count > 0);
+        }
     }
 }
