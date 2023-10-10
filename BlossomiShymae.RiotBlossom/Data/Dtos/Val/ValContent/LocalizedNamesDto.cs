@@ -9,7 +9,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Val.ValContent
         [JsonPropertyName("de-DE")]
         public required string GermanGermany { get; init; } 
         [JsonPropertyName("en-GB")]
-        public required string EnglishUnitedKingdom { get; init; }
+        public string? EnglishUnitedKingdom { get; init; }
         [JsonPropertyName("en-US")]
         public required string EnglishUnitedStates { get; init; }
         [JsonPropertyName("es-ES")]
