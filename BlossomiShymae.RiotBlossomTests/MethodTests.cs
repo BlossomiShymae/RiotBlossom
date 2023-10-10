@@ -206,5 +206,16 @@ namespace BlossomiShymae.RiotBlossomTests
 
             Assert.IsTrue(status != null);
         }
+
+        [TestMethod()]
+        public async Task TftSummonerV1_WithPlayer_GetsSummoner()
+        {
+            var client = Shared.Client;
+
+            var summonerByPuuid = await client.TftSummonerV1.GetByPuuidAsync(LeagueShard.NA1, Shared.Account.Puuid);
+            var summonerByName = await client.TftSummonerV1.GetByNameAsync(LeagueShard.NA1, Shared.Account.GameName);
+
+            Assert.IsTrue(summonerByPuuid == summonerByName);
+        }
     }
 }
