@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using BlossomiShymae.RiotBlossom.Data.Constants.Shards;
+using BlossomiShymae.RiotBlossom.Data.Constants.Types;
+using BlossomiShymae.RiotBlossom.Data.Constants.Types.Lol;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BlossomiShymae.RiotBlossomTests
@@ -33,6 +35,14 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(scoreByPuuid == scoreBySummonerId);
             Assert.IsTrue(entriesByPuuid.Count > 0 && entriesByPuuid.Count == entriesBySummonerId.Count);
             Assert.IsTrue(topByPuuid.Count > 0 && topByPuuid.Count == topBySummonerId.Count);
+        }
+
+        [TestMethod()]
+        public async Task ChampionV3_ByDefault_GetsRotation()
+        {
+            var info = await Shared.Client.ChampionV3.GetChampionRotations(Shared.LeagueShard);
+
+            Assert.IsTrue(info.FreeChampionIds.Count > 0);
         }
     }
 }
