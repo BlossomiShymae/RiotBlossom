@@ -77,5 +77,13 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(info.Challenges.Count > 0);
             Assert.IsTrue(config.Count > 0);
         }
+        
+        [TestMethod()]
+        public async Task LolStatusV4_ByDefault_GetStatus()
+        {
+            var status = await Shared.Client.LolStatusV4.GetPlatformStatusAsync(Shared.LeagueShard);
+
+            Assert.IsTrue(status != null);
+        }
     }
 }
