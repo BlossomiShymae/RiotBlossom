@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlossomiShymae.RiotBlossom.Data.Constants.Shards;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types;
 using BlossomiShymae.RiotBlossom.Data.Constants.Types.Lol;
+using BlossomiShymae.RiotBlossom.Data.Constants.Types.Tft;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NuGet.Frameworks;
 
@@ -158,6 +159,27 @@ namespace BlossomiShymae.RiotBlossomTests
             var accountByPuuid = await client.AccountV1.GetAccountByPuuidAsync(RegionShard.Americas, Shared.Account.Puuid);
 
             Assert.IsTrue(accountByTags == accountByPuuid);
+        }
+
+        [TestMethod()]
+        public async Task TftLeagueV1_WithSummoner_GetsLeagues()
+        {
+            var client = Shared.Client;
+
+            var challenger = await client.TftLeagueV1.GetChallengerLeagueAsync(Shared.LeagueShard);
+            var grandmaster = await client.TftLeagueV1.GetGrandmasterLeagueAsync(Shared.LeagueShard);
+            var master = await client.TftLeagueV1.GetMasterLeagueAsync(Shared.LeagueShard);
+
+            var entries = await client.TftLeagueV1.GetLeagueEntriesAsync(Shared.LeagueShard, LeagueTier.Diamond, LeagueDivision.I);
+
+            var ladder = await client.TftLeagueV1.GetTopRatedLadderByQueueAsync(Shared.LeagueShard, TftLeagueQueue.RankedTftTurbo);
+
+            Assert.IsTrue(challenger.Entries.Count > 0);
+            Assert.IsTrue(grandmaster.Entries.Count > 0);
+            Assert.IsTrue(master.Entries.Count > 0);
+            Assert.IsTrue(entries.Count > 0);
+            Assert.IsTrue(ladder.Count > 0);
+
         }
     }
 }
