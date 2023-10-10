@@ -18,7 +18,6 @@
 	<Version>2.0.0-alpha</Version>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<Title>RiotBlossom</Title>
-	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
