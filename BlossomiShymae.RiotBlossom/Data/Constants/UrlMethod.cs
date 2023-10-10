@@ -64,8 +64,8 @@ namespace BlossomiShymae.RiotBlossom.Data
         public static readonly string AuthorizationHeader = "Authorization";
         
         // ACCOUNT-V1
-        public static readonly string RiotAccountV1ByPuuid = $"/riot/account/v1/by-puuid/{Puuid}";
-        public static readonly string RiotAccountV1ByGameName = $"/riot/account/v1/by-riot-id/{GameName}/{TagLine}";
+        public static readonly string RiotAccountV1ByPuuid = $"/riot/account/v1/accounts/by-puuid/{Puuid}";
+        public static readonly string RiotAccountV1ByGameName = $"/riot/account/v1/accounts/by-riot-id/{GameName}/{TagLine}";
         public static readonly string RiotAccountV1ByAccessToken = $"/riot/account/v1/accounts/me";
         public static readonly string RiotAccountV1ByGame = $"/riot/account/v1/active-shards/by-game/{Game}/by-puuid/{Puuid}";
 
