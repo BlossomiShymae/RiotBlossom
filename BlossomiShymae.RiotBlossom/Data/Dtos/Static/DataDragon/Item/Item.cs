@@ -8,7 +8,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Item
     public record Item : DataObject
     {
         public required string Name { get; init; } 
-        public required Rune Rune { get; init; } 
+        public Rune? Rune { get; init; } 
         public Gold Gold { get; init; } = new();
         public string? Group { get; init; }
         public required string Description { get; init; } 

@@ -22,6 +22,6 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.DataDragon.Champion
         public List<int> Range { get; init; } = [];
         public required string RangeBurn { get; init; }
         public required Image Image { get; init; }
-        public required string Resource { get; init; } 
+        public string? Resource { get; init; } 
     }
 }
