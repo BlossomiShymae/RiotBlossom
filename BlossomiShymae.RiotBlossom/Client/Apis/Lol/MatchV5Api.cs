@@ -110,6 +110,10 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
                 Shard = shard,
                 Endpoint = nameof(MatchV5Api),
                 Method = UrlMethod.LolMatchV5Timeline,
+                Params = new Dictionary<string, string>()
+                {
+                    { UrlMethod.MatchId, id }
+                }
             }).ConfigureAwait(false);
 
             return data;
