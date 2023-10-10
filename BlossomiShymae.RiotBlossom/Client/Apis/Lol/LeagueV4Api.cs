@@ -72,7 +72,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lol
                 Method = UrlMethod.LeagueV4ChallengerLeagues,
                 Params = new Dictionary<string, string>()
                 {
-                    { UrlMethod.QueueQuery, queue.Value }
+                    { UrlMethod.Queue, queue.Value }
                 }
             }).ConfigureAwait(false);
 
