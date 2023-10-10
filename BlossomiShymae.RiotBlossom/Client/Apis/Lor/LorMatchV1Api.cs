@@ -58,7 +58,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis.Lor
                 {
                     { UrlMethod.Puuid, puuid }
                 }
-            });
+            }).ConfigureAwait(false);
 
             return data;
         }
