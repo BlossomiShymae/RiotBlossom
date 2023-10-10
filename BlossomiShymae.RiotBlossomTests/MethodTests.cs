@@ -44,5 +44,24 @@ namespace BlossomiShymae.RiotBlossomTests
 
             Assert.IsTrue(info.FreeChampionIds.Count > 0);
         }
+
+        [TestMethod()]
+        public async Task LeagueV4_WithSummoner_FetchLeagues()
+        {
+            var client = Shared.Client;
+
+            var challenger = await client.LeagueV4.GetChallengerLeagueByQueueAsync(Shared.LeagueShard, LeagueQueue.RankedSolo5x5);
+            var grandmaster = await client.LeagueV4.GetGrandmasterLeagueByQueueAsync(Shared.LeagueShard, LeagueQueue.RankedSolo5x5);
+            var master = await client.LeagueV4.GetMasterLeagueByQueueAsync(Shared.LeagueShard, LeagueQueue.RankedSolo5x5);
+
+            var entries = await client.LeagueV4.GetLeagueEntriesAsync(Shared.LeagueShard, LeagueQueue.RankedSolo5x5, LeagueTier.Diamond, LeagueDivision.I);
+            var entriesBySummonerId = await client.LeagueV4.GetLeagueEntriesBySummonerIdAsync(Shared.LeagueShard, Shared.Summoner.Id);
+
+            Assert.IsTrue(challenger.Entries.Count > 0);
+            Assert.IsTrue(grandmaster.Entries.Count > 0);
+            Assert.IsTrue(master.Entries.Count > 0);
+            Assert.IsTrue(entries.Count > 0);
+            Assert.IsTrue(entriesBySummonerId.Count > 0);
+        }
     }
 }
