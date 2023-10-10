@@ -8,6 +8,7 @@ using BlossomiShymae.RiotBlossom.Client;
 using BlossomiShymae.RiotBlossom.Data.Constants.Shards;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Match;
 using BlossomiShymae.RiotBlossom.Data.Dtos.Lol.Summoner;
+using BlossomiShymae.RiotBlossom.Data.Dtos.Riot.Account;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BlossomiShymae.RiotBlossomTests
@@ -21,12 +22,15 @@ namespace BlossomiShymae.RiotBlossomTests
         });
 
         public static SummonerDto Summoner = default!;
+        public static AccountDto Account = default!;
+        public static RuneterraShard RuneterraShard = RuneterraShard.Americas;
         public static LeagueShard LeagueShard = LeagueShard.EUW1;
 
         [AssemblyInitialize]
         public static async Task AssemblyInitAsync(TestContext context)
         {   
             Summoner = await Client.SummonerV4.GetByNameAsync(LeagueShard.EUW1, "TheDrone7");
+            Account = await Client.AccountV1.GetAccountByRiotIdAsync(RegionShard.Americas, "ToxicMacaroni", "NA1");
         }
     }
 }

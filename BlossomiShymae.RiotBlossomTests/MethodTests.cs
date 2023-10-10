@@ -118,5 +118,17 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(summonerByAccountId == summonerById);
             Assert.IsTrue(summonerById == summonerByName);
         }
+
+        [TestMethod()]
+        public async Task LorMatchV1_WithSummoner_GetSummoners()
+        {
+            var client = Shared.Client;
+
+            var matchlist = await client.LorMatchV1.GetMatchlistByPuuidAsync(Shared.RuneterraShard, Shared.Account.Puuid);
+            var match = await client.LorMatchV1.GetByIdAsync(Shared.RuneterraShard, matchlist.First());
+
+            Assert.IsTrue(matchlist.Count > 0);
+            Assert.IsTrue(match.Metadata.MatchId == matchlist.First());
+        }
     }
 }
