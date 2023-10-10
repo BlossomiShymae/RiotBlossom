@@ -8,6 +8,61 @@ namespace BlossomiShymae.RiotBlossom.Data
 {
     public static class UrlMethod
     {
+        /// 
+        /// PLACEHOLDERS
+        /// 
+        public static readonly string SummonerName = "{summonerName}";
+        public static readonly string Puuid = "{puuid}";
+        public static readonly string MatchId = "{matchId}";
+        public static readonly string GameName = "{gameName}";
+        public static readonly string TagLine = "{tagLine}";
+        public static readonly string Game = "{game}";
+        public static readonly string EncryptedPuuid = "{encryptedPUUID}";
+        public static readonly string EncryptedSummonerId = "{encryptedSummonerId}";
+        public static readonly string ChampionId = "{championId}";
+        public static readonly string SummonerId = "{summonerId}";
+        public static readonly string TeamId = "{teamId}";
+        public static readonly string TournamentId = "{tournamentId}";
+        public static readonly string Queue = "{queue}";
+        public static readonly string Tier = "{tier}";
+        public static readonly string Division = "{division}";
+        public static readonly string LeagueId = "{leagueId}";
+        public static readonly string ChallengeId = "{challengeId}";
+        public static readonly string Level = "{level}";
+        public static readonly string EncryptedAccountId = "{encryptedAccountId}";
+        public static readonly string TournamentCode = "{tournamentCode}";
+        public static readonly string ActId = "{actId}";
+
+
+        ///
+        /// STATIC PLACEHOLDERS
+        ///
+        public static readonly string Version = "{version}";
+        public static readonly string Locale = "{locale}";
+        public static readonly string ProfileIconId = "{profileIconId}";
+        public static readonly string ItemId = "{itemId}";
+        public static readonly string ChampionKey = "{championKey}";
+
+        ///
+        /// QUERY PARAMETERS
+        ///
+        public static readonly string PageQuery = "page";
+        public static readonly string LimitQuery = "limit";
+        public static readonly string StartTimeQuery = "startTime";
+        public static readonly string EndTimeQuery = "endTime";
+        public static readonly string QueueQuery = "queue";
+        public static readonly string TypeQuery = "type";
+        public static readonly string StartQuery = "start";
+        public static readonly string CountQuery = "count";
+        public static readonly string LocaleQuery = "locale";
+        public static readonly string SizeQuery = "size";
+        public static readonly string StartIndexQuery = "startIndex";
+
+        ///
+        /// HEADER PARAMETERS
+        ///
+        public static readonly string AuthorizationHeader = "Authorization";
+        
         // ACCOUNT-V1
         public static readonly string RiotAccountV1ByPuuid = $"/riot/account/v1/by-puuid/{Puuid}";
         public static readonly string RiotAccountV1ByGameName = $"/riot/account/v1/by-riot-id/{GameName}/{TagLine}";
@@ -144,60 +199,5 @@ namespace BlossomiShymae.RiotBlossom.Data
         public static readonly string MerakiAnalyticsChampionByKey = $"/riot/lol/resources/latest/en-US/champions/{ChampionKey}.json";
         public static readonly string MerakiAnalyticsItems = $"/riot/lol/resources/latest/en-US/items.json";
         public static readonly string MerakiAnalyticsChampions = $"/riot/lol/resources/latest/en-US/champions.json";
-
-        /// 
-        /// PLACEHOLDERS
-        /// 
-        public static readonly string SummonerName = "{summonerName}";
-        public static readonly string Puuid = "{puuid}";
-        public static readonly string MatchId = "{matchId}";
-        public static readonly string GameName = "{gameName}";
-        public static readonly string TagLine = "{tagLine}";
-        public static readonly string Game = "{game}";
-        public static readonly string EncryptedPuuid = "{encryptedPUUID}";
-        public static readonly string EncryptedSummonerId = "{encryptedSummonerId}";
-        public static readonly string ChampionId = "{championId}";
-        public static readonly string SummonerId = "{summonerId}";
-        public static readonly string TeamId = "{teamId}";
-        public static readonly string TournamentId = "{tournamentId}";
-        public static readonly string Queue = "{queue}";
-        public static readonly string Tier = "{tier}";
-        public static readonly string Division = "{division}";
-        public static readonly string LeagueId = "{leagueId}";
-        public static readonly string ChallengeId = "{challengeId}";
-        public static readonly string Level = "{level}";
-        public static readonly string EncryptedAccountId = "{encryptedAccountId}";
-        public static readonly string TournamentCode = "{tournamentCode}";
-        public static readonly string ActId = "{actId}";
-
-
-        ///
-        /// STATIC PLACEHOLDERS
-        ///
-        public static readonly string Version = "{version}";
-        public static readonly string Locale = "{locale}";
-        public static readonly string ProfileIconId = "{profileIconId}";
-        public static readonly string ItemId = "{itemId}";
-        public static readonly string ChampionKey = "{championKey}";
-
-        ///
-        /// QUERY PARAMETERS
-        ///
-        public static readonly string PageQuery = "page";
-        public static readonly string LimitQuery = "limit";
-        public static readonly string StartTimeQuery = "startTime";
-        public static readonly string EndTimeQuery = "endTime";
-        public static readonly string QueueQuery = "queue";
-        public static readonly string TypeQuery = "type";
-        public static readonly string StartQuery = "start";
-        public static readonly string CountQuery = "count";
-        public static readonly string LocaleQuery = "locale";
-        public static readonly string SizeQuery = "size";
-        public static readonly string StartIndexQuery = "startIndex";
-
-        ///
-        /// HEADER PARAMETERS
-        ///
-        public static readonly string AuthorizationHeader = "Authorization";
     }
 }

@@ -16,7 +16,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Utils
 
             foreach (var kv in dict)
             {
-                var template = $"{kv.Key}";
+                var template = kv.Key;
 
                 if (fmt.Contains(template))
                 {
