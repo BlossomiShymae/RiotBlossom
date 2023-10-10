@@ -198,5 +198,13 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(matchlist.Count > 0);
             Assert.IsTrue(match.Metadata.MatchId == matchlist.First());
         }
+
+        [TestMethod()]
+        public async Task TftStatusV1_ByDefault_GetsStatus()
+        {
+            var status = await Shared.Client.TftStatusV1.GetPlatformStatusAsync(Shared.LeagueShard);
+
+            Assert.IsTrue(status != null);
+        }
     }
 }
