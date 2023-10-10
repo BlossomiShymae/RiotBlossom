@@ -155,7 +155,7 @@ namespace BlossomiShymae.RiotBlossomTests
         {
             var client = Shared.Client;
 
-            var accountByTags = await client.AccountV1.GetAccountByRiotIdAsync(RegionShard.Americas, Shared.Account.GameName, Shared.Account.TagLine);
+            var accountByTags = await client.AccountV1.GetAccountByRiotIdAsync(RegionShard.Americas, Shared.Account.GameName!, Shared.Account.TagLine!);
             var accountByPuuid = await client.AccountV1.GetAccountByPuuidAsync(RegionShard.Americas, Shared.Account.Puuid);
 
             Assert.IsTrue(accountByTags == accountByPuuid);
@@ -213,7 +213,7 @@ namespace BlossomiShymae.RiotBlossomTests
             var client = Shared.Client;
 
             var summonerByPuuid = await client.TftSummonerV1.GetByPuuidAsync(LeagueShard.NA1, Shared.Account.Puuid);
-            var summonerByName = await client.TftSummonerV1.GetByNameAsync(LeagueShard.NA1, Shared.Account.GameName);
+            var summonerByName = await client.TftSummonerV1.GetByNameAsync(LeagueShard.NA1, Shared.Account.GameName!);
 
             Assert.IsTrue(summonerByPuuid == summonerByName);
         }
@@ -227,6 +227,14 @@ namespace BlossomiShymae.RiotBlossomTests
 
             Assert.IsTrue(content.Maps.Count > 0);
             Assert.IsTrue(jp.Maps.Count > 0);
+        }
+
+        [TestMethod()]
+        public async Task ValStatusV1_ByDefault_GetsStatus()
+        {
+            var status = await Shared.Client.ValStatusV1.GetPlatformStatusAsync(ValorantShard.NA);
+
+            Assert.IsTrue(status != null);
         }
     }
 }
