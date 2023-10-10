@@ -256,5 +256,22 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(perks.Count > 0);
             Assert.IsTrue($"https://ddragon.leagueoflegends.com/cdn/{version}/img/profileicon/0.png".Equals(icon));
         }
+
+        [TestMethod]
+        public async Task CommunityDragon_ByDefault_GetsData()
+        {
+            var client = Shared.Client;
+
+            var champion = await client.CommunityDragon.GetChampionByIdAsync(887);
+            var items = await client.CommunityDragon.GetItemsAsync();
+            var perks = await client.CommunityDragon.GetPerkRunesAsync();
+
+            var icon = client.CommunityDragon.GetProfileIconById(0);
+
+            Assert.IsTrue(champion.Id == 887);
+            Assert.IsTrue(items.Count > 0);
+            Assert.IsTrue(perks.Count > 0);
+            Assert.IsTrue($"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/0.jpg".Equals(icon));
+        }
     }
 }
