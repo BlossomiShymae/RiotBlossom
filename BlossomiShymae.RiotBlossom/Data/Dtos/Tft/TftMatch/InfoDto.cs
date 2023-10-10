@@ -19,7 +19,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Tft.TftMatch
         /// The game variation key.
         /// </summary>
         [JsonPropertyName("game_variation")]
-        public required string GameVariation { get; init; }
+        public string? GameVariation { get; init; }
         /// <summary>
         /// The game client version.
         /// </summary>

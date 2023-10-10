@@ -10,7 +10,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Tft.TftMatch
         [JsonPropertyName("skin_id")]
         public int SkinId { get; init; }
         [JsonPropertyName("content_id")]
-        public required string ContentId { get; init; }
+        public string? ContentId { get; init; }
         public required string Species { get; init; }
     }
 }
