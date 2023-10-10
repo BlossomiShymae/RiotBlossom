@@ -217,5 +217,16 @@ namespace BlossomiShymae.RiotBlossomTests
 
             Assert.IsTrue(summonerByPuuid == summonerByName);
         }
+
+        [TestMethod()]
+        public async Task ValContentV1_ByDefault_GetsContent()
+        {
+
+            var content = await Shared.Client.ValContentV1.GetContentAsync(ValorantShard.NA);
+            var jp = await Shared.Client.ValContentV1.GetContentAsync(ValorantShard.AP, "ja-JP");
+
+            Assert.IsTrue(content.Maps.Count > 0);
+            Assert.IsTrue(jp.Maps.Count > 0);
+        }
     }
 }
