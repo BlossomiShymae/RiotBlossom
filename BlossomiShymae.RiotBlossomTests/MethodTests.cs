@@ -235,6 +235,26 @@ namespace BlossomiShymae.RiotBlossomTests
             var status = await Shared.Client.ValStatusV1.GetPlatformStatusAsync(ValorantShard.NA);
 
             Assert.IsTrue(status != null);
+
+        }
+
+        [TestMethod()]
+        public async Task DataDragon_ByDefault_GetsData()
+        {
+            var client = Shared.Client;
+
+            var version = await client.DataDragon.GetLatestVersionAsync();
+
+            var champions = await client.DataDragon.GetChampionsAsync(version);
+            var items = await client.DataDragon.GetItemsAsync(version);
+            var perks = await client.DataDragon.GetPerkStylesAsync(version);
+            
+            var icon = client.DataDragon.GetProfileIconById(0, version);
+
+            Assert.IsTrue(champions.Count > 0);
+            Assert.IsTrue(items.Count > 0);
+            Assert.IsTrue(perks.Count > 0);
+            Assert.IsTrue($"https://ddragon.leagueoflegends.com/cdn/{version}/img/profileicon/0.png".Equals(icon));
         }
     }
 }
