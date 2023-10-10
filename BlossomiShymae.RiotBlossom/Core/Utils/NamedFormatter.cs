@@ -35,7 +35,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Utils
                 }
             }
 
-            return $"{fmt}{query.ToLower()}";
+            return $"{fmt}{query}";
         }
     }
 }
