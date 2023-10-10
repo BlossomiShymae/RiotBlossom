@@ -10,6 +10,7 @@ using BlossomiShymae.RiotBlossom.Core.Exceptions;
 using BlossomiShymae.RiotBlossom.Core.Limiting;
 using BlossomiShymae.RiotBlossom.Core.Utils;
 using BlossomiShymae.RiotBlossom.Data.Constants;
+using Microsoft.Extensions.Logging;
 
 namespace BlossomiShymae.RiotBlossom.Client.Apis
 {
@@ -48,9 +49,12 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
                 throw new InvalidOperationException("Shard must be set!");
 
             // Format endpoint placeholder with data and query parameters
+            ApiConfiguration.Logger.LogDebug("Received method: {method}", call.Method);
             var method = new NamedFormatter(call.Method);
+            ApiConfiguration.Logger.LogDebug("Received params: {params}", PrettyPrinter.GetString(call.Params));
             var methodUri = method.Format(call.Params);
             var uri = new Uri($"https://{call.Shard.Value}.api.riotgames.com{methodUri}");
+            ApiConfiguration.Logger.LogDebug("Created URI: {uri}", uri);
 
             // Read from cache
             string? json = await Cache.GetValueAsync(call.Method, HttpUtility.UrlEncode(methodUri))
@@ -58,6 +62,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
 
             if (json != null)
             {
+                ApiConfiguration.Logger.LogDebug("Cache hit: {uri}", HttpUtility.UrlEncode(methodUri));
                 var data = JsonSerializer.Deserialize<T>(json) ?? throw new DataDeserializeException();
 
                 return data;
@@ -74,6 +79,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             // Initialize lock per shard
             if (!Locks.TryGetValue(call.Shard.Value, out _))
             {
+                ApiConfiguration.Logger.LogDebug("Creating lock for shard: {shard}", call.Shard.Value);
                 Locks[call.Shard.Value] = new SemaphoreSlim(1, 1);
             }
 
@@ -86,15 +92,19 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             if (call.Url == null)
                 throw new InvalidOperationException("Url must be set!");
 
+            ApiConfiguration.Logger.LogDebug("Received method: {method}", call.Method);
             var method = new NamedFormatter(call.Method);
+            ApiConfiguration.Logger.LogDebug("Received params: {params}", PrettyPrinter.GetString(call.Params));
             var methodUri = method.Format(call.Params);
             var uri = new Uri($"{call.Url}{methodUri}");
+            ApiConfiguration.Logger.LogDebug("Created URI: {uri}", uri);
 
             string? json = await Cache.GetValueAsync(call.Method, HttpUtility.UrlEncode(methodUri))
                 .ConfigureAwait(false);
 
             if (json != null)
             {
+                ApiConfiguration.Logger.LogDebug("Cache hit: {uri}", HttpUtility.UrlEncode(methodUri));
                 var data = JsonSerializer.Deserialize<T>(json) ?? throw new DataDeserializeException();
 
                 return data;
@@ -113,6 +123,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             // Send HTTP request
             try
             {
+                ApiConfiguration.Logger.LogDebug("Locking on shard: {shard}", call.Shard!.Value);
                 await _lock.WaitAsync()
                     .ConfigureAwait(false);
 
@@ -132,12 +143,16 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
 
                     if ((int)res.StatusCode >= 500)
                     {
+                        ApiConfiguration.Logger.LogWarning("Received 5XX request: {code}\nRetrying...", res.StatusCode);
                         continue;
                     }
                     else if (!res.IsSuccessStatusCode)
                     {
+                        ApiConfiguration.Logger.LogError("Received 4XX request: {tuple}", (res.StatusCode, call.Endpoint, call.Shard.Value!, call.Method, methodUri));
                         throw new HttpRequestException(null, null, res.StatusCode);
                     }
+
+                    ApiConfiguration.Logger.LogDebug("Successful request: {uri}", methodUri);
 
                     var content = await res.Content.ReadAsStringAsync()
                         .ConfigureAwait(false);
@@ -145,6 +160,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
                     var data = JsonSerializer.Deserialize<T>(content, Serializer.Options) ?? throw new DataDeserializeException();
 
                     // Write to cache
+                    ApiConfiguration.Logger.LogDebug("Writing to cache: {uri}", HttpUtility.UrlEncode(methodUri));
                     await Cache.SetValueAsync(HttpUtility.UrlEncode(methodUri), data)
                         .ConfigureAwait(false);
 
@@ -157,10 +173,12 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
                     return data;
                 }
 
+                ApiConfiguration.Logger.LogError("Failed retrying: {tuple}", (call.Endpoint, call.Shard.Value!, call.Method, methodUri));
                 throw new RetryingException();
             }
             finally
             {
+                ApiConfiguration.Logger.LogDebug("Releasing lock on shard: {shard}", call.Shard!.Value);
                 _lock.Release();
             }
         }

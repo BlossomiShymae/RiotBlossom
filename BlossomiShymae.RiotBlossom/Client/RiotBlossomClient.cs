@@ -8,6 +8,7 @@ using BlossomiShymae.RiotBlossom.Client.Apis.Static;
 using BlossomiShymae.RiotBlossom.Client.Apis.Tft;
 using BlossomiShymae.RiotBlossom.Client.Apis.Val;
 using BlossomiShymae.RiotBlossom.Core;
+using Microsoft.Extensions.Logging;
 
 namespace BlossomiShymae.RiotBlossom.Client
 {
@@ -146,6 +147,8 @@ namespace BlossomiShymae.RiotBlossom.Client
             _dataDragonApi = new DataDragonApi(configuration);
             _communityDragonApi = new CommunityDragonApi(configuration);
             _merakiAnalyticsApi = new MerakiAnalyticsApi(configuration);
+
+            configuration.Logger.LogDebug("Initialized RiotBlossomClient");
         }
     }
 }
