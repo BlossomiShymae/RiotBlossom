@@ -28,11 +28,11 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolStatus
         /// <para>Oofie I don't know what the format is...have an example! :3</para>
         /// <example>2023-01-19T02:14:10.226109+00:00</example>
         /// </summary>
-        public required string CreatedAt { get; init; }
+        public string? CreatedAt { get; init; }
         /// <summary>
         /// <para>Oofie I don't know what the format is...have an example! :3</para>
         /// <example>2023-01-19T02:14:00+00:00</example>
         /// </summary>
-        public required string UpdatedAt { get; init; }
+        public string? UpdatedAt { get; init; }
     }
 }

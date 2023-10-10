@@ -15,7 +15,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolStatus
         /// <summary>
         /// The severity level of status incident e.g. "info", "warning", "critical".
         /// </summary>
-        public required string IncidentSeverity { get; init; }
+        public string? IncidentSeverity { get; init; }
         /// <summary>
         /// The title text for status.
         /// </summary>
@@ -28,7 +28,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolStatus
         /// <para>Sorries I'll just be putting an example. ;w;</para>
         /// <example>2023-01-19T02:14:10.148483+00:00</example>
         /// </summary>
-        public required string CreatedAt { get; init; }
+        public string? CreatedAt { get; init; }
         /// <summary>
         /// Pwease see <see cref="CreatedAt"/> and <see cref="UpdatedAt"/>.
         /// </summary>
@@ -37,7 +37,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Lol.LolStatus
         /// <para>Sorries I'll just be putting an example. ;w;</para>
         /// <example>2023-02-26T11:00:07.189038+00:00</example>
         /// </summary>
-        public required string UpdatedAt { get; init; }
+        public string? UpdatedAt { get; init; }
         /// <summary>
         /// The platform list affected by this incident e.g. "windows", "macos".
         /// </summary>
