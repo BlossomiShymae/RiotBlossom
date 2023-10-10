@@ -39,5 +39,11 @@
         /// The tokens earned for champion at current level. Resets to zero when <see cref="ChampionLevel"/> advances.
         /// </summary>
         public int TokensEarned { get; init; }
+        /// <summary>
+        /// The encrypted Player Universal Unique Identifier associated with the champion mastery.
+        /// This field was added to the API in July 2023.
+        /// <para><see href="https://github.com/RiotGames/developer-relations/issues/767"/></para>
+        /// </summary>
+        public string? Puuid { get; set; }
     }
 }
