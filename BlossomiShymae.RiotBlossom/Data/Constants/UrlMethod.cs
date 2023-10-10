@@ -189,9 +189,9 @@ namespace BlossomiShymae.RiotBlossom.Data
         // COMMUNITYDRAGON
         public static readonly string CommunityDragon = "https://raw.communitydragon.org";
         public static readonly string CommunityDragonItems = $"/{Version}/plugins/rcp-be-lol-game-data/global/{Locale}/v1/items.json";
-        public static readonly string CommunityDragonChampionById = $"/{Version}/plugins/rcp-be-lol-game-data/global/{Locale}/v1/champions/{ChampionId}/json";
+        public static readonly string CommunityDragonChampionById = $"/{Version}/plugins/rcp-be-lol-game-data/global/{Locale}/v1/champions/{ChampionId}.json";
         public static readonly string CommunityDragonPerks = $"/{Version}/plugins/rcp-be-lol-game-data/global/{Locale}/v1/perks.json";
-        public static readonly string CommunityDragonProfileIcon = $"{Version}/plugins/rcp-be-lol-game-data/global/{Locale}/v1/profile-icons/{ProfileIconId}.jpg";
+        public static readonly string CommunityDragonProfileIcon = $"/{Version}/plugins/rcp-be-lol-game-data/global/{Locale}/v1/profile-icons/{ProfileIconId}.jpg";
 
         // MERAKI ANALYTICS
         public static readonly string MerakiAnalytics = "https://cdn.merakianalytics.com";
