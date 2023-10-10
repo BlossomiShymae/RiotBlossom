@@ -148,5 +148,16 @@ namespace BlossomiShymae.RiotBlossomTests
 
             Assert.IsTrue(status != null);
         }
+
+        [TestMethod()]
+        public async Task AccountV1_WithName_GetsAccount()
+        {
+            var client = Shared.Client;
+
+            var accountByTags = await client.AccountV1.GetAccountByRiotIdAsync(RegionShard.Americas, Shared.Account.GameName, Shared.Account.TagLine);
+            var accountByPuuid = await client.AccountV1.GetAccountByPuuidAsync(RegionShard.Americas, Shared.Account.Puuid);
+
+            Assert.IsTrue(accountByTags == accountByPuuid);
+        }
     }
 }
