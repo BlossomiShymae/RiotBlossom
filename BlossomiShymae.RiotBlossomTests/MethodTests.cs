@@ -181,5 +181,22 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(ladder.Count > 0);
 
         }
+
+        [TestMethod()]
+        public async Task TftMatchV1_WithSummoner_GetsMatches()
+        {
+            var client = Shared.Client;
+
+            var matchlist = await client.TftMatchV1.GetMatchlistByPuuidAsync(new()
+            {
+                Shard = RegionShard.Americas,
+                Puuid = Shared.Account.Puuid
+            });
+
+            var match = await client.TftMatchV1.GetByIdAsync(RegionShard.Americas, matchlist.First());
+
+            Assert.IsTrue(matchlist.Count > 0);
+            Assert.IsTrue(match.Metadata.MatchId == matchlist.First());
+        }
     }
 }
