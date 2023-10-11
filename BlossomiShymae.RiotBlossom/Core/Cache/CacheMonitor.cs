@@ -11,6 +11,6 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
         public DateTime Timestamp { get; set; } = DateTime.Now;
         public TimeSpan TTL { get; set; }
         public bool IsExpired => (DateTime.Now - Timestamp).TotalMilliseconds > TTL.TotalMilliseconds;
-        public bool IsDisrupted { get; set; } = true;
+        public bool IsDisrupted { get; set; }
     }
 }
