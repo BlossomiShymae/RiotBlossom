@@ -12,8 +12,8 @@ namespace BlossomiShymae.RiotBlossom.Core
     {
         public required ApiCredentials Credentials { get; set; }
         public HttpClient Http { get; set; } = new();
-        public CacheProvider CacheProvider { get; set; } = CacheProvider.FileSystem;
-        public CacheTTLConfiguration CacheTTLConfiguration { get; set; } = new();
+        public Cache.Cache Cache { get; init; } = CacheFactory
+            .Create(CacheProvider.Memory);
         public LimiterProvider LimiterProvider { get; set; } = LimiterProvider.Burst;
         public ILogger Logger { get; set; } = LoggerFactory
             .Create(c => 

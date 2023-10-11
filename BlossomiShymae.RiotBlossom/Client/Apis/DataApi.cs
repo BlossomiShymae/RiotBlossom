@@ -25,14 +25,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
         {
             ApiConfiguration = configuration;
 
-            // Setup cache provider
-            Cache = configuration.CacheProvider switch
-            {
-                CacheProvider.Empty => new EmptyCache(configuration.CacheTTLConfiguration),
-                CacheProvider.FileSystem => new FileSystemCache(configuration.CacheTTLConfiguration),
-                CacheProvider.Memory => new MemoryCache(configuration.CacheTTLConfiguration),
-                _ => new EmptyCache(configuration.CacheTTLConfiguration),
-            };
+            Cache = configuration.Cache;
 
             // Setup limiter provider
             Limiter = configuration.LimiterProvider switch
