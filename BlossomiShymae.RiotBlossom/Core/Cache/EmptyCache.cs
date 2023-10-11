@@ -13,7 +13,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
 
         protected async override Task<string?> ReadAsync(string key)
         {
-            return await Task.FromResult(string.Empty)
+            return await Task.FromResult<string?>(null)
                 .ConfigureAwait(false);
         }
 
