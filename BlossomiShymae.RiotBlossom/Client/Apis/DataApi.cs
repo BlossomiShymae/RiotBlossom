@@ -56,7 +56,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
 
             // Setup HTTP request message with headers
             var message = new HttpRequestMessage(HttpMethod.Get, uri);
-            var key = ApiConfiguration.Credentials.Key;
+            var key = ApiConfiguration.Key;
 
             message.Headers.Add("X-Riot-Token", key);
             foreach (KeyValuePair<string, string> kvp in call.Headers)

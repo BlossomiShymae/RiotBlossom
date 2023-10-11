@@ -1,4 +1,5 @@
 ﻿using System.Reflection.PortableExecutable;
+using System.Security;
 using BlossomiShymae.RiotBlossom.Api.Client.Apis.Tft;
 using BlossomiShymae.RiotBlossom.Apis.Lol;
 using BlossomiShymae.RiotBlossom.Client.Apis.Lol;
@@ -46,6 +47,8 @@ namespace BlossomiShymae.RiotBlossom.Client
         IDataDragonApi DataDragon { get; }
         ICommunityDragonApi CommunityDragon { get; }
         IMerakiAnalyticsApi MerakiAnalytics { get; }
+
+        ApiConfiguration ApiConfiguration { get; }
     }
 
     internal class RiotBlossomClient : IRiotBlossomClient
@@ -80,6 +83,8 @@ namespace BlossomiShymae.RiotBlossom.Client
         private readonly ICommunityDragonApi _communityDragonApi;
         private readonly IMerakiAnalyticsApi _merakiAnalyticsApi;
 
+        private readonly ApiConfiguration _apiConfiguration;
+
         public IChampionMasteryV4Api ChampionMasteryV4 => _championMasteryV4Api;
         public IChampionV3Api ChampionV3 => _championV3Api;
         public IClashV1Api ClashV1 => _clashV1Api;
@@ -109,15 +114,41 @@ namespace BlossomiShymae.RiotBlossom.Client
         public IDataDragonApi DataDragon => _dataDragonApi;
         public ICommunityDragonApi CommunityDragon => _communityDragonApi;
         public IMerakiAnalyticsApi MerakiAnalytics => _merakiAnalyticsApi;
-       
 
-        public RiotBlossomClient(ApiCredentials credentials)
+        public ApiConfiguration ApiConfiguration => _apiConfiguration;
+
+        public static IRiotBlossomClient Create()
         {
-            var configuration = new ApiConfiguration()
+            string? key = null;
+            
+            try
             {
-                Credentials = credentials
-            };
+                key = Environment.GetEnvironmentVariable("RIOT_API_KEY");
+            }
+            catch (ArgumentNullException)
+            {
 
+            }
+            catch (SecurityException)
+            {
+
+            }
+
+            return new RiotBlossomClient(new() { Key = key });
+        }
+
+        public static IRiotBlossomClient Create(string key)
+        {
+            return new RiotBlossomClient(new() { Key = key });
+        }
+
+        public static IRiotBlossomClient Create(ApiConfiguration configuration)
+        {
+            return new RiotBlossomClient(configuration);
+        }
+       
+        private RiotBlossomClient(ApiConfiguration configuration)
+        {
             _championMasteryV4Api = new ChampionMasteryV4Api(configuration);
             _championV3Api = new ChampionV3Api(configuration);
             _clashV1Api = new ClashV1Api(configuration);
@@ -147,6 +178,8 @@ namespace BlossomiShymae.RiotBlossom.Client
             _dataDragonApi = new DataDragonApi(configuration);
             _communityDragonApi = new CommunityDragonApi(configuration);
             _merakiAnalyticsApi = new MerakiAnalyticsApi(configuration);
+
+            _apiConfiguration = configuration;
 
             configuration.Logger.LogDebug("Initialized RiotBlossomClient");
         }

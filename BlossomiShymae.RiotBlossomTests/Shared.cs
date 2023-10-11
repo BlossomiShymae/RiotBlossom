@@ -16,10 +16,7 @@ namespace BlossomiShymae.RiotBlossomTests
     [TestClass()]
     public static class Shared
     {
-        public static readonly IRiotBlossomClient Client = new RiotBlossomClient(new()
-        {
-            Key = Environment.GetEnvironmentVariable("RIOT_API_KEY")!
-        });
+        public static readonly IRiotBlossomClient Client = RiotBlossomClient.Create();
 
         public static SummonerDto Summoner = default!;
         public static AccountDto Account = default!;
