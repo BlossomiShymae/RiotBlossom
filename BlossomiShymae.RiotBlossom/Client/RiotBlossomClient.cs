@@ -51,7 +51,7 @@ namespace BlossomiShymae.RiotBlossom.Client
         ApiConfiguration ApiConfiguration { get; }
     }
 
-    internal class RiotBlossomClient : IRiotBlossomClient
+    public class RiotBlossomClient : IRiotBlossomClient
     {
         private readonly IChampionMasteryV4Api _championMasteryV4Api;
         private readonly IChampionV3Api _championV3Api;
