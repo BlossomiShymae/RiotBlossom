@@ -26,14 +26,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             ApiConfiguration = configuration;
 
             Cache = configuration.Cache;
-
-            // Setup limiter provider
-            Limiter = configuration.LimiterProvider switch
-            {
-                LimiterProvider.Empty => new EmptyLimiter(),
-                LimiterProvider.Burst => new BurstLimiter(),
-                _ => new EmptyLimiter(),
-            };
+            Limiter = configuration.Limiter;
         }
 
         protected async Task<T> CallAsync<T>(DataCall call)

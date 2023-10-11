@@ -14,7 +14,8 @@ namespace BlossomiShymae.RiotBlossom.Core
         public HttpClient Http { get; set; } = new();
         public Cache.Cache Cache { get; init; } = CacheFactory
             .Create(CacheProvider.Memory);
-        public LimiterProvider LimiterProvider { get; set; } = LimiterProvider.Burst;
+        public Limiter Limiter { get; init; } = LimiterFactory
+            .Create(LimiterProvider.Burst);
         public ILogger Logger { get; set; } = LoggerFactory
             .Create(c => 
             {
