@@ -57,7 +57,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             ApiConfiguration.Logger.LogDebug("Created URI: {uri}", uri);
 
             // Read from cache
-            string? json = await Cache.GetValueAsync(call.Method, HttpUtility.UrlEncode(methodUri))
+            string? json = await Cache.GetValueAsync(HttpUtility.UrlEncode(methodUri))
                 .ConfigureAwait(false);
 
             if (json != null)
@@ -99,7 +99,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             var uri = new Uri($"{call.Url}{methodUri}");
             ApiConfiguration.Logger.LogDebug("Created URI: {uri}", uri);
 
-            string? json = await Cache.GetValueAsync(call.Method, HttpUtility.UrlEncode(methodUri))
+            string? json = await Cache.GetValueAsync(HttpUtility.UrlEncode(methodUri))
                 .ConfigureAwait(false);
 
             if (json != null)
@@ -164,7 +164,7 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
 
                     // Write to cache
                     ApiConfiguration.Logger.LogDebug("Writing to cache: {uri}", HttpUtility.UrlEncode(methodUri));
-                    await Cache.SetValueAsync(HttpUtility.UrlEncode(methodUri), data)
+                    await Cache.SetValueAsync(call.Method, HttpUtility.UrlEncode(methodUri), data)
                         .ConfigureAwait(false);
 
                     // Process response limit

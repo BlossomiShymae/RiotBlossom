@@ -28,9 +28,50 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async virtual Task<string?> GetValueAsync(string hint, string key)
+        public async virtual Task<string?> GetValueAsync(string key)
         {
-            // Lock per key to avoid conflicting read/writes :>
+            if (!Monitors.TryGetValue(key, out CacheMonitor? value))
+            {
+                return default;
+            }
+
+            try
+            {
+                await value.Lock.WaitAsync()
+                    .ConfigureAwait(false);
+
+                // Hit
+                if (!value.IsExpired && !value.IsDisrupted)
+                {
+                    var data = await ReadAsync(key)
+                        .ConfigureAwait(false);
+
+                    return data;
+                }
+
+                if (value.IsExpired)
+                {
+                    value.Timestamp = DateTime.Now;
+                }
+
+                value.IsDisrupted = false;
+
+                return default;
+            }
+            catch (Exception)
+            {
+                value.IsDisrupted = true;
+
+                return default;
+            }
+            finally
+            {
+                value.Lock.Release();
+            }
+        }
+
+        public async virtual Task SetValueAsync(string hint, string key, object value)
+        {
             if (!Monitors.ContainsKey(key))
             {
                 Monitors[key] = new()
@@ -44,47 +85,65 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
                 await Monitors[key].Lock.WaitAsync()
                     .ConfigureAwait(false);
 
-                // Hit
-                if (!Monitors[key].IsExpired && !Monitors[key].IsDisrupted)
-                {
-                    var value = await ReadAsync(key)
-                        .ConfigureAwait(false);
-
-                    return value;
-                }
-
-                if (Monitors[key].IsExpired)
-                {
-                    Monitors[key].Timestamp = DateTime.Now;
-                }
-
-                // Miss
-                Monitors[key].IsDisrupted = false;
-
-                return default;
+                await WriteAsync(key, value)
+                    .ConfigureAwait(false);
             }
-            // JSON model has changed or other exception
             catch (Exception)
             {
                 Monitors[key].IsDisrupted = true;
-
-                return default;
             }
             finally
             {
                 Monitors[key].Lock.Release();
             }
+            
         }
 
-        public async virtual Task SetValueAsync(string key, object value)
+        public virtual async Task ClearAsync(string key)
         {
-            await WriteAsync(key, value)
-                .ConfigureAwait(false);
+            if (Monitors.TryGetValue(key, out CacheMonitor? monitor))
+            {
+                try
+                {
+                    await monitor.Lock.WaitAsync()
+                        .ConfigureAwait(false);
+
+                    monitor.Timestamp = DateTime.MinValue;
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    monitor.Lock.Release();
+                }
+            }
         }
 
-        public virtual void Clear(string key)
+        public virtual async Task ClearAsync()
         {
-            Monitors[key].TTL = TimeSpan.Zero;
+            foreach (var kv in Monitors)
+            {
+                if (kv.Value is CacheMonitor monitor)
+                {
+                    try
+                    {
+                        await monitor.Lock.WaitAsync()
+                            .ConfigureAwait(false);
+
+                        monitor.Timestamp = DateTime.MinValue;
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    finally
+                    {
+                        monitor.Lock.Release();
+                    }
+                }
+            }
         }
 
         protected abstract Task<string?> ReadAsync(string key);
