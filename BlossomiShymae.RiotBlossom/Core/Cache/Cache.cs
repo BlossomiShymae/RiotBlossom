@@ -16,11 +16,11 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
     public abstract class Cache
     {
         protected readonly ConcurrentDictionary<string, CacheMonitor> Monitors = new();
-        protected readonly CacheTTLConfiguration CacheTTLConfiguration;
+        public CacheTTLConfiguration TTLConfiguration { get; }
 
         protected Cache(CacheTTLConfiguration cacheTTLConfiguration)
         {
-            CacheTTLConfiguration = cacheTTLConfiguration;
+            TTLConfiguration = cacheTTLConfiguration;
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
             {
                 Monitors[key] = new()
                 {
-                    TTL = CacheTTLConfiguration.GetTTL(hint)
+                    TTL = TTLConfiguration.GetTTL(hint)
                 };
             }
 
