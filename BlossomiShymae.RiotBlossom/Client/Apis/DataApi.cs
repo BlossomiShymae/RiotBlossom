@@ -58,6 +58,11 @@ namespace BlossomiShymae.RiotBlossom.Client.Apis
             var message = new HttpRequestMessage(HttpMethod.Get, uri);
             var key = ApiConfiguration.Key;
 
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new InvalidOperationException($"API key is required for this api: {call.Endpoint}");
+            }
+
             message.Headers.Add("X-Riot-Token", key);
             foreach (KeyValuePair<string, string> kvp in call.Headers)
                 message.Headers.Add(kvp.Key, kvp.Value);
