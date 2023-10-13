@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<form class="d-flex flex-column justify-content-center align-items-center gap-3" asp-page="Index" method="post">
+    <h2>Summoner Search</h2>
+    <div class="input-group">
+    <input type="text" class="form-control" placeholder="Summoner name" name="name">
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+    <div>
+        <fieldset class="d-flex gap-3 flex-wrap justify-content-between align-items-center">
+            @foreach (var shard in @Model.Shards)
+            {
+                <input type="radio" class="btn-check" name="shard" value="@shard.Value" id="@shard.Value" autocomplete="off"/>
+                <label class="btn btn-secondary" for="@shard.Value">@shard.Realm.ToUpper()</label>
+            }
+        </fieldset>
+    </div>
+</form>
