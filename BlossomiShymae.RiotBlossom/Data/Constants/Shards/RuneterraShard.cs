@@ -16,5 +16,17 @@ namespace BlossomiShymae.RiotBlossom.Data.Constants.Shards
         private RuneterraShard(string value, string realm, string prettyName, string defaultLocale) : base(value, realm, prettyName, defaultLocale)
         {
         }
+
+        public static RuneterraShard GetFromValue(string value)
+        {
+            return value switch
+            {
+                "" => Unknown,
+                "AMERICAS" => Americas,
+                "EUROPE" => Europe,
+                "SEA" => SEA,
+                _ => throw new InvalidOperationException()
+            };
+        }
     }
 }

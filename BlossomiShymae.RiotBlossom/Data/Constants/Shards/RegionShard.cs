@@ -20,5 +20,20 @@ namespace BlossomiShymae.RiotBlossom.Data.Constants.Shards
         private RegionShard(string value, string realm, string prettyName, string defaultLocale) : base(value, realm, prettyName, defaultLocale)
         {
         }
+
+        public static RegionShard GetFromValue(string value)
+        {
+            return value switch
+            {
+                "" => Unknown,
+                "AMERICAS" => Americas,
+                "EUROPE" => Europe,
+                "ASIA" => Asia,
+                "PBE" => PBE,
+                "ESPORTS" => Esports,
+                "SEA" => SEA,
+                _ => throw new InvalidOperationException()
+            };
+        }
     }
 }

@@ -21,5 +21,22 @@ namespace BlossomiShymae.RiotBlossom.Data.Constants.Shards
         private ValorantShard(string value, string realm, string prettyName, string defaultLocale) : base(value, realm, prettyName, defaultLocale)
         {
         }
+
+        public static ValorantShard GetFromValue(string value)
+        {
+            return value switch
+            {
+                "" => Unknown,
+                "NA" => NA,
+                "PBE1" => PBE1,
+                "EU" => EU,
+                "BR" => BR,
+                "KR" => KR,
+                "LATAM" => LATAM,
+                "AP" => AP,
+                "ESPORTS" => Esports,
+                _ => throw new InvalidOperationException()
+            };
+        }
     }
 }
