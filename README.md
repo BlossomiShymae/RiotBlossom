@@ -2,14 +2,15 @@
  
 [![NuGet Stable](https://img.shields.io/nuget/v/BlossomiShymae.RiotBlossom.svg?style=flat-square&logo=nuget&logoColor=black&labelColor=69ffbe&color=77077a)](https://www.nuget.org/packages/BlossomiShymae.RiotBlossom/) [![NuGet Downloads](https://img.shields.io/nuget/dt/BlossomiShymae.RiotBlossom?style=flat-square&logoColor=black&labelColor=69ffbe&color=77077a)](https://www.nuget.org/packages/BlossomiShymae.RiotBlossom/)
 
-An asynchronous, extensible, and magical Riot Games API wrapper library for C#. ☆*:.｡.o(≧▽≦)o.｡.:*☆
+![img](illustration.png)
 
-This library helps to make things totes' easier! Goodies include naive cache, rate limiter, and retry middleware plugins 
-out of the box. Other services such as DataDragon and CommunityDragon are also supported! ＼(＾▽＾)／
+RiotBlossom is the asynchronous, simple, and magical Riot Games API wrapper library for C#!
 
-This library is currently compatible with .NET 6 and higher.
+This library does it best to make things easier to develop with the API. Caching, limiting, and retrying are supported by default. Static data providers such as DataDragon, CommunityDragon, and Meraki Analytics are also covered! ＼(＾▽＾)／
 
-### Contributor Flowerlets
+This library is currently compatible with .NET 8 and higher.
+
+### Contributors
 <a href="https://github.com/BlossomiShymae/RiotBlossom/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=BlossomiShymae/RiotBlossom" />
 </a>
@@ -21,7 +22,7 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 # Table of Contents
 - [RiotBlossom](#riotblossom)
-    - [Contributor Flowerlets](#contributor-flowerlets)
+    - [Contributors](#contributors)
 - [Table of Contents](#table-of-contents)
 - [Documentation, tutorials, and more!](#documentation-tutorials-and-more)
 - [Features](#features)
@@ -49,23 +50,23 @@ Made with [contrib.rocks](https://contrib.rocks).
 [Dedicated GitHub pages for RiotBlossom documentation can be found here!](https://blossomishymae.github.io/RiotBlossom/) :3
 
 # Features
-- Asynchronous, immutable record, no-conversion API
-    - API data comes as is from the source (Data transfer objects)
-- In-memory caching, spread rate limiting, and automatic retrying out of the box
-- Fluent client builder for advanced configuration
-- A highly configurable HTTP middleware system
-    - Allows implementing your middleware (choosing a database to cache with)
-    - Extensible subsystems (one for Riot API, one for the rest)
-- Reuseable data transfer objects, types, and exceptions
-- Common utilities (extensions, mappers, and converters)
+
+Well buddy pal chum... here is what we got!
+- Asynchronous, no-conversion API
+- Caching (Random access memory, file system, none, or your own)
+- Rate limiting (Burst, spread, none, or your own)
+- Logging (ILogger)
+- Ease-of-use client creation
+- Typed data transfer objects, type-safe enums, and exceptions
 - Riot Games API support (yep!)
-    - League of Legends
-    - Teamfight Tactics
-    - Legends of Runeterra
-    - VALORANT
-- DataDragon support
-- CommunityDragon support
-- MerakiAnalytics support
+  - League of Legends
+  - Teamfight Tactics
+  - Legends of Runeterra
+  - VALORANT
+- Static data support
+  - DataDragon
+  - CommunityDragon
+  - Meraki Analytics
 - Love (੭ु ›ω‹ )੭ु⁾⁾♡
 
 # Installation
@@ -94,8 +95,8 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Match-v5
 - ✅ Spectator-v4
 - ⭕ Summoner-v4 (no RSO)
-- ❌ Tournament-Stub-v4 (will not support, an endpoint that is associated with being unreliable)
-- ❌ Tournament-v4 (will not support)
+- ❌ Tournament-Stub-v5 (will not support)
+- ❌ Tournament-v5 (will not support)
 
 ### Teamfight Tactics
 - ✅ Tft-League-v1
@@ -112,7 +113,7 @@ dotnet add package BlossomiShymae.RiotBlossom
 
 ### VALORANT
 - ✅ Val-Content-v1
-- ✅ Val-Match-v1 ("Unsure if this works as I do not have access to this endpoint for testing ˚‧º·(˚ ˃̣̣̥⌓˂̣̣̥ )‧º·˚" - BlossomiShymae)
+- ✅ Val-Match-v1
 - ✅ Val-Ranked-v1
 - ✅ Val-Status-v1
 
@@ -131,8 +132,8 @@ dotnet add package BlossomiShymae.RiotBlossom
 - ✅ Items (`items.json` and individual files)
 
 # Dependent packages
-- [AsyncKeyedLock](https://github.com/MarkCiliaVincenti/AsyncKeyedLock)
-- System.Runtime.Caching
+- Microsoft.Extensions.Logging
+- Microsoft.Extensions.Logging.Console
 
 # Contributing
 Create an issue or submit a pull request! ˖⁺‧₊˚ ♡ ˚₊‧⁺˖
