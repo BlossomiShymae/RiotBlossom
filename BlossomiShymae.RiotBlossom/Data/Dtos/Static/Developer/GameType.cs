@@ -8,7 +8,7 @@ namespace BlossomiShymae.RiotBlossom.Data.Dtos.Static.Developer
 {
     public record GameType : DataObject
     {
-        [JsonPropertyName("gameType")]
+        [JsonPropertyName("gametype")]
         public required string GameTypeValue { get; init; } 
         public required string Description { get; init; }
     }
