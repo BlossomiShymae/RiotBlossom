@@ -290,5 +290,21 @@ namespace BlossomiShymae.RiotBlossomTests
             Assert.IsTrue(items.Count > 0);
             Assert.IsTrue(item.Name.Equals("Boots"));
         }
+
+        [TestMethod()]
+        public async Task Developer_ByDefault_GetsData()
+        {
+            var client = Shared.Client;
+
+            var queues = await client.Developer.GetQueuesAsync();
+            var maps = await client.Developer.GetMapsAsync();
+            var gameModes = await client.Developer.GetGameModesAsync();
+            var gameTypes = await client.Developer.GetGameTypesAsync();
+
+            Assert.IsTrue(queues.Count > 0);
+            Assert.IsTrue(maps.Count > 0);
+            Assert.IsTrue(gameModes.Count > 0);
+            Assert.IsTrue(gameTypes.Count > 0);
+        }
     }
 }
