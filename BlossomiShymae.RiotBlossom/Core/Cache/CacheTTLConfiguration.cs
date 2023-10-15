@@ -139,6 +139,12 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
             _ttl[UrlMethod.MerakiAnalyticsChampionByKey] = TimeSpan.FromDays(1);
             _ttl[UrlMethod.MerakiAnalyticsItems] = TimeSpan.FromDays(1);
             _ttl[UrlMethod.MerakiAnalyticsItemById] = TimeSpan.FromDays(1);
+
+            // STATIC DEVELOPER
+            _ttl[UrlMethod.StaticDeveloperQueues] = TimeSpan.MaxValue;
+            _ttl[UrlMethod.StaticDeveloperMaps] = TimeSpan.MaxValue;
+            _ttl[UrlMethod.StaticDeveloperGameModes] = TimeSpan.MaxValue;
+            _ttl[UrlMethod.StaticDeveloperGameTypes] = TimeSpan.MaxValue;
         }
 
         public void SetTTL(string key, TimeSpan timeSpan)
