@@ -11,10 +11,10 @@ namespace BlossomiShymae.RiotBlossom.Core.Limiting
         {
             return limiterProvider switch
             {
-                LimiterProvider.Empty => new EmptyLimiter(),
+                LimiterProvider.Empty => new NullLimiter(),
                 LimiterProvider.Burst => new BurstLimiter(),
                 LimiterProvider.Spread => new SpreadLimiter(),
-                _ => new EmptyLimiter()
+                _ => new NullLimiter()
             };
         }
     }

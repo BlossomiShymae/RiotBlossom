@@ -6,7 +6,7 @@ using BlossomiShymae.RiotBlossom.Core.Calling;
 
 namespace BlossomiShymae.RiotBlossom.Core.Limiting
 {
-    public class EmptyLimiter : Limiter
+    public class NullLimiter : Limiter
     {
         public async override Task ProcessRequestAsync(DataCall call, HttpRequestMessage req)
         {

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BlossomiShymae.RiotBlossom.Core.Cache
 {
-    public class EmptyCache : Cache
+    public class NullCache : Cache
     {
-        public EmptyCache(CacheTTLConfiguration cacheTTLConfiguration) : base(cacheTTLConfiguration)
+        public NullCache(CacheTTLConfiguration cacheTTLConfiguration) : base(cacheTTLConfiguration)
         {
         }
 
