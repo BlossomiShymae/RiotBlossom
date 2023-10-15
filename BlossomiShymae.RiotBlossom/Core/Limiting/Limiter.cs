@@ -15,7 +15,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Limiting
 {
     public enum LimiterProvider
     {
-        Empty,
+        Null,
         Burst,
         Spread
     }

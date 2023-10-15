@@ -11,7 +11,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Limiting
         {
             return limiterProvider switch
             {
-                LimiterProvider.Empty => new NullLimiter(),
+                LimiterProvider.Null => new NullLimiter(),
                 LimiterProvider.Burst => new BurstLimiter(),
                 LimiterProvider.Spread => new SpreadLimiter(),
                 _ => new NullLimiter()

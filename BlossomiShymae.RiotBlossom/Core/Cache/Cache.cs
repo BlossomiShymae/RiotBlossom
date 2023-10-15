@@ -8,7 +8,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
 {
     public enum CacheProvider
     {
-        Empty,
+        Null,
         FileSystem,
         Memory
     }

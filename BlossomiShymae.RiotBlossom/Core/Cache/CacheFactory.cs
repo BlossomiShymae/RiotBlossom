@@ -13,7 +13,7 @@ namespace BlossomiShymae.RiotBlossom.Core.Cache
 
             return cacheProvider switch 
             {
-                CacheProvider.Empty => new NullCache(configuration),
+                CacheProvider.Null => new NullCache(configuration),
                 CacheProvider.Memory => new MemoryCache(configuration),
                 CacheProvider.FileSystem => new FileSystemCache(configuration),
                 _ => new NullCache(configuration)

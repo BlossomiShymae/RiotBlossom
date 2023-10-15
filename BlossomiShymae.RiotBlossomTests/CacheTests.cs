@@ -18,7 +18,7 @@ namespace BlossomiShymae.RiotBlossomTests
         [TestMethod()]
         public async Task EmptyCache_WithData_ReturnsNull()
         {
-            var cache = CacheFactory.Create(CacheProvider.Empty);
+            var cache = CacheFactory.Create(CacheProvider.Null);
             var value = 0;
             var hint = "test";
             var key = "value";
