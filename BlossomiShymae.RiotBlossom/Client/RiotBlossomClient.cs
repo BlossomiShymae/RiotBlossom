@@ -47,6 +47,7 @@ namespace BlossomiShymae.RiotBlossom.Client
         IDataDragonApi DataDragon { get; }
         ICommunityDragonApi CommunityDragon { get; }
         IMerakiAnalyticsApi MerakiAnalytics { get; }
+        IDeveloperApi Developer { get; }
 
         ApiConfiguration ApiConfiguration { get; }
     }
@@ -82,6 +83,7 @@ namespace BlossomiShymae.RiotBlossom.Client
         private readonly IDataDragonApi _dataDragonApi;
         private readonly ICommunityDragonApi _communityDragonApi;
         private readonly IMerakiAnalyticsApi _merakiAnalyticsApi;
+        private readonly IDeveloperApi _developerApi;
 
         private readonly ApiConfiguration _apiConfiguration;
 
@@ -114,6 +116,7 @@ namespace BlossomiShymae.RiotBlossom.Client
         public IDataDragonApi DataDragon => _dataDragonApi;
         public ICommunityDragonApi CommunityDragon => _communityDragonApi;
         public IMerakiAnalyticsApi MerakiAnalytics => _merakiAnalyticsApi;
+        public IDeveloperApi Developer => _developerApi;
 
         public ApiConfiguration ApiConfiguration => _apiConfiguration;
 
@@ -178,6 +181,7 @@ namespace BlossomiShymae.RiotBlossom.Client
             _dataDragonApi = new DataDragonApi(configuration);
             _communityDragonApi = new CommunityDragonApi(configuration);
             _merakiAnalyticsApi = new MerakiAnalyticsApi(configuration);
+            _developerApi = new DeveloperApi(configuration);
 
             _apiConfiguration = configuration;
 
