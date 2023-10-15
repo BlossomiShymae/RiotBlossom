@@ -199,5 +199,12 @@ namespace BlossomiShymae.RiotBlossom.Data
         public static readonly string MerakiAnalyticsChampionByKey = $"/riot/lol/resources/latest/en-US/champions/{ChampionKey}.json";
         public static readonly string MerakiAnalyticsItems = $"/riot/lol/resources/latest/en-US/items.json";
         public static readonly string MerakiAnalyticsChampions = $"/riot/lol/resources/latest/en-US/champions.json";
+
+        // STATIC DEVELOPER
+        public static readonly string StaticDeveloper = "https://static.developer.riotgames.com";
+        public static readonly string StaticDeveloperQueues = "/docs/lol/queues.json";
+        public static readonly string StaticDeveloperMaps = "/docs/lol/maps.json";
+        public static readonly string StaticDeveloperGameModes = "/docs/lol/gameModes.json";
+        public static readonly string StaticDeveloperGameTypes = "/docs/lol/gameTypes.json";
     }
 }
