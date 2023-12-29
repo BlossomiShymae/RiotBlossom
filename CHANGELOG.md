@@ -1,4 +1,10 @@
-﻿# RiotBlossom 1.2.0 - WOW
+﻿# RiotBlossom 1.2.1
+
+## Bug fixes
+
+- Fix DataDragon spell data type to accomodate Janna W spell range in 13.23.1+.
+
+# RiotBlossom 1.2.0 - WOW
 
 A quality-of-life release with added support for Meraki Analytics! 💜
 
