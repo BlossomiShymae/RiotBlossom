@@ -1,4 +1,6 @@
 ﻿using System.Collections.Immutable;
+using System.Text.Json.Serialization;
+using BlossomiShymae.RiotBlossom.Core;
 
 namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
 {
@@ -23,7 +25,7 @@ namespace BlossomiShymae.RiotBlossom.Dto.DataDragon.Champion
         public object? Vars { get; init; }
         public string CostType { get; init; } = default!;
         public string Maxammo { get; init; } = default!;
-        public ImmutableList<int> Range { get; init; } = ImmutableList<int>.Empty;
+        public ImmutableList<long> Range { get; init; } = ImmutableList<long>.Empty;
         public string RangeBurn { get; init; } = default!;
         public Image Image { get; init; } = new();
         public string Resource { get; init; } = default!;

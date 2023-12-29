@@ -14,7 +14,7 @@ namespace BlossomiShymae.RiotBlossomTests.Api
         public static int ItemId = 4633;
         public static int PerkStyleId = 8000;
         public static int ProfileIconId = 5367;
-        public static string Version = "13.5.1";
+        public static string Version = "13.23.1";
 
         [TestMethod()]
         public async Task Api_WithChampionId_ShouldReturnChampion()
